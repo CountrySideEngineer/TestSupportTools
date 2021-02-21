@@ -58,6 +58,7 @@
       <DependentUpon>TestSuiteHtmlTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="TestSuiteHtmlTemplate_part.cs" />
+    <Compile Include="XmlToHtml.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
