@@ -1,0 +1,42 @@
+﻿<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=EDGE,chrome=1" />
+		<title>テストレポート - <#= TestSuites.Name #></title>
+		<link rel="stylesheet" type="text/css" href="report.css" />
+	</head>
+	<body>
+		<div>
+			<div>
+				<h1>テスト結果</h1>
+			</div>
+			<div>
+			<# foreach (var testSuite in TestSuites.TestItems) { #>
+				<table>
+					<caption><#= testSuite.Name #></caption>
+					<tbody>
+						<tr>
+							<th>テストケース</th>
+							<th>実行状態</th>
+							<th>テスト実行</th>
+							<th>テスト結果</th>
+							<th>実施日</th>
+							<th>実行時間</th>
+						</tr>
+						<# foreach (var testCase in testSuite.TestCases) { #>
+						<tr>
+							<td><#= testCase.Name #></td>
+							<td><#= testCase.Status #></td>
+							<td><#= testCase.Judge #></td>
+							<td><#= testCase.Timestamp #></td>
+							<td><#= testCase.Time #></td>
+						</tr>
+						<# } #>
+					</tbody>
+				</table>
+			<# } #>
+			</div>
+		</div>
+	</body>
+</html>
+
