@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=EDGE,chrome=1" />
+		<title>テストレポート - 一覧</title>
+		<link rel="stylesheet" type="text/css" href="report.css" />
+	</head>
+	<body>
+		<div>
+			<h1>テスト結果 - 一覧</h1>
+		</div>
+		<div>
+			<table>
+				<tbody>
+					<tr>
+						<td>テスト名</td>
+						<td>実行合計</td>
+						<td>OK</td>
+						<td>NG</td>
+					</tr>
+					<# foreach (var testSuiteItem in TestSuitesList) { #>
+					<tr>
+						<td><a href="<#= testSuiteItem.HtmlFileName #>"><#= testSuiteItem.TestName #></td>
+						<td><#= testSuiteItem.Tests  #></td>
+						<td><#= testSuiteItem.Tests - testSuiteItem.Failures #></td>
+						<td><#= testSuiteItem.Failures #></td>
+					</tr>
+					<# } #>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>
