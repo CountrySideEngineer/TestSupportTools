@@ -27,6 +27,7 @@
 						<tr>
 							<td><#= testCase.Name #></td>
 							<td><#= testCase.Status #></td>
+							<td><#= testCase.Result #></td>
 							<td><#= testCase.Judge #></td>
 							<td><#= testCase.Timestamp #></td>
 							<td><#= testCase.Time #></td>
