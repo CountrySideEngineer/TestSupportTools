@@ -74,34 +74,41 @@ namespace gtest2html
             this.Write("</td>\r\n\t\t\t\t\t\t\t<td>");
             
             #line 30 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(testCase.Judge));
+            this.Write(this.ToStringHelper.ToStringWithCulture(testCase.Result));
             
             #line default
             #line hidden
             this.Write("</td>\r\n\t\t\t\t\t\t\t<td>");
             
             #line 31 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(testCase.Timestamp));
+            this.Write(this.ToStringHelper.ToStringWithCulture(testCase.Judge));
             
             #line default
             #line hidden
             this.Write("</td>\r\n\t\t\t\t\t\t\t<td>");
             
             #line 32 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(testCase.Timestamp));
+            
+            #line default
+            #line hidden
+            this.Write("</td>\r\n\t\t\t\t\t\t\t<td>");
+            
+            #line 33 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(testCase.Time));
             
             #line default
             #line hidden
             this.Write("</td>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t");
             
-            #line 34 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
+            #line 35 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t</tbody>\r\n\t\t\t\t</table>\r\n\t\t\t");
             
-            #line 37 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
+            #line 38 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
  } 
             
             #line default

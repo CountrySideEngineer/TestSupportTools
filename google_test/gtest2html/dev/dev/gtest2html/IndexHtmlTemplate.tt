@@ -12,12 +12,33 @@
 		</div>
 		<div>
 			<table>
+				<caption>合計</caption>
 				<tbody>
 					<tr>
-						<td>テスト名</td>
-						<td>実行合計</td>
-						<td>OK</td>
-						<td>NG</td>
+						<th>Tests</th>
+						<th>Failures</th>
+						<th>Disables</th>
+						<th>Errors</th>
+						<th>Time</th>
+					</tr>
+					<tr>
+						<td><#= TestNum #></td>
+						<td><#= FailureNum #></td>
+						<td><#= DisableNum #></td>
+						<td><#= ErrorNum #></td>
+						<td><#= TimeNum #></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<table>
+				<tbody>
+					<tr>
+						<th>テスト名</th>
+						<th>実行数</th>
+						<th>OK</th>
+						<th>NG</th>
 					</tr>
 					<# foreach (var testSuiteItem in TestSuitesList) { #>
 					<tr>
