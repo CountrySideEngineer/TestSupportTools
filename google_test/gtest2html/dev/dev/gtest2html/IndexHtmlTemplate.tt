@@ -36,16 +36,22 @@
 				<tbody>
 					<tr>
 						<th>テスト名</th>
-						<th>実行数</th>
-						<th>OK</th>
-						<th>NG</th>
+						<th>Tests</th>
+						<th>Failure</th>
+						<th>Disables</th>
+						<th>Errors</th>
+						<th>Time</th>
+						<th>Timestamp
 					</tr>
 					<# foreach (var testSuiteItem in TestSuitesList) { #>
 					<tr>
 						<td><a href="<#= testSuiteItem.HtmlFileName #>"><#= testSuiteItem.TestName #></td>
 						<td><#= testSuiteItem.Tests  #></td>
-						<td><#= testSuiteItem.Tests - testSuiteItem.Failures #></td>
 						<td><#= testSuiteItem.Failures #></td>
+						<td><#= testSuiteItem.Disabled #></td>
+						<td><#= testSuiteItem.Errors #></td>
+						<td><#= testSuiteItem.Time #></td>
+						<td><#= testSuiteItem.TimeStamp #></td>
 					</tr>
 					<# } #>
 				</tbody>
