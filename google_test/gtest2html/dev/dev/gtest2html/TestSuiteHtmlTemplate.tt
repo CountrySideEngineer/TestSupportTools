@@ -2,13 +2,16 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=EDGE,chrome=1" />
-		<title>テストレポート - <#= TestSuites.Name #></title>
+		<title>Test report<#= TestSuites.Name #></title>
 		<link rel="stylesheet" type="text/css" href="report.css" />
 	</head>
 	<body>
 		<div>
 			<div>
-				<h1>テスト結果</h1>
+				<h1>Test report - detail</h1>
+			</div>
+			<div>
+				<a href="index.html">TOP</a>
 			</div>
 			<div>
 			<# foreach (var testSuite in TestSuites.TestItems) { #>
@@ -16,12 +19,12 @@
 					<caption><#= testSuite.Name #></caption>
 					<tbody>
 						<tr>
-							<th>テストケース</th>
-							<th>実行状態</th>
-							<th>テスト実行</th>
-							<th>テスト結果</th>
-							<th>実施日</th>
-							<th>実行時間</th>
+							<th>test name</th>
+							<th>State</th>
+							<th>Result</th>
+							<th>Judge</th>
+							<th>Timestamp</th>
+							<th>Time</th>
 						</tr>
 						<# foreach (var testCase in testSuite.TestCases) { #>
 						<tr>
