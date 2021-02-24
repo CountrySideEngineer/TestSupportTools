@@ -19,12 +19,12 @@
 					<caption><#= testSuite.Name #></caption>
 					<tbody>
 						<tr>
-							<th>テストケース</th>
-							<th>実行状態</th>
-							<th>テスト実行</th>
-							<th>テスト結果</th>
-							<th>実施日</th>
-							<th>実行時間</th>
+							<th>test name</th>
+							<th>State</th>
+							<th>Result</th>
+							<th>Judge</th>
+							<th>Timestamp</th>
+							<th>Time</th>
 						</tr>
 						<# foreach (var testCase in testSuite.TestCases) { #>
 						<tr>

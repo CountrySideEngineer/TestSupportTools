@@ -49,9 +49,9 @@ namespace gtest2html
             
             #line default
             #line hidden
-            this.Write("</caption>\r\n\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t<th>テストケース</th>\r\n\t\t\t\t\t\t\t<th>実行状態</th" +
-                    ">\r\n\t\t\t\t\t\t\t<th>テスト実行</th>\r\n\t\t\t\t\t\t\t<th>テスト結果</th>\r\n\t\t\t\t\t\t\t<th>実施日</th>\r\n\t\t\t\t\t\t\t<th" +
-                    ">実行時間</th>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t");
+            this.Write("</caption>\r\n\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t<th>test name</th>\r\n\t\t\t\t\t\t\t<th>State" +
+                    "</th>\r\n\t\t\t\t\t\t\t<th>Result</th>\r\n\t\t\t\t\t\t\t<th>Judge</th>\r\n\t\t\t\t\t\t\t<th>Timestamp</th>\r" +
+                    "\n\t\t\t\t\t\t\t<th>Time</th>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t");
             
             #line 29 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
  foreach (var testCase in testSuite.TestCases) { 
