@@ -11,6 +11,9 @@
 				<h1>テスト結果</h1>
 			</div>
 			<div>
+				<a href="index.html">TOP</a>
+			</div>
+			<div>
 			<# foreach (var testSuite in TestSuites.TestItems) { #>
 				<table>
 					<caption><#= testSuite.Name #></caption>
