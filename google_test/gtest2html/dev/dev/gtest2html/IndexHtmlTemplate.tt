@@ -3,16 +3,16 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=EDGE,chrome=1" />
-		<title>テストレポート - 一覧</title>
+		<title>Test report - overview and content</title>
 		<link rel="stylesheet" type="text/css" href="report.css" />
 	</head>
 	<body>
 		<div>
-			<h1>テスト結果 - 一覧</h1>
+			<h1>Test report</h1>
 		</div>
 		<div>
 			<table>
-				<caption>合計</caption>
+				<caption>Overview</caption>
 				<tbody>
 					<tr>
 						<th>Tests</th>
@@ -33,6 +33,7 @@
 		</div>
 		<div>
 			<table>
+				<caption>Content</caption>
 				<tbody>
 					<tr>
 						<th>テスト名</th>

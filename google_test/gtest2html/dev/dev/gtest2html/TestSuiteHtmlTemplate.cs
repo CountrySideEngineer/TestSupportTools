@@ -26,7 +26,7 @@ namespace gtest2html
         public virtual string TransformText()
         {
             this.Write("<html>\r\n\t<head>\r\n\t\t<meta charset=\"utf-8\"/>\r\n\t\t<meta http-equiv=\"X-UA-Compatible\" " +
-                    "content=\"IE=EDGE,chrome=1\" />\r\n\t\t<title>テストレポート - ");
+                    "content=\"IE=EDGE,chrome=1\" />\r\n\t\t<title>Test report");
             
             #line 5 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TestSuites.Name));
@@ -34,8 +34,8 @@ namespace gtest2html
             #line default
             #line hidden
             this.Write("</title>\r\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"report.css\" />\r\n\t</head>" +
-                    "\r\n\t<body>\r\n\t\t<div>\r\n\t\t\t<div>\r\n\t\t\t\t<h1>テスト結果</h1>\r\n\t\t\t</div>\r\n\t\t\t<div>\r\n\t\t\t\t<a hr" +
-                    "ef=\"index.html\">TOP</a>\r\n\t\t\t</div>\r\n\t\t\t<div>\r\n\t\t\t");
+                    "\r\n\t<body>\r\n\t\t<div>\r\n\t\t\t<div>\r\n\t\t\t\t<h1>Test report - detail</h1>\r\n\t\t\t</div>\r\n\t\t\t<" +
+                    "div>\r\n\t\t\t\t<a href=\"index.html\">TOP</a>\r\n\t\t\t</div>\r\n\t\t\t<div>\r\n\t\t\t");
             
             #line 17 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
  foreach (var testSuite in TestSuites.TestItems) { 
