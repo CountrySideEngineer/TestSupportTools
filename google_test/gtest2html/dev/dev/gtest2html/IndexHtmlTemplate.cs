@@ -30,16 +30,16 @@ namespace gtest2html
 	<head>
 		<meta charset=""utf-8""/>
 		<meta http-equiv=""X-UA-Compatible"" content=""IE=EDGE,chrome=1"" />
-		<title>テストレポート - 一覧</title>
+		<title>Test report - overview and content</title>
 		<link rel=""stylesheet"" type=""text/css"" href=""report.css"" />
 	</head>
 	<body>
 		<div>
-			<h1>テスト結果 - 一覧</h1>
+			<h1>Test report</h1>
 		</div>
 		<div>
 			<table>
-				<caption>合計</caption>
+				<caption>Overview</caption>
 				<tbody>
 					<tr>
 						<th>Tests</th>
@@ -84,53 +84,90 @@ namespace gtest2html
             
             #line default
             #line hidden
-            this.Write("</td>\r\n\t\t\t\t\t</tr>\r\n\t\t\t\t</tbody>\r\n\t\t\t</table>\r\n\t\t</div>\r\n\t\t<div>\r\n\t\t\t<table>\r\n\t\t\t\t" +
-                    "<tbody>\r\n\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t<th>テスト名</th>\r\n\t\t\t\t\t\t<th>実行数</th>\r\n\t\t\t\t\t\t<th>OK</th>\r\n" +
-                    "\t\t\t\t\t\t<th>NG</th>\r\n\t\t\t\t\t</tr>\r\n\t\t\t\t\t");
+            this.Write(@"</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<table>
+				<caption>Content</caption>
+				<tbody>
+					<tr>
+						<th>テスト名</th>
+						<th>Tests</th>
+						<th>Failure</th>
+						<th>Disables</th>
+						<th>Errors</th>
+						<th>Time</th>
+						<th>Timestamp
+					</tr>
+					");
             
-            #line 43 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\IndexHtmlTemplate.tt"
+            #line 47 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\IndexHtmlTemplate.tt"
  foreach (var testSuiteItem in TestSuitesList) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t<td><a href=\"");
             
-            #line 45 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\IndexHtmlTemplate.tt"
+            #line 49 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\IndexHtmlTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(testSuiteItem.HtmlFileName));
             
             #line default
             #line hidden
             this.Write("\">");
             
-            #line 45 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\IndexHtmlTemplate.tt"
+            #line 49 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\IndexHtmlTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(testSuiteItem.TestName));
             
             #line default
             #line hidden
             this.Write("</td>\r\n\t\t\t\t\t\t<td>");
             
-            #line 46 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\IndexHtmlTemplate.tt"
+            #line 50 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\IndexHtmlTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(testSuiteItem.Tests));
             
             #line default
             #line hidden
             this.Write("</td>\r\n\t\t\t\t\t\t<td>");
             
-            #line 47 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\IndexHtmlTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(testSuiteItem.Tests - testSuiteItem.Failures));
+            #line 51 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\IndexHtmlTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(testSuiteItem.Failures));
             
             #line default
             #line hidden
             this.Write("</td>\r\n\t\t\t\t\t\t<td>");
             
-            #line 48 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\IndexHtmlTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(testSuiteItem.Failures));
+            #line 52 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\IndexHtmlTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(testSuiteItem.Disabled));
+            
+            #line default
+            #line hidden
+            this.Write("</td>\r\n\t\t\t\t\t\t<td>");
+            
+            #line 53 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\IndexHtmlTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(testSuiteItem.Errors));
+            
+            #line default
+            #line hidden
+            this.Write("</td>\r\n\t\t\t\t\t\t<td>");
+            
+            #line 54 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\IndexHtmlTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(testSuiteItem.Time));
+            
+            #line default
+            #line hidden
+            this.Write("</td>\r\n\t\t\t\t\t\t<td>");
+            
+            #line 55 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\IndexHtmlTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(testSuiteItem.TimeStamp));
             
             #line default
             #line hidden
             this.Write("</td>\r\n\t\t\t\t\t</tr>\r\n\t\t\t\t\t");
             
-            #line 50 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\IndexHtmlTemplate.tt"
+            #line 57 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\IndexHtmlTemplate.tt"
  } 
             
             #line default
