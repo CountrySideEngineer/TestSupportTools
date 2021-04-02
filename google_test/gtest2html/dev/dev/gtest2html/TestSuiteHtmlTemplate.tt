@@ -31,7 +31,7 @@
 						<td class="status"><#= testCase.Status #></td>
 						<td class="result"><#= testCase.Result #></td>
 						<# if (0 == string.Compare(testCase.Judge, "NG")) { #>
-						<td class="not_passed"><#= testCase.Judge #></td>
+						<td class="not_passed"><a href="<#= testSuite.Name #>_<#= testCase.Name #>.html"><#= testCase.Judge #></a></td>
 						<# } else { #>
 						<td class="passed"><#= testCase.Judge #></td>
 						<# } #>

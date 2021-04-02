@@ -86,14 +86,28 @@ namespace gtest2html
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t<td class=\"not_passed\">");
+            this.Write("\t\t\t\t\t\t<td class=\"not_passed\"><a href=\"");
+            
+            #line 34 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(testSuite.Name));
+            
+            #line default
+            #line hidden
+            this.Write("_");
+            
+            #line 34 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(testCase.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".html\">");
             
             #line 34 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(testCase.Judge));
             
             #line default
             #line hidden
-            this.Write("</td>\r\n\t\t\t\t\t\t");
+            this.Write("</a></td>\r\n\t\t\t\t\t\t");
             
             #line 35 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
  } else { 
