@@ -97,7 +97,17 @@ namespace gtest2html
 			var outputFileName = testSuite.Name + "_" + testCase.Name + ".html";
 			var outputFileInfo = new FileInfo(this.OutputDirInfo.FullName + @"\" + outputFileName);
 
-			var htmlTempalte = new TestMessageTemplate(testCase, testCase.Failure);
+			/*
+			 * エラーメッセージに含まれている改行は、HTMLでは表示されない。
+			 * そのため、事前に改行を「<br>」に置換する。
+			 * 元のメッセージは加工したくないので、新規にFailureオブジェクトを生成して、
+			 * そこに変換したメッセージをセットする。
+			 */
+			var failure = new Failure
+			{
+				Message = testCase.Failure.Message.Replace("\n", "<br>")
+			};
+			var htmlTempalte = new TestMessageTemplate(testCase, failure);
 			var content = htmlTempalte.TransformText();
 			using (var htmlStream = new StreamWriter(outputFileInfo.FullName, false, Encoding.GetEncoding("UTF-8")))
 			{
