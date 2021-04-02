@@ -7,39 +7,41 @@
 	</head>
 	<body>
 		<div>
-			<div>
-				<h1>Test report - detail</h1>
-			</div>
-			<div>
-				<a href="index.html">TOP</a>
-			</div>
-			<div>
-			<# foreach (var testSuite in TestSuites.TestItems) { #>
-				<table>
-					<caption><#= testSuite.Name #></caption>
-					<tbody>
-						<tr>
-							<th>test name</th>
-							<th>State</th>
-							<th>Result</th>
-							<th>Judge</th>
-							<th>Timestamp</th>
-							<th>Time</th>
-						</tr>
-						<# foreach (var testCase in testSuite.TestCases) { #>
-						<tr>
-							<td><#= testCase.Name #></td>
-							<td><#= testCase.Status #></td>
-							<td><#= testCase.Result #></td>
-							<td><#= testCase.Judge #></td>
-							<td><#= testCase.Timestamp #></td>
-							<td><#= testCase.Time #></td>
-						</tr>
+			<h1>Test report - detail</h1>
+		</div>
+		<div>
+			<a href="index.html">TOP</a>
+		</div>
+		<div>
+		<# foreach (var testSuite in TestSuites.TestItems) { #>
+			<table>
+				<caption><#= testSuite.Name #></caption>
+				<tbody>
+					<tr>
+						<th>test name</th>
+						<th>State</th>
+						<th>Result</th>
+						<th>Judge</th>
+						<th>Timestamp</th>
+						<th>Time</th>
+					</tr>
+					<# foreach (var testCase in testSuite.TestCases) { #>
+					<tr>
+						<td class="name"><#= testCase.Name #></td>
+						<td class="status"><#= testCase.Status #></td>
+						<td class="result"><#= testCase.Result #></td>
+						<# if (0 == string.Compare(testCase.Judge, "NG")) { #>
+						<td class="not_passed"><#= testCase.Judge #></td>
+						<# } else { #>
+						<td class="passed"><#= testCase.Judge #></td>
 						<# } #>
-					</tbody>
-				</table>
-			<# } #>
-			</div>
+						<td class="time"><#= testCase.Timestamp #></td>
+						<td class="timestamp"><#= testCase.Time #></td>
+					</tr>
+					<# } #>
+				</tbody>
+			</table>
+		<# } #>
 		</div>
 	</body>
 </html>

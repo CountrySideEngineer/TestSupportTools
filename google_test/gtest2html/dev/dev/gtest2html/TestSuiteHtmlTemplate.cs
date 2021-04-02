@@ -34,87 +34,115 @@ namespace gtest2html
             #line default
             #line hidden
             this.Write("</title>\r\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"report.css\" />\r\n\t</head>" +
-                    "\r\n\t<body>\r\n\t\t<div>\r\n\t\t\t<div>\r\n\t\t\t\t<h1>Test report - detail</h1>\r\n\t\t\t</div>\r\n\t\t\t<" +
-                    "div>\r\n\t\t\t\t<a href=\"index.html\">TOP</a>\r\n\t\t\t</div>\r\n\t\t\t<div>\r\n\t\t\t");
+                    "\r\n\t<body>\r\n\t\t<div>\r\n\t\t\t<h1>Test report - detail</h1>\r\n\t\t</div>\r\n\t\t<div>\r\n\t\t\t<a h" +
+                    "ref=\"index.html\">TOP</a>\r\n\t\t</div>\r\n\t\t<div>\r\n\t\t");
             
-            #line 17 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
+            #line 16 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
  foreach (var testSuite in TestSuites.TestItems) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t<table>\r\n\t\t\t\t\t<caption>");
+            this.Write("\t\t\t<table>\r\n\t\t\t\t<caption>");
             
-            #line 19 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
+            #line 18 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(testSuite.Name));
             
             #line default
             #line hidden
-            this.Write("</caption>\r\n\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t<th>test name</th>\r\n\t\t\t\t\t\t\t<th>State" +
-                    "</th>\r\n\t\t\t\t\t\t\t<th>Result</th>\r\n\t\t\t\t\t\t\t<th>Judge</th>\r\n\t\t\t\t\t\t\t<th>Timestamp</th>\r" +
-                    "\n\t\t\t\t\t\t\t<th>Time</th>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t");
+            this.Write("</caption>\r\n\t\t\t\t<tbody>\r\n\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t<th>test name</th>\r\n\t\t\t\t\t\t<th>State</th" +
+                    ">\r\n\t\t\t\t\t\t<th>Result</th>\r\n\t\t\t\t\t\t<th>Judge</th>\r\n\t\t\t\t\t\t<th>Timestamp</th>\r\n\t\t\t\t\t\t" +
+                    "<th>Time</th>\r\n\t\t\t\t\t</tr>\r\n\t\t\t\t\t");
             
-            #line 29 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
+            #line 28 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
  foreach (var testCase in testSuite.TestCases) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t<td>");
+            this.Write("\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t<td class=\"name\">");
             
-            #line 31 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
+            #line 30 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(testCase.Name));
             
             #line default
             #line hidden
-            this.Write("</td>\r\n\t\t\t\t\t\t\t<td>");
+            this.Write("</td>\r\n\t\t\t\t\t\t<td class=\"status\">");
             
-            #line 32 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
+            #line 31 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(testCase.Status));
             
             #line default
             #line hidden
-            this.Write("</td>\r\n\t\t\t\t\t\t\t<td>");
+            this.Write("</td>\r\n\t\t\t\t\t\t<td class=\"result\">");
             
-            #line 33 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
+            #line 32 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(testCase.Result));
             
             #line default
             #line hidden
-            this.Write("</td>\r\n\t\t\t\t\t\t\t<td>");
+            this.Write("</td>\r\n\t\t\t\t\t\t");
+            
+            #line 33 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
+ if (0 == string.Compare(testCase.Judge, "NG")) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\t\t\t<td class=\"not_passed\">");
             
             #line 34 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(testCase.Judge));
             
             #line default
             #line hidden
-            this.Write("</td>\r\n\t\t\t\t\t\t\t<td>");
+            this.Write("</td>\r\n\t\t\t\t\t\t");
             
             #line 35 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(testCase.Timestamp));
+ } else { 
             
             #line default
             #line hidden
-            this.Write("</td>\r\n\t\t\t\t\t\t\t<td>");
+            this.Write("\t\t\t\t\t\t<td class=\"passed\">");
             
             #line 36 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(testCase.Time));
+            this.Write(this.ToStringHelper.ToStringWithCulture(testCase.Judge));
             
             #line default
             #line hidden
-            this.Write("</td>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t");
+            this.Write("</td>\r\n\t\t\t\t\t\t");
             
-            #line 38 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
+            #line 37 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t</tbody>\r\n\t\t\t\t</table>\r\n\t\t\t");
+            this.Write("\t\t\t\t\t\t<td class=\"time\">");
+            
+            #line 38 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(testCase.Timestamp));
+            
+            #line default
+            #line hidden
+            this.Write("</td>\r\n\t\t\t\t\t\t<td class=\"timestamp\">");
+            
+            #line 39 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(testCase.Time));
+            
+            #line default
+            #line hidden
+            this.Write("</td>\r\n\t\t\t\t\t</tr>\r\n\t\t\t\t\t");
             
             #line 41 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\t\t\t</div>\r\n\t\t</div>\r\n\t</body>\r\n</html>\r\n\r\n");
+            this.Write("\t\t\t\t</tbody>\r\n\t\t\t</table>\r\n\t\t");
+            
+            #line 44 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestSuiteHtmlTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t</div>\r\n\t</body>\r\n</html>\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
