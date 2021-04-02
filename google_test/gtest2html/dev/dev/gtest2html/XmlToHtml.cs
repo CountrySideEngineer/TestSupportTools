@@ -78,6 +78,30 @@ namespace gtest2html
 				{
 					htmlStream.Write(content);
 				}
+				foreach (var testSuite in testSuites.TestItems)
+				{
+					foreach (var testCase in testSuite.TestCases)
+					{
+						if (testCase.IsFail)
+						{
+							this.ConvertHmlToHtml(fileInfo, testSuite, testCase);
+						}
+					}
+				}
+			}
+		}
+
+		protected void ConvertHmlToHtml(FileInfo fileInfo, TestSuite testSuite, TestCase testCase)
+		{
+			//入力ファイルを元に、出力ファイルのパスを特定する。
+			var outputFileName = testSuite.Name + "_" + testCase.Name + ".html";
+			var outputFileInfo = new FileInfo(this.OutputDirInfo.FullName + @"\" + outputFileName);
+
+			var htmlTempalte = new TestMessageTemplate(testCase, testCase.Failure);
+			var content = htmlTempalte.TransformText();
+			using (var htmlStream = new StreamWriter(outputFileInfo.FullName, false, Encoding.GetEncoding("UTF-8")))
+			{
+				htmlStream.Write(content);
 			}
 		}
 

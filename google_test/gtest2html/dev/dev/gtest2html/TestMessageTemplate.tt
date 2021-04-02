@@ -1,0 +1,31 @@
+﻿<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=EDGE,chrome=1" />
+		<title>Test report<#= TestCase.Name #></title>
+		<link rel="stylesheet" type="text/css" href="report.css" />
+	</head>
+	<body>
+		<div>
+			<h1>Test report - Error message</h1>
+		</div>
+		<div>
+			<a href="index.html">TOP</a>
+		</div>
+		<div>
+			<table>
+				<caption>Message</caption>
+				<tbody>
+					<tr>
+						<th>Error message</th>
+					</tr>
+					<tr>
+						<td><#= Failure.Message #></td>
+					</tr>
+				</tbody>
+			</table>
+			</table>
+		</div>
+	</body>
+</html>
+
