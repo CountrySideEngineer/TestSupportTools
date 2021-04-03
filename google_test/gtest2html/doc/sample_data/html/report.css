@@ -1,0 +1,136 @@
+﻿html { 
+    font-family: sans-serif; 
+    margin: 0; 
+    padding: 0; 
+    font-size: 0.9em; 
+    background-color: #FFFFFF; 
+    height: 100%; }
+body { margin: 0; padding: 0; height: 100%; width: 100%; }
+h1 { 
+    text-align: left;
+    vertical-align: middle;
+    font-size: 1.2em;
+    font-family: 'ＭＳ ゴシック', sans-serif; 
+    font-weight: bold; 
+    color: #fff; 
+    background-color: #6f6f6f; 
+    padding: 24px 24px 24px 24px;
+    margin: auto;
+}
+h1:first-of-type { 
+    margin-top: 0px;
+}
+h2 { 
+    font-size: 1.0em; 
+    font-weight: bold; 
+    margin: 10px 0px 0px 0px; 
+    padding: 0; }
+h3 { 
+    font-size: 1.0em; 
+    font-weight: bold; 
+    margin: 0 0 10px 0; 
+    padding: 0; 
+    display: inline-block; }
+
+.overview { 
+    border: solid 1px #c1c1c1;
+    border-collapse: collapse; 
+    width: 100%; 
+    word-wrap: break-word; }
+.container { 
+    margin: auto; 
+    max-width: 1500px; 
+    width: 96%; 
+    background-color: #fff; 
+    display: flex;
+}
+.containerleft { 
+    padding: 0 20px 0px 20px; 
+    flex: 1; 
+}
+.containercenter { 
+    padding: 20px 20px 20px 20px; 
+    flex: 1;
+}
+div {
+    padding: 8px;
+}
+table {
+    border: solid 2px; 
+    border-color: lightgray; 
+    border-collapse: collapse;
+    font-size: 12px;
+    margin: 8px;
+}
+table caption {
+    font-size:16px;
+    font-weight: bolder;
+    margin : 8px;
+}
+table th {
+    border: solid 2px; 
+    font-size: 12px; 
+    font-weight: bolder;
+    background-color: lightblue; 
+    text-align: center;
+    padding: 8px 24px;
+}
+table td {
+    border: solid 2px; 
+    font-size: 12px;
+    padding: 8px 24px;
+}
+table td.name {
+    text-align: center;
+    padding: 8px 8px;
+}
+table td.tests {
+    text-align: right;
+    padding: 8px 8px;
+}
+table td.failures {
+    text-align: right;
+    padding: 8px 8px;
+}
+table td.disables {
+    padding: 8px 8px;
+    text-align: right;
+}
+table td.errors {
+    text-align: right;
+    padding: 8px 8px;
+}
+table td.time {
+    text-align: center;
+    padding: 8px 8px;
+}
+table td.timestamp {
+    text-align: center;
+    padding: 8px 8px;
+}
+table td.status {
+    text-align: center;
+    padding: 8px 8px;
+}
+table td.result {
+    text-align: center;
+    padding: 8px 8px;
+}
+table td.judge {
+    text-align: center;
+    padding: 8px 8px;
+}
+table td.passed {
+    background-color: transparent;
+    color: black;
+    padding: 8px 8px;
+    text-align: center;
+}
+table td.not_passed {
+    border-color: black;
+    background-color: red;
+    color: white;
+    font-weight: bolder;
+    padding: 8px 8px;
+    text-align: center;
+}

@@ -22,11 +22,11 @@
 						<th>Time</th>
 					</tr>
 					<tr>
-						<td><#= TestNum #></td>
-						<td><#= FailureNum #></td>
-						<td><#= DisableNum #></td>
-						<td><#= ErrorNum #></td>
-						<td><#= TimeNum #></td>
+						<td class="tests"><#= TestNum #></td>
+						<td class="failures"><#= FailureNum #></td>
+						<td class="disables"><#= DisableNum #></td>
+						<td class="errors"><#= ErrorNum #></td>
+						<td class="time"><#= TimeNum #></td>
 					</tr>
 				</tbody>
 			</table>
@@ -46,13 +46,13 @@
 					</tr>
 					<# foreach (var testSuiteItem in TestSuitesList) { #>
 					<tr>
-						<td><a href="<#= testSuiteItem.HtmlFileName #>"><#= testSuiteItem.TestName #></td>
-						<td><#= testSuiteItem.Tests  #></td>
-						<td><#= testSuiteItem.Failures #></td>
-						<td><#= testSuiteItem.Disabled #></td>
-						<td><#= testSuiteItem.Errors #></td>
-						<td><#= testSuiteItem.Time #></td>
-						<td><#= testSuiteItem.TimeStamp #></td>
+						<td class="name"><a href="<#= testSuiteItem.HtmlFileName #>"><#= testSuiteItem.TestName #></td>
+						<td class="tests"><#= testSuiteItem.Tests  #></td>
+						<td class="failures"><#= testSuiteItem.Failures #></td>
+						<td class="disables"><#= testSuiteItem.Disabled #></td>
+						<td class="errors"><#= testSuiteItem.Errors #></td>
+						<td class="time"><#= testSuiteItem.Time #></td>
+						<td class="timestamp"><#= testSuiteItem.TimeStamp #></td>
 					</tr>
 					<# } #>
 				</tbody>

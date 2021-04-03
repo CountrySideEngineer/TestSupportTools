@@ -75,6 +75,11 @@ namespace gtest2html
 	[XmlRoot("testcase")]
 	public class TestCase
 	{
+		public TestCase()
+		{
+			this.Failure = null;
+		}
+
 		[XmlAttribute("name")]
 		public string Name { get; set; }
 
@@ -109,6 +114,21 @@ namespace gtest2html
 					return "NG";
 				}
 
+			}
+		}
+
+		public bool IsFail
+		{
+			get
+			{
+				if (null == this.Failure)
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
 			}
 		}
 	}
