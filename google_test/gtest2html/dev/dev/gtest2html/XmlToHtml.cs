@@ -84,14 +84,14 @@ namespace gtest2html
 					{
 						if (testCase.IsFail)
 						{
-							this.ConvertHmlToHtml(fileInfo, testSuite, testCase);
+							this.ConvertErrorXmlToHtml(outputFileInfo, testSuite, testCase);
 						}
 					}
 				}
 			}
 		}
 
-		protected void ConvertHmlToHtml(FileInfo fileInfo, TestSuite testSuite, TestCase testCase)
+		protected void ConvertErrorXmlToHtml(FileInfo parentFileInfo, TestSuite testSuite, TestCase testCase)
 		{
 			//入力ファイルを元に、出力ファイルのパスを特定する。
 			var outputFileName = testSuite.Name + "_" + testCase.Name + ".html";
@@ -107,7 +107,7 @@ namespace gtest2html
 			{
 				Message = testCase.Failure.Message.Replace("\n", "<br>")
 			};
-			var htmlTempalte = new TestMessageTemplate(testCase, failure);
+			var htmlTempalte = new TestMessageTemplate(parentFileInfo.Name, failure);
 			var content = htmlTempalte.TransformText();
 			using (var htmlStream = new StreamWriter(outputFileInfo.FullName, false, Encoding.GetEncoding("UTF-8")))
 			{

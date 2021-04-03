@@ -25,15 +25,11 @@ namespace gtest2html
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("<html>\r\n\t<head>\r\n\t\t<meta charset=\"utf-8\"/>\r\n\t\t<meta http-equiv=\"X-UA-Compatible\" " +
-                    "content=\"IE=EDGE,chrome=1\" />\r\n\t\t<title>Test report");
-            
-            #line 5 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestMessageTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TestCase.Name));
-            
-            #line default
-            #line hidden
-            this.Write(@"</title>
+            this.Write(@"<html>
+	<head>
+		<meta charset=""utf-8""/>
+		<meta http-equiv=""X-UA-Compatible"" content=""IE=EDGE,chrome=1"" />
+		<title>Error report</title>
 		<link rel=""stylesheet"" type=""text/css"" href=""report.css"" />
 	</head>
 	<body>
@@ -41,17 +37,16 @@ namespace gtest2html
 			<h1>Test report - Error message</h1>
 		</div>
 		<div>
-			<a href=""index.html"">TOP</a>
-		</div>
-		<div>
-			<table>
-				<caption>Message</caption>
-				<tbody>
-					<tr>
-						<th>Error message</th>
-					</tr>
-					<tr>
-						<td>");
+			<a href=""");
+            
+            #line 13 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestMessageTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(parentPage));
+            
+            #line default
+            #line hidden
+            this.Write("\">Back</a>\r\n\t\t</div>\r\n\t\t<div>\r\n\t\t\t<table>\r\n\t\t\t\t<caption>Message</caption>\r\n\t\t\t\t<t" +
+                    "body>\r\n\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t<th>Error message</th>\r\n\t\t\t\t\t</tr>\r\n\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t<td" +
+                    ">");
             
             #line 23 "E:\development\TestSupportTools\google_test\gtest2html\dev\dev\gtest2html\TestMessageTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Failure.Message));

@@ -8,12 +8,12 @@ namespace gtest2html
 {
 	partial class TestMessageTemplate
 	{
-		public TestCase TestCase { get; set; }
+		public string parentPage { get; set; }
 		public Failure Failure { get; set; }
 
-		public TestMessageTemplate(TestCase testCase, Failure failure)
+		public TestMessageTemplate(string parentPage, Failure failure)
 		{
-			this.TestCase = testCase;
+			this.parentPage = parentPage;
 			this.Failure = failure;
 		}
 	}

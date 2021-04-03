@@ -2,7 +2,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=EDGE,chrome=1" />
-		<title>Test report<#= TestCase.Name #></title>
+		<title>Error report</title>
 		<link rel="stylesheet" type="text/css" href="report.css" />
 	</head>
 	<body>
@@ -10,7 +10,7 @@
 			<h1>Test report - Error message</h1>
 		</div>
 		<div>
-			<a href="index.html">TOP</a>
+			<a href="<#= parentPage #>">Back</a>
 		</div>
 		<div>
 			<table>
