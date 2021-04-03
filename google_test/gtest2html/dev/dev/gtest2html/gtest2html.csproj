@@ -51,6 +51,12 @@
     <Compile Include="IndexHtmlTemplate_part.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestMessageTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestMessageTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TestMessageTemplate_part.cs" />
     <Compile Include="TestSuite.cs" />
     <Compile Include="TestSuiteHtmlTemplate.cs">
       <AutoGen>True</AutoGen>
@@ -67,6 +73,10 @@
     <Content Include="IndexHtmlTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>IndexHtmlTemplate.cs</LastGenOutput>
+    </Content>
+    <Content Include="TestMessageTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestMessageTemplate.cs</LastGenOutput>
     </Content>
     <Content Include="TestSuiteHtmlTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
