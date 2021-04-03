@@ -78,6 +78,40 @@ namespace gtest2html
 				{
 					htmlStream.Write(content);
 				}
+				foreach (var testSuite in testSuites.TestItems)
+				{
+					foreach (var testCase in testSuite.TestCases)
+					{
+						if (testCase.IsFail)
+						{
+							this.ConvertErrorXmlToHtml(outputFileInfo, testSuite, testCase);
+						}
+					}
+				}
+			}
+		}
+
+		protected void ConvertErrorXmlToHtml(FileInfo parentFileInfo, TestSuite testSuite, TestCase testCase)
+		{
+			//入力ファイルを元に、出力ファイルのパスを特定する。
+			var outputFileName = testSuite.Name + "_" + testCase.Name + ".html";
+			var outputFileInfo = new FileInfo(this.OutputDirInfo.FullName + @"\" + outputFileName);
+
+			/*
+			 * エラーメッセージに含まれている改行は、HTMLでは表示されない。
+			 * そのため、事前に改行を「<br>」に置換する。
+			 * 元のメッセージは加工したくないので、新規にFailureオブジェクトを生成して、
+			 * そこに変換したメッセージをセットする。
+			 */
+			var failure = new Failure
+			{
+				Message = testCase.Failure.Message.Replace("\n", "<br>")
+			};
+			var htmlTempalte = new TestMessageTemplate(parentFileInfo.Name, failure);
+			var content = htmlTempalte.TransformText();
+			using (var htmlStream = new StreamWriter(outputFileInfo.FullName, false, Encoding.GetEncoding("UTF-8")))
+			{
+				htmlStream.Write(content);
 			}
 		}
 
