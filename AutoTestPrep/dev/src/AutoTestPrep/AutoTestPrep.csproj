@@ -88,9 +88,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="model\Parameter.cs" />
-    <Compile Include="model\TestCase.cs" />
-    <Compile Include="model\TestData.cs" />
+    <Compile Include="Model\Parameter.cs" />
+    <Compile Include="Model\Test.cs" />
+    <Compile Include="Model\TestCase.cs" />
+    <Compile Include="Model\TestData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
