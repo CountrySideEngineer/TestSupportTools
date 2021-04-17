@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutoTestPrep.model
+namespace AutoTestPrep.Model
 {
 	/// <summary>
 	/// Parameter class
