@@ -21,6 +21,28 @@ namespace AutoTestPrep.Model
 			None,   //No access, error mode.
 		}
 
+		public static AccessMode ToMode(string mode)
+		{
+			var accessMode = AccessMode.None;
+			if (0 == string.Compare(mode, "in", true))
+			{
+				accessMode = AccessMode.In;
+			}
+			else if (0 == string.Compare(mode, "out", true))
+			{
+				accessMode = AccessMode.Out;
+			}
+			else if (0 == string.Compare(mode, "in/out", true))
+			{
+				accessMode = AccessMode.Both;
+			}
+			else
+			{
+				throw new ArgumentException();
+			}
+			return accessMode;
+		}
+
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
@@ -34,7 +56,7 @@ namespace AutoTestPrep.Model
 			this.Mode = AccessMode.None;
 			this.Overview = string.Empty;
 			this.Description = string.Empty;
-			this.SubParameters = null;
+			this.Parameters = null;
 		}
 
 		/// <summary>
@@ -53,20 +75,32 @@ namespace AutoTestPrep.Model
 			this.Description = src.Description;
 			try
 			{
-				var subParamList = new List<Parameter>(src.SubParameters.Count());
-				foreach (var srcParam in src.SubParameters)
+				var subParamList = new List<Parameter>(src.Parameters.Count());
+				foreach (var srcParam in src.Parameters)
 				{
 					var subParam = new Parameter(srcParam);
 					subParamList.Add(subParam);
 				}
-				this.SubParameters = subParamList;
+				this.Parameters = subParamList;
 			}
-			catch (ArgumentNullException)
+			catch (NullReferenceException)
 			{
-				/*
-				 *	This path will be reached if the src has no sub parameters.
-				 *	In the case, the parameter is skipped and the own sub parameter should keep.
-				 */
+				//The src parameter does not have argument.
+			}
+
+			try
+			{
+				var children = new List<Parameter>(src.Children.Count());
+				foreach (var srcChild in src.Children)
+				{
+					var child = new Parameter(srcChild);
+					children.Add(child);
+				}
+				this.Children = children;
+			}
+			catch (NullReferenceException)
+			{
+				//The src parameter does not have children.
 			}
 		}
 
@@ -159,7 +193,12 @@ namespace AutoTestPrep.Model
 		/// <summary>
 		/// Sub parameters
 		/// </summary>
-		public IEnumerable<Parameter> SubParameters { get; set; }
+		public IEnumerable<Parameter> Parameters { get; set; }
+
+		/// <summary>
+		/// Children parameter.
+		/// </summary>
+		public IEnumerable<Parameter> Children { get; set; }
 
 		/// <summary>
 		/// Returns parameter object in string.
@@ -170,7 +209,7 @@ namespace AutoTestPrep.Model
 			string subParameter = string.Empty;
 			try
 			{
-				foreach (var subParam in this.SubParameters)
+				foreach (var subParam in this.Parameters)
 				{
 					if (!(string.IsNullOrEmpty(subParameter)))
 					{
