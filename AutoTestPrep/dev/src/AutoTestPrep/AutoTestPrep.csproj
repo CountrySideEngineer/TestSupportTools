@@ -108,10 +108,18 @@
     <Compile Include="Model\Parser\IParser.cs" />
     <Compile Include="Model\Reader\ExcelReader.cs" />
     <Compile Include="Model\Reader\Range.cs" />
+    <Compile Include="Model\Tempaltes\CFunctionStubTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CFunctionStubTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\CFunctionStubTemplate_part.cs" />
     <Compile Include="Model\Test.cs" />
     <Compile Include="Model\TestCase.cs" />
     <Compile Include="Model\TestData.cs" />
     <Compile Include="Model\Util\Utility.cs" />
+    <Compile Include="Model\Writer\IWriter.cs" />
+    <Compile Include="Model\Writer\StubWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -150,6 +158,14 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Model\Tempaltes\CFunctionStubTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CFunctionStubTemplate.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelReader_test", "ExcelRe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionParser_test", "FunctionParser_test\FunctionParser_test.csproj", "{5C4754BC-15C9-4808-9FBD-6F6FEAA6F170}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFunctionWriterTest", "CFunctionWriterTest\CFunctionWriterTest.csproj", "{547546ED-F155-4A9B-833B-FD241BDFC06E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{5C4754BC-15C9-4808-9FBD-6F6FEAA6F170}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C4754BC-15C9-4808-9FBD-6F6FEAA6F170}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C4754BC-15C9-4808-9FBD-6F6FEAA6F170}.Release|Any CPU.Build.0 = Release|Any CPU
+		{547546ED-F155-4A9B-833B-FD241BDFC06E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{547546ED-F155-4A9B-833B-FD241BDFC06E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{547546ED-F155-4A9B-833B-FD241BDFC06E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{547546ED-F155-4A9B-833B-FD241BDFC06E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
