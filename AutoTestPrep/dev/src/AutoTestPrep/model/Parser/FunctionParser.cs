@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoTestPrep.Model.Util;
 
 namespace AutoTestPrep.Model.Parser
 {
@@ -21,6 +22,11 @@ namespace AutoTestPrep.Model.Parser
 			return this.Read(srcPath);
 		}
 
+		/// <summary>
+		/// Read function information from a file specified by argument <para>srcPath</para>.
+		/// </summary>
+		/// <param name="srcPath">Path to file which contains the target function information.</param>
+		/// <returns>Object of function data.</returns>
 		protected object Read(string srcPath)
 		{
 			using (var stream = new FileStream(srcPath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
@@ -31,15 +37,27 @@ namespace AutoTestPrep.Model.Parser
 			}
 		}
 
+		/// <summary>
+		/// Read target function information from stream.
+		/// </summary>
+		/// <param name="stream">Stream of file.</param>
+		/// <returns>Parameter of target function.</returns>
 		protected Parameter ReadTargetFunction(Stream stream)
 		{
-			var reader = new ExcelReader(stream);
-			reader.SheetName = "test_data_001";
+			var reader = new ExcelReader(stream)
+			{
+				SheetName = "test_data_001"
+			};
 			Parameter readFunction = GetFunctionInfo(reader);
 
 			return readFunction;
 		}
 
+		/// <summary>
+		/// Get function information from excel file using object <para>ExcelReader</para>.
+		/// </summary>
+		/// <param name="reader">Object to read function information from Excel.</param>
+		/// <returns>Function information in Paramter object.</returns>
 		protected Parameter GetFunctionInfo(ExcelReader reader)
 		{
 			//「対象関数」のセルを取得する
@@ -55,6 +73,12 @@ namespace AutoTestPrep.Model.Parser
 			return functionInfo;
 		}
 
+		/// <summary>
+		/// Get function information in a area specified in range.
+		/// </summary>
+		/// <param name="reader"></param>
+		/// <param name="range"></param>
+		/// <returns></returns>
 		protected Parameter GetFunctionInfo(ExcelReader reader, Range range)
 		{
 			//Get description.
@@ -84,16 +108,20 @@ namespace AutoTestPrep.Model.Parser
 			}
 
 			//Get data type.
-			string dataType = string.Empty;
+			int pointerNum = 0;
+			string dataTypeWithoutPointer = string.Empty;
 			try
 			{
 				Range typeRange = reader.FindFirstItemInRow("データ型", range);
 				List<string> items = reader.ReadRow(typeRange).ToList();
-				dataType = items[1];
+				var dataType = items[1];
+				pointerNum = Utility.GetPointerNum(dataType);
+				dataTypeWithoutPointer = Utility.RemovePointer(dataType);
 			}
 			catch (ArgumentOutOfRangeException)
 			{
-				dataType = string.Empty;
+				pointerNum = 0;
+				dataTypeWithoutPointer = string.Empty;
 			}
 
 			//Get arguments
@@ -103,12 +131,19 @@ namespace AutoTestPrep.Model.Parser
 			{
 				Description = description,
 				Name = name,
-				DataType = dataType,
-				Parameters = arguments
+				DataType = dataTypeWithoutPointer,
+				Parameters = arguments,
+				PointerNum = pointerNum
 			};
 			return parameter;
 		}
 
+		/// <summary>
+		/// Get first information of argument in a range specified argument <para>range</para>.
+		/// </summary>
+		/// <param name="reader">Object to read data from Excel.</param>
+		/// <param name="range">Range to read.</param>
+		/// <returns>A list of argument in <para>Parameter</para> object.</returns>
 		protected IEnumerable<Parameter> GetArguments(ExcelReader reader, Range range)
 		{
 			//Range argument Range
@@ -138,10 +173,13 @@ namespace AutoTestPrep.Model.Parser
 					throw new InvalidDataException();
 				}
 
+				var dataTypeWithoutPointer = Utility.RemovePointer(argInfos[2]);
+				int poinuterNum = Utility.GetPointerNum(argInfos[2]);
 				var argInfo = new Parameter
 				{
 					Name = argInfos[1],
-					DataType = argInfos[2],
+					DataType = dataTypeWithoutPointer,
+					PointerNum = poinuterNum,
 					Description = argInfos[3],
 					Mode = Parameter.ToMode(argInfos[4])
 				};
@@ -150,6 +188,11 @@ namespace AutoTestPrep.Model.Parser
 			return arguments;
 		}
 
+		/// <summary>
+		/// Get sub function information.
+		/// </summary>
+		/// <param name="reader">Object to read data from an excel file.</param>
+		/// <returns></returns>
 		protected IEnumerable<Parameter> GetSubfunctions(ExcelReader reader)
 		{
 			IEnumerable<Range> subfuncRanges = reader.FindItem("子関数");
@@ -162,6 +205,12 @@ namespace AutoTestPrep.Model.Parser
 			return parameters;
 		}
 
+		/// <summary>
+		/// Get sub function information in a range.
+		/// </summary>
+		/// <param name="reader">Object to read data from an excel file.</param>
+		/// <param name="range">Range to read.</param>
+		/// <returns>Read parameter</returns>
 		protected Parameter GetSubfunction(ExcelReader reader, Range range)
 		{
 			Parameter subfunInfo = GetFunctionInfo(reader, range);

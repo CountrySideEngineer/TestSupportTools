@@ -194,7 +194,8 @@ namespace AutoTestPrep.Model.Reader
 			var cellsInRow = workSheet.Cells()
 				.Where(_ =>
 					(_.Address.RowNumber == range.StartRow) &&
-					(_.Address.RowNumber <= workSheet.LastColumn().ColumnNumber()));
+					(range.StartColumn <= _.Address.ColumnNumber) &&
+					(_.Address.ColumnNumber <= workSheet.LastColumn().ColumnNumber()));
 			List<string> items = new List<string>();
 			foreach (var cellInRow in cellsInRow)
 			{

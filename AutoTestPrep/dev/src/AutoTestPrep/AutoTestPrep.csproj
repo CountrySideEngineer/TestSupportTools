@@ -111,6 +111,7 @@
     <Compile Include="Model\Test.cs" />
     <Compile Include="Model\TestCase.cs" />
     <Compile Include="Model\TestData.cs" />
+    <Compile Include="Model\Util\Utility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
