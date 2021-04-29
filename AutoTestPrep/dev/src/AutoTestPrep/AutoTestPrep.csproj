@@ -106,6 +106,7 @@
     <Compile Include="Model\Parameter.cs" />
     <Compile Include="Model\Parser\FunctionParser.cs" />
     <Compile Include="Model\Parser\IParser.cs" />
+    <Compile Include="Model\Parser\TestCaseParser.cs" />
     <Compile Include="Model\Parser\TestParser.cs" />
     <Compile Include="Model\Reader\ExcelReader.cs" />
     <Compile Include="Model\Reader\Range.cs" />

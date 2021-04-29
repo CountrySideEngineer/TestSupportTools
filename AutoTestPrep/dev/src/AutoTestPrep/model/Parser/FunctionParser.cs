@@ -13,6 +13,11 @@ namespace AutoTestPrep.Model.Parser
 	public class FunctionParser : IParser
 	{
 		/// <summary>
+		/// Target name to parse.
+		/// </summary>
+		public string Target { get; set; }
+
+		/// <summary>
 		/// Returns the function parameter data in 
 		/// </summary>
 		/// <param name="srcPath">Path to function data.</param>
@@ -35,6 +40,13 @@ namespace AutoTestPrep.Model.Parser
 
 				return parameter;
 			}
+		}
+
+		public object Read(ExcelReader reader)
+		{
+			Parameter readFunction = GetFunctionInfo(reader);
+
+			return readFunction;
 		}
 
 		/// <summary>
