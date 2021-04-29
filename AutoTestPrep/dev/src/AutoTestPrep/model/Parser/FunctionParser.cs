@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AutoTestPrep.Model.Util;
+using CSEngineer.TestSupport.Utility;
 
 namespace AutoTestPrep.Model.Parser
 {
@@ -127,8 +127,8 @@ namespace AutoTestPrep.Model.Parser
 				Range typeRange = reader.FindFirstItemInRow("データ型", range);
 				List<string> items = reader.ReadRow(typeRange).ToList();
 				var dataType = items[1];
-				pointerNum = Utility.GetPointerNum(dataType);
-				dataTypeWithoutPointer = Utility.RemovePointer(dataType);
+				pointerNum = Util.GetPointerNum(dataType);
+				dataTypeWithoutPointer = Util.RemovePointer(dataType);
 			}
 			catch (ArgumentOutOfRangeException)
 			{
@@ -185,8 +185,8 @@ namespace AutoTestPrep.Model.Parser
 					throw new InvalidDataException();
 				}
 
-				var dataTypeWithoutPointer = Utility.RemovePointer(argInfos[2]);
-				int poinuterNum = Utility.GetPointerNum(argInfos[2]);
+				var dataTypeWithoutPointer = Util.RemovePointer(argInfos[2]);
+				int poinuterNum = Util.GetPointerNum(argInfos[2]);
 				var argInfo = new Parameter
 				{
 					Name = argInfos[1],
