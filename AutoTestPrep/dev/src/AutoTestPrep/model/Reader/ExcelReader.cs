@@ -205,6 +205,24 @@ namespace AutoTestPrep.Model.Reader
 			return items;
 		}
 
+		public IEnumerable<string> ReadColumn(Range range)
+		{
+			var workBook = new XLWorkbook(this._excelStream);
+			var workSheet = workBook.Worksheet(this.SheetName);
+			var cellsInColumn = workSheet.Cells()
+				.Where(_ =>
+					(range.StartRow <= _.Address.RowNumber) &&
+					(_.Address.RowNumber <= (workSheet.LastRowUsed().RowNumber())) &&
+					(_.Address.ColumnNumber == range.StartColumn));
+			List<string> items = new List<string>();
+			foreach (var cellInColumn in cellsInColumn)
+			{
+				items.Add(cellInColumn.GetString());
+			}
+
+			return items;
+		}
+
 		/// <summary>
 		/// Get Range of table.
 		/// </summary>
