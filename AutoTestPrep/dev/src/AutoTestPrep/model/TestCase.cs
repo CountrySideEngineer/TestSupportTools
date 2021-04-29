@@ -11,6 +11,8 @@ namespace AutoTestPrep.Model
 	/// </summary>
 	public class TestCase
 	{
+		public string Id { get; set; }
+
 		/// <summary>
 		/// Input information of a test case.
 		/// </summary>

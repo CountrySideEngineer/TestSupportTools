@@ -12,6 +12,29 @@ namespace AutoTestPrep.Model
 	public class TestData
 	{
 		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public TestData()
+		{
+			this.Condition = string.Empty;
+			this.Descriotion = string.Empty;
+			this.Name = string.Empty;
+			this.Value = string.Empty;
+		}
+
+		/// <summary>
+		/// Copy constructor.
+		/// </summary>
+		/// <param name="src"></param>
+		public TestData(TestData src)
+		{
+			this.Condition = src.Condition;
+			this.Descriotion = src.Descriotion;
+			this.Name = src.Name;
+			this.Value = src.Value;
+		}
+
+		/// <summary>
 		/// Condition of test data
 		/// </summary>
 		public string Condition { get; set; }
