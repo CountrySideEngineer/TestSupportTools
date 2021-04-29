@@ -12,6 +12,16 @@ namespace AutoTestPrep.Model
 	public class Test
 	{
 		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public Test()
+		{
+			this.Target = null;
+			this.TestCases = null;
+			this.Name = string.Empty;
+		}
+
+		/// <summary>
 		/// Test target function class.
 		/// </summary>
 		public Parameter Target { get; set; }
@@ -20,5 +30,7 @@ namespace AutoTestPrep.Model
 		/// List of test data class.
 		/// </summary>
 		public IEnumerable<TestCase> TestCases { get; set; }
+
+		public string Name { get; set; }
 	}
 }
