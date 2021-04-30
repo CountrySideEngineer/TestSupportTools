@@ -31,6 +31,9 @@ namespace AutoTestPrep.Model
 		/// </summary>
 		public IEnumerable<TestCase> TestCases { get; set; }
 
+		/// <summary>
+		/// Test name.
+		/// </summary>
 		public string Name { get; set; }
 	}
 }
