@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestParser_test", "TestPars
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFunctionStubTemplateIncludeStdHeader_test", "CFunctionStubTemplateIncludeStdHeader_test\CFunctionStubTemplateIncludeStdHeader_test.csproj", "{8FC0A2E0-1D3B-4C96-A9DA-57811A073365}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDriver_source_gtest_test", "TestDriver_source_gtest_test\TestDriver_source_gtest_test.csproj", "{11A54EE2-0008-4BB0-90A7-54FC2F68BDC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Function_test", "Function_test\Function_test.csproj", "{E680A31D-CD8F-4E20-A1AE-55D091C0D9D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{8FC0A2E0-1D3B-4C96-A9DA-57811A073365}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FC0A2E0-1D3B-4C96-A9DA-57811A073365}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FC0A2E0-1D3B-4C96-A9DA-57811A073365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11A54EE2-0008-4BB0-90A7-54FC2F68BDC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11A54EE2-0008-4BB0-90A7-54FC2F68BDC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11A54EE2-0008-4BB0-90A7-54FC2F68BDC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11A54EE2-0008-4BB0-90A7-54FC2F68BDC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E680A31D-CD8F-4E20-A1AE-55D091C0D9D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E680A31D-CD8F-4E20-A1AE-55D091C0D9D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E680A31D-CD8F-4E20-A1AE-55D091C0D9D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E680A31D-CD8F-4E20-A1AE-55D091C0D9D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
