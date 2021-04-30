@@ -31,35 +31,35 @@ namespace AutoTestPrep.Model.Tempaltes
             this.Write("#include <stdio.h>\r\n\r\n");
             
             #line 8 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ToString()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(Function.ToString()));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n");
             
             #line 10 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
- if (!(("void").Equals(parameter.DataType, StringComparison.Ordinal))) { 
+ if (!(("void").Equals(Function.DataType, StringComparison.Ordinal))) { 
             
             #line default
             #line hidden
             this.Write("\t");
             
             #line 11 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(parameter.DataType));
+            this.Write(this.ToStringHelper.ToStringWithCulture(Function.DataType));
             
             #line default
             #line hidden
             this.Write(" returnLatch = ");
             
             #line 11 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(parameter.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(Function.Name));
             
             #line default
             #line hidden
             this.Write("_return[");
             
             #line 11 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(parameter.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(Function.Name));
             
             #line default
             #line hidden
@@ -73,14 +73,14 @@ namespace AutoTestPrep.Model.Tempaltes
             this.Write("\r\n");
             
             #line 14 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
- foreach (var argument in parameter.Parameters) { 
+ foreach (var argument in Function.Arguments) { 
             
             #line default
             #line hidden
             this.Write("\t");
             
             #line 15 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(parameter.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(Function.Name));
             
             #line default
             #line hidden
@@ -94,7 +94,7 @@ namespace AutoTestPrep.Model.Tempaltes
             this.Write("[");
             
             #line 15 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(parameter.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(Function.Name));
             
             #line default
             #line hidden
@@ -115,14 +115,14 @@ namespace AutoTestPrep.Model.Tempaltes
             this.Write("\r\n\t");
             
             #line 18 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(parameter.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(Function.Name));
             
             #line default
             #line hidden
             this.Write("_called_count++;\r\n\r\n");
             
             #line 20 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
- if (!(("void").Equals(parameter.DataType, StringComparison.Ordinal))) { 
+ if (!(("void").Equals(Function.DataType, StringComparison.Ordinal))) { 
             
             #line default
             #line hidden

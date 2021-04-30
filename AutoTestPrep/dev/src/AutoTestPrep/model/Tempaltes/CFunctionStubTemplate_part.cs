@@ -12,10 +12,15 @@ namespace AutoTestPrep.Model.Tempaltes
 		/// <summary>
 		/// Parameter object to 
 		/// </summary>
-		protected Parameter parameter { get; set; }
-		public CFunctionStubTemplate(Parameter parameter)
+		protected Function Function { get; set; }
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="function">Target function data.</param>
+		public CFunctionStubTemplate(Function function)
 		{
-			this.parameter = parameter;
+			this.Function = function;
 		}
 	}
 }

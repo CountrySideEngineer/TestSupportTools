@@ -106,6 +106,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Function.cs" />
     <Compile Include="Model\Option\Options.cs" />
     <Compile Include="Model\Parameter.cs" />
     <Compile Include="Model\Parser\FunctionParser.cs" />
@@ -132,6 +133,12 @@
     </Compile>
     <Compile Include="Model\Tempaltes\CFunctionStubTemplateIncludeUserHeader_part.cs" />
     <Compile Include="Model\Tempaltes\CFunctionStubTemplate_part.cs" />
+    <Compile Include="Model\Tempaltes\TestDriver_source_gtest.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriver_source_gtest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\TestDriver_source_gtest_part.cs" />
     <Compile Include="Model\Test.cs" />
     <Compile Include="Model\TestCase.cs" />
     <Compile Include="Model\TestData.cs" />
@@ -188,6 +195,10 @@
     <Content Include="Model\Tempaltes\CFunctionStubTemplateIncludeUserHeader.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>CFunctionStubTemplateIncludeUserHeader.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\TestDriver_source_gtest.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestDriver_source_gtest.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
