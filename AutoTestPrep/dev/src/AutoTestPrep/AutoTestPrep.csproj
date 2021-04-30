@@ -106,6 +106,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Option\Options.cs" />
     <Compile Include="Model\Parameter.cs" />
     <Compile Include="Model\Parser\FunctionParser.cs" />
     <Compile Include="Model\Parser\IParser.cs" />
@@ -118,12 +119,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CFunctionStubTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Tempaltes\CFunctionStubTemplateIncludeStdHeader.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CFunctionStubTemplateIncludeStdHeader.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\CFunctionStubTemplateIncludeStdHeader_part.cs" />
+    <Compile Include="Model\Tempaltes\CFunctionStubTemplateIncludeUserHeader.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CFunctionStubTemplateIncludeUserHeader.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\CFunctionStubTemplateIncludeUserHeader_part.cs" />
     <Compile Include="Model\Tempaltes\CFunctionStubTemplate_part.cs" />
     <Compile Include="Model\Test.cs" />
     <Compile Include="Model\TestCase.cs" />
     <Compile Include="Model\TestData.cs" />
     <Compile Include="Model\Writer\IWriter.cs" />
     <Compile Include="Model\Writer\StubWriter.cs" />
+    <Compile Include="Model\Writer\TestDriverWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -166,6 +180,14 @@
     <Content Include="Model\Tempaltes\CFunctionStubTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>CFunctionStubTemplate.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\CFunctionStubTemplateIncludeStdHeader.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CFunctionStubTemplateIncludeStdHeader.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\CFunctionStubTemplateIncludeUserHeader.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CFunctionStubTemplateIncludeUserHeader.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
