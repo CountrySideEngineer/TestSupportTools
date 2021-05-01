@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AutoTestPrep.Model.Tempaltes
 {
-	partial class CFunctionStubTemplateIncludeUserHeader
+	partial class CFunctionTemplateIncludeUserHeader
 	{
 		/// <summary>
 		/// Option data.
@@ -18,7 +18,7 @@ namespace AutoTestPrep.Model.Tempaltes
 		/// Constructor with argument.
 		/// </summary>
 		/// <param name="options">Options object.</param>
-		public CFunctionStubTemplateIncludeUserHeader(Options options)
+		public CFunctionTemplateIncludeUserHeader(Options options)
 		{
 			this.options = options;
 		}

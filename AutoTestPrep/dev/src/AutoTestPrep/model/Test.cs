@@ -24,7 +24,7 @@ namespace AutoTestPrep.Model
 		/// <summary>
 		/// Test target function class.
 		/// </summary>
-		public Parameter Target { get; set; }
+		public Function Target { get; set; }
 
 		/// <summary>
 		/// List of test data class.

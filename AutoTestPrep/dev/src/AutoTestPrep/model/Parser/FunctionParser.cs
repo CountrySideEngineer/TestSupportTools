@@ -80,7 +80,7 @@ namespace AutoTestPrep.Model.Parser
 
 			//取得したRangeを引数として、子関数情報を取得する。
 			IEnumerable<Function> subFunctions = this.GetSubfunctions(reader);
-			function.SubFuntions = subFunctions;
+			function.SubFunctions = subFunctions;
 
 			return function;
 		}

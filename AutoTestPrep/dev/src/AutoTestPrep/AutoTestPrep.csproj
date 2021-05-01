@@ -120,19 +120,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CFunctionStubTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\Tempaltes\CFunctionStubTemplateIncludeStdHeader.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CFunctionStubTemplateIncludeStdHeader.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tempaltes\CFunctionStubTemplateIncludeStdHeader_part.cs" />
-    <Compile Include="Model\Tempaltes\CFunctionStubTemplateIncludeUserHeader.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CFunctionStubTemplateIncludeUserHeader.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tempaltes\CFunctionStubTemplateIncludeUserHeader_part.cs" />
     <Compile Include="Model\Tempaltes\CFunctionStubTemplate_part.cs" />
+    <Compile Include="Model\Tempaltes\CFunctionTemplateIncludeStdHeader.cs" />
+    <Compile Include="Model\Tempaltes\CFunctionTemplateIncludeStdHeader_part.cs" />
+    <Compile Include="Model\Tempaltes\CFunctionTemplateIncludeUserHeader.cs" />
+    <Compile Include="Model\Tempaltes\CFunctionTemplateIncludeUserHeader_part.cs" />
+    <Compile Include="Model\Tempaltes\TestDriverTemplate_Header_gtest.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriverTemplate_Header_gtest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\TestDriverTemplate_Header_gtest_part.cs" />
+    <Compile Include="Model\Tempaltes\TestDriverTemplate_Source_gtest.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriverTemplate_Source_gtest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\TestDriverTemplate_Source_gtest_part.cs" />
     <Compile Include="Model\Tempaltes\TestDriver_source_gtest.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -188,13 +192,13 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>CFunctionStubTemplate.cs</LastGenOutput>
     </Content>
-    <Content Include="Model\Tempaltes\CFunctionStubTemplateIncludeStdHeader.tt">
+    <Content Include="Model\Tempaltes\TestDriverTemplate_Header_gtest.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>CFunctionStubTemplateIncludeStdHeader.cs</LastGenOutput>
+      <LastGenOutput>TestDriverTemplate_Header_gtest.cs</LastGenOutput>
     </Content>
-    <Content Include="Model\Tempaltes\CFunctionStubTemplateIncludeUserHeader.tt">
+    <Content Include="Model\Tempaltes\TestDriverTemplate_Source_gtest.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>CFunctionStubTemplateIncludeUserHeader.cs</LastGenOutput>
+      <LastGenOutput>TestDriverTemplate_Source_gtest.cs</LastGenOutput>
     </Content>
     <Content Include="Model\Tempaltes\TestDriver_source_gtest.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

@@ -14,7 +14,7 @@ namespace AutoTestPrep.Model
 		public Function() : base()
 		{
 			this.Arguments = null;
-			this.SubFuntions = null;
+			this.SubFunctions = null;
 		}
 
 		/// <summary>
@@ -25,7 +25,7 @@ namespace AutoTestPrep.Model
 		{
 			if (src is Function)
 			{
-				this.SubFuntions = new List<Function>(src.SubFuntions);
+				this.SubFunctions = new List<Function>(src.SubFunctions);
 				this.Arguments = new List<Parameter>(src.Arguments);
 			}
 		}
@@ -33,7 +33,7 @@ namespace AutoTestPrep.Model
 		/// <summary>
 		/// List of sub functions.
 		/// </summary>
-		public IEnumerable<Function> SubFuntions { get; set; }
+		public IEnumerable<Function> SubFunctions { get; set; }
 
 		/// <summary>
 		/// List of  arguments.
