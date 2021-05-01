@@ -121,9 +121,17 @@
       <DependentUpon>CFunctionStubTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Tempaltes\CFunctionStubTemplate_part.cs" />
-    <Compile Include="Model\Tempaltes\CFunctionTemplateIncludeStdHeader.cs" />
+    <Compile Include="Model\Tempaltes\CFunctionTemplateIncludeStdHeader.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CFunctionTemplateIncludeStdHeader.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Tempaltes\CFunctionTemplateIncludeStdHeader_part.cs" />
-    <Compile Include="Model\Tempaltes\CFunctionTemplateIncludeUserHeader.cs" />
+    <Compile Include="Model\Tempaltes\CFunctionTemplateIncludeUserHeader.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CFunctionTemplateIncludeUserHeader.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Tempaltes\CFunctionTemplateIncludeUserHeader_part.cs" />
     <Compile Include="Model\Tempaltes\TestDriverTemplate_Header_gtest.cs">
       <AutoGen>True</AutoGen>
@@ -191,6 +199,14 @@
     <Content Include="Model\Tempaltes\CFunctionStubTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>CFunctionStubTemplate.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\CFunctionTemplateIncludeStdHeader.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CFunctionTemplateIncludeStdHeader.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\CFunctionTemplateIncludeUserHeader.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CFunctionTemplateIncludeUserHeader.cs</LastGenOutput>
     </Content>
     <Content Include="Model\Tempaltes\TestDriverTemplate_Header_gtest.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

@@ -18,9 +18,9 @@ namespace AutoTestPrep.Model.Tempaltes
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplateIncludeUserHeader.tt"
+    #line 1 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionTemplateIncludeUserHeader.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class CFunctionTemplateIncludeUserHeader : CFunctionStubTemplateIncludeUserHeaderBase
+    public partial class CFunctionTemplateIncludeUserHeader : CFunctionTemplateIncludeUserHeaderBase
     {
 #line hidden
         /// <summary>
@@ -30,7 +30,7 @@ namespace AutoTestPrep.Model.Tempaltes
         {
             this.Write("\r\n");
             
-            #line 7 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplateIncludeUserHeader.tt"
+            #line 7 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionTemplateIncludeUserHeader.tt"
 
 if (null != options.IncludeUserHeaderFiles) {
 	foreach (var headerItem in options.IncludeUserHeaderFiles)
@@ -41,14 +41,14 @@ if (null != options.IncludeUserHeaderFiles) {
             #line hidden
             this.Write("#include \"");
             
-            #line 12 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplateIncludeUserHeader.tt"
+            #line 12 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionTemplateIncludeUserHeader.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(headerItem));
             
             #line default
             #line hidden
             this.Write("\"\r\n");
             
-            #line 13 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplateIncludeUserHeader.tt"
+            #line 13 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionTemplateIncludeUserHeader.tt"
 
 	}
 } 
@@ -67,7 +67,7 @@ if (null != options.IncludeUserHeaderFiles) {
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class CFunctionStubTemplateIncludeUserHeaderBase
+    public class CFunctionTemplateIncludeUserHeaderBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;
