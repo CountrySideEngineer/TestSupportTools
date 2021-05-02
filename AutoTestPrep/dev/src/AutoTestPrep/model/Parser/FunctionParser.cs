@@ -70,19 +70,19 @@ namespace AutoTestPrep.Model.Parser
 		/// </summary>
 		/// <param name="reader">Object to read function information from Excel.</param>
 		/// <returns>Function information in Paramter object.</returns>
-		protected Parameter GetFunctionInfo(ExcelReader reader)
+		protected Function GetFunctionInfo(ExcelReader reader)
 		{
 			//「対象関数」のセルを取得する
 			Range targetFuncRange = reader.FindFirstItem("対象関数");
 
 			//取得したRangeを引数として、GetFunCtionInfo()を実行する
-			Parameter functionInfo = this.GetFunctionInfo(reader, targetFuncRange);
+			Function function = this.GetFunctionInfo(reader, targetFuncRange);
 
 			//取得したRangeを引数として、子関数情報を取得する。
-			var subfunctions = this.GetSubfunctions(reader);
-			functionInfo.Children = subfunctions;
+			IEnumerable<Function> subFunctions = this.GetSubfunctions(reader);
+			function.SubFunctions = subFunctions;
 
-			return functionInfo;
+			return function;
 		}
 
 		/// <summary>
@@ -91,7 +91,7 @@ namespace AutoTestPrep.Model.Parser
 		/// <param name="reader"></param>
 		/// <param name="range"></param>
 		/// <returns></returns>
-		protected Parameter GetFunctionInfo(ExcelReader reader, Range range)
+		protected Function GetFunctionInfo(ExcelReader reader, Range range)
 		{
 			//Get description.
 			string description = string.Empty;
@@ -139,15 +139,15 @@ namespace AutoTestPrep.Model.Parser
 			//Get arguments
 			var arguments = this.GetArguments(reader, range);
 
-			Parameter parameter = new Parameter
+			var function = new Function
 			{
 				Description = description,
 				Name = name,
 				DataType = dataTypeWithoutPointer,
-				Parameters = arguments,
+				Arguments = arguments,
 				PointerNum = pointerNum
 			};
-			return parameter;
+			return function;
 		}
 
 		/// <summary>
@@ -205,10 +205,10 @@ namespace AutoTestPrep.Model.Parser
 		/// </summary>
 		/// <param name="reader">Object to read data from an excel file.</param>
 		/// <returns></returns>
-		protected IEnumerable<Parameter> GetSubfunctions(ExcelReader reader)
+		protected IEnumerable<Function> GetSubfunctions(ExcelReader reader)
 		{
 			IEnumerable<Range> subfuncRanges = reader.FindItem("子関数");
-			var parameters = new List<Parameter>();
+			var parameters = new List<Function>();
 			foreach (var rangeItem in subfuncRanges)
 			{
 				var subfuncParam = this.GetSubfunction(reader, rangeItem);
@@ -223,11 +223,11 @@ namespace AutoTestPrep.Model.Parser
 		/// <param name="reader">Object to read data from an excel file.</param>
 		/// <param name="range">Range to read.</param>
 		/// <returns>Read parameter</returns>
-		protected Parameter GetSubfunction(ExcelReader reader, Range range)
+		protected Function GetSubfunction(ExcelReader reader, Range range)
 		{
-			Parameter subfunInfo = GetFunctionInfo(reader, range);
+			Function function = GetFunctionInfo(reader, range);
 
-			return subfunInfo;
+			return function;
 		}
 	}
 }

@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AutoTestPrep.Model;
 
 namespace AutoTestPrep.Model.Tempaltes
 {
-	partial class CFunctionStubTemplate
+	partial class CFunctionStubTemplate_Header
 	{
 		/// <summary>
-		/// Parameter object to 
+		/// Functoin information.
 		/// </summary>
-		protected Function Function { get; set; }
+		public Function Function { get; set; }
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		/// <param name="function">Target function data.</param>
-		public CFunctionStubTemplate(Function function)
+		/// <param name="function">Function data.</param>
+		public CFunctionStubTemplate_Header(Function function)
 		{
 			this.Function = function;
 		}

@@ -24,7 +24,6 @@ namespace Paremter_Tests
 			Assert.AreEqual(Parameter.AccessMode.None, parameter.Mode);
 			Assert.IsTrue(string.IsNullOrEmpty(parameter.Overview));
 			Assert.IsTrue(string.IsNullOrEmpty(parameter.Description));
-			Assert.IsNull(parameter.SubParameters);
 		}
 
 		[TestMethod]
@@ -53,10 +52,6 @@ namespace Paremter_Tests
 				Mode = Parameter.AccessMode.In,
 				Overview = "parameter_overview",
 				Description = "parameter_description",
-				SubParameters = new List<Parameter>()
-				{
-					subParam1, subParam2
-				},
 			};
 			var copyParam = new Parameter(src);
 
@@ -68,11 +63,6 @@ namespace Paremter_Tests
 			Assert.AreEqual(Parameter.AccessMode.In, copyParam.Mode);
 			Assert.AreEqual(0, string.CompareOrdinal(src.Overview, "parameter_overview"));
 			Assert.AreEqual(0, string.CompareOrdinal(src.Description, "parameter_description"));
-			Assert.AreEqual(0, string.CompareOrdinal(src.ActualDataType,
-				"parameter_prefix " +
-				"parameter_datatype* " +
-				"parameter_name " +
-				"parameter_postfix"));
 		}
 
 		[TestMethod]
@@ -90,11 +80,6 @@ namespace Paremter_Tests
 				Postifx = "parameter_postfix",
 				PointerNum = 1,
 			};
-			Assert.AreEqual(0, string.CompareOrdinal(parameter.ActualDataType,
-				"parameter_prefix " +
-				"parameter_datatype* " +
-				"parameter_name " +
-				"parameter_postfix"));
 		}
 
 		[TestMethod]
@@ -112,11 +97,6 @@ namespace Paremter_Tests
 				Postifx = "parameter_postfix",
 				PointerNum = 0,
 			};
-			Assert.AreEqual(0, string.CompareOrdinal(parameter.ActualDataType,
-				"parameter_prefix " +
-				"parameter_datatype " +
-				"parameter_name " +
-				"parameter_postfix"));
 		}
 
 		[TestMethod]
@@ -133,10 +113,6 @@ namespace Paremter_Tests
 				Postifx = "parameter_postfix",
 				PointerNum = 1,
 			};
-			Assert.AreEqual(0, string.CompareOrdinal(parameter.ActualDataType,
-				"parameter_datatype* " +
-				"parameter_name " +
-				"parameter_postfix"));
 		}
 
 		[TestMethod]
@@ -153,10 +129,6 @@ namespace Paremter_Tests
 				DataType = "parameter_datatype",
 				PointerNum = 0,
 			};
-			Assert.AreEqual(0, string.CompareOrdinal(parameter.ActualDataType,
-				"parameter_prefix " +
-				"parameter_datatype " +
-				"parameter_name"));
 		}
 
 		[TestMethod]
@@ -166,23 +138,70 @@ namespace Paremter_Tests
 		[Description("ToString")]
 		public void Parameter_ToString_001()
 		{
-			var subParam1 = new Parameter
-			{
-				DataType = "DataType1",
-				Name = "Name1"
-			};
 			var parameter = new Parameter
 			{
 				DataType = "DataType",
 				Name = "Name",
-				SubParameters = new List<Parameter>()
-				{
-					subParam1
-				},
 			};
 			var paramString = parameter.ToString();
 
-			Assert.AreEqual("DataType Name(DataType1 Name1)", paramString);
+			Assert.AreEqual("DataType Name", paramString);
+		}
+
+		[TestMethod]
+		[TestCategory("Parameter")]
+		[TestCategory("UnitTest")]
+		[TestCategory("OK_Case")]
+		[Description("ToString")]
+		public void Parameter_ToString_002()
+		{
+			var parameter = new Parameter
+			{
+				DataType = "DataType",
+				Name = "Name",
+				PointerNum = 1
+			};
+			var paramString = parameter.ToString();
+
+			Assert.AreEqual("DataType* Name", paramString);
+		}
+
+		[TestMethod]
+		[TestCategory("Parameter")]
+		[TestCategory("UnitTest")]
+		[TestCategory("OK_Case")]
+		[Description("ToString")]
+		public void Parameter_ToString_003()
+		{
+			var parameter = new Parameter
+			{
+				DataType = "DataType",
+				Name = "Name",
+				PointerNum = 2,
+				Prefix = "const"
+			};
+			var paramString = parameter.ToString();
+
+			Assert.AreEqual("const DataType** Name", paramString);
+		}
+
+		[TestMethod]
+		[TestCategory("Parameter")]
+		[TestCategory("UnitTest")]
+		[TestCategory("OK_Case")]
+		[Description("ToString")]
+		public void Parameter_ToString_004()
+		{
+			var parameter = new Parameter
+			{
+				DataType = "DataType",
+				Name = "Name",
+				PointerNum = 1,
+				Postifx = "const"
+			};
+			var paramString = parameter.ToString();
+
+			Assert.AreEqual("DataType* Name const", paramString);
 		}
 	}
 }

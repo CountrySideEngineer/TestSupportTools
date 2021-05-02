@@ -15,8 +15,8 @@ namespace AutoTestPrep.Model.Writer
 	{
 		public void Write(string path, object parameter)
 		{
-			Parameter param = (Parameter)parameter;
-			var template = new CFunctionStubTemplate(param);
+			Function function = (Function)parameter;
+			var template = new CFunctionStubTemplate(function);
 
 			using (var stream = new StreamWriter(path, false, Encoding.Unicode))
 			{
