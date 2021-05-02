@@ -3,15 +3,23 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
+int <#= Function.Name #>_called_count;
+<# if (!(("void").Equals(Function.Name.ToLower(), StringComparison.Ordinal))) { #>
+<#= Function.DataType #> <#= Function.Name #>_return[100];
+<# } #>
+
 <#= Function.ToString() #>
 {
 <# if (!(("void").Equals(Function.DataType, StringComparison.Ordinal))) { #>
-	<#= Function.DataType #> returnLatch = <#= Function.Name #>_return[<#= Function.Name #>];
+	<#= Function.DataType #> returnLatch = <#= Function.Name #>_return[<#= Function.Name #>_called_count];
 <# } #>
 
-<# foreach (var argument in Function.Arguments) { #>
+<#
+if (null != Function.Arguments)
+{
+	foreach (var argument in Function.Arguments) { #>
 	<#= Function.Name #>.<#= argument.Name #>[<#= Function.Name #>_called_count] = <#= argument.Name #>;
-<# } #>
+<#	}	} #>
 
 	<#= Function.Name #>_called_count++;
 
