@@ -19,6 +19,8 @@ namespace AutoTestPrep.Model
 			this.Target = null;
 			this.TestCases = null;
 			this.Name = string.Empty;
+			this.TestInformation = string.Empty;
+			this.SourcePath = string.Empty;
 		}
 
 		/// <summary>
@@ -35,5 +37,15 @@ namespace AutoTestPrep.Model
 		/// Test name.
 		/// </summary>
 		public string Name { get; set; }
+
+		/// <summary>
+		/// About test
+		/// </summary>
+		public string TestInformation { get; set; }
+
+		/// <summary>
+		/// Path to file to test.
+		/// </summary>
+		public string SourcePath { get; set; }
 	}
 }

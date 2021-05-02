@@ -47,7 +47,9 @@ namespace AutoTestPrep.Model.Parser
 				{
 					Name = name,
 					TestCases = testCases,
-					Target = targetFunction
+					Target = targetFunction,
+					TestInformation = sheetName,
+					SourcePath = sourceFilePath,
 				};
 				tests.Add(test);
 			}
