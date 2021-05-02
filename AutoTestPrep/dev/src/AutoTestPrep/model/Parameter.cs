@@ -56,7 +56,6 @@ namespace AutoTestPrep.Model
 			this.Mode = AccessMode.None;
 			this.Overview = string.Empty;
 			this.Description = string.Empty;
-			this.Parameters = null;
 		}
 
 		/// <summary>
@@ -73,35 +72,6 @@ namespace AutoTestPrep.Model
 			this.Mode = src.Mode;
 			this.Overview = src.Overview;
 			this.Description = src.Description;
-			try
-			{
-				var subParamList = new List<Parameter>(src.Parameters.Count());
-				foreach (var srcParam in src.Parameters)
-				{
-					var subParam = new Parameter(srcParam);
-					subParamList.Add(subParam);
-				}
-				this.Parameters = subParamList;
-			}
-			catch (NullReferenceException)
-			{
-				//The src parameter does not have argument.
-			}
-
-			try
-			{
-				var children = new List<Parameter>(src.Children.Count());
-				foreach (var srcChild in src.Children)
-				{
-					var child = new Parameter(srcChild);
-					children.Add(child);
-				}
-				this.Children = children;
-			}
-			catch (NullReferenceException)
-			{
-				//The src parameter does not have children.
-			}
 		}
 
 		/// <summary>
@@ -128,37 +98,6 @@ namespace AutoTestPrep.Model
 		/// Name of data type.
 		/// </summary>
 		public string DataType { get; set; }
-
-		/// <summary>
-		/// Actual data type.
-		/// </summary>
-		public string ActualDataType
-		{
-			get
-			{
-				string actualDataType = string.Empty;
-				if (!(string.IsNullOrEmpty(this.Prefix)) &&
-					(!(string.IsNullOrWhiteSpace(this.Prefix))))
-				{
-					actualDataType += this.Prefix;
-					actualDataType += " ";
-				}
-				actualDataType += this.DataType;
-				for (int index = 0; index < this.PointerNum; index++)
-				{
-					actualDataType += "*";
-				}
-				actualDataType += " ";
-				actualDataType += this.Name;
-				if (!(string.IsNullOrEmpty(this.Postifx)) &&
-					(!(string.IsNullOrWhiteSpace(this.Postifx))))
-				{
-					actualDataType += " ";
-					actualDataType += this.Postifx;
-				}
-				return actualDataType;
-			}
-		}
 
 		/// <summary>
 		/// Prefix of data type.
@@ -191,41 +130,31 @@ namespace AutoTestPrep.Model
 		public string Description { get; set; }
 
 		/// <summary>
-		/// Sub parameters
-		/// </summary>
-		public IEnumerable<Parameter> Parameters { get; set; }
-
-		/// <summary>
-		/// Children parameter.
-		/// </summary>
-		public IEnumerable<Parameter> Children { get; set; }
-
-		/// <summary>
 		/// Returns parameter object in string.
 		/// </summary>
 		/// <returns>Parameter object in strign data.</returns>
 		public override string ToString()
 		{
-			string subParameter = string.Empty;
-			try
+			//Create data type string with prefix, postfix, and pointer code.
+			string toString = string.Empty;
+			if (!(string.IsNullOrEmpty(this.Prefix)) &&
+				(!(string.IsNullOrWhiteSpace(this.Prefix))))
 			{
-				foreach (var subParam in this.Parameters)
-				{
-					if (!(string.IsNullOrEmpty(subParameter)))
-					{
-						subParameter += ", ";
-					}
-					subParameter += subParam.ToString();
-				}
+				toString += this.Prefix;
+				toString += " ";
 			}
-			catch (NullReferenceException)
+			toString += this.DataType;
+			for (int index = 0; index < this.PointerNum; index++)
 			{
-				//Skip parameter sequence.
+				toString += "*";
 			}
-			string toString = this.ActualDataType;
-			if (!(string.IsNullOrEmpty(subParameter)))
+			toString += " ";
+			toString += this.Name;
+			if (!(string.IsNullOrEmpty(this.Postifx)) &&
+				(!(string.IsNullOrWhiteSpace(this.Postifx))))
 			{
-				toString += "(" + subParameter + ")";
+				toString += " ";
+				toString += this.Postifx;
 			}
 
 			return toString;

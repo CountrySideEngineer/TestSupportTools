@@ -3,24 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AutoTestPrep.Model;
 
 namespace AutoTestPrep.Model.Tempaltes
 {
-	partial class CFunctionStubTemplate
+	partial class TestDriverTemplate_Source_gtest_TestCase_SetupInput
 	{
 		/// <summary>
-		/// Parameter object to 
+		/// Test data.
 		/// </summary>
-		protected Function Function { get; set; }
+		public Test Test { get; set; }
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		/// <param name="function">Target function data.</param>
-		public CFunctionStubTemplate(Function function)
+		/// <param name="test">Test data.</param>
+		public TestDriverTemplate_Source_gtest_TestCase_SetupInput(Test test)
 		{
-			this.Function = function;
+			this.Test = test;
 		}
 	}
 }
