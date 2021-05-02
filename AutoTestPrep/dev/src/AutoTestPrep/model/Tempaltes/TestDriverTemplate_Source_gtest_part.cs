@@ -19,6 +19,12 @@ namespace AutoTestPrep.Model.Tempaltes
 		/// </summary>
 		public Options Options { get; set; }
 
+		public TestDriverTemplate_Source_gtest(Test test)
+		{
+			this.Test = test;
+			this.Options = new Options();
+		}
+
 		public TestDriverTemplate_Source_gtest(Test test, Options options)
 		{
 			this.Test = test;
