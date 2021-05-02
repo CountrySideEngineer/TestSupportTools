@@ -3,7 +3,5 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-
 <# foreach (var headerItem in options.IncludeStdHeaderFiles) { #>
-#include <<#= headerItem #>>
-<# } #>
+#include <<#= headerItem #>><# } #>

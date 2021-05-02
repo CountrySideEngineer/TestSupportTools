@@ -3,8 +3,9 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#
-if (null != options.IncludeUserHeaderFiles) {
-	foreach (var headerItem in options.IncludeUserHeaderFiles)
-	{
-#>#include "<#= headerItem #>"<#}}#>
+void <#= Test.Name #>::SetUp()
+{
+<# foreach (var subFunction in Test.Target.SubFunctions) { #>
+	<#= subFunction.Name #>_init();
+<# } #>
+}

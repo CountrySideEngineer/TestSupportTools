@@ -18,9 +18,9 @@ namespace AutoTestPrep.Model.Tempaltes
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionTemplateIncludeStdHeader.tt"
+    #line 1 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Header_gtest.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class CFunctionTemplateIncludeStdHeader : CFunctionTemplateIncludeStdHeaderBase
+    public partial class TestDriverTemplate_Header_gtest : TestDriverTemplate_Header_gtestBase
     {
 #line hidden
         /// <summary>
@@ -28,26 +28,14 @@ namespace AutoTestPrep.Model.Tempaltes
         /// </summary>
         public virtual string TransformText()
         {
+            this.Write("#pragma once\r\n\r\nclass ");
             
-            #line 6 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionTemplateIncludeStdHeader.tt"
- foreach (var headerItem in options.IncludeStdHeaderFiles) { 
-            
-            #line default
-            #line hidden
-            this.Write("#include <");
-            
-            #line 7 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionTemplateIncludeStdHeader.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(headerItem));
+            #line 8 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Header_gtest.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Test.Name));
             
             #line default
             #line hidden
-            this.Write(">");
-            
-            #line 7 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionTemplateIncludeStdHeader.tt"
- } 
-            
-            #line default
-            #line hidden
+            this.Write("\r\n{\r\npublic:\r\n\tvoid SetUp();\r\n};\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -59,7 +47,7 @@ namespace AutoTestPrep.Model.Tempaltes
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class CFunctionTemplateIncludeStdHeaderBase
+    public class TestDriverTemplate_Header_gtestBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

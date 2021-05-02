@@ -18,9 +18,9 @@ namespace AutoTestPrep.Model.Tempaltes
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionTemplateIncludeStdHeader.tt"
+    #line 1 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class CFunctionTemplateIncludeStdHeader : CFunctionTemplateIncludeStdHeaderBase
+    public partial class TestDriverTemplate_Source_gtest : TestDriverTemplate_Source_gtestBase
     {
 #line hidden
         /// <summary>
@@ -29,25 +29,40 @@ namespace AutoTestPrep.Model.Tempaltes
         public virtual string TransformText()
         {
             
-            #line 6 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionTemplateIncludeStdHeader.tt"
- foreach (var headerItem in options.IncludeStdHeaderFiles) { 
+            #line 6 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(StdHeaders));
             
             #line default
             #line hidden
-            this.Write("#include <");
+            this.Write("\r\n");
             
-            #line 7 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionTemplateIncludeStdHeader.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(headerItem));
-            
-            #line default
-            #line hidden
-            this.Write(">");
-            
-            #line 7 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionTemplateIncludeStdHeader.tt"
- } 
+            #line 7 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(UserHeaders));
             
             #line default
             #line hidden
+            this.Write("\r\n\r\n");
+            
+            #line 9 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Test.Target.ToString()));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n\r\n");
+            
+            #line 11 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(InitStub));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n\r\n");
+            
+            #line 13 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TestCase));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -59,7 +74,7 @@ namespace AutoTestPrep.Model.Tempaltes
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class CFunctionTemplateIncludeStdHeaderBase
+    public class TestDriverTemplate_Source_gtestBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

@@ -28,9 +28,8 @@ namespace AutoTestPrep.Model.Tempaltes
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\n");
             
-            #line 7 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionTemplateIncludeUserHeader.tt"
+            #line 6 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionTemplateIncludeUserHeader.tt"
 
 if (null != options.IncludeUserHeaderFiles) {
 	foreach (var headerItem in options.IncludeUserHeaderFiles)
@@ -41,18 +40,15 @@ if (null != options.IncludeUserHeaderFiles) {
             #line hidden
             this.Write("#include \"");
             
-            #line 12 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionTemplateIncludeUserHeader.tt"
+            #line 10 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionTemplateIncludeUserHeader.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(headerItem));
             
             #line default
             #line hidden
-            this.Write("\"\r\n");
+            this.Write("\"");
             
-            #line 13 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionTemplateIncludeUserHeader.tt"
-
-	}
-} 
-
+            #line 10 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionTemplateIncludeUserHeader.tt"
+}}
             
             #line default
             #line hidden
