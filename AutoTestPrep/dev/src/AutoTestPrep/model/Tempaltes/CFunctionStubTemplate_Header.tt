@@ -1,0 +1,19 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+#pragma once
+
+extern int <#= Function.Name #>_called_count;
+<# if (!(("void").Equals(Function.Name.ToLower(), StringComparison.Ordinal))) { #>
+extern <#= Function.DataType #> <#= Function.Name #>_return[];
+<# } #>
+
+<#
+if (null != Function.Arguments) {
+	foreach (var argument in Function.Arguments) { #>
+extern <#= argument.ToString() #>[100];
+<# }
+} #>
+void <#= Function.Name #>_init();

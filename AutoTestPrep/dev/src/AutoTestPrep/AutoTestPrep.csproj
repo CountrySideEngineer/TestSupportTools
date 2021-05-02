@@ -120,6 +120,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CFunctionStubTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Tempaltes\CFunctionStubTemplate_Header.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CFunctionStubTemplate_Header.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\CFunctionStubTemplate_Header_part.cs" />
     <Compile Include="Model\Tempaltes\CFunctionStubTemplate_part.cs" />
     <Compile Include="Model\Tempaltes\CFunctionTemplateIncludeStdHeader.cs">
       <AutoGen>True</AutoGen>
@@ -235,6 +241,10 @@
     <Content Include="Model\Tempaltes\CFunctionStubTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>CFunctionStubTemplate.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\CFunctionStubTemplate_Header.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CFunctionStubTemplate_Header.cs</LastGenOutput>
     </Content>
     <Content Include="Model\Tempaltes\CFunctionTemplateIncludeStdHeader.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
