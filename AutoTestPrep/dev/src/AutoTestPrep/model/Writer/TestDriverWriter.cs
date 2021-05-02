@@ -1,5 +1,7 @@
-﻿using System;
+﻿using AutoTestPrep.Model.Tempaltes;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +17,12 @@ namespace AutoTestPrep.Model.Writer
 		/// <param name="parameter"></param>
 		public void Write(string path, object parameter)
 		{
-			throw new NotImplementedException();
+			Test test = (Test)parameter;
+			var template = new TestDriverTemplate_Source_gtest(test);
+			using (var stream = new StreamWriter(path, false, Encoding.UTF8))
+			{
+				stream.Write(template.TransformText());
+			}
 		}
 	}
 }
