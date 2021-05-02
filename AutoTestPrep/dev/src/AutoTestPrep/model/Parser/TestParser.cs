@@ -41,13 +41,15 @@ namespace AutoTestPrep.Model.Parser
 			foreach (var (name, sheetName, sourceFilePath) in testList)
 			{
 				reader.SheetName = sheetName;
-				Parameter targetFunction = (Parameter)functionParser.Read(reader);
+				Function targetFunction = (Function)functionParser.Read(reader);
 				IEnumerable<TestCase> testCases = (IEnumerable<TestCase>)testCaseParser.Read(reader);
 				var test = new Test
 				{
 					Name = name,
 					TestCases = testCases,
-					Target = targetFunction
+					Target = targetFunction,
+					TestInformation = sheetName,
+					SourcePath = sourceFilePath,
 				};
 				tests.Add(test);
 			}

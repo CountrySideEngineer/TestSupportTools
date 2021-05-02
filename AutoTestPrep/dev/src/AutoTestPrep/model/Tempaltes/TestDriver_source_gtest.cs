@@ -18,9 +18,9 @@ namespace AutoTestPrep.Model.Tempaltes
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
+    #line 1 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriver_source_gtest.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class CFunctionStubTemplate : CFunctionStubTemplateBase
+    public partial class TestDriver_source_gtest : TestDriver_source_gtestBase
     {
 #line hidden
         /// <summary>
@@ -28,149 +28,111 @@ namespace AutoTestPrep.Model.Tempaltes
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("int ");
             
-            #line 6 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Function.Name));
-            
-            #line default
-            #line hidden
-            this.Write("_called_count;\r\n");
-            
-            #line 7 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
- if (!(("void").Equals(Function.Name.ToLower(), StringComparison.Ordinal))) { 
-            
-            #line default
-            #line hidden
-            
-            #line 8 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Function.DataType));
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 8 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Function.Name));
-            
-            #line default
-            #line hidden
-            this.Write("_return[100];\r\n");
-            
-            #line 9 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("\r\n");
-            
-            #line 11 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Function.ToString()));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n{\r\n");
-            
-            #line 13 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
- if (!(("void").Equals(Function.DataType, StringComparison.Ordinal))) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t");
-            
-            #line 14 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Function.DataType));
-            
-            #line default
-            #line hidden
-            this.Write(" returnLatch = ");
-            
-            #line 14 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Function.Name));
-            
-            #line default
-            #line hidden
-            this.Write("_return[");
-            
-            #line 14 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Function.Name));
-            
-            #line default
-            #line hidden
-            this.Write("_called_count];\r\n");
-            
-            #line 15 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("\r\n");
-            
-            #line 17 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
+            #line 6 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriver_source_gtest.tt"
 
-if (null != Function.Arguments)
-{
-	foreach (var argument in Function.Arguments) { 
+	Func<Function, string> CreateArgumentDeclare = target =>
+	{
+		string declare = string.Empty;
+		try {
+			foreach (var argument in target.Arguments)
+			{
+				declare += argument.ToString();
+				declare += " = 0;";
+				declare += Environment.NewLine;
+			}
+		}
+		catch (NullReferenceException)
+		{
+			//Skip!
+		}
+		return declare;
+	};
+
+            
+            #line default
+            #line hidden
+            this.Write("//Test Target\r\n");
+            
+            #line 26 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriver_source_gtest.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Test.Target.ToString()));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n\r\n//Setup test case\r\nvoid ");
+            
+            #line 29 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriver_source_gtest.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Test.Target.Name));
+            
+            #line default
+            #line hidden
+            this.Write("_test::SetUp()\r\n{\r\n");
+            
+            #line 31 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriver_source_gtest.tt"
+
+if (null != Test.Target.SubFunctions) {
+	foreach (var subFunction in Test.Target.SubFunctions) {
+
             
             #line default
             #line hidden
             this.Write("\t");
             
-            #line 21 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Function.Name));
+            #line 35 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriver_source_gtest.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(subFunction.Name));
             
             #line default
             #line hidden
-            this.Write(".");
+            this.Write("_Init();\r\n");
             
-            #line 21 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(argument.Name));
-            
-            #line default
-            #line hidden
-            this.Write("[");
-            
-            #line 21 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Function.Name));
+            #line 36 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriver_source_gtest.tt"
+
+	}
+}
+
             
             #line default
             #line hidden
-            this.Write("_called_count] = ");
+            this.Write("}\r\n\r\n");
             
-            #line 21 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(argument.Name));
-            
-            #line default
-            #line hidden
-            this.Write(";\r\n");
-            
-            #line 22 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-	}	} 
+            #line 42 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriver_source_gtest.tt"
+
+for (int index = 0; index < Test.TestCases.Count(); index++) {
+	var testCase = Test.TestCases.ElementAt(index);
+
             
             #line default
             #line hidden
-            this.Write("\r\n\t");
+            this.Write("TEST_F(");
             
-            #line 24 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Function.Name));
-            
-            #line default
-            #line hidden
-            this.Write("_called_count++;\r\n\r\n");
-            
-            #line 26 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
- if (!(("void").Equals(Function.DataType, StringComparison.Ordinal))) { 
+            #line 46 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriver_source_gtest.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Test.Name));
             
             #line default
             #line hidden
-            this.Write("\treturn returnLatch;\r\n");
+            this.Write(", ");
             
-            #line 28 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
- } 
+            #line 46 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriver_source_gtest.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Test.Target.Name));
             
             #line default
             #line hidden
-            this.Write("}\r\n");
+            this.Write("_)\r\n{\r\n\t//Argument declare\r\n\t");
+            
+            #line 49 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriver_source_gtest.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CreateArgumentDeclare(Test.Target)));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n}\r\n");
+            
+            #line 51 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriver_source_gtest.tt"
+
+}
+
+            
+            #line default
+            #line hidden
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -182,7 +144,7 @@ if (null != Function.Arguments)
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class CFunctionStubTemplateBase
+    public class TestDriver_source_gtestBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;
