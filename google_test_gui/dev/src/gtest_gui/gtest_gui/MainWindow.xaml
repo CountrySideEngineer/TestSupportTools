@@ -6,7 +6,52 @@
         xmlns:local="clr-namespace:gtest_gui"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+    <Grid VerticalAlignment="Stretch"
+          HorizontalAlignment="Stretch"
+          >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="64"/>
+            <RowDefinition Height="*" MinHeight="64"/>
+            <RowDefinition Height="64"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+              Margin="16, 0"
+              >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="128"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="128"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="対象ファイル："
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right"
+                       Margin="8"
+                       Padding="8"
+                       />
+            <TextBox Grid.Column="1"
+                     ToolTip="テストファイル"
+                     Margin="8, 16"
+                     />
+            <Button Grid.Column="2"
+                    Content="参照"
+                    Margin="16"
+                    Padding="32, 8"
+                    />
+        </Grid>
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="16, 0"
+                    >
+            <Button Content="実行"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Margin="16"
+                    Padding="32, 8"
+                    />
+        </StackPanel>
     </Grid>
 </Window>
