@@ -52,11 +52,16 @@
                   Grid.Row="1"
                   Style="{StaticResource DataGridViewCommonStyle}"
                   ColumnHeaderStyle="{StaticResource DataGridViewColumnHeaderStyle}"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding TestInfo.TestItems, Mode=OneWay}"
                   >
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn Header="実行"/>
+                <DataGridCheckBoxColumn Header="実行"
+                                        Binding="{Binding IsSelected}"
+                                        />
                 <DataGridTextColumn Header="テスト対象"
                                     Width="*"
+                                    Binding="{Binding Name}"
                                     />
             </DataGrid.Columns>
         </DataGrid>
