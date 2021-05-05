@@ -23,8 +23,14 @@ namespace gtest_gui.ViewModel
 		/// </summary>
 		protected bool _canRunTest;
 
+		/// <summary>
+		/// Field of test information.
+		/// </summary>
 		protected TestInformation _testInfo;
 
+		/// <summary>
+		/// Delegate command to set target test file.
+		/// </summary>
 		protected DelegateCommand _setTestFileByUserCommand;
 
 		/// <summary>
@@ -52,6 +58,9 @@ namespace gtest_gui.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Test information.
+		/// </summary>
 		public TestInformation TestInfo
 		{
 			get
