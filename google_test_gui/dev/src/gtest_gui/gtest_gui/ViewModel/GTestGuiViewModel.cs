@@ -40,6 +40,8 @@ namespace gtest_gui.ViewModel
 		/// </summary>
 		protected DelegateCommand _changeTestSelectedByUserCommand;
 
+		protected DelegateCommand _runTestCommand;
+
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
@@ -127,6 +129,18 @@ namespace gtest_gui.ViewModel
 			}
 		}
 
+		public DelegateCommand RunTestCommand
+		{
+			get
+			{
+				if (null == this._runTestCommand)
+				{
+					this._runTestCommand = new DelegateCommand(this.RunTestCommandExecute);
+				}
+				return this._runTestCommand;
+			}
+		}
+
 		/// <summary>
 		/// Actual command function to select target test file.
 		/// </summary>
@@ -161,6 +175,15 @@ namespace gtest_gui.ViewModel
 			{
 				this.CanRunTest = false;
 			}
+		}
+
+		public void RunTestCommandExecute()
+		{
+			var runner = new TestRunner
+			{
+				Target = this.TestFilePath
+			};
+			runner.Run(this.TestInfo);
 		}
 	}
 }

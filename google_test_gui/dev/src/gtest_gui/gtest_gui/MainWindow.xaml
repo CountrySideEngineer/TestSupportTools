@@ -79,6 +79,7 @@
             <Button Content="実行"
                     Style="{StaticResource ButtonCommonStyle}"
                     IsEnabled="{Binding CanRunTest, Mode=TwoWay}"
+                    Command="{Binding RunTestCommand}"
                     />
         </StackPanel>
     </Grid>

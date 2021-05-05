@@ -51,22 +51,41 @@ namespace gtest_gui.Model
         /// <summary>
         /// Run test.
         /// </summary>
-        public void Run()
+        public void Run(TestInformation information)
 		{
-            this.Run(this.Target);
+            this.Run(this.Target, information);
 		}
 
         /// <summary>
         /// Run test
         /// </summary>
         /// <param name="path">Path to fine to run.</param>
-        public virtual void Run(string path)
+        public virtual void Run(string path, TestInformation information)
 		{
-            var app = new ProcessStartInfo();
-            app.FileName = path;
-            app.UseShellExecute = true;
-
-            this.Run(app);
+            var targetTestItems = information.TestItems.Where(_ => _.IsSelected);
+            var testFilterOption = string.Empty;
+            bool isTop = true;
+            foreach (var item in targetTestItems)
+			{
+                if (isTop)
+				{
+                    testFilterOption = "--gtest_filter=";   //Option prefix to filter test case.
+				}
+				else
+				{
+                    testFilterOption += ":";
+				}
+                testFilterOption += item.Name;
+                isTop = false;
+			}
+			var app = new ProcessStartInfo
+			{
+				FileName = path,
+				UseShellExecute = false,
+				Arguments = testFilterOption,
+			};
+            Process proc = this.Run(app);
+            proc.WaitForExit();
 		}
 
         /// <summary>
