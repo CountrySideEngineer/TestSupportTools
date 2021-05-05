@@ -1,4 +1,5 @@
 ﻿using gtest_gui.Command;
+using gtest_gui.Model;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ namespace gtest_gui.ViewModel
 		/// Field of which a test can run or not.
 		/// </summary>
 		protected bool _canRunTest;
+
+		protected TestInformation _testInfo;
 
 		protected DelegateCommand _setTestFileByUserCommand;
 
@@ -46,6 +49,19 @@ namespace gtest_gui.ViewModel
 			{
 				this._testFilePath = value;
 				this.RaisePropertyChanged("TestFilePath");
+			}
+		}
+
+		public TestInformation TestInfo
+		{
+			get
+			{
+				return this._testInfo;
+			}
+			set
+			{
+				this._testInfo = value;
+				this.RaisePropertyChanged("TestInfo");
 			}
 		}
 
@@ -91,7 +107,12 @@ namespace gtest_gui.ViewModel
 			if (true == dialog.ShowDialog())
 			{
 				this.TestFilePath = dialog.FileName;
+
+				var runner = new TestRunner();
+				TestInformation testInfo = runner.GetTestList(this.TestFilePath);
+				this.TestInfo = testInfo;
 			}
+
 		}
 	}
 }
