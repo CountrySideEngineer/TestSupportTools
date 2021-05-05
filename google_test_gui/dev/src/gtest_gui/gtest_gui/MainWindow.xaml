@@ -45,6 +45,7 @@
             <Button Grid.Column="2"
                     Content="参照"
                     Style="{StaticResource ButtonCommonStyle}"
+                    Command="{Binding SetTestFileByUserCommand}"
                     />
         </Grid>
         <DataGrid x:Name="dataGrid" 

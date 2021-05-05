@@ -1,5 +1,8 @@
-﻿using System;
+﻿using gtest_gui.Command;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace gtest_gui.ViewModel
@@ -18,6 +21,8 @@ namespace gtest_gui.ViewModel
 		/// Field of which a test can run or not.
 		/// </summary>
 		protected bool _canRunTest;
+
+		protected DelegateCommand _setTestFileByUserCommand;
 
 		/// <summary>
 		/// Default constructor.
@@ -57,6 +62,35 @@ namespace gtest_gui.ViewModel
 			{
 				this._canRunTest = value;
 				this.RaisePropertyChanged("CanRunTest");
+			}
+		}
+
+		/// <summary>
+		/// Command to let user to select target test file.
+		/// </summary>
+		public DelegateCommand SetTestFileByUserCommand
+		{
+			get
+			{
+				if (null == this._setTestFileByUserCommand)
+				{
+					this._setTestFileByUserCommand = new DelegateCommand(this.SetTestFileByUserCommandExecute);
+				}
+				return this._setTestFileByUserCommand;
+			}
+		}
+
+		/// <summary>
+		/// Actual command function to select target test file.
+		/// </summary>
+		public void SetTestFileByUserCommandExecute()
+		{
+			var dialog = new OpenFileDialog();
+			dialog.Title = "ファイルを開く";
+			dialog.Filter = "(*.exe)|*.exe";
+			if (true == dialog.ShowDialog())
+			{
+				this.TestFilePath = dialog.FileName;
 			}
 		}
 	}
