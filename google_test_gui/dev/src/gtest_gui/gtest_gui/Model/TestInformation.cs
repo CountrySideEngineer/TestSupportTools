@@ -14,7 +14,7 @@ namespace gtest_gui.Model
 		/// <summary>
 		/// List of test items the test file specified by <para>TestFile</para> contains.
 		/// </summary>
-		public IEnumerable<TestItem> TestItems { get; protected set; }
+		public IEnumerable<TestItem> TestItems { get; set; }
 
 		/// <summary>
 		/// Default constructor.
