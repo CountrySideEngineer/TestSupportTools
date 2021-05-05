@@ -3,7 +3,9 @@ using gtest_gui.Model;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace gtest_gui.ViewModel
@@ -32,6 +34,11 @@ namespace gtest_gui.ViewModel
 		/// Delegate command to set target test file.
 		/// </summary>
 		protected DelegateCommand _setTestFileByUserCommand;
+
+		/// <summary>
+		/// Delegate command to change the test runnable state.
+		/// </summary>
+		protected DelegateCommand _changeTestSelectedByUserCommand;
 
 		/// <summary>
 		/// Default constructor.
@@ -106,13 +113,30 @@ namespace gtest_gui.ViewModel
 		}
 
 		/// <summary>
+		/// Command to let user to run test.
+		/// </summary>
+		public DelegateCommand ChangeTestSelectedByUserCommand
+		{
+			get
+			{
+				if (null == this._changeTestSelectedByUserCommand)
+				{
+					this._changeTestSelectedByUserCommand = new DelegateCommand(this.ChangeTestSelectedByUserCommandExecute);
+				}
+				return this._changeTestSelectedByUserCommand;
+			}
+		}
+
+		/// <summary>
 		/// Actual command function to select target test file.
 		/// </summary>
 		public void SetTestFileByUserCommandExecute()
 		{
-			var dialog = new OpenFileDialog();
-			dialog.Title = "ファイルを開く";
-			dialog.Filter = "(*.exe)|*.exe";
+			var dialog = new OpenFileDialog
+			{
+				Title = "ファイルを開く",
+				Filter = "(*.exe)|*.exe"
+			};
 			if (true == dialog.ShowDialog())
 			{
 				this.TestFilePath = dialog.FileName;
@@ -121,7 +145,22 @@ namespace gtest_gui.ViewModel
 				TestInformation testInfo = runner.GetTestList(this.TestFilePath);
 				this.TestInfo = testInfo;
 			}
+		}
 
+		/// <summary>
+		/// Actual command function to change the 
+		/// </summary>
+		public void ChangeTestSelectedByUserCommandExecute()
+		{
+			var selectedTest = this.TestInfo.TestItems.Where(_ => _.IsSelected == true);
+			if (0 < selectedTest.Count())
+			{
+				this.CanRunTest = true;
+			}
+			else
+			{
+				this.CanRunTest = false;
+			}
 		}
 	}
 }
