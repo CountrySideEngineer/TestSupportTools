@@ -12,7 +12,7 @@
     <!-- TextBox -->
     <Style x:Key="TextBoxCommonStyle" TargetType="TextBox">
         <Setter Property="Margin" Value="8, 16"/>
-        <Setter Property="Padding" Value="0, 8"/>
+        <Setter Property="Padding" Value="0, 0"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="TextAlignment" Value="Left"/>
