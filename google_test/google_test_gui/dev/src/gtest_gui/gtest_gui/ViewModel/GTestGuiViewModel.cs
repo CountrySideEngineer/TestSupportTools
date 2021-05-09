@@ -26,6 +26,11 @@ namespace gtest_gui.ViewModel
 		protected bool _canRunTest;
 
 		/// <summary>
+		/// Field of which a test data can reload or not.
+		/// </summary>
+		protected bool _canReloadTest;
+
+		/// <summary>
 		/// Field of test information.
 		/// </summary>
 		protected TestInformation _testInfo;
@@ -43,12 +48,18 @@ namespace gtest_gui.ViewModel
 		protected DelegateCommand _runTestCommand;
 
 		/// <summary>
+		/// Load test data from test execution file.
+		/// </summary>
+		protected DelegateCommand _loadTestCommand;
+
+		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		public GTestGuiViewModel()
 		{
 			this.TestFilePath = string.Empty;
 			this.CanRunTest = false;
+			this.CanReloadTest = false;
 		}
 
 		/// <summary>
@@ -100,6 +111,22 @@ namespace gtest_gui.ViewModel
 		}
 
 		/// <summary>
+		/// Gets a value indicating whether the test datas can be reload or not.
+		/// </summary>
+		public bool CanReloadTest
+		{
+			get
+			{
+				return this._canReloadTest;
+			}
+			set
+			{
+				this._canReloadTest = value;
+				this.RaisePropertyChanged("CanReloadTest");
+			}
+		}
+
+		/// <summary>
 		/// Command to let user to select target test file.
 		/// </summary>
 		public DelegateCommand SetTestFileByUserCommand
@@ -129,6 +156,9 @@ namespace gtest_gui.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Execute test.
+		/// </summary>
 		public DelegateCommand RunTestCommand
 		{
 			get
@@ -138,6 +168,21 @@ namespace gtest_gui.ViewModel
 					this._runTestCommand = new DelegateCommand(this.RunTestCommandExecute);
 				}
 				return this._runTestCommand;
+			}
+		}
+
+		/// <summary>
+		/// Load test data from file.
+		/// </summary>
+		public DelegateCommand LoadTestCommand
+		{
+			get
+			{
+				if (null == this._loadTestCommand)
+				{
+					this._loadTestCommand = new DelegateCommand(this.LoadTestCommandExecute);
+				}
+				return this._loadTestCommand;
 			}
 		}
 
@@ -155,9 +200,7 @@ namespace gtest_gui.ViewModel
 			{
 				this.TestFilePath = dialog.FileName;
 
-				var runner = new TestRunner();
-				TestInformation testInfo = runner.GetTestList(this.TestFilePath);
-				this.TestInfo = testInfo;
+				this.LoadTestCommandExecute();
 			}
 		}
 
@@ -177,6 +220,9 @@ namespace gtest_gui.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Execute test.
+		/// </summary>
 		public void RunTestCommandExecute()
 		{
 			var runner = new TestRunner
@@ -184,6 +230,27 @@ namespace gtest_gui.ViewModel
 				Target = this.TestFilePath
 			};
 			runner.Run(this.TestInfo);
+		}
+
+		/// <summary>
+		/// Load test from file.
+		/// </summary>
+		public void LoadTestCommandExecute()
+		{
+			try
+			{
+				var runner = new TestRunner();
+				TestInformation testInfo = runner.GetTestList(this.TestFilePath);
+				var reader = new TestResultReader();
+				reader.ReadTest(testInfo);
+				this.TestInfo = testInfo;
+
+				this.CanReloadTest = true;
+			}
+			catch (Exception ex)
+			{
+				Debug.Write(ex.Message);
+			}
 		}
 	}
 }
