@@ -31,5 +31,33 @@ namespace gtest_gui.Model
 			this.IsSelected = false;
 			this.Result = string.Empty;
 		}
+
+		/// <summary>
+		/// Determine whether the test datas are equal.
+		/// </summary>
+		/// <param name="obj">Instance to compare</param>
+		/// <returns>Returns true if the specified object equal to the current object.
+		/// Otherwise, false.</returns>
+		public override bool Equals(object obj)
+		{
+			bool isEqual = false;
+			try
+			{
+				var src = (TestItem)obj;
+				if (this.Name.Equals(src.Name))
+				{
+					isEqual = true;
+				}
+				else
+				{
+					isEqual = false;
+				}
+			}
+			catch (InvalidCastException)
+			{
+				isEqual = false;
+			}
+			return isEqual;
+		}
 	}
 }

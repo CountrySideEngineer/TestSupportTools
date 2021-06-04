@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:gtest_gui.ViewModel"
         xmlns:local="clr-namespace:gtest_gui"
+        xmlns:converter="clr-namespace:gtest_gui.View.Converter"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
@@ -15,6 +16,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <converter:Result2EnableConverter x:Key="resultEnableConveter"/>
+            <converter:Result2VisibilityConverter x:Key="resultVisibilityConverter"/>
         </ResourceDictionary>
     </Window.Resources>
     <Grid VerticalAlignment="Stretch"
@@ -54,9 +57,13 @@
                   ColumnHeaderStyle="{StaticResource DataGridViewColumnHeaderStyle}"
                   AutoGenerateColumns="False"
                   ItemsSource="{Binding TestInfo.TestItems, Mode=TwoWay}"
+                  SelectedIndex="{Binding SelectedTestIndex}"
                   >
             <DataGrid.Columns>
-                <DataGridTemplateColumn IsReadOnly="False" Header="実行">
+                <DataGridTemplateColumn IsReadOnly="False" 
+                                        Header="実行"
+                                        CanUserResize="False"
+                                        >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -70,11 +77,30 @@
                 <DataGridTextColumn Header="テスト対象"
                                     Width="*"
                                     Binding="{Binding Name, Mode=TwoWay}"
-                                    />
+                                    ElementStyle="{StaticResource DataGridColumnTestItemNameTextStyle}" />
                 <DataGridTextColumn Header="結果"
                                     Width="80"
+                                    CanUserResize="False"
                                     Binding="{Binding Result}"
+                                    IsReadOnly="True"
+                                    ElementStyle="{StaticResource DataGridColumnCenterTextStyle}"
+                                    CellStyle="{StaticResource DataGridCellOkNgStyle}"
                                     />
+                <DataGridTemplateColumn IsReadOnly="False"
+                                        Header="履歴"
+                                        CanUserResize="False"
+                                        >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="詳細"
+                                    Style="{StaticResource DataGridColumnButtonStyle}"
+                                    IsEnabled="{Binding Result, Converter={StaticResource resultEnableConveter}}"
+                                    Visibility="{Binding Result, Converter={StaticResource resultVisibilityConverter}}"
+                                    Command="{Binding DataContext.ShowHistoryCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="2"
