@@ -1,5 +1,6 @@
 ﻿using gtest_gui.Command;
 using gtest_gui.Model;
+using gtest_gui.MoveWindow;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,11 @@ namespace gtest_gui.ViewModel
 		protected bool _canReloadTest;
 
 		/// <summary>
+		/// Current selected test index.
+		/// </summary>
+		protected int _selectedTestIndex;
+
+		/// <summary>
 		/// Field of test information.
 		/// </summary>
 		protected TestInformation _testInfo;
@@ -46,6 +52,8 @@ namespace gtest_gui.ViewModel
 		protected DelegateCommand _changeTestSelectedByUserCommand;
 
 		protected DelegateCommand _runTestCommand;
+
+		protected DelegateCommand _showHistoryCommand;
 
 		/// <summary>
 		/// Load test data from test execution file.
@@ -127,6 +135,22 @@ namespace gtest_gui.ViewModel
 		}
 
 		/// <summary>
+		/// Current selected test index.
+		/// </summary>
+		public int SelectedTestIndex
+		{
+			get
+			{
+				return this._selectedTestIndex;
+			}
+			set
+			{
+				this._selectedTestIndex = value;
+				this.RaisePropertyChanged(nameof(SelectedTestIndex));
+			}
+		}
+
+		/// <summary>
 		/// Command to let user to select target test file.
 		/// </summary>
 		public DelegateCommand SetTestFileByUserCommand
@@ -186,6 +210,18 @@ namespace gtest_gui.ViewModel
 			}
 		}
 
+		public DelegateCommand ShowHistoryCommand
+		{
+			get
+			{
+				if (null == this._showHistoryCommand)
+				{
+					this._showHistoryCommand = new DelegateCommand(this.ShowHistoryCommandExecute);
+				}
+				return this._showHistoryCommand;
+			}
+		}
+
 		/// <summary>
 		/// Actual command function to select target test file.
 		/// </summary>
@@ -230,6 +266,7 @@ namespace gtest_gui.ViewModel
 				Target = this.TestFilePath
 			};
 			runner.Run(this.TestInfo);
+			this.LoadTestCommandExecute();
 		}
 
 		/// <summary>
@@ -243,6 +280,16 @@ namespace gtest_gui.ViewModel
 				TestInformation testInfo = runner.GetTestList(this.TestFilePath);
 				var reader = new TestResultReader();
 				reader.ReadTest(testInfo);
+				if (null != this.TestInfo)
+				{
+					foreach (var testItem in this.TestInfo.TestItems)
+					{
+						var newTestItem = testInfo.TestItems
+							.Where(_ => _.Equals(testItem))
+							.FirstOrDefault();
+						newTestItem.IsSelected = testItem.IsSelected;
+					}
+				}
 				this.TestInfo = testInfo;
 
 				this.CanReloadTest = true;
@@ -251,6 +298,12 @@ namespace gtest_gui.ViewModel
 			{
 				Debug.Write(ex.Message);
 			}
+		}
+
+		public void ShowHistoryCommandExecute()
+		{
+			var mover = new Move2History();
+			mover.Move(this);
 		}
 	}
 }
