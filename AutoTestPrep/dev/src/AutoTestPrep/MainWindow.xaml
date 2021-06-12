@@ -13,37 +13,39 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <DockPanel
-        VerticalAlignment="Top"
-        HorizontalAlignment="Stretch" 
-        >
-        <Menu DockPanel.Dock="Top"
-              Style="{StaticResource Menu_MenuBar}"
-              >
-            <MenuItem Header="ファイル"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Menu Style="{StaticResource Menu_MenuBar}"
+                  >
+                <MenuItem Header="ファイル"
                       Style="{StaticResource MenuItem_MenuBar}"
                       >
-                <MenuItem Header="新規作成"
+                    <MenuItem Header="新規作成"
                           Style="{StaticResource MenuItem_MenuItem}"
                           />
-                <MenuItem Header="開く"
+                    <MenuItem Header="開く"
                           Style="{StaticResource MenuItem_MenuItem}"
                           />
-                <Separator/>
-                <MenuItem Header="名前をつけて保存"
+                    <Separator/>
+                    <MenuItem Header="名前をつけて保存"
                           Style="{StaticResource MenuItem_MenuItem}"
                           />
-                <MenuItem Header="上書き保存"
+                    <MenuItem Header="上書き保存"
                           Style="{StaticResource MenuItem_MenuItem}"
                           />
-                <Separator/>
-                <MenuItem Header="終了"
+                    <Separator/>
+                    <MenuItem Header="終了"
                           Style="{StaticResource MenuItem_MenuItem}"
                           />
-            </MenuItem>
-            <MenuItem Header="実行"
+                </MenuItem>
+                <MenuItem Header="実行"
                       Style="{StaticResource MenuItem_MenuBar}"
                       />
-        </Menu>
-    </DockPanel>
+            </Menu>
+        </Grid>
+    </Grid>
 </Window>
