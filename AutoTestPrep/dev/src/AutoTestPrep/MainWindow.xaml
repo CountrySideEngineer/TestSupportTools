@@ -5,8 +5,45 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoTestPrep"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="AutoTestPrep" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="./Resource/Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <DockPanel
+        VerticalAlignment="Top"
+        HorizontalAlignment="Stretch" 
+        >
+        <Menu DockPanel.Dock="Top"
+              Style="{StaticResource Menu_MenuBar}"
+              >
+            <MenuItem Header="ファイル"
+                      Style="{StaticResource MenuItem_MenuBar}"
+                      >
+                <MenuItem Header="新規作成"
+                          Style="{StaticResource MenuItem_MenuItem}"
+                          />
+                <MenuItem Header="開く"
+                          Style="{StaticResource MenuItem_MenuItem}"
+                          />
+                <Separator/>
+                <MenuItem Header="名前をつけて保存"
+                          Style="{StaticResource MenuItem_MenuItem}"
+                          />
+                <MenuItem Header="上書き保存"
+                          Style="{StaticResource MenuItem_MenuItem}"
+                          />
+                <Separator/>
+                <MenuItem Header="終了"
+                          Style="{StaticResource MenuItem_MenuItem}"
+                          />
+            </MenuItem>
+            <MenuItem Header="実行"
+                      Style="{StaticResource MenuItem_MenuBar}"
+                      />
+        </Menu>
+    </DockPanel>
 </Window>
