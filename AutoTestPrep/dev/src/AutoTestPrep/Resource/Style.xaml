@@ -17,4 +17,34 @@
         <Setter Property="Padding" Value="0, 0"/>
         <Setter Property="BorderThickness" Value="0"/>
     </Style>
+    <!-- リストアイテム -->
+    <Style TargetType="ListBox" x:Key="ListBox_BaseStyle">
+        <Setter Property="Margin" Value="8"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    </Style>
+    <Style TargetType="ListBoxItem" x:Key="ListBoxItem_BaseStyle">
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="0, 8"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border Background="{TemplateBinding Background}">
+                        <ContentPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="LightSkyBlue"/>
+                <Setter Property="Foreground" Value="DimGray"/>
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="DodgerBlue"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>
