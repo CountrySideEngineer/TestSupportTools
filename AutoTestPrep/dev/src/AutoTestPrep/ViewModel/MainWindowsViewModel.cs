@@ -21,7 +21,7 @@ namespace AutoTestPrep.ViewModel
 				"スタブ情報",
 				"ヘッダ情報"
 			};
-			this.SelectedConfigurationItemIndex = 1;
+			this.SelectedConfigurationItemIndex = 0;
 			
 		}
 		public ObservableCollection<string> TestConfigurationItems
