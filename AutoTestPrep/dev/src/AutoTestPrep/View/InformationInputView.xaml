@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AutoTestPrep.View"
+            xmlns:vm="clr-namespace:AutoTestPrep.ViewModel"
              mc:Ignorable="d" 
              MinHeight="50"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="64" d:DesignWidth="800">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -14,6 +15,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
+    <UserControl.DataContext>
+        <vm:InformationInputViewModel/>
+    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="24"/>
@@ -23,12 +27,12 @@
         <TextBlock Grid.Row="0"
                    Style="{StaticResource ResourceKey=TextBlock_InputItemTitle}"
                    Margin="0"
-                   Text="{Binding InputItemTitle}"
+                   Text="{Binding Path=InputItemTitle}"
                    />
         <TextBox Grid.Row="1"
                  Style="{StaticResource ResourceKey=TextBox_ItemItem}"
                  Margin="0"
-                 Text="INput"
+                 Text="{Binding Path=InputItem}"
                  />
     </Grid>
 </UserControl>

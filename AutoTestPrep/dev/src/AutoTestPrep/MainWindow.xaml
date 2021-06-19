@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoTestPrep"
         xmlns:vm="clr-namespace:AutoTestPrep.ViewModel"
+        xmlns:uc="clr-namespace:AutoTestPrep.View"
         mc:Ignorable="d"
         Title="AutoTestPrep" Height="450" Width="800">
     <Window.Resources>
@@ -62,6 +63,9 @@
                      ItemContainerStyle="{StaticResource ListBoxItem_BaseStyle}"
                      >
             </ListBox>
+            <uc:TestInformationInputView Grid.Column="2"
+                                         DataContext="{Binding Path=TestInformationInputVM}"
+                                         />
         </Grid>
     </Grid>
 </Window>

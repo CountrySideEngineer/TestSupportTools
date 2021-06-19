@@ -13,6 +13,8 @@ namespace AutoTestPrep.ViewModel
 		protected ObservableCollection<string> _testConfigurationItems;
 		protected int _selectedConfigurationItemIndex;
 
+		protected TestInformationInputViewModel _TestInformationInputVM;
+
 		public MainWindowsViewModel()
 		{
 			this.TestConfigurationItems = new ObservableCollection<string>
@@ -22,6 +24,8 @@ namespace AutoTestPrep.ViewModel
 				"ヘッダ情報"
 			};
 			this.SelectedConfigurationItemIndex = 0;
+
+			this.TestInformationInputVM = new TestInformationInputViewModel();
 			
 		}
 		public ObservableCollection<string> TestConfigurationItems
@@ -46,6 +50,22 @@ namespace AutoTestPrep.ViewModel
 			{
 				this._selectedConfigurationItemIndex = value;
 				this.RaisePropertyChanged(nameof(_selectedConfigurationItemIndex));
+			}
+		}
+
+		/// <summary>
+		/// Property of view model object about test information input.
+		/// </summary>
+		public TestInformationInputViewModel TestInformationInputVM
+		{
+			get
+			{
+				return this._TestInformationInputVM;
+			}
+			set
+			{
+				this._TestInformationInputVM = value;
+				this.RaisePropertyChanged(nameof(TestInformationInputVM));
 			}
 		}
 	}
