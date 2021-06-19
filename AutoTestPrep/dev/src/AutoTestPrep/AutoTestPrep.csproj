@@ -97,8 +97,14 @@
     <Compile Include="View\BufferSizeView.xaml.cs">
       <DependentUpon>BufferSizeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\HeaderInformationInputView.xaml.cs">
+      <DependentUpon>HeaderInformationInputView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\InformationInputView.xaml.cs">
       <DependentUpon>InformationInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MultiLineInputView.xaml.cs">
+      <DependentUpon>MultiLineInputView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SizeInputView.xaml.cs">
       <DependentUpon>SizeInputView.xaml</DependentUpon>
@@ -126,7 +132,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\HeaderInformationInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\InformationInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MultiLineInputView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
