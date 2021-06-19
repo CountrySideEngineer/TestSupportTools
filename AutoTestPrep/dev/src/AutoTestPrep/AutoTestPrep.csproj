@@ -92,8 +92,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\BufferSizeViewModel.cs" />
+    <Compile Include="ViewModel\HeaderInformationInputViewModel.cs" />
     <Compile Include="ViewModel\InformationInputViewModel.cs" />
     <Compile Include="ViewModel\MainWindowsViewModel.cs" />
+    <Compile Include="ViewModel\MultiLineInputViewModel.cs" />
+    <Compile Include="ViewModel\SizeInputViewModel.cs" />
     <Compile Include="ViewModel\TestInformationInputViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\BufferSizeView.xaml.cs">

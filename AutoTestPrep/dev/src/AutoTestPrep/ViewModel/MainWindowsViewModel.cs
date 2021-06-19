@@ -15,6 +15,10 @@ namespace AutoTestPrep.ViewModel
 
 		protected TestInformationInputViewModel _TestInformationInputVM;
 
+		protected BufferSizeViewModel _BufferSizeVM;
+
+		protected HeaderInformationInputViewModel _HeaderInformationVM;
+
 		public MainWindowsViewModel()
 		{
 			this.TestConfigurationItems = new ObservableCollection<string>
@@ -26,8 +30,10 @@ namespace AutoTestPrep.ViewModel
 			this.SelectedConfigurationItemIndex = 0;
 
 			this.TestInformationInputVM = new TestInformationInputViewModel();
-			
+			this.BufferSizeVM = new BufferSizeViewModel();
+			this.HeaderInformationVM = new HeaderInformationInputViewModel();
 		}
+
 		public ObservableCollection<string> TestConfigurationItems
 		{
 			get
@@ -66,6 +72,38 @@ namespace AutoTestPrep.ViewModel
 			{
 				this._TestInformationInputVM = value;
 				this.RaisePropertyChanged(nameof(TestInformationInputVM));
+			}
+		}
+
+		/// <summary>
+		/// Property of view model object about buffer size input.
+		/// </summary>
+		public BufferSizeViewModel BufferSizeVM
+		{
+			get
+			{
+				return this._BufferSizeVM;
+			}
+			set
+			{
+				this._BufferSizeVM = value;
+				this.RaisePropertyChanged(nameof(BufferSizeVM));
+			}
+		}
+
+		/// <summary>
+		/// Property of view model of header files.
+		/// </summary>
+		public HeaderInformationInputViewModel HeaderInformationVM
+		{
+			get
+			{
+				return this._HeaderInformationVM;
+			}
+			set
+			{
+				this._HeaderInformationVM = value;
+				this.RaisePropertyChanged(nameof(HeaderInformationVM));
 			}
 		}
 	}

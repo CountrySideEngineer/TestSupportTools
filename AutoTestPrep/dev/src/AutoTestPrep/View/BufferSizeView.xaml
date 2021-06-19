@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AutoTestPrep.View"
+             xmlns:vm="clr-namespace:AutoTestPrep.ViewModel"
              mc:Ignorable="d" 
              MinHeight="128"
              d:DesignHeight="160" d:DesignWidth="400">
@@ -14,6 +15,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
+    <UserControl.DataContext>
+        <vm:BufferSizeViewModel/>
+    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="64"/>
@@ -22,9 +26,11 @@
         </Grid.RowDefinitions>
         <local:SizeInputView Grid.Row="0"
                              Margin="8"
+                             DataContext="{Binding Path=BufferSize1VM}"
                              />
         <local:SizeInputView Grid.Row="1"
                              Margin="8"
+                             DataContext="{Binding Path=BufferSize2VM}"
                              />
 
     </Grid>

@@ -63,9 +63,19 @@
                      ItemContainerStyle="{StaticResource ListBoxItem_BaseStyle}"
                      >
             </ListBox>
-            <uc:TestInformationInputView Grid.Column="2"
-                                         DataContext="{Binding Path=TestInformationInputVM}"
-                                         />
+            <StackPanel Orientation="Horizontal"
+                        Grid.Column="1"
+                        >
+                <uc:TestInformationInputView Grid.Column="2"
+                                             DataContext="{Binding Path=TestInformationInputVM}"
+                                             />
+                <uc:BufferSizeView Grid.Column="2"
+                                   DataContext="{Binding Path=BufferSizeVM}"/>
+                <uc:HeaderInformationInputView Grid.Column="2"
+                                               DataContext="{Binding Path=HeaderInformationVM}"
+                                               />
+
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

@@ -4,8 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AutoTestPrep.View"
+             xmlns:vm="clr-namespace:AutoTestPrep.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             MinWidth="120"
+             d:DesignHeight="450" d:DesignWidth="400">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -13,14 +15,21 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
+    <UserControl.DataContext>
+        <vm:HeaderInformationInputViewModel/>
+    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <local:MultiLineInputView Grid.Row="0"
-                                  Margin="8"/>
+                                  Margin="8"
+                                  DataContext="{Binding Path=StandartHeaderVM}"
+                                  />
         <local:MultiLineInputView Grid.Row="1"
-                                  Margin="8"/>
+                                  Margin="8"
+                                  DataContext="{Binding Path=UserHeaderVM}"
+                                  />
     </Grid>
 </UserControl>
