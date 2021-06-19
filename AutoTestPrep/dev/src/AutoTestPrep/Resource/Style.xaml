@@ -68,13 +68,19 @@
     <Style TargetType="TextBox" x:Key="TextBox_Base">
         <Setter Property="Margin" Value="8"/>
         <Setter Property="FontSize" Value="14"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="1"/>
     </Style>
-    <Style TargetType="TextBox" x:Key="TextBox_InputItem" BasedOn="{StaticResource TextBox_Base}">
+    <Style TargetType="TextBox" x:Key="TextBox_ItemItem" BasedOn="{StaticResource TextBox_Base}">
         <Setter Property="VerticalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        <Setter Property="BorderBrush" Value="Black"/>
-        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+    <Style TargetType="TextBox" x:Key="TextBox_NumberItemInput" BasedOn="{StaticResource TextBox_Base}">
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Right"/>
     </Style>
 </ResourceDictionary>

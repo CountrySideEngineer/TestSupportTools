@@ -94,8 +94,14 @@
     </ApplicationDefinition>
     <Compile Include="ViewModel\MainWindowsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="View\BufferSizeView.xaml.cs">
+      <DependentUpon>BufferSizeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\InformationInputView.xaml.cs">
       <DependentUpon>InformationInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SizeInputView.xaml.cs">
+      <DependentUpon>SizeInputView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TestInformationInputView.xaml.cs">
       <DependentUpon>TestInformationInputView.xaml</DependentUpon>
@@ -116,7 +122,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\BufferSizeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\InformationInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SizeInputView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
