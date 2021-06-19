@@ -10,7 +10,7 @@ namespace AutoTestPrep.ViewModel
 	/// <summary>
 	/// View model class of HeaderInforamtionView
 	/// </summary>
-	public class HeaderInformationInputViewModel : ViewModelBase
+	public class HeaderInformationInputViewModel : AutoTestPrepViewModelBase
 	{
 		/// <summary>
 		/// Field of standard header view model.
@@ -25,11 +25,15 @@ namespace AutoTestPrep.ViewModel
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public HeaderInformationInputViewModel()
+		public HeaderInformationInputViewModel() : this(-1) { }
+
+		public HeaderInformationInputViewModel(int index) : base(index)
 		{
 			this.StandartHeaderVM = new MultiLineInputViewModel("標準ヘッダ：", string.Empty);
 			this.UserHeaderVM = new MultiLineInputViewModel("ユーザヘッダ", string.Empty);
 		}
+
+
 
 		/// <summary>
 		/// Property of standar header view model.

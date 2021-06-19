@@ -10,11 +10,13 @@
         Title="AutoTestPrep" Height="450" Width="800">
     <Window.Resources>
         <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BoolVisibilityConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="./Resource/Style.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+
     <Window.DataContext>
         <vm:MainWindowsViewModel/>
     </Window.DataContext>
@@ -63,19 +65,22 @@
                      ItemContainerStyle="{StaticResource ListBoxItem_BaseStyle}"
                      >
             </ListBox>
-            <StackPanel Orientation="Horizontal"
-                        Grid.Column="1"
-                        >
-                <uc:TestInformationInputView Grid.Column="2"
+            <DockPanel Grid.Column="1"
+                       >
+                <uc:TestInformationInputView HorizontalAlignment="Stretch"
                                              DataContext="{Binding Path=TestInformationInputVM}"
+                                             Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolVisibilityConverter}}"
                                              />
-                <uc:BufferSizeView Grid.Column="2"
-                                   DataContext="{Binding Path=BufferSizeVM}"/>
-                <uc:HeaderInformationInputView Grid.Column="2"
+                <uc:BufferSizeView HorizontalAlignment="Stretch"
+                                   DataContext="{Binding Path=BufferSizeVM}"
+                                   Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolVisibilityConverter}}"
+                                   />
+                <uc:HeaderInformationInputView HorizontalAlignment="Stretch"
                                                DataContext="{Binding Path=HeaderInformationVM}"
+                                               Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolVisibilityConverter}}"
                                                />
 
-            </StackPanel>
+            </DockPanel>
         </Grid>
     </Grid>
 </Window>

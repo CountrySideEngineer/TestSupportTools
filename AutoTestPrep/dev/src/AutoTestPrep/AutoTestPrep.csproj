@@ -92,6 +92,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\EventArgs\SelectedStateChangedEventArgs.cs" />
+    <Compile Include="Model\VisibilityConverter.cs" />
+    <Compile Include="ViewModel\AutoTestPrepViewModelBase.cs" />
     <Compile Include="ViewModel\BufferSizeViewModel.cs" />
     <Compile Include="ViewModel\HeaderInformationInputViewModel.cs" />
     <Compile Include="ViewModel\InformationInputViewModel.cs" />

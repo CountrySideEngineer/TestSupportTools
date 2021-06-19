@@ -10,7 +10,7 @@ namespace AutoTestPrep.ViewModel
 	/// <summary>
 	/// View model about test information input view.
 	/// </summary>
-	public class TestInformationInputViewModel : ViewModelBase
+	public class TestInformationInputViewModel : AutoTestPrepViewModelBase
 	{
 		/// <summary>
 		/// Field of view model about input file path.
@@ -25,7 +25,9 @@ namespace AutoTestPrep.ViewModel
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public TestInformationInputViewModel()
+		public TestInformationInputViewModel() : this(-1) { }
+
+		public TestInformationInputViewModel(int index) : base(index)
 		{
 			this.InputiFilePathVM = new InformationInputViewModel("入力(テスト定義ファイル)：", string.Empty);
 			this.OutputPathVM = new InformationInputViewModel("出力ファイル：", string.Empty);

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AutoTestPrep.ViewModel
 {
-	public class BufferSizeViewModel : ViewModelBase
+	public class BufferSizeViewModel : AutoTestPrepViewModelBase
 	{
 		/// <summary>
 		/// Field of view model of buffer size 1.
@@ -22,7 +22,9 @@ namespace AutoTestPrep.ViewModel
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public BufferSizeViewModel()
+		public BufferSizeViewModel() : this(-1) { }
+
+		public BufferSizeViewModel(int index) : base(index)
 		{
 			this.BufferSize1VM = new SizeInputViewModel("バッファサイズ1", 0);
 			this.BufferSize2VM = new SizeInputViewModel("バッファサイズ2", 0);
