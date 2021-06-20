@@ -24,7 +24,6 @@ namespace AutoTestPrep.ViewModel
 
 		protected IEnumerable<ViewModelBase> viewModels;
 
-
 		public delegate void SelectedChangedEventHandler(object sender, SelectedStateChangedEventArgs e);
 		public event SelectedChangedEventHandler SelectedChanged;
 
@@ -36,18 +35,16 @@ namespace AutoTestPrep.ViewModel
 				"スタブ情報",
 				"ヘッダ情報"
 			};
-			this.SelectedConfigurationItemIndex = 0;
 
 			this.TestInformationInputVM = new TestInformationInputViewModel(0);
 			this.BufferSizeVM = new BufferSizeViewModel(1);
 			this.HeaderInformationVM = new HeaderInformationInputViewModel(2);
-			this.PropertyChanged += this.PropertyChangedEventHandler;
-
 			this.SelectedChanged += TestInformationInputVM.SelectedStateChangedEventHandler;
 			this.SelectedChanged += BufferSizeVM.SelectedStateChangedEventHandler;
 			this.SelectedChanged += HeaderInformationVM.SelectedStateChangedEventHandler;
-		}
 
+			this.SelectedConfigurationItemIndex = 0;
+		}
 
 		public ObservableCollection<string> TestConfigurationItems
 		{
@@ -72,6 +69,9 @@ namespace AutoTestPrep.ViewModel
 			{
 				this._selectedConfigurationItemIndex = value;
 				this.RaisePropertyChanged(nameof(SelectedConfigurationItemIndex));
+
+				var eventArgs = new SelectedStateChangedEventArgs(-1, this.SelectedConfigurationItemIndex);
+				this.SelectedChanged?.Invoke(this, eventArgs);
 			}
 		}
 
@@ -120,17 +120,6 @@ namespace AutoTestPrep.ViewModel
 			{
 				this._HeaderInformationVM = value;
 				this.RaisePropertyChanged(nameof(HeaderInformationVM));
-			}
-		}
-
-		public void PropertyChangedEventHandler(object sender, EventArgs e)
-		{
-			var propertyChangedEventArg = e as PropertyChangedEventArgs;
-			string propertyName = propertyChangedEventArg.PropertyName;
-			if (propertyName.Equals(nameof(SelectedConfigurationItemIndex)))
-			{
-				var eventArgs = new SelectedStateChangedEventArgs(-1, this.SelectedConfigurationItemIndex);
-				this.SelectedChanged?.Invoke(this, eventArgs);
 			}
 		}
 	}

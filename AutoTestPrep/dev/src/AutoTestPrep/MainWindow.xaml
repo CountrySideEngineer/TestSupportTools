@@ -65,22 +65,21 @@
                      ItemContainerStyle="{StaticResource ListBoxItem_BaseStyle}"
                      >
             </ListBox>
-            <DockPanel Grid.Column="1"
-                       >
-                <uc:TestInformationInputView HorizontalAlignment="Stretch"
+            <uc:TestInformationInputView Grid.Column="1"
+                                             HorizontalAlignment="Stretch"
                                              DataContext="{Binding Path=TestInformationInputVM}"
                                              Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolVisibilityConverter}}"
                                              />
-                <uc:BufferSizeView HorizontalAlignment="Stretch"
+            <uc:BufferSizeView Grid.Column="1"
+                                   HorizontalAlignment="Stretch"
                                    DataContext="{Binding Path=BufferSizeVM}"
                                    Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolVisibilityConverter}}"
                                    />
-                <uc:HeaderInformationInputView HorizontalAlignment="Stretch"
+            <uc:HeaderInformationInputView Grid.Column="1"
+                                               HorizontalAlignment="Stretch"
                                                DataContext="{Binding Path=HeaderInformationVM}"
                                                Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolVisibilityConverter}}"
                                                />
-
-            </DockPanel>
         </Grid>
     </Grid>
 </Window>
