@@ -1,4 +1,5 @@
-﻿using CSEngineer.ViewModel;
+﻿using AutoTestPrep.Model.InputInfos;
+using CSEngineer.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,6 +91,12 @@ namespace AutoTestPrep.ViewModel
 			{
 				this.BufferSize2VM.ItemValue = value;
 			}
+		}
+
+		public override void SetupTestInfomation(ref TestDataInfo testDataInfo)
+		{
+			testDataInfo.StubBufferSize1 = this.BufferSize1;
+			testDataInfo.StubBufferSize1 = this.BufferSize2;
 		}
 	}
 }

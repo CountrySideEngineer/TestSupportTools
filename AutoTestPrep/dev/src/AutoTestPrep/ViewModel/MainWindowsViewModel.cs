@@ -67,6 +67,8 @@ namespace AutoTestPrep.ViewModel
 			this.SelectedChanged += HeaderInformationVM.SelectedStateChangedEventHandler;
 
 			this.SetupTestInformationReq += this.TestInformationInputVM.SetupTestInfomation;
+			this.SetupTestInformationReq += this.BufferSizeVM.SetupTestInfomation;
+			this.SetupTestInformationReq += this.HeaderInformationVM.SetupTestInfomation;
 
 			this.SelectedConfigurationItemIndex = 0;
 		}

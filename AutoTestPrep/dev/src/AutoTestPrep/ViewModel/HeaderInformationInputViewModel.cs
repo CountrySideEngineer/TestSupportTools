@@ -1,4 +1,5 @@
-﻿using CSEngineer.ViewModel;
+﻿using AutoTestPrep.Model.InputInfos;
+using CSEngineer.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,8 +33,6 @@ namespace AutoTestPrep.ViewModel
 			this.StandartHeaderVM = new MultiLineInputViewModel("標準ヘッダ：", string.Empty);
 			this.UserHeaderVM = new MultiLineInputViewModel("ユーザヘッダ", string.Empty);
 		}
-
-
 
 		/// <summary>
 		/// Property of standar header view model.
@@ -95,6 +94,18 @@ namespace AutoTestPrep.ViewModel
 			{
 				this.UserHeaderVM.InputItem = value;
 			}
+		}
+
+		public override void SetupTestInfomation(ref TestDataInfo testDataInfo)
+		{
+			testDataInfo.DriverIncludeStandardHeaderFiles = this.ToEnumrable(this.StandartHeader);
+			testDataInfo.DriverIncludeUserHeaderFiles = this.ToEnumrable(this.UserHeader);
+		}
+
+		protected IEnumerable<string> ToEnumrable(string inputData)
+		{
+			var enumerableValue = inputData.Replace("\r\n", "\n").Split(new[] { '\n', '\r' });
+			return enumerableValue;
 		}
 	}
 }
