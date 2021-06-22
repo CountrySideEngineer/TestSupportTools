@@ -30,7 +30,7 @@
         <TextBox Grid.Row="1"
                  Style="{StaticResource ResourceKey=TextBox_MultiLineInput}"
                  Margin="8"
-                 Text="{Binding InputItem}"
+                 Text="{Binding InputItem, UpdateSourceTrigger=PropertyChanged}"
                  />
     </Grid>
 </UserControl>

@@ -32,7 +32,7 @@
         <TextBox Grid.Row="1"
                  Style="{StaticResource ResourceKey=TextBox_ItemItem}"
                  Margin="0"
-                 Text="{Binding Path=InputItem}"
+                 Text="{Binding Path=InputItem, UpdateSourceTrigger=PropertyChanged}"
                  />
     </Grid>
 </UserControl>

@@ -36,7 +36,7 @@
                  Margin="0"
                  Padding="8, 0"
                  Width="96"
-                 Text="{Binding Path=ItemValue}"
+                 Text="{Binding Path=ItemValue, UpdateSourceTrigger=PropertyChanged}"
                  InputMethod.IsInputMethodEnabled="False"
                  PreviewTextInput="TextBox_PreviewTextInput"
                  CommandManager.PreviewExecuted="TextBox_PreviewExecuted"
