@@ -1,5 +1,7 @@
 ﻿using AutoTestPrep.Model.EventArgs;
+using AutoTestPrep.Model.InputInfos;
 using CSEngineer.ViewModel;
+using CStubMKGui.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,17 +18,38 @@ namespace AutoTestPrep.ViewModel
 		protected ObservableCollection<string> _testConfigurationItems;
 		protected int _selectedConfigurationItemIndex;
 
+		/// <summary>
+		/// View model of test inforamtion input view.
+		/// </summary>
 		protected TestInformationInputViewModel _TestInformationInputVM;
 
+		/// <summary>
+		/// View model field to input stub buffer size.
+		/// </summary>
 		protected BufferSizeViewModel _BufferSizeVM;
 
+		/// <summary>
+		/// View model field to input header file information.
+		/// </summary>
 		protected HeaderInformationInputViewModel _HeaderInformationVM;
 
-		protected IEnumerable<ViewModelBase> viewModels;
+		protected DelegateCommand _RunCommand;
 
+
+		/// <summary>
+		/// Event handler to handle a event 
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		public delegate void SelectedChangedEventHandler(object sender, SelectedStateChangedEventArgs e);
 		public event SelectedChangedEventHandler SelectedChanged;
 
+		public delegate void SetupTestInformationRequest(ref TestDataInfo testDataInf);
+		public event SetupTestInformationRequest SetupTestInformationReq;
+
+		/// <summary>
+		/// Default consttuctor
+		/// </summary>
 		public MainWindowsViewModel()
 		{
 			this.TestConfigurationItems = new ObservableCollection<string>
@@ -42,6 +65,8 @@ namespace AutoTestPrep.ViewModel
 			this.SelectedChanged += TestInformationInputVM.SelectedStateChangedEventHandler;
 			this.SelectedChanged += BufferSizeVM.SelectedStateChangedEventHandler;
 			this.SelectedChanged += HeaderInformationVM.SelectedStateChangedEventHandler;
+
+			this.SetupTestInformationReq += this.TestInformationInputVM.SetupTestInfomation;
 
 			this.SelectedConfigurationItemIndex = 0;
 		}
@@ -121,6 +146,31 @@ namespace AutoTestPrep.ViewModel
 				this._HeaderInformationVM = value;
 				this.RaisePropertyChanged(nameof(HeaderInformationVM));
 			}
+		}
+
+		public DelegateCommand RunCommand
+		{
+			get
+			{
+				if (null == this._RunCommand)
+				{
+					this._RunCommand = new DelegateCommand(this.RunCommandExecute, this.CanRunCommandExecute);
+				}
+				return this._RunCommand;
+			}
+		}
+
+		public void RunCommandExecute()
+		{
+			var testDataInfo = new TestDataInfo();
+			this.SetupTestInformationReq?.Invoke(ref testDataInfo);
+
+			Debug.WriteLine("RunCommandExecute()");
+		}
+
+		public bool CanRunCommandExecute()
+		{
+			return true;
 		}
 	}
 }

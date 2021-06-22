@@ -1,4 +1,5 @@
 ﻿using AutoTestPrep.Model.EventArgs;
+using AutoTestPrep.Model.InputInfos;
 using CSEngineer.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -44,5 +45,7 @@ namespace AutoTestPrep.ViewModel
 				this.RaisePropertyChanged(nameof(IsSelected));
 			}
 		}
+
+		public virtual void SetupTestInfomation(ref TestDataInfo testDataInfo) { }
 	}
 }

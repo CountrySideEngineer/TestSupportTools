@@ -1,4 +1,5 @@
-﻿using CSEngineer.ViewModel;
+﻿using AutoTestPrep.Model.InputInfos;
+using CSEngineer.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -93,6 +94,12 @@ namespace AutoTestPrep.ViewModel
 			{
 				this.OutputPathVM.InputItem = value;
 			}
+		}
+
+		public override void SetupTestInfomation(ref TestDataInfo testDataInfo)
+		{
+			testDataInfo.TestDataFilePath = this.InputFilePath;
+			testDataInfo.OutputDirectoryPath = this.OutputPath;
 		}
 	}
 }

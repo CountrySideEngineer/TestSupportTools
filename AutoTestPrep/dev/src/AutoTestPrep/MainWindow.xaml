@@ -50,7 +50,8 @@
                           />
                 </MenuItem>
                 <MenuItem Header="実行"
-                      Style="{StaticResource MenuItem_MenuBar}"
+                          Style="{StaticResource MenuItem_MenuBar}"
+                          Command="{Binding Path=RunCommand}"
                       />
             </Menu>
         </Grid>
