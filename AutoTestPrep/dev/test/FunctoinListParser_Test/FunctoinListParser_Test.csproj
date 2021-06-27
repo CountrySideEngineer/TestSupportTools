@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{83F0C5DD-3271-4B7B-9FD3-FD592AD4A1F1}</ProjectGuid>
+    <ProjectGuid>{FC29CB77-08BE-4D2E-8C86-38474E7F5027}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Paremter_Tests</RootNamespace>
-    <AssemblyName>Paremter_Tests</AssemblyName>
+    <RootNamespace>FunctoinListParser_Test</RootNamespace>
+    <AssemblyName>FunctoinListParser_Test</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -68,10 +68,28 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\src\AutoTestPrep\model\Parameter.cs">
-      <Link>Parameter.cs</Link>
+    <Compile Include="..\..\src\AutoTestPrep\model\ParameterInfo.cs">
+      <Link>ParameterInfo.cs</Link>
     </Compile>
-    <Compile Include="ParameterTests.cs" />
+    <Compile Include="..\..\src\AutoTestPrep\model\Parser\Exception\ParseDataNotFoundException.cs">
+      <Link>ParseDataNotFoundException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AutoTestPrep\model\Parser\Exception\ParseException.cs">
+      <Link>ParseException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AutoTestPrep\model\Parser\FunctionListParser.cs">
+      <Link>FunctionListParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AutoTestPrep\model\Parser\IParser.cs">
+      <Link>IParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AutoTestPrep\model\Reader\ExcelReader.cs">
+      <Link>ExcelReader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AutoTestPrep\model\Reader\Range.cs">
+      <Link>Range.cs</Link>
+    </Compile>
+    <Compile Include="FunctionListParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
