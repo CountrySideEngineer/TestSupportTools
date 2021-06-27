@@ -160,7 +160,7 @@ namespace AutoTestPrep.Model.Parser
 		{
 			//Range argument Range
 			Range argRange = reader.FindFirstItemInRow("引数情報", range);
-			reader.GetTableRange(ref argRange);
+			reader.GetMergedCellRange(ref argRange);
 			argRange.StartRow++;
 			argRange.RowCount--;
 

@@ -93,8 +93,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Command\DelegateCommand.cs" />
+    <Compile Include="Command\RunToolCommand.cs" />
     <Compile Include="Model\EventArgs\SelectedStateChangedEventArgs.cs" />
     <Compile Include="Model\InputInfos\TestDataInfo.cs" />
+    <Compile Include="Model\ParameterInfo.cs" />
+    <Compile Include="Model\Parser\Exception\ParseDataNotFoundException.cs" />
+    <Compile Include="Model\Parser\FunctionListParser.cs" />
+    <Compile Include="Model\Parser\Exception\ParseException.cs" />
     <Compile Include="ViewModel\AutoTestPrepViewModelBase.cs" />
     <Compile Include="ViewModel\BufferSizeViewModel.cs" />
     <Compile Include="ViewModel\HeaderInformationInputViewModel.cs" />

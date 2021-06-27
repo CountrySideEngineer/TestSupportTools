@@ -224,15 +224,15 @@ namespace AutoTestPrep.Model.Reader
 		}
 
 		/// <summary>
-		/// Get Range of table.
+		/// Get merged cell range.
 		/// </summary>
-		/// <param name="range">Range of table.</param>
-		public virtual void GetTableRange(ref Range range)
+		/// <param name="range">Range of Merged cell.</param>
+		public virtual void GetMergedCellRange(ref Range range)
 		{
 			var workBook = new XLWorkbook(this._excelStream);
 			var workSheet = workBook.Worksheet(this.SheetName);
 
-			//行ヘッダが確認されているか確認
+			//行ヘッダが結合されているか確認
 			if (workSheet.Cell(range.StartRow, range.StartColumn).IsMerged())
 			{
 				/*
@@ -250,6 +250,38 @@ namespace AutoTestPrep.Model.Reader
 				//セルが結合されていない場合
 				range.RowCount = 1;
 			}
+		}
+
+		/// <summary>
+		/// Get range about row.
+		/// </summary>
+		/// <param name="range">Range object to set result.</param>
+		public virtual void GetRowRange(ref Range range)
+		{
+			var workBook = new XLWorkbook(this._excelStream);
+			var workSheet = workBook.Worksheet(this.SheetName);
+
+			var firstUsedCell = workSheet.FirstRowUsed();
+			range.StartRow = firstUsedCell.RowNumber();
+
+			var lastUsedCell = workSheet.LastRowUsed();
+			range.RowCount = lastUsedCell.RowNumber() - firstUsedCell.RowNumber() + 1;
+		}
+
+		/// <summary>
+		/// Get range about column.
+		/// </summary>
+		/// <param name="range">Range object to set the result.</param>
+		public virtual void GetColumnRange(ref Range range)
+		{
+			var workBook = new XLWorkbook(this._excelStream);
+			var workSheet = workBook.Worksheet(this.SheetName);
+
+			var firstUsedCell = workSheet.FirstColumnUsed();
+			range.StartColumn = firstUsedCell.ColumnNumber();
+
+			var lastUsedCell = workSheet.LastColumnUsed();
+			range.ColumnCount = lastUsedCell.ColumnNumber() - firstUsedCell.ColumnNumber() + 1;
 		}
 	}
 }

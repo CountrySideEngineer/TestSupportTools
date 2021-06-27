@@ -211,7 +211,7 @@ namespace AutoTestPrep.Model.Parser
 		protected void SetupInputRange(ExcelReader reader)
 		{
 			Range range = reader.FindFirstItem("入力情報");
-			reader.GetTableRange(ref range);
+			reader.GetMergedCellRange(ref range);
 			this.InputRange = range;
 		}
 
@@ -222,7 +222,7 @@ namespace AutoTestPrep.Model.Parser
 		protected void SetupOutputRange(ExcelReader reader)
 		{
 			Range range = reader.FindFirstItem("結果(動作)");
-			reader.GetTableRange(ref range);
+			reader.GetMergedCellRange(ref range);
 			this.OutputRange = range;
 		}
 
