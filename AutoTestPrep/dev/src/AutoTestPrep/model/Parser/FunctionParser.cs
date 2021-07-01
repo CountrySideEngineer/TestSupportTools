@@ -58,7 +58,7 @@ namespace AutoTestPrep.Model.Parser
 		{
 			var reader = new ExcelReader(stream)
 			{
-				SheetName = "test_data_001"
+				SheetName = this.Target
 			};
 			Parameter readFunction = GetFunctionInfo(reader);
 

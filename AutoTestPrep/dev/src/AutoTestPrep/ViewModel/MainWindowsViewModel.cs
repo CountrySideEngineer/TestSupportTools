@@ -1,4 +1,5 @@
-﻿using AutoTestPrep.Model.EventArgs;
+﻿using AutoTestPrep.Command;
+using AutoTestPrep.Model.EventArgs;
 using AutoTestPrep.Model.InputInfos;
 using CSEngineer.ViewModel;
 using CStubMKGui.Command;
@@ -168,6 +169,8 @@ namespace AutoTestPrep.ViewModel
 			this.SetupTestInformationReq?.Invoke(ref testDataInfo);
 
 			Debug.WriteLine("RunCommandExecute()");
+			var command = new RunToolCommand();
+			command.Run(testDataInfo);
 		}
 
 		public bool CanRunCommandExecute()

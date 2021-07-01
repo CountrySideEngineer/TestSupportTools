@@ -17,7 +17,7 @@ namespace AutoTestPrep.Model.Parser
 		/// <summary>
 		/// Parse function information in file <para>srcPath</para>.
 		/// </summary>
-		/// <param name="srcPath"></param>
+		/// <param name="srcPath">Path to input file.</param>
 		/// <returns></returns>
 		public object Parse(string srcPath)
 		{

@@ -7,23 +7,29 @@ using System.Threading.Tasks;
 
 namespace AutoTestPrep.Model.Parser
 {
+	using AutoTestPrep.Model.InputInfos;
 	using Reader;
 
 	public class TestParser : IParser
 	{
 		/// <summary>
+		/// Test parameter information.
+		/// </summary>
+		public ParameterInfo ParamInfo { get; set; }
+
+		/// <summary>
 		/// Returns the test data, test case data, input and expect value, 
 		/// </summary>
-		/// <param name="srcPath"></param>
+		/// <param name="srcPath">Input src file path.</param>
 		/// <returns></returns>
 		public object Parse(string srcPath)
 		{
 			using (var stream = new FileStream(srcPath, FileMode.Open, FileAccess.Read))
 			{
 				var reader = new ExcelReader(stream);
-				var tests = this.Read(reader);
+				var test = this.Read(reader);
 
-				return tests;
+				return test;
 			}
 		}
 
@@ -34,50 +40,20 @@ namespace AutoTestPrep.Model.Parser
 		/// <returns>Object of test data.</returns>
 		protected object Read(ExcelReader reader)
 		{
+			reader.SheetName = this.ParamInfo.InfoName;
 			var functionParser = new FunctionParser();
+			var testTargetFunction = (Function)functionParser.Read(reader);
 			var testCaseParser = new TestCaseParser();
-			var tests = new List<Test>();
-			IEnumerable<(string name, string sheetName, string sourceFilePath)> testList = this.ReadTestList(reader);
-			foreach (var (name, sheetName, sourceFilePath) in testList)
+			IEnumerable<TestCase> testCases = (IEnumerable<TestCase>)testCaseParser.Read(reader);
+			var test = new Test
 			{
-				reader.SheetName = sheetName;
-				Function targetFunction = (Function)functionParser.Read(reader);
-				IEnumerable<TestCase> testCases = (IEnumerable<TestCase>)testCaseParser.Read(reader);
-				var test = new Test
-				{
-					Name = name,
-					TestCases = testCases,
-					Target = targetFunction,
-					TestInformation = sheetName,
-					SourcePath = sourceFilePath,
-				};
-				tests.Add(test);
-			}
-
-			return tests;
-		}
-
-		/// <summary>
-		/// Read table of test items, name of test, sheet and source file path.
-		/// </summary>
-		/// <param name="reader">Object to read test data.</param>
-		/// <returns>Name of test, sheet to read, and source file path in <para>Tuple</para> format.</returns>
-		protected IEnumerable<(string name, string sheetName, string sourceFilePath)> ReadTestList(ExcelReader reader)
-		{
-			reader.SheetName = "テスト一覧";
-			Range testNoRange = reader.FindFirstItem("No.");
-			IEnumerable<string> testNos = reader.ReadColumn(testNoRange);
-			int testCount = testNos.Count() - 1;
-			Range testListItemRange = new Range(testNoRange);
-			testListItemRange.StartRow++;
-			var testList = new List<(string name, string sheetName, string sourceFilePath)>();
-			for (int index = 0; index < testCount; index++)
-			{
-				IEnumerable<string> testListItem = reader.ReadRow(testListItemRange);
-				testList.Add((testListItem.ElementAt(1), testListItem.ElementAt(2), testListItem.ElementAt(2)));
-			}
-
-			return testList;
+				Name = this.ParamInfo.Name,
+				TestCases = testCases,
+				Target = testTargetFunction,
+				TestInformation = this.ParamInfo.InfoName,
+				SourcePath = this.ParamInfo.FileName
+			};
+			return test;
 		}
 	}
 }
