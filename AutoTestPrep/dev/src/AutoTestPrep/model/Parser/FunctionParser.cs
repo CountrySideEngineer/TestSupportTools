@@ -27,6 +27,13 @@ namespace AutoTestPrep.Model.Parser
 			return this.Read(srcPath);
 		}
 
+		public object Parse(FileStream stream)
+		{
+			Parameter parameter = this.ReadTargetFunction(stream);
+
+			return parameter;
+		}
+
 		/// <summary>
 		/// Read function information from a file specified by argument <para>srcPath</para>.
 		/// </summary>
@@ -40,13 +47,6 @@ namespace AutoTestPrep.Model.Parser
 
 				return parameter;
 			}
-		}
-
-		public object Read(ExcelReader reader)
-		{
-			Parameter readFunction = GetFunctionInfo(reader);
-
-			return readFunction;
 		}
 
 		/// <summary>

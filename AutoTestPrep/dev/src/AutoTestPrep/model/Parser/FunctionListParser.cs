@@ -29,6 +29,16 @@ namespace AutoTestPrep.Model.Parser
 		}
 
 		/// <summary>
+		/// Parse function information from stream <para>stream</para>.
+		/// </summary>
+		/// <param name="stream">FileStream of function information.</param>
+		/// <returns>Function information list.</returns>
+		public object Parse(FileStream stream)
+		{
+			return this.ReadFunctionList(stream);
+		}
+
+		/// <summary>
 		/// Read function information from stream, FileStream object.
 		/// </summary>
 		/// <param name="stream">Stream object from file.</param>

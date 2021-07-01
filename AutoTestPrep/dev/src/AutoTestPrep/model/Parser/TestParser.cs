@@ -13,45 +13,80 @@ namespace AutoTestPrep.Model.Parser
 	public class TestParser : IParser
 	{
 		/// <summary>
-		/// Test parameter information.
-		/// </summary>
-		public ParameterInfo ParamInfo { get; set; }
-
-		/// <summary>
 		/// Returns the test data, test case data, input and expect value, 
 		/// </summary>
 		/// <param name="srcPath">Input src file path.</param>
 		/// <returns></returns>
 		public object Parse(string srcPath)
 		{
-			using (var stream = new FileStream(srcPath, FileMode.Open, FileAccess.Read))
-			{
-				var reader = new ExcelReader(stream);
-				var test = this.Read(reader);
-
-				return test;
-			}
+			return this.Read(srcPath);
 		}
 
 		/// <summary>
-		/// Read test data from <para>reader</para>.
+		/// Returns the test data, test case data, input and expect value, 
 		/// </summary>
-		/// <param name="reader">Object to read test datas.</param>
-		/// <returns>Object of test data.</returns>
-		protected object Read(ExcelReader reader)
+		/// <param name="stream">Stream of input data.</param>
+		/// <returns>Collection of test data including target function and test case.</returns>
+		public object Parse(FileStream stream)
 		{
-			reader.SheetName = this.ParamInfo.InfoName;
-			var functionParser = new FunctionParser();
-			var testTargetFunction = (Function)functionParser.Read(reader);
-			var testCaseParser = new TestCaseParser();
-			IEnumerable<TestCase> testCases = (IEnumerable<TestCase>)testCaseParser.Read(reader);
+			return this.Read(stream);
+		}
+
+		/// <summary>
+		/// Read data from file.
+		/// </summary>
+		/// <param name="srcPath">Input src file path.</param>
+		/// <returns>Object read from file <para>srcFile.</para></returns>
+		protected object Read(string srcPath)
+		{
+			using (var stream = new FileStream(srcPath, FileMode.Open, FileAccess.Read))
+			{
+				return this.Read(stream);
+			}
+		}
+
+		protected object Read(FileStream stream)
+		{
+			var functionListParser = new FunctionListParser();
+			var testTargetFunctionInfos = (IEnumerable<ParameterInfo>)functionListParser.Parse(stream);
+			var reader = new ExcelReader(stream);
+
+			var tests = new List<Test>();
+			foreach (var testTargetFunctionInfoItem in testTargetFunctionInfos)
+			{
+				Test test = this.Read(stream, testTargetFunctionInfoItem);
+				tests.Add(test);
+			}
+
+			return tests;
+		}
+
+		/// <summary>
+		/// Read test data from <para>stream</para> and specified by <para>paramInfo</para>.
+		/// </summary>
+		/// <param name="stream">Stream to read test data from.</param>
+		/// <param name="paramInfo">Parameter information to read.</param>
+		/// <returns>Test data read from <para>stream</para> and <para>paramInfo</para>.</returns>
+		protected Test Read(FileStream stream, ParameterInfo paramInfo)
+		{
+			var functionParser = new FunctionParser()
+			{
+				Target = paramInfo.InfoName
+			};
+			var targetFunction = (Function)functionParser.Parse(stream);
+
+			var testCaseParser = new TestCaseParser()
+			{
+				Target = paramInfo.InfoName
+			};
+			var testCases = (IEnumerable<TestCase>)testCaseParser.Parse(stream);
 			var test = new Test
 			{
-				Name = this.ParamInfo.Name,
+				Name = paramInfo.Name,
 				TestCases = testCases,
-				Target = testTargetFunction,
-				TestInformation = this.ParamInfo.InfoName,
-				SourcePath = this.ParamInfo.FileName
+				Target = targetFunction,
+				TestInformation = paramInfo.InfoName,
+				SourcePath = paramInfo.FileName
 			};
 			return test;
 		}
