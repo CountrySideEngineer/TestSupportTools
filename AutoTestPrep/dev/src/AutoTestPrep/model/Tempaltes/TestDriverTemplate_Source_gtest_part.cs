@@ -34,52 +34,60 @@ namespace AutoTestPrep.Model.Tempaltes
 		/// <summary>
 		/// Content of code including standard header files.
 		/// </summary>
-		public string StdHeaders
+		public string StdHeaders()
 		{
-			get
+			try
 			{
 				var template = new CFunctionTemplateIncludeStdHeader(this.Options);
 				var content = template.TransformText();
 
 				return content;
 			}
+			catch (NullReferenceException) { return string.Empty; }
+			catch (Exception) { return string.Empty; }
 		}
 
 		/// <summary>
 		/// Content of code including user header files.
 		/// </summary>
-		public string UserHeaders
+		public string UserHeaders()
 		{
-			get
+			try
 			{
 				var template = new CFunctionTemplateIncludeUserHeader(this.Options);
 				var content = template.TransformText();
 
 				return content;
 			}
+			catch (NullReferenceException) { return string.Empty; }
+			catch (Exception) { return string.Empty; }
 		}
 
 		/// <summary>
 		/// Content of function code to initialize stubs.
 		/// </summary>
-		public string InitStub
+		public string InitStub()
 		{
-			get
+			try
 			{
 				var template = new TestDriverTemplate_Source_gtest_InitStub(this.Test);
 				var content = template.TransformText();
 				return content;
 			}
+			catch (NullReferenceException) { return string.Empty; }
+			catch (Exception) { return string.Empty; }
 		}
 
-		public string TestCase
+		public string TestCase()
 		{
-			get
+			try
 			{
 				var template = new TestDriverTemplate_Source_gtest_TestCase(this.Test);
 				var content = template.TransformText();
 				return content;
 			}
+			catch (NullReferenceException) { return string.Empty; }
+			catch (Exception) { return string.Empty; }
 		}
 	}
 }

@@ -27,6 +27,13 @@ namespace AutoTestPrep.Model.Parser
 			return this.Read(srcPath);
 		}
 
+		public object Parse(FileStream stream)
+		{
+			Parameter parameter = this.ReadTargetFunction(stream);
+
+			return parameter;
+		}
+
 		/// <summary>
 		/// Read function information from a file specified by argument <para>srcPath</para>.
 		/// </summary>
@@ -42,13 +49,6 @@ namespace AutoTestPrep.Model.Parser
 			}
 		}
 
-		public object Read(ExcelReader reader)
-		{
-			Parameter readFunction = GetFunctionInfo(reader);
-
-			return readFunction;
-		}
-
 		/// <summary>
 		/// Read target function information from stream.
 		/// </summary>
@@ -58,7 +58,7 @@ namespace AutoTestPrep.Model.Parser
 		{
 			var reader = new ExcelReader(stream)
 			{
-				SheetName = "test_data_001"
+				SheetName = this.Target
 			};
 			Parameter readFunction = GetFunctionInfo(reader);
 
@@ -160,7 +160,7 @@ namespace AutoTestPrep.Model.Parser
 		{
 			//Range argument Range
 			Range argRange = reader.FindFirstItemInRow("引数情報", range);
-			reader.GetTableRange(ref argRange);
+			reader.GetMergedCellRange(ref argRange);
 			argRange.StartRow++;
 			argRange.RowCount--;
 

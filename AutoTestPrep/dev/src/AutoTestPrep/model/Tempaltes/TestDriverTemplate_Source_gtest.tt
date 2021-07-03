@@ -3,11 +3,11 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#= StdHeaders #>
-<#= UserHeaders #>
+<#= StdHeaders() #>
+<#= UserHeaders() #>
 
 <#= Test.Target.ToString() #>;
 
-<#= InitStub #>
+<#= InitStub() #>
 
-<#= TestCase #>
+<#= TestCase() #>
