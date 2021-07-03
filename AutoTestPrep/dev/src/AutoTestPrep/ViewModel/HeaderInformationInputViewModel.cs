@@ -24,6 +24,11 @@ namespace AutoTestPrep.ViewModel
 		protected MultiLineInputViewModel _UserHeaderVM;
 
 		/// <summary>
+		/// Field of include directory view model.
+		/// </summary>
+		protected MultiLineInputViewModel _IncludeDirectoryVM;
+
+		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		public HeaderInformationInputViewModel() : this(-1) { }
@@ -32,6 +37,7 @@ namespace AutoTestPrep.ViewModel
 		{
 			this.StandartHeaderVM = new MultiLineInputViewModel("標準ヘッダ：", string.Empty);
 			this.UserHeaderVM = new MultiLineInputViewModel("ユーザヘッダ", string.Empty);
+			this.IncludeDirectoryVM = new MultiLineInputViewModel("インクルードディレクトリ", string.Empty);
 		}
 
 		/// <summary>
@@ -67,6 +73,22 @@ namespace AutoTestPrep.ViewModel
 		}
 
 		/// <summary>
+		/// Property of include directory view model.
+		/// </summary>
+		public MultiLineInputViewModel IncludeDirectoryVM
+		{
+			get
+			{
+				return this._IncludeDirectoryVM;
+			}
+			set
+			{
+				this._IncludeDirectoryVM = value;
+				this.RaisePropertyChanged(nameof(IncludeDirectoryVM));
+			}
+		}
+
+		/// <summary>
 		/// Standart headers.
 		/// </summary>
 		public string StandartHeader
@@ -96,10 +118,26 @@ namespace AutoTestPrep.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Include directory path.
+		/// </summary>
+		public string IncludeDirectory
+		{
+			get
+			{
+				return this.IncludeDirectoryVM.InputItem;
+			}
+			set
+			{
+				this.IncludeDirectoryVM.InputItem = value;
+			}
+		}
+
 		public override void SetupTestInfomation(ref TestDataInfo testDataInfo)
 		{
 			testDataInfo.DriverIncludeStandardHeaderFiles = this.ToEnumrable(this.StandartHeader);
 			testDataInfo.DriverIncludeUserHeaderFiles = this.ToEnumrable(this.UserHeader);
+			testDataInfo.IncludeDirectoryPath = this.ToEnumrable(this.IncludeDirectory);
 		}
 
 		protected IEnumerable<string> ToEnumrable(string inputData)

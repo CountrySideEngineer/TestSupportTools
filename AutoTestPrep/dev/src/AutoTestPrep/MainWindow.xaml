@@ -67,20 +67,25 @@
                      >
             </ListBox>
             <uc:TestInformationInputView Grid.Column="1"
-                                             HorizontalAlignment="Stretch"
-                                             DataContext="{Binding Path=TestInformationInputVM}"
-                                             Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolVisibilityConverter}}"
+                                         HorizontalAlignment="Stretch"
+                                         DataContext="{Binding Path=TestInformationInputVM}"
+                                         Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolVisibilityConverter}}"
                                              />
             <uc:BufferSizeView Grid.Column="1"
-                                   HorizontalAlignment="Stretch"
-                                   DataContext="{Binding Path=BufferSizeVM}"
-                                   Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolVisibilityConverter}}"
+                               HorizontalAlignment="Stretch"
+                               DataContext="{Binding Path=BufferSizeVM}"
+                               Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolVisibilityConverter}}"
                                    />
             <uc:HeaderInformationInputView Grid.Column="1"
-                                               HorizontalAlignment="Stretch"
-                                               DataContext="{Binding Path=HeaderInformationVM}"
-                                               Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolVisibilityConverter}}"
+                                           HorizontalAlignment="Stretch"
+                                           DataContext="{Binding Path=HeaderInformationVM}"
+                                           Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolVisibilityConverter}}"
                                                />
+            <uc:LibraryInformationInputView Grid.Column="1"
+                                            HorizontalAlignment="Stretch"
+                                            DataContext="{Binding Path=LibraryInforamtionVM}"
+                                            Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolVisibilityConverter}}"
+                                            />
         </Grid>
     </Grid>
 </Window>

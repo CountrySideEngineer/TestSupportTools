@@ -104,6 +104,7 @@
     <Compile Include="ViewModel\BufferSizeViewModel.cs" />
     <Compile Include="ViewModel\HeaderInformationInputViewModel.cs" />
     <Compile Include="ViewModel\InformationInputViewModel.cs" />
+    <Compile Include="ViewModel\LibraryInformationInputViewModel.cs" />
     <Compile Include="ViewModel\MainWindowsViewModel.cs" />
     <Compile Include="ViewModel\MultiLineInputViewModel.cs" />
     <Compile Include="ViewModel\SizeInputViewModel.cs" />
@@ -117,6 +118,9 @@
     </Compile>
     <Compile Include="View\InformationInputView.xaml.cs">
       <DependentUpon>InformationInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LibraryInformationInputView.xaml.cs">
+      <DependentUpon>LibraryInformationInputView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MultiLineInputView.xaml.cs">
       <DependentUpon>MultiLineInputView.xaml</DependentUpon>
@@ -152,6 +156,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\InformationInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LibraryInformationInputView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

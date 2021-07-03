@@ -34,8 +34,12 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		protected HeaderInformationInputViewModel _HeaderInformationVM;
 
-		protected DelegateCommand _RunCommand;
+		/// <summary>
+		/// View model field of input library file information.
+		/// </summary>
+		protected LibraryInformationInputViewModel _LibraryInformationVM;
 
+		protected DelegateCommand _RunCommand;
 
 		/// <summary>
 		/// Event handler to handle a event 
@@ -57,19 +61,24 @@ namespace AutoTestPrep.ViewModel
 			{
 				"テスト情報",
 				"スタブ情報",
-				"ヘッダ情報"
+				"ヘッダ情報",
+				"ライブラリ情報"
 			};
 
 			this.TestInformationInputVM = new TestInformationInputViewModel(0);
 			this.BufferSizeVM = new BufferSizeViewModel(1);
 			this.HeaderInformationVM = new HeaderInformationInputViewModel(2);
+			this.LibraryInforamtionVM = new LibraryInformationInputViewModel(3);
+
 			this.SelectedChanged += TestInformationInputVM.SelectedStateChangedEventHandler;
 			this.SelectedChanged += BufferSizeVM.SelectedStateChangedEventHandler;
 			this.SelectedChanged += HeaderInformationVM.SelectedStateChangedEventHandler;
+			this.SelectedChanged += LibraryInforamtionVM.SelectedStateChangedEventHandler;
 
 			this.SetupTestInformationReq += this.TestInformationInputVM.SetupTestInfomation;
 			this.SetupTestInformationReq += this.BufferSizeVM.SetupTestInfomation;
 			this.SetupTestInformationReq += this.HeaderInformationVM.SetupTestInfomation;
+			this.SetupTestInformationReq += this.LibraryInforamtionVM.SetupTestInfomation;
 
 			this.SelectedConfigurationItemIndex = 0;
 		}
@@ -148,6 +157,22 @@ namespace AutoTestPrep.ViewModel
 			{
 				this._HeaderInformationVM = value;
 				this.RaisePropertyChanged(nameof(HeaderInformationVM));
+			}
+		}
+
+		/// <summary>
+		/// Property of view model of libraries.
+		/// </summary>
+		public LibraryInformationInputViewModel LibraryInforamtionVM
+		{
+			get
+			{
+				return this._LibraryInformationVM;
+			}
+			set
+			{
+				this._LibraryInformationVM = value;
+				this.RaisePropertyChanged(nameof(LibraryInforamtionVM));
 			}
 		}
 

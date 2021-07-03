@@ -54,5 +54,20 @@ namespace AutoTestPrep.Model.InputInfos
 		/// Collection of user header files.
 		/// </summary>
 		public IEnumerable<string> DriverIncludeUserHeaderFiles;
+
+		/// <summary>
+		/// Collection of directories to scan when header file including.
+		/// </summary>
+		public IEnumerable<string> IncludeDirectoryPath;
+
+		/// <summary>
+		/// Collection of library file names.
+		/// </summary>
+		public IEnumerable<string> LibraryNames;
+
+		/// <summary>
+		/// Collection of library scan directories.
+		/// </summary>
+		public IEnumerable<string> LibraryDirectoryPath;
 	}
 }

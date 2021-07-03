@@ -66,5 +66,15 @@ namespace AutoTestPrep.ViewModel
 				this.RaisePropertyChanged(nameof(InputItem));
 			}
 		}
+
+		/// <summary>
+		/// Returns InputItem property in IEnumerable object.
+		/// </summary>
+		/// <returns>InputItem in IEnumerable.</returns>
+		public IEnumerable<string> InputItemInIenumerable()
+		{
+			var enumerableValue = this.InputItem.Replace("\r\n", "\n").Split(new[] { '\n', '\r' });
+			return enumerableValue;
+		}
 	}
 }
