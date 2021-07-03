@@ -30,14 +30,14 @@ namespace AutoTestPrep.Model.Tempaltes
         {
             
             #line 6 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(StdHeaders));
+            this.Write(this.ToStringHelper.ToStringWithCulture(StdHeaders()));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
             #line 7 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(UserHeaders));
+            this.Write(this.ToStringHelper.ToStringWithCulture(UserHeaders()));
             
             #line default
             #line hidden
@@ -51,14 +51,14 @@ namespace AutoTestPrep.Model.Tempaltes
             this.Write(";\r\n\r\n");
             
             #line 11 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(InitStub));
+            this.Write(this.ToStringHelper.ToStringWithCulture(InitStub()));
             
             #line default
             #line hidden
             this.Write("\r\n\r\n");
             
             #line 13 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TestCase));
+            this.Write(this.ToStringHelper.ToStringWithCulture(TestCase()));
             
             #line default
             #line hidden

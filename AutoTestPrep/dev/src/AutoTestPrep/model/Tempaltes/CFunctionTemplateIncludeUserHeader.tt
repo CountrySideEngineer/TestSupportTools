@@ -3,8 +3,10 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#
-if (null != options.IncludeUserHeaderFiles) {
-	foreach (var headerItem in options.IncludeUserHeaderFiles)
-	{
-#>#include "<#= headerItem #>"<#}}#>
+<#	if (null != options.IncludeUserHeaderFiles) {
+		foreach (var headerItem in options.IncludeUserHeaderFiles)
+		{	#>
+#include "<#= headerItem #>"
+<#		}	
+	}
+#>
