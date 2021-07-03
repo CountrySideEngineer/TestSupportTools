@@ -72,6 +72,16 @@ namespace AutoTestPrep.Model.Parser
 		}
 
 		/// <summary>
+		/// Read the test data, test case data, input and expect value from stream <para>stream</para>.
+		/// </summary>
+		/// <param name="stream">Stream to test data.</param>
+		/// <returns>Collection of test case.</returns>
+		public object Parse(FileStream stream)
+		{
+			return this.ReadTestCase(stream);
+		}
+
+		/// <summary>
 		/// Read test case data from file specified by argument <para>srcPath</para>
 		/// </summary>
 		/// <param name="srcPath">Path to file contains test case data.</param>
@@ -211,7 +221,7 @@ namespace AutoTestPrep.Model.Parser
 		protected void SetupInputRange(ExcelReader reader)
 		{
 			Range range = reader.FindFirstItem("入力情報");
-			reader.GetTableRange(ref range);
+			reader.GetMergedCellRange(ref range);
 			this.InputRange = range;
 		}
 
@@ -222,7 +232,7 @@ namespace AutoTestPrep.Model.Parser
 		protected void SetupOutputRange(ExcelReader reader)
 		{
 			Range range = reader.FindFirstItem("結果(動作)");
-			reader.GetTableRange(ref range);
+			reader.GetMergedCellRange(ref range);
 			this.OutputRange = range;
 		}
 
