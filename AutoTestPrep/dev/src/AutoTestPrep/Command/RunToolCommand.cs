@@ -4,6 +4,8 @@ using AutoTestPrep.Model.Parser;
 using AutoTestPrep.Model.Writer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,28 +27,62 @@ namespace AutoTestPrep.Command
 			try
 			{
 				var inputInfos = data as TestDataInfo;
+				var rootDirectory = new DirectoryInfo(inputInfos.OutputDirectoryPath);
+				string outputDirName = System.IO.Path.GetFileNameWithoutExtension(inputInfos.TestDataFilePath);
+				DirectoryInfo outputDirectoryInfo = this.CreateOutputDirectory(rootDirectory, outputDirName);
 				var parser = new TestParser();
 				var tests = (IEnumerable<Test>)parser.Parse(inputInfos.TestDataFilePath);
 
 				//Create stub codes.
 				foreach (var testItem in tests)
 				{
-					string stubFileName = System.IO.Path.GetFileNameWithoutExtension(testItem.SourcePath);
-					string stubFileExtention = System.IO.Path.GetExtension(testItem.SourcePath);
-					string stubFilePath = inputInfos.OutputDirectoryPath + @"\" + stubFileName + "_stub" + stubFileExtention;
-
-					foreach (var subFunctionItem in testItem.Target.SubFunctions)
-					{
-						var writer = new StubWriter();
-						writer.Write(stubFilePath, subFunctionItem);
-					}
+					this.WriteStubCodes(testItem, outputDirectoryInfo);
+					this.WriteDriverCode(testItem, outputDirectoryInfo);
 				}
-
-				//Craete driver codes.
 			}
 			catch (InvalidCastException)
 			{
 				throw;
+			}
+		}
+
+		protected DirectoryInfo CreateOutputDirectory(DirectoryInfo parent, string child)
+		{
+			string parentPath = parent.FullName;
+			string targetPath = parentPath + @"\" + child;
+			DirectoryInfo childDirectoryInfo = Directory.CreateDirectory(targetPath);
+
+			return childDirectoryInfo;
+		}
+
+		protected void WriteStubCodes(Test test, DirectoryInfo outputTopDirectory)
+		{
+			DirectoryInfo outputDirectory = this.CreateOutputDirectory(outputTopDirectory, test.SourcePath);
+
+			string extention = System.IO.Path.GetExtension(test.SourcePath);
+			var writer = new StubWriter();
+			foreach ( var subFunctionItem in test.Target.SubFunctions)
+			{
+				string stubFileName = subFunctionItem.Name;
+				string stubFilePath = outputDirectory.FullName + @"\" + stubFileName + "_test_stub" + extention;
+				writer.Write(stubFilePath, subFunctionItem);
+			}
+		}
+
+		protected void WriteDriverCode(Test test, DirectoryInfo outputTopDirectory)
+		{
+			//Create driver codes.
+			string extention = System.IO.Path.GetExtension(test.SourcePath);
+			string driverFileName = test.Target.Name;
+			string driverFilePath = outputTopDirectory.FullName + @"\" + driverFileName + "_test" + extention;
+			var writer = new TestDriverWriter();
+			try
+			{
+				writer.Write(driverFilePath, test);
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex.Message);
 			}
 		}
 	}
