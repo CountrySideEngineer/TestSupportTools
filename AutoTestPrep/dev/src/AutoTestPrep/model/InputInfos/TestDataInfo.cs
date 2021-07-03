@@ -69,5 +69,10 @@ namespace AutoTestPrep.Model.InputInfos
 		/// Collection of library scan directories.
 		/// </summary>
 		public IEnumerable<string> LibraryDirectoryPath;
+
+		/// <summary>
+		/// Collection of define macro.
+		/// </summary>
+		public IEnumerable<string> DefineMacros;
 	}
 }

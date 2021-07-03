@@ -86,6 +86,11 @@
                                             DataContext="{Binding Path=LibraryInforamtionVM}"
                                             Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolVisibilityConverter}}"
                                             />
+            <uc:DefineMacroInputView Grid.Column="1"
+                                     HorizontalAlignment="Stretch"
+                                     DataContext="{Binding Path=DefineMacroVM}"
+                                     Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolVisibilityConverter}}"
+                                     />
         </Grid>
     </Grid>
 </Window>

@@ -102,6 +102,7 @@
     <Compile Include="Model\Parser\Exception\ParseException.cs" />
     <Compile Include="ViewModel\AutoTestPrepViewModelBase.cs" />
     <Compile Include="ViewModel\BufferSizeViewModel.cs" />
+    <Compile Include="ViewModel\DefineMacroInputViewModel.cs" />
     <Compile Include="ViewModel\HeaderInformationInputViewModel.cs" />
     <Compile Include="ViewModel\InformationInputViewModel.cs" />
     <Compile Include="ViewModel\LibraryInformationInputViewModel.cs" />
@@ -112,6 +113,9 @@
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\BufferSizeView.xaml.cs">
       <DependentUpon>BufferSizeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DeifneMacroInputView.xaml.cs">
+      <DependentUpon>DeifneMacroInputView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\HeaderInformationInputView.xaml.cs">
       <DependentUpon>HeaderInformationInputView.xaml</DependentUpon>
@@ -148,6 +152,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\BufferSizeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DeifneMacroInputView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -39,6 +39,11 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		protected LibraryInformationInputViewModel _LibraryInformationVM;
 
+		/// <summary>
+		/// View model field of input define macro information.
+		/// </summary>
+		protected DefineMacroInputViewModel _DefineMacroVM;
+
 		protected DelegateCommand _RunCommand;
 
 		/// <summary>
@@ -62,23 +67,27 @@ namespace AutoTestPrep.ViewModel
 				"テスト情報",
 				"スタブ情報",
 				"ヘッダ情報",
-				"ライブラリ情報"
+				"ライブラリ情報",
+				"マクロ情報"
 			};
 
 			this.TestInformationInputVM = new TestInformationInputViewModel(0);
 			this.BufferSizeVM = new BufferSizeViewModel(1);
 			this.HeaderInformationVM = new HeaderInformationInputViewModel(2);
 			this.LibraryInforamtionVM = new LibraryInformationInputViewModel(3);
+			this.DefineMacroVM = new DefineMacroInputViewModel(4);
 
 			this.SelectedChanged += TestInformationInputVM.SelectedStateChangedEventHandler;
 			this.SelectedChanged += BufferSizeVM.SelectedStateChangedEventHandler;
 			this.SelectedChanged += HeaderInformationVM.SelectedStateChangedEventHandler;
 			this.SelectedChanged += LibraryInforamtionVM.SelectedStateChangedEventHandler;
+			this.SelectedChanged += DefineMacroVM.SelectedStateChangedEventHandler;
 
 			this.SetupTestInformationReq += this.TestInformationInputVM.SetupTestInfomation;
 			this.SetupTestInformationReq += this.BufferSizeVM.SetupTestInfomation;
 			this.SetupTestInformationReq += this.HeaderInformationVM.SetupTestInfomation;
 			this.SetupTestInformationReq += this.LibraryInforamtionVM.SetupTestInfomation;
+			this.SetupTestInformationReq += this.DefineMacroVM.SetupTestInfomation;
 
 			this.SelectedConfigurationItemIndex = 0;
 		}
@@ -173,6 +182,22 @@ namespace AutoTestPrep.ViewModel
 			{
 				this._LibraryInformationVM = value;
 				this.RaisePropertyChanged(nameof(LibraryInforamtionVM));
+			}
+		}
+
+		/// <summary>
+		/// Define macro input view model.
+		/// </summary>
+		public DefineMacroInputViewModel DefineMacroVM
+		{
+			get
+			{
+				return this._DefineMacroVM;
+			}
+			set
+			{
+				this._DefineMacroVM = value;
+				this.RaisePropertyChanged(nameof(DefineMacroVM));
 			}
 		}
 
