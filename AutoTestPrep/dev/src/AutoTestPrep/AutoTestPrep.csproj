@@ -14,6 +14,7 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -92,6 +92,49 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Command\DelegateCommand.cs" />
+    <Compile Include="Command\RunToolCommand.cs" />
+    <Compile Include="Model\EventArgs\SelectedStateChangedEventArgs.cs" />
+    <Compile Include="Model\InputInfos\TestDataInfo.cs" />
+    <Compile Include="Model\ParameterInfo.cs" />
+    <Compile Include="Model\Parser\Exception\ParseDataNotFoundException.cs" />
+    <Compile Include="Model\Parser\FunctionListParser.cs" />
+    <Compile Include="Model\Parser\Exception\ParseException.cs" />
+    <Compile Include="ViewModel\AutoTestPrepViewModelBase.cs" />
+    <Compile Include="ViewModel\BufferSizeViewModel.cs" />
+    <Compile Include="ViewModel\DefineMacroInputViewModel.cs" />
+    <Compile Include="ViewModel\HeaderInformationInputViewModel.cs" />
+    <Compile Include="ViewModel\InformationInputViewModel.cs" />
+    <Compile Include="ViewModel\LibraryInformationInputViewModel.cs" />
+    <Compile Include="ViewModel\MainWindowsViewModel.cs" />
+    <Compile Include="ViewModel\MultiLineInputViewModel.cs" />
+    <Compile Include="ViewModel\SizeInputViewModel.cs" />
+    <Compile Include="ViewModel\TestInformationInputViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="View\BufferSizeView.xaml.cs">
+      <DependentUpon>BufferSizeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DeifneMacroInputView.xaml.cs">
+      <DependentUpon>DeifneMacroInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\HeaderInformationInputView.xaml.cs">
+      <DependentUpon>HeaderInformationInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\InformationInputView.xaml.cs">
+      <DependentUpon>InformationInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LibraryInformationInputView.xaml.cs">
+      <DependentUpon>LibraryInformationInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MultiLineInputView.xaml.cs">
+      <DependentUpon>MultiLineInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SizeInputView.xaml.cs">
+      <DependentUpon>SizeInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TestInformationInputView.xaml.cs">
+      <DependentUpon>TestInformationInputView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -104,6 +147,42 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Resource\Style.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\BufferSizeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DeifneMacroInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\HeaderInformationInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InformationInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LibraryInformationInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MultiLineInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SizeInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TestInformationInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Function.cs" />
@@ -294,5 +373,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
