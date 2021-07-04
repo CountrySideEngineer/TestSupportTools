@@ -11,8 +11,8 @@ namespace AutoTestPrep.Model.Writer
 		/// <summary>
 		/// Interface to write data.
 		/// </summary>
-		/// <param name="path">Path to </param>
-		/// <param name="parameter"></param>
+		/// <param name="path">Path to output.</param>
+		/// <param name="parameter">Parameter to output.</param>
 		void Write(string path, object parameter);
 	}
 }
