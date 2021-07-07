@@ -35,17 +35,7 @@ namespace AutoTestPrep.Model.Tempaltes
 			}
 		}
 
-		public string TestInput
-		{
-			get
-			{
-				var template = new TestDriverTemplate_Source_gtest_TestCase_SetupInput(this.Test);
-				var content = template.TransformText();
-				return content;
-			}
-		}
-
-		public string _TestInput(TestCase testCase)
+		public string TestInput(TestCase testCase)
 		{
 			var template = new TestDriverTemplate_Source_gtest_TestCase_SetupInput(testCase);
 			var content = template.TransformText();
@@ -62,17 +52,7 @@ namespace AutoTestPrep.Model.Tempaltes
 			}
 		}
 
-		public string CheckOutput
-		{
-			get
-			{
-				var template = new TestDriverTemplate_Source_gtest_TestCase_CheckOutput(Test);
-				var content = template.TransformText();
-				return content;
-			}
-		}
-
-		public string _CheckOutput(TestCase testCase)
+		public string CheckOutput(TestCase testCase)
 		{
 			var template = new TestDriverTemplate_Source_gtest_TestCase_CheckOutput(testCase);
 			var content = template.TransformText();
