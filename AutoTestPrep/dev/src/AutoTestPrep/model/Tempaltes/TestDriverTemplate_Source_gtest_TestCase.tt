@@ -13,7 +13,7 @@ TEST_F(<#= Test.Name #>, <#= Test.Target.Name #>_test_<#= testCase.Id #>)
 <#= _TestInput(testCase) #>
 <#= FunctionCall #>
 
-<#= CheckOutput #>
+<#= _CheckOutput(testCase) #>
 }
 <#
 }

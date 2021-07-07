@@ -71,5 +71,12 @@ namespace AutoTestPrep.Model.Tempaltes
 				return content;
 			}
 		}
+
+		public string _CheckOutput(TestCase testCase)
+		{
+			var template = new TestDriverTemplate_Source_gtest_TestCase_CheckOutput(testCase);
+			var content = template.TransformText();
+			return content;
+		}
 	}
 }

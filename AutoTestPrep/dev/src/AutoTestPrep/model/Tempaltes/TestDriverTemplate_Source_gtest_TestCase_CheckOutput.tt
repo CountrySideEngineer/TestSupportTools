@@ -4,18 +4,13 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#
-if (null != Test.TestCases) {
-	foreach (var testCase in Test.TestCases)
+if (null != TestCase)
+{
+	foreach (var expectItem in TestCase.Expects)
 	{
-		if (null != testCase.Expects)
-		{
-			foreach (var testData in testCase.Expects)
-			{
 #>
-	ASSERT_EQ(<#= testData.Value #>, <#= testData.Name #>);
+	ASSERT_EQ(<#= expectItem.Value #>, <#= expectItem.Name #>);
 <#
-			}
-		}
 	}
 }
 #>
