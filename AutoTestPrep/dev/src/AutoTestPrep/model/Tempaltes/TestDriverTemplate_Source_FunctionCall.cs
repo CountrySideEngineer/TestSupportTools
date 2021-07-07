@@ -46,6 +46,7 @@ namespace AutoTestPrep.Model.Tempaltes
 						functionCall += " ";
 					}
 					functionCall += argument.Name;
+					isTop = false;
 				}
 			}
 			functionCall += ")";
