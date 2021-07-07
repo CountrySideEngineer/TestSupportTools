@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,29 @@ namespace AutoTestPrep.View
 		public InformationInputView()
 		{
 			InitializeComponent();
+		}
+
+		private void TextBox_PreviewDragOver(object sender, DragEventArgs e)
+		{
+			if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
+			{
+				e.Effects = DragDropEffects.Copy;
+			}
+			else
+			{
+				e.Effects = DragDropEffects.None;
+			}
+			e.Handled = true;
+
+		}
+
+		private void TextBox_Drop(object sender, DragEventArgs e)
+		{
+			string[] files = e.Data.GetData(DataFormats.FileDrop) as string[];
+			if (null != files)
+			{
+				this.InputTextBox.Text = files[0];
+			}
 		}
 	}
 }
