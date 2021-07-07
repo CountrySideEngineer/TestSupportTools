@@ -45,6 +45,13 @@ namespace AutoTestPrep.Model.Tempaltes
 			}
 		}
 
+		public string _TestInput(TestCase testCase)
+		{
+			var template = new TestDriverTemplate_Source_gtest_TestCase_SetupInput(testCase);
+			var content = template.TransformText();
+			return content;
+		}
+
 		public string FunctionCall
 		{
 			get

@@ -68,7 +68,7 @@ for (int index = 0; index < Test.TestCases.Count(); index++) {
             this.Write("\r\n");
             
             #line 13 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TestInput));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_TestInput(testCase)));
             
             #line default
             #line hidden

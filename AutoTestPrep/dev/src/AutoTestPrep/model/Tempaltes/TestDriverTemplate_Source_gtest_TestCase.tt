@@ -10,7 +10,7 @@ for (int index = 0; index < Test.TestCases.Count(); index++) {
 TEST_F(<#= Test.Name #>, <#= Test.Target.Name #>_test_<#= testCase.Id #>)
 {
 <#= TestDeclare #>
-<#= TestInput #>
+<#= _TestInput(testCase) #>
 <#= FunctionCall #>
 
 <#= CheckOutput #>
