@@ -15,23 +15,14 @@ namespace AutoTestPrep.Model.Writer
 	{
 		public void Write(string path, object[] parameters)
 		{
-			Test testParameter = (Test)parameters[0];
-			string ext = System.IO.Path.GetExtension(testParameter.SourcePath);
-			Function testFunction = testParameter.Target;
-			IEnumerable<Function> subFunction = testFunction.SubFunctions;
-			foreach (var subFunctionItem in subFunction)
+			var stubWriters = new List<IWriter>
+			{  
+				new StubSourceWriter(),  
+				new StubHeaderWriter() 
+			};
+			foreach	(var stubWriter in stubWriters)
 			{
-				this.Write(path, subFunctionItem, ext);
-			}
-		}
-
-		protected void Write(string path, Function functionItem, string ext)
-		{
-			string stubFilePath = path + @"\" + functionItem.Name + "_test_stub" + ext;
-			var template = new CFunctionStubTemplate(functionItem);
-			using (var stream = new StreamWriter(stubFilePath, false, Encoding.Unicode))
-			{
-				stream.Write(template.TransformText());
+				stubWriter.Write(path, parameters);
 			}
 		}
 	}
