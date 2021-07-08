@@ -17,7 +17,7 @@ namespace AutoTestPrep.Model.Writer
 			DirectoryInfo outputDirInfo = this.CreateOutputDirectory(outputTopDirInfo, test);
 			foreach (var writerItem in writers)
 			{
-				this.Write(test, writerItem, outputDirInfo);
+				this.Write(testDataInfo, test, writerItem, outputDirInfo);
 			}
 		}
 
@@ -26,7 +26,7 @@ namespace AutoTestPrep.Model.Writer
 			//Create output directory.
 			DirectoryInfo outputTopDirInfo = this.CreateOutputTopDirectory(testDataInfo);
 			DirectoryInfo outputDirInfo = this.CreateOutputDirectory(outputTopDirInfo, test);
-			this.Write(test, writer, outputDirInfo);
+			this.Write(testDataInfo, test, writer, outputDirInfo);
 		}
 
 		protected DirectoryInfo CreateOutputTopDirectory(TestDataInfo testDataInfo)
@@ -48,10 +48,14 @@ namespace AutoTestPrep.Model.Writer
 			return outputDirectoryInfo;
 		}
 
-		protected void Write(Test test, IWriter writer, DirectoryInfo outputDirInfo)
+		protected void Write(TestDataInfo testDataInfo, Test test, IWriter writer, DirectoryInfo outputDirInfo)
 		{
+			object parameters = new object[2]
+			{
+				(object)test, (object)testDataInfo
+			};
 			string outputDirPath = outputDirInfo.FullName;
-			writer.Write(outputDirPath, test);
+			writer.Write(outputDirPath, (object[])parameters);
 		}
 	}
 }

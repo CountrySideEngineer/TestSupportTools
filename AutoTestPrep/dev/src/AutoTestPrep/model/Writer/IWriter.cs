@@ -9,10 +9,10 @@ namespace AutoTestPrep.Model.Writer
 	public interface IWriter
 	{
 		/// <summary>
-		/// Interface to write data.
+		/// Interface to write datas
 		/// </summary>
 		/// <param name="path">Path to output.</param>
-		/// <param name="parameter">Parameter to output.</param>
-		void Write(string path, object parameter);
+		/// <param name="parameters">Collection of parameters in array.</param>
+		void Write(string path, object[] parameters);
 	}
 }

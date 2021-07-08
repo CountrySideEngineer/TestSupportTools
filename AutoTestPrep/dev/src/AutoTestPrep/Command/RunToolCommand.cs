@@ -31,10 +31,10 @@ namespace AutoTestPrep.Command
 				var tests = (IEnumerable<Test>)parser.Parse(inputInfos.TestDataFilePath);
 				IEnumerable<IWriter> writers = new List<IWriter>
 				{
-					new StubWriter(), new TestDriverWriter(),
+					new StubWriter(),
+					new TestDriverWriter(),
 				};
 				var helper = new WriterHelper();
-
 				foreach (var testItem in tests)
 				{
 					helper.Write(inputInfos, testItem, writers);

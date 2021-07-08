@@ -13,9 +13,9 @@ namespace AutoTestPrep.Model.Writer
 	/// </summary>
 	public class StubWriter : IWriter
 	{
-		public void Write(string path, object parameter)
+		public void Write(string path, object[] parameters)
 		{
-			Test testParameter = (Test)parameter;
+			Test testParameter = (Test)parameters[0];
 			string ext = System.IO.Path.GetExtension(testParameter.SourcePath);
 			Function testFunction = testParameter.Target;
 			IEnumerable<Function> subFunction = testFunction.SubFunctions;
@@ -33,7 +33,6 @@ namespace AutoTestPrep.Model.Writer
 			{
 				stream.Write(template.TransformText());
 			}
-
 		}
 	}
 }
