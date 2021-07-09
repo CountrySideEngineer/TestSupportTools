@@ -137,8 +137,15 @@ namespace AutoTestPrep.Model.Parser
 			}
 
 			//Get arguments
-			var arguments = this.GetArguments(reader, range);
-
+			IEnumerable<Parameter> arguments = null;
+			try
+			{
+				arguments = this.GetArguments(reader, range);
+			}
+			catch (InvalidDataException)
+			{
+				arguments = new List<Parameter>(0);
+			}
 			var function = new Function
 			{
 				Description = description,
