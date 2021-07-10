@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutoTestPrep.Model.Parser
 {
+	using CSEngineer;
 	using Reader;
 	using System.IO;
 
@@ -131,6 +132,8 @@ namespace AutoTestPrep.Model.Parser
 		/// <param name="reader">Object to read data from excel.</param>
 		protected void SetupDatas(ExcelReader reader)
 		{
+			Logger.INFO($"Start getting test data of target function in \"{this.Target}\" sheet.");
+
 			this.SetupTableTopRange(reader);
 			this.SetupInputRange(reader);
 			this.SetupOutputRange(reader);
@@ -146,21 +149,49 @@ namespace AutoTestPrep.Model.Parser
 		/// <returns>List of test case.</returns>
 		protected IEnumerable<TestCase> ReadTestCase(ExcelReader reader)
 		{
-			//「代表値」のRangeオブジェクトを元に、テストケースのRangeオブジェクトを生成する
-			Range testCaseRange = reader.FindFirstItem("代表値");
-			testCaseRange.StartColumn++;
-			IEnumerable<string> testCaseNumbers = reader.ReadRow(testCaseRange);
-			int testCaseCount = testCaseNumbers.Count();
-			var testCases = new List<TestCase>();
-			for (int index = 0; index < testCaseCount; index++)
+			try
 			{
-				Range range = new Range(testCaseRange);
-				range.StartColumn += index;
-				TestCase testCase = this.ReadTestCase(reader, range);
-				testCase.Id = testCaseNumbers.ElementAt(index);
-				testCases.Add(testCase);
+				//「代表値」のRangeオブジェクトを元に、テストケースのRangeオブジェクトを生成する
+				Range testCaseRange = reader.FindFirstItem("代表値");
+				testCaseRange.StartColumn++;
+				IEnumerable<string> testCaseNumbers = reader.ReadRow(testCaseRange);
+				int testCaseCount = testCaseNumbers.Count();
+				var testCases = new List<TestCase>();
+				for (int index = 0; index < testCaseCount; index++)
+				{
+					Range range = new Range(testCaseRange);
+					range.StartColumn += index;
+					TestCase testCase = this.ReadTestCase(reader, range);
+					testCase.Id = testCaseNumbers.ElementAt(index);
+					testCases.Add(testCase);
+				}
+
+				Logger.INFO("\t\t-\tTest case datas:");
+				foreach (var testCaseItem in testCases)
+				{
+					Logger.INFO($"\t\t\t\t--\tTest case id = {testCaseItem.Id}");
+					Logger.INFO($"\t\t\t\t\t\t---\tInputs:");
+					foreach (var inputItem in testCaseItem.Input)
+					{
+						Logger.INFO($"\t\t\t\t\t\t\t\tName = {inputItem.Name}, value = {inputItem.Value}");
+					}
+					Logger.INFO($"\t\t\t\t\t\t---\tExpects:");
+					foreach (var expeectItem in testCaseItem.Expects)
+					{
+						Logger.INFO($"\t\t\t\t\t\t\t\tName = {expeectItem.Name}, value = {expeectItem.Value}");
+					}
+				}
+
+				Logger.INFO("\t\t-\tGet \"representative value\" of test ... DONE!");
+
+				return testCases;
 			}
-			return testCases;
+			catch (FormatException)
+			{
+				Logger.ERROR($"\t\t-\t\"Representative value\" cell can not be found in {this.Target} sheet.");
+
+				throw;
+			}
 		}
 
 		/// <summary>
@@ -200,6 +231,9 @@ namespace AutoTestPrep.Model.Parser
 				{
 					var testData = new TestData(allTestDatas.ElementAt(index));
 					appliedTestDatas.Add(testData);
+
+					Logger.DEBUG($"\t\t-\tApplied test data:");
+					Logger.DEBUG($"\t\t\t\t--\tName = {testData.Name}, value = {testData.Value}");
 				}
 			}
 			return appliedTestDatas;
@@ -209,20 +243,43 @@ namespace AutoTestPrep.Model.Parser
 		/// Set table top into Range object.
 		/// </summary>
 		/// <param name="reader">Object to read data from excel.</param>
+		/// <exception cref="FormatException">Input or output cell can not be found.</exception>
 		protected void SetupTableTopRange(ExcelReader reader)
 		{
-			this.TableTop = reader.FindFirstItem("入力/出力");
+			try
+			{
+				this.TableTop = reader.FindFirstItem("入力/出力");
+			}
+			catch (FormatException)
+			{
+				Logger.ERROR($"\t\t-\t\"Input/Output\" cell can not be found in {this.Target} sheet.");
+
+				throw;
+			}
 		}
 
 		/// <summary>
 		/// Setup input data range into Range object.
 		/// </summary>
 		/// <param name="reader">Object to read data from excel.</param>
+		/// <exception cref="FormatException">"Input" cell can not be found.</exception>
 		protected void SetupInputRange(ExcelReader reader)
 		{
-			Range range = reader.FindFirstItem("入力情報");
-			reader.GetMergedCellRange(ref range);
-			this.InputRange = range;
+			try
+			{
+				Range range = reader.FindFirstItem("入力情報");
+				reader.GetMergedCellRange(ref range);
+				this.InputRange = range;
+
+				Logger.DEBUG("\t\t-\t\"Input data\" range:");
+				Logger.DEBUG($"\t\t\t\t--\tstart - ({range.StartRow}, {range.StartColumn}) / count - ({range.RowCount}, {range.ColumnCount})");
+			}
+			catch (FormatException)
+			{
+				Logger.ERROR($"\t\t-\t\"Input\" cell can not be found in {this.Target} sheet.");
+
+				throw;
+			}
 		}
 
 		/// <summary>
@@ -231,9 +288,21 @@ namespace AutoTestPrep.Model.Parser
 		/// <param name="reader">Object to read data from excel.</param>
 		protected void SetupOutputRange(ExcelReader reader)
 		{
-			Range range = reader.FindFirstItem("結果(動作)");
-			reader.GetMergedCellRange(ref range);
-			this.OutputRange = range;
+			try
+			{
+				Range range = reader.FindFirstItem("結果(動作)");
+				reader.GetMergedCellRange(ref range);
+				this.OutputRange = range;
+
+				Logger.DEBUG("\t\t-\t\"output data\" range:");
+				Logger.DEBUG($"\t\t\t\t--\tstart - ({range.StartRow}, {range.StartColumn}) / count - ({range.RowCount}, {range.ColumnCount})");
+			}
+			catch (FormatException)
+			{
+				Logger.ERROR($"\t\t\t-\t\"Exepect(Output)\" can not be found in {this.Target} sheet.");
+
+				throw;
+			}
 		}
 
 		/// <summary>
@@ -242,26 +311,45 @@ namespace AutoTestPrep.Model.Parser
 		/// <param name="reader">Object to read data from excel.</param>
 		protected void SetupDataNames(ExcelReader reader)
 		{
-			string dataId = "代表名";
-			IEnumerable<string> inputDataNames = null;
-			IEnumerable<string> outputDataNames = null;
-			this.SetupDataCommon(reader, dataId, out inputDataNames, out outputDataNames);
-			this.InputNames = inputDataNames;
-			this.OutputNames = outputDataNames;
+			try
+			{
+				string dataId = "代表名";
+				IEnumerable<string> inputDataNames = null;
+				IEnumerable<string> outputDataNames = null;
+				this.SetupDataCommon(reader, dataId, out inputDataNames, out outputDataNames);
+				this.InputNames = inputDataNames;
+				this.OutputNames = outputDataNames;
+			}
+			catch (FormatException)
+			{
+				Logger.ERROR($"\t\t\t-\t\"Representative name\" can not be found in {this.Target} sheet.");
+
+				throw;
+			}
 		}
 
 		/// <summary>
 		/// Setup list of test values.
 		/// </summary>
-		/// <param name="reader"></param>
+		/// <param name="reader">Object to read excel data.</param>
+		/// 
 		protected void SetupDataValues(ExcelReader reader)
 		{
-			string dataid = "代表値";
-			IEnumerable<string> inputDataValues = null;
-			IEnumerable<string> outputDataValues = null;
-			this.SetupDataCommon(reader, dataid, out inputDataValues, out outputDataValues);
-			this.InputValues = inputDataValues;
-			this.OutputValues = outputDataValues;
+			try
+			{
+				string dataid = "代表値";
+				IEnumerable<string> inputDataValues = null;
+				IEnumerable<string> outputDataValues = null;
+				this.SetupDataCommon(reader, dataid, out inputDataValues, out outputDataValues);
+				this.InputValues = inputDataValues;
+				this.OutputValues = outputDataValues;
+			}
+			catch (FormatException)
+			{
+				Logger.ERROR($"\t\t\t-\t\"Representative value\" can not be found in {this.Target} sheet.");
+
+				throw;
+			}
 		}
 
 		/// <summary>
@@ -271,11 +359,21 @@ namespace AutoTestPrep.Model.Parser
 		/// <param name="columnId">Id of column</param>
 		/// <param name="inputs">Object to set input data.</param>
 		/// <param name="outputs">Object to set output data.</param>
+		/// <exception cref="FormatException">Data specified by argument <para>columnid</para> can not be found.</exception>
 		protected void SetupDataCommon(ExcelReader reader, string columnId, out IEnumerable<string> inputs, out IEnumerable<string> outputs)
 		{
-			Range range = reader.FindFirstItem(columnId);
-			IEnumerable<string> names = reader.ReadColumn(range);
-			this.SplitToInputOutput<string>(names, this.InputRange, this.OutputRange, out inputs, out outputs);
+			try
+			{
+				Range range = reader.FindFirstItem(columnId);
+				IEnumerable<string> names = reader.ReadColumn(range);
+				this.SplitToInputOutput<string>(names, this.InputRange, this.OutputRange, out inputs, out outputs);
+			}
+			catch (FormatException)
+			{
+				Logger.ERROR($"\t\t\t-\t\"{columnId}\" can not be found in {this.Target} sheet.");
+
+				throw;
+			}
 		}
 
 		/// <summary>
@@ -298,6 +396,11 @@ namespace AutoTestPrep.Model.Parser
 					Name = this.InputNames.ElementAt(index),
 					Value = this.InputValues.ElementAt(index)
 				};
+
+				Logger.DEBUG("\t\t-\tGet test input data.");
+				Logger.DEBUG($"\t\t\t\t--\tName = {testData.Name}");
+				Logger.DEBUG($"\t\t\t\t\tValue = {testData.Value}");
+
 				allInputData.Add(testData);
 			}
 
@@ -310,6 +413,11 @@ namespace AutoTestPrep.Model.Parser
 					Name = this.OutputNames.ElementAt(index),
 					Value = this.OutputValues.ElementAt(index)
 				};
+
+				Logger.DEBUG("\t\t-\tGet test output data.");
+				Logger.DEBUG($"\t\t\t\t--\tName = {testData.Name}");
+				Logger.DEBUG($"\t\t\t\t\tValue = {testData.Value}");
+
 				allOutputData.Add(testData);
 			}
 
