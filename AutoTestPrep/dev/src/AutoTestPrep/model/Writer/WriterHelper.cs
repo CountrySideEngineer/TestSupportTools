@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CSEngineer;
 
 namespace AutoTestPrep.Model.Writer
 {
@@ -36,6 +37,8 @@ namespace AutoTestPrep.Model.Writer
 			var outputTopDirPath = outputRootDirInfo + @"\" + testDataFlieName;
 			DirectoryInfo outputTopDirInfo = Directory.CreateDirectory(outputTopDirPath);
 
+			Logger.INFO($"Create directory \"{outputTopDirInfo.FullName}\".");
+
 			return outputTopDirInfo;
 		}
 
@@ -44,6 +47,8 @@ namespace AutoTestPrep.Model.Writer
 			string rootDirectoryPath = rootDirectory.FullName;
 			string outputDirectoryPath = rootDirectoryPath + @"\" + test.Name + "_test";
 			DirectoryInfo outputDirectoryInfo = Directory.CreateDirectory(outputDirectoryPath);
+
+			Logger.INFO($"Create directory \"{outputDirectoryInfo.FullName}\".");
 
 			return outputDirectoryInfo;
 		}

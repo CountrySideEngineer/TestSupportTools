@@ -1,6 +1,7 @@
 ﻿using AutoTestPrep.Model.InputInfos;
 using AutoTestPrep.Model.Option;
 using AutoTestPrep.Model.Tempaltes;
+using CSEngineer;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,6 +21,8 @@ namespace AutoTestPrep.Model.Writer
 		/// <param name="parameters">Collection of parameters used to genearate codes.</param>
 		public void Write(string path, object[] parameters)
 		{
+			Logger.INFO("Start generating test driver source code.");
+
 			try
 			{
 				var test = (Test)parameters[0];
@@ -28,6 +31,9 @@ namespace AutoTestPrep.Model.Writer
 				Function function = test.Target;
 				string fileName = function.Name + "_test" + ext;
 				string outputPath = path + @"\" + fileName;
+
+				Logger.INFO($"\t\t-\tDriver source file path : {outputPath}.");
+
 				using (var stream = new StreamWriter(outputPath, false, Encoding.UTF8))
 				{
 					var options = new Options()
@@ -39,10 +45,11 @@ namespace AutoTestPrep.Model.Writer
 					stream.Write(template.TransformText());
 				}
 			}
-			catch (IndexOutOfRangeException ex)
+			catch (Exception ex)
+			when ((ex is InvalidCastException) || (ex is IndexOutOfRangeException))
 			{
-				Debug.WriteLine(ex.Message);
-				throw ex;
+				Logger.FATAL("Parameters to generate test driver code are invalid.");
+				throw;
 			}
 		}
 	}

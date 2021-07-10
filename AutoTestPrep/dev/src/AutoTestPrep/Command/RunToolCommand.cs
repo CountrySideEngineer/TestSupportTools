@@ -9,6 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CSEngineer;
+
 
 namespace AutoTestPrep.Command
 {
@@ -19,14 +21,34 @@ namespace AutoTestPrep.Command
 	public class RunToolCommand
 	{
 		/// <summary>
+		/// Run cimmand interface.
+		/// </summary>
+		/// <param name="data">Data for command.</param>
+		public void Run(object data)
+		{
+			string logFileName = @"./log.txt";
+			using (var stream = new StreamWriter(logFileName, false, Encoding.UTF8))
+			{
+				Logger.Level = Logger.LogLevel.All;
+				Logger.AddStream(stream);
+				Logger.INFO("Start logging!");
+				this._Run(data);
+				Logger.RemoveStream(stream);
+			}
+
+		}
+
+		/// <summary>
 		/// Run command.
 		/// </summary>
 		/// <param name="data">Parameters used when run command.</param>
-		public void Run(object data)
+		protected void _Run(object data)
 		{
 			try
 			{
 				var inputInfos = data as TestDataInfo;
+
+				Logger.INFO($"Start parsing the test data in {inputInfos.TestDataFilePath}.");
 				var parser = new TestParser();
 				var tests = (IEnumerable<Test>)parser.Parse(inputInfos.TestDataFilePath);
 				IEnumerable<IWriter> writers = new List<IWriter>
@@ -34,6 +56,8 @@ namespace AutoTestPrep.Command
 					new StubWriter(),
 					new TestDriverWriter(),
 				};
+
+				Logger.INFO("Start generating test codes.");
 				var helper = new WriterHelper();
 				foreach (var testItem in tests)
 				{
@@ -42,11 +66,13 @@ namespace AutoTestPrep.Command
 			}
 			catch (InvalidCastException)
 			{
+				Logger.FATAL("Input data type error!");
+
 				throw;
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine(ex.Message);
+				Logger.ERROR(ex.Message);
 			}
 		}
 	}
