@@ -55,7 +55,14 @@ namespace AutoTestPrep.Model.Tempaltes
             
             #line default
             #line hidden
-            this.Write("_return[100];\r\n");
+            this.Write("_return[");
+            
+            #line 9 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TestDataInfo.StubBufferSize1));
+            
+            #line default
+            #line hidden
+            this.Write("];\r\n");
             
             #line 10 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
  } 
@@ -91,7 +98,14 @@ if (null != Function.Arguments)
             
             #line default
             #line hidden
-            this.Write("[100];\r\n");
+            this.Write("[");
+            
+            #line 15 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TestDataInfo.StubBufferSize1));
+            
+            #line default
+            #line hidden
+            this.Write("];\r\n");
             
             #line 16 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
 	}	} 
@@ -112,7 +126,14 @@ if (null != Function.Arguments)
             
             #line default
             #line hidden
-            this.Write("_called_count = 0;\r\n\tfor (int index1 = 0; index1 < 100; index1++) {\r\n");
+            this.Write("_called_count = 0;\r\n\tfor (int index1 = 0; index1 < ");
+            
+            #line 22 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TestDataInfo.StubBufferSize1));
+            
+            #line default
+            #line hidden
+            this.Write("; index1++) {\r\n");
             
             #line 23 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate.tt"
 

@@ -96,7 +96,7 @@ namespace AutoTestPrep.ViewModel
 		public override void SetupTestInfomation(ref TestDataInfo testDataInfo)
 		{
 			testDataInfo.StubBufferSize1 = this.BufferSize1;
-			testDataInfo.StubBufferSize1 = this.BufferSize2;
+			testDataInfo.StubBufferSize2 = this.BufferSize2;
 		}
 	}
 }

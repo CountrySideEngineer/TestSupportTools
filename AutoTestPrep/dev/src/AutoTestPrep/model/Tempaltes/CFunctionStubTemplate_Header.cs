@@ -79,7 +79,7 @@ if (null != Function.Arguments) {
             
             #line default
             #line hidden
-            this.Write("[100];\r\n");
+            this.Write("[];\r\n");
             
             #line 17 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate_Header.tt"
  }
@@ -87,9 +87,9 @@ if (null != Function.Arguments) {
             
             #line default
             #line hidden
-            this.Write("void ");
+            this.Write("\r\nvoid ");
             
-            #line 19 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate_Header.tt"
+            #line 20 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\CFunctionStubTemplate_Header.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Function.Name));
             
             #line default

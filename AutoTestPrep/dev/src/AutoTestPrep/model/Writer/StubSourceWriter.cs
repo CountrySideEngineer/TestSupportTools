@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutoTestPrep.Model.Writer
 {
+	using AutoTestPrep.Model.InputInfos;
 	using CSEngineer;
 	using System.IO;
 	using Tempaltes;
@@ -23,9 +24,11 @@ namespace AutoTestPrep.Model.Writer
 		public void Write(string path, object[] parameters)
 		{
 			Test testParameter = null;
+			TestDataInfo testDataInfo = null;
 			try
 			{
 				testParameter = (Test)parameters[0];
+				testDataInfo = (TestDataInfo)parameters[1];
 
 				Logger.INFO($"Start generating stub source code of {testParameter.Target.Name}");
 
@@ -36,7 +39,7 @@ namespace AutoTestPrep.Model.Writer
 				{
 					try
 					{
-						this.Write(path, subFunctionItem, ext);
+						this.Write(path, subFunctionItem, testDataInfo, ext);
 					}
 					catch (Exception ex)
 					when ((ex is PathTooLongException) || (ex is IOException))
@@ -67,7 +70,7 @@ namespace AutoTestPrep.Model.Writer
 		/// <param name="ext">Extention of stub code.</param>
 		/// <exception cref="PathTooLongException">Path to output code is too long to generate.</exception>
 		/// <exception cref="IOException">The output file path can not access.</exception>
-		protected void Write(string path, Function functionItem, string ext)
+		protected void Write(string path, Function functionItem, TestDataInfo testDataInfo, string ext)
 		{
 			string stubFilePath = string.Empty;
 			try
@@ -76,7 +79,7 @@ namespace AutoTestPrep.Model.Writer
 
 				Logger.INFO($"\t\t-\tStub source file path : {stubFilePath}");
 
-				var template = new CFunctionStubTemplate(functionItem);
+				var template = new CFunctionStubTemplate(functionItem, testDataInfo);
 				using (var stream = new StreamWriter(stubFilePath, false, Encoding.Unicode))
 				{
 					stream.Write(template.TransformText());
