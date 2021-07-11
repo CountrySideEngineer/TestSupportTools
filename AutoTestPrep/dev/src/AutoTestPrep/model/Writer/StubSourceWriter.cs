@@ -57,7 +57,6 @@ namespace AutoTestPrep.Model.Writer
 				Logger.FATAL("\t\t-\tThe parameters to generate stub soruce cdeo are invalid.");
 				throw;
 			}
-
 		}
 
 		/// <summary>
