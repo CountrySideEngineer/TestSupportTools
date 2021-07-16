@@ -1,0 +1,47 @@
+﻿<#@ template language="C#"
+	inherits="TestStubTemplate_Base" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+#pragma once
+<# foreach (var functionItem in Function.SubFunctions) { #>	
+//Sub function called count.
+<#= CreateFunctionCalledCountBufferDecalre(functionItem) #>
+<#= CreateFunctionReturnBufferDeclare(functionItem) #>
+
+//Argument buffer.
+<# foreach (var argumentItem in functionItem.Arguments) { #>
+<#= CreateFunctionArgumentBufferDeclare(functionItem, argumentItem) #>
+<#	}	#>
+//Return value buffer
+<# foreach (var argumentItem in functionItem.Arguments) { #>
+<#= CreateFunctionOutputBufferDeclare(functionItem, argumentItem) #>
+<#	}	#>
+<#	}	#>
+
+<#+
+	/// <summary>
+	/// Create code declaring variable to set the count the function called.
+	/// </summary>
+	/// <param name="function">Function information</param>
+	/// <returns>Code to declare variable to set the count function called.</returns>
+	protected override string CreateFunctionCalledCountBufferDecalre(Function function)
+	{
+		string calledCountBufferName = base.CreateFunctionCalledCountBufferDecalre(function);
+		calledCountBufferName = "extern " + calledCountBufferName;
+		calledCountBufferName += ";";
+		return calledCountBufferName;
+	}
+
+	protected override string CreateFunctionReturnBufferDeclare(Function function)
+	{
+		string returnBufferName = base.CreateFunctionReturnBufferDeclare(function);
+		if (!(string.IsNullOrEmpty(returnBufferName))) {
+			returnBufferName = "extern " + returnBufferName;
+			returnBufferName += "[];";
+		}
+		return returnBufferName;
+	}
+#>
+

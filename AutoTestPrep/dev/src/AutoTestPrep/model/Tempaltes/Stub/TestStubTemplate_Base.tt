@@ -1,0 +1,94 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#+
+
+	/// <summary>
+	/// Create buffer name to store value a stub should return.
+	/// </summary>
+	/// <param name="function">Function data of stub.</param>
+	/// <returns>Buffer name.
+	/// It is in format below:
+	/// (Function_ActualDataType) (FunctionName)_return_value.
+	/// </returns>
+	protected virtual string CreateFunctionReturnBufferDeclare(Function function)
+	{
+		string returnBufferName = string.Empty;
+		if (function.HasReturn())
+		{
+			returnBufferName = function.ActualDataType();
+			returnBufferName += " ";
+			returnBufferName += function.Name;
+			returnBufferName += "_return_value";
+		}
+		return returnBufferName;
+	}
+
+	/// <summary>
+	/// Create code to declare buffer to store argument.
+	/// </summary>
+	/// <param name="function">Function information of stub.</param>
+	/// <param name="argument">Parameter object of argument.</param>
+	/// <returns>Code to declare buffer to store arugument.
+	///	It is in format below:
+	///	(ArgumentDataType) (FunctionName)_(ArgumentName)
+	/// </returns>
+	protected virtual string CreateFunctionArgumentBufferDeclare(Function function, Parameter argument)
+	{
+		string argumentBufferDeclare = string.Empty;
+		argumentBufferDeclare = argument.ActualDataType();
+		argumentBufferDeclare += " ";
+		argumentBufferDeclare += function.Name + "_" + argument.Name;
+		return argumentBufferDeclare;
+	}
+
+	/// <summary>
+	/// Creat code to declare buffer to store output value.
+	/// </summary>
+	/// <param name="function">Function information.</param>
+	/// <param name="argument">Argument information.</param>
+	/// <returns>Create code to store value to return via pointer.</returns>
+	protected virtual string CreateFunctionOutputBufferDeclare(Function function, Parameter argument)
+	{
+		string outputBufferDeclare = string.Empty;
+
+		if (1 == argument.PointerNum)
+		{
+			if ((argument.Mode == Parameter.AccessMode.Out) ||
+				(argument.Mode == Parameter.AccessMode.Both))
+			{
+				outputBufferDeclare = argument.DataType;
+				outputBufferDeclare += " ";
+				outputBufferDeclare += (function.Name + "_" + argument.Name);
+				outputBufferDeclare += "_value";
+			}
+			else
+			{
+				throw new ArgumentException();
+			}
+		}
+		else if (2 == argument.PointerNum)
+		{
+			if ((argument.Mode == Parameter.AccessMode.Out) ||
+				(argument.Mode == Parameter.AccessMode.Both))
+			{
+				outputBufferDeclare = argument.DataType;
+				outputBufferDeclare += "*";
+				outputBufferDeclare += " ";
+				outputBufferDeclare += (function.Name + "_" + argument.Name);
+				outputBufferDeclare += "_value";
+			}
+			else
+			{
+				throw new ArgumentException();
+			}
+		}
+		else
+		{
+			throw new ArgumentException();
+		}
+		return outputBufferDeclare;
+	}
+#>

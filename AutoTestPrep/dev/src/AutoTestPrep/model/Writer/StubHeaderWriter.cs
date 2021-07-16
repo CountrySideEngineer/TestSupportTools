@@ -8,6 +8,7 @@ using CSEngineer;
 namespace AutoTestPrep.Model.Writer
 {
 	using AutoTestPrep.Model.InputInfos;
+	using AutoTestPrep.Model.Tempaltes.Stub;
 	using System.IO;
 	using Tempaltes;
 
@@ -26,19 +27,15 @@ namespace AutoTestPrep.Model.Writer
 
 				string ext = ".h";
 				Function testFunction = testParameter.Target;
-				IEnumerable<Function> subFunction = testFunction.SubFunctions;
-				foreach (var subFunctionItem in subFunction)
+				try
 				{
-					try
-					{
-						this.Write(path, subFunctionItem, testDataInfo, ext);
-					}
-					catch (Exception ex)
-					when ((ex is PathTooLongException) || (ex is IOException))
-					{
-						Logger.ERROR($"\t\t-\tAn error occurred while generating stub header of method {subFunctionItem.Name}.");
-						Logger.ERROR("\t\t\tSkip the generating stub header.");
-					}
+					this.Write(path, testFunction, testDataInfo, ext);
+				}
+				catch (Exception ex)
+				when ((ex is PathTooLongException) || (ex is IOException))
+				{
+					Logger.ERROR($"\t\t-\tAn error occurred while generating stub header of method {testFunction.Name}.");
+					Logger.ERROR("\t\t\tSkip the generating stub header.");
 				}
 			}
 			catch (NullReferenceException)
@@ -70,7 +67,7 @@ namespace AutoTestPrep.Model.Writer
 				stubFilePath = path + @"\" + functionItem.Name + "_test_stub" + ext;
 				Logger.INFO($"\t\t-\tStub header file path : {stubFilePath}");
 
-				var template = new CFunctionStubTemplate_Header(functionItem, testDataInfo);
+				var template = new TestStubTemplate_Header(functionItem, testDataInfo);
 				using (var stream = new StreamWriter(stubFilePath, false, Encoding.Unicode))
 				{
 					stream.Write(template.TransformText());
