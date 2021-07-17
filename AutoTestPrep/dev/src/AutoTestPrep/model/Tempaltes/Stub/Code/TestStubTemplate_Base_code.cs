@@ -41,6 +41,12 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 			this.TestDataInfo = testDataInfo;
 		}
 
+		/// <summary>
+		/// Constructor with argument.
+		/// </summary>
+		/// <param name="function">Funtion information (Parent function information).</param>
+		/// <param name="subFunction"></param>
+		/// <param name="testDataInfo"></param>
 		public TestStubTemplate_Base(Function function, Function subFunction, TestDataInfo testDataInfo)
 		{
 			this.Function = function;
