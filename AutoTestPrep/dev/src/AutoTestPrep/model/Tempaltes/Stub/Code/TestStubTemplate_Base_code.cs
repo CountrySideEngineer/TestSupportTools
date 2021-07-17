@@ -10,21 +10,6 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 	public partial class TestStubTemplate_Base
 	{
 		/// <summary>
-		/// Function information.
-		/// </summary>
-		//public Function Function { get; set; }
-
-		/// <summary>
-		/// Sub function information
-		/// </summary>
-		//public Function SubFunction { get; set; }
-
-		/// <summary>
-		/// Test data information.
-		/// </summary>
-		//public TestDataInfo TestDataInfo { get; set; }
-
-		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		protected TestStubTemplate_Base()
@@ -64,9 +49,16 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 		/// <returns>Code to declare variable to set the count function called.</returns>
 		protected virtual string CreateFunctionCalledCountBufferDecalre()
 		{
-			string calledCountBufferName = ("int " + this.SubFunction.Name);
-			calledCountBufferName += "_called_count";
+			string calledCountBufferName = string.Empty;
+			calledCountBufferName = "int ";
+			calledCountBufferName += this.CreateFunctionCalledCountBufferName();
 			return calledCountBufferName;
+		}
+
+		protected virtual string CreateFunctionCalledCountBufferName()
+		{
+			string calledCountVariableName = this.SubFunction.Name + "_called_count";
+			return calledCountVariableName;
 		}
 	}
 }

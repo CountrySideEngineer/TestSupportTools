@@ -37,24 +37,17 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 	/// <summary>
 	/// Function information.
 	/// </summary>
-	protected Function SubFunction;
+	protected Function ParentFunction;
 
 	/// <summary>
 	/// Sub function information
 	/// </summary>
-	protected Function ParentFunction;
+	protected Function SubFunction;
 
 	/// <summary>
 	/// Test data information.
 	/// </summary>
 	protected TestDataInfo TestDataInfo;
-
-        
-        #line default
-        #line hidden
-        
-        #line 23 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Base.tt"
-
 
 	/// <summary>
 	/// Create buffer name to store value a stub should return.
@@ -64,14 +57,14 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 	/// It is in format below:
 	/// (Function_ActualDataType) (FunctionName)_return_value.
 	/// </returns>
-	protected virtual string CreateFunctionReturnBufferDeclare(Function function)
+	protected virtual string CreateFunctionReturnBufferDeclare()
 	{
 		string returnBufferName = string.Empty;
-		if (function.HasReturn())
+		if (ParentFunction.HasReturn())
 		{
-			returnBufferName = function.ActualDataType();
+			returnBufferName = this.SubFunction.ActualDataType();
 			returnBufferName += " ";
-			returnBufferName += function.Name;
+			returnBufferName += this.SubFunction.Name;
 			returnBufferName += "_return_value";
 		}
 		return returnBufferName;
@@ -95,6 +88,12 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 		return argumentBufferDeclare;
 	}
 
+	protected virtual string CreateArgumentBufferVariableName(Parameter argument)
+	{
+		string variableArgumentBufferName = $"{this.SubFunction.Name}_{argument.Name}";
+		return variableArgumentBufferName;
+	}
+
 	/// <summary>
 	/// Creat code to declare buffer to store output value.
 	/// </summary>
@@ -105,30 +104,15 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 	{
 		string outputBufferDeclare = string.Empty;
 
-		if (1 == argument.PointerNum)
+		if ((1 == argument.PointerNum) ||
+			(2 == argument.PointerNum))
 		{
 			if ((argument.Mode == Parameter.AccessMode.Out) ||
 				(argument.Mode == Parameter.AccessMode.Both))
 			{
 				outputBufferDeclare = argument.DataType;
 				outputBufferDeclare += " ";
-				outputBufferDeclare += (function.Name + "_" + argument.Name);
-				outputBufferDeclare += "_value";
-			}
-			else
-			{
-				throw new ArgumentException();
-			}
-		}
-		else if (2 == argument.PointerNum)
-		{
-			if ((argument.Mode == Parameter.AccessMode.Out) ||
-				(argument.Mode == Parameter.AccessMode.Both))
-			{
-				outputBufferDeclare = argument.DataType;
-				outputBufferDeclare += "*";
-				outputBufferDeclare += " ";
-				outputBufferDeclare += (function.Name + "_" + argument.Name);
+				outputBufferDeclare += $"{function.Name}_{argument.Name}";
 				outputBufferDeclare += "_value";
 			}
 			else
@@ -155,6 +139,13 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 		bufferInitializeFunction += "_init()";
 
 		return bufferInitializeFunction;
+	}
+
+	protected virtual string CreateOutputBufferName(Parameter argument)
+	{
+		string variableName = string.Empty;
+		variableName = $"{this.ParentFunction.Name}_{argument.Name}_value";
+		return variableName;
 	}
 
         

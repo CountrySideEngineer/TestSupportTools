@@ -1,0 +1,107 @@
+﻿<#@ template language="C#" 
+	inherits="TestStubTemplate_Base" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+//Declare buffers to store a value passed and pass.
+<#= CreateFunctionCalledCountBufferDecalre() #>
+<#= CreateFunctionReturnBufferDeclare() #>
+
+//Argument buffer
+<# foreach (var argumentItem in SubFunction.Arguments) { #>
+<#= CreateFunctionArgumentBufferDeclare(SubFunction, argumentItem) #>
+<#= CreateFunctionOutputBufferDeclare(SubFunction, argumentItem) #>
+<#	}	#>
+
+//Initialize buffers.
+<#= CreateBufferInitializeFunction() #>
+{
+	<#= CreateFunctionCalledCountBufferName() #> = 0;
+	for (int index = 0; index < STUB_BUFFER_SIZE_1; index++) {
+<# foreach (var argumentItem in SubFunction.Arguments) { #>
+		<#= CreateArgumentInitializeCode_1(argumentItem, "index") #>
+<#	}	#>
+		for (int index2 = 0; index2 < STUB_BUFFER_SIZE_2; index2++) {
+<# foreach (var argumentItem in SubFunction.Arguments) { #>
+			<#= CreateArgumentInitializeCode_2(argumentItem, "index", "index2") #>
+<#	}	#>
+		}
+	}
+}
+
+//Stub of function.
+<#= this.SubFunction.ToString() #>
+{
+	<#= CreateLatchReturnValue() #>
+
+<# foreach (var argumentItem in SubFunction.Arguments) {	#>
+	<#= CreateSetArgumentToBuffer(argumentItem) #>
+<#	}	#>
+	for (int index  = 0; index < STUB_BUFFER_SIZE_2; index++) {
+<#	foreach (var argumentItem in SubFunction.Arguments) {	#>
+		<#= CreateSetOutputBufferToArgument(argumentItem, "index")	#>
+<#	}	#>
+	}
+
+	//Increment called count.
+	<#= CreateCalledCountUpdate() #>
+
+	//Return value;
+	<#= CreateReturnValue() #>
+}
+<#+
+	protected override string CreateFunctionArgumentBufferDeclare(Function function, Parameter argument)
+	{
+		string argumentBufferDeclare = base.CreateFunctionArgumentBufferDeclare(function, argument);
+		argumentBufferDeclare += "[STUB_BUFFER_SIZE_1];";
+		return argumentBufferDeclare;
+	}
+
+	protected virtual string CreateArgumentInitializeCode_1(Parameter argument, string indexName)
+	{
+		string variableInitializeCode = $"{this.SubFunction.Name}_{argument.Name}[{indexName}]";
+		if (0 < argument.PointerNum) {
+			variableInitializeCode += " = null;";
+		}
+		else
+		{
+			variableInitializeCode += " = 0;";
+		}
+		return variableInitializeCode;
+	}
+
+	protected virtual string CreateArgumentInitializeCode_2(Parameter argument, string indexName, string indexName2)
+	{
+		string outputVariable = string.Empty;
+		if (1 == argument.PointerNum)
+		{
+			if ((argument.Mode == Parameter.AccessMode.Out) ||
+				(argument.Mode == Parameter.AccessMode.Both))
+			{
+				outputVariable = $"{this.SubFunction.Name}_{argument.Name}_value[{indexName}] = 0;";
+			}
+			else
+			{
+				outputVariable = $"//{argument.Name} is not output.";
+			}
+		}
+		else if (2 == argument.PointerNum)
+		{
+			if ((argument.Mode == Parameter.AccessMode.Out) ||
+				(argument.Mode == Parameter.AccessMode.Both))
+			{
+				outputVariable = $"{this.SubFunction.Name}_{argument.Name}_value[{indexName}][{indexName2}] = 0;";
+			}
+			else
+			{
+				outputVariable = $"//{argument.Name} is not output.";
+			}
+		}
+		else
+		{
+			outputVariable = $"//{argument.Name} is not output.";
+		}
+		return outputVariable;
+	}
+#>

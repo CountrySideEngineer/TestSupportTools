@@ -38,7 +38,7 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
             this.Write("\r\n");
             
             #line 10 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionReturnBufferDeclare(SubFunction)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionReturnBufferDeclare()));
             
             #line default
             #line hidden
@@ -108,9 +108,9 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 		return calledCountBufferName;
 	}
 
-	protected override string CreateFunctionReturnBufferDeclare(Function function)
+	protected override string CreateFunctionReturnBufferDeclare()
 	{
-		string returnBufferName = base.CreateFunctionReturnBufferDeclare(function);
+		string returnBufferName = base.CreateFunctionReturnBufferDeclare();
 		if (!(string.IsNullOrEmpty(returnBufferName))) {
 			returnBufferName = "extern " + returnBufferName;
 			returnBufferName += "[];";
