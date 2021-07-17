@@ -28,78 +28,64 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
         /// </summary>
         public override string TransformText()
         {
-            this.Write("#pragma once\r\n");
+            this.Write("#pragma once\r\n//Sub function called count.\r\n");
             
-            #line 8 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
- foreach (var functionItem in Function.SubFunctions) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\r\n//Sub function called count.\r\n");
-            
-            #line 10 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionCalledCountBufferDecalre(functionItem)));
+            #line 9 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionCalledCountBufferDecalre(SubFunction)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 11 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionReturnBufferDeclare(functionItem)));
+            #line 10 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionReturnBufferDeclare(SubFunction)));
             
             #line default
             #line hidden
             this.Write("\r\n\r\n//Argument buffer.\r\n");
             
-            #line 14 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
- foreach (var argumentItem in functionItem.Arguments) { 
+            #line 13 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
+ foreach (var argumentItem in SubFunction.Arguments) { 
             
             #line default
             #line hidden
             
-            #line 15 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionArgumentBufferDeclare(functionItem, argumentItem)));
+            #line 14 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionArgumentBufferDeclare(SubFunction, argumentItem)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 16 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
+            #line 15 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
 	}	
             
             #line default
             #line hidden
             this.Write("//Return value buffer\r\n");
             
-            #line 18 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
- foreach (var argumentItem in functionItem.Arguments) { 
+            #line 17 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
+ foreach (var argumentItem in SubFunction.Arguments) { 
             
             #line default
             #line hidden
+            
+            #line 18 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionOutputBufferDeclare(SubFunction, argumentItem)));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
             
             #line 19 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionOutputBufferDeclare(functionItem, argumentItem)));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n");
-            
-            #line 20 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
 	}	
             
             #line default
             #line hidden
-            
-            #line 21 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
-	}	
-            
-            #line default
-            #line hidden
-            this.Write("\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 23 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
+        #line 20 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
 
 	/// <summary>
 	/// Create code declaring variable to set the count the function called.

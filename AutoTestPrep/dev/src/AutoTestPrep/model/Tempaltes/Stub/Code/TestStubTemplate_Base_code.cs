@@ -14,6 +14,8 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 		/// </summary>
 		public Function Function { get; set; }
 
+		public Function SubFunction { get; set; }
+
 		/// <summary>
 		/// Test data information.
 		/// </summary>
@@ -36,6 +38,13 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 		public TestStubTemplate_Base(Function function, TestDataInfo testDataInfo)
 		{
 			this.Function = function;
+			this.TestDataInfo = testDataInfo;
+		}
+
+		public TestStubTemplate_Base(Function function, Function subFunction, TestDataInfo testDataInfo)
+		{
+			this.Function = function;
+			this.SubFunction = subFunction;
 			this.TestDataInfo = testDataInfo;
 		}
 

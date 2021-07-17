@@ -22,6 +22,16 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 			: base(function, testDataInfo)
 		{ }
 
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		/// <param name="function">Function information data (Parent function data).</param>
+		/// <param name="subFunction">Sub function information.</param>
+		/// <param name="testDataInfo">TestDataInformation</param>
+		public TestStubTemplate_Header(Function function, Function subFunction, TestDataInfo testDataInfo)
+			:base(function, subFunction, testDataInfo)
+		{ }
+
 		protected override string CreateFunctionArgumentBufferDeclare(Function function, Parameter argument)
 		{
 			string argumentBufferDeclare = base.CreateFunctionArgumentBufferDeclare(function, argument);

@@ -27,15 +27,19 @@ namespace AutoTestPrep.Model.Writer
 
 				string ext = ".h";
 				Function testFunction = testParameter.Target;
-				try
+				IEnumerable<Function> subFunctions = testFunction.SubFunctions;
+				foreach (var subFunctionItem in subFunctions)
 				{
-					this.Write(path, testFunction, testDataInfo, ext);
-				}
-				catch (Exception ex)
-				when ((ex is PathTooLongException) || (ex is IOException))
-				{
-					Logger.ERROR($"\t\t-\tAn error occurred while generating stub header of method {testFunction.Name}.");
-					Logger.ERROR("\t\t\tSkip the generating stub header.");
+					try
+					{
+						this.Write(path, testFunction, subFunctionItem, testDataInfo, ext);
+					}
+					catch (Exception ex)
+					when ((ex is PathTooLongException) || (ex is IOException))
+					{
+						Logger.ERROR($"\t\t-\tAn error occurred while generating stub header of method {testFunction.Name}.");
+						Logger.ERROR("\t\t\tSkip the generating stub header.");
+					}
 				}
 			}
 			catch (NullReferenceException)
@@ -59,15 +63,15 @@ namespace AutoTestPrep.Model.Writer
 		/// <param name="path">Path to directory to output the stub header code.</param>
 		/// <param name="functionItem">Function information.</param>
 		/// <param name="ext">Extention of output file.</param>
-		protected void Write(string path, Function functionItem, TestDataInfo testDataInfo, string ext)
+		protected void Write(string path, Function functionItem, Function subFunction, TestDataInfo testDataInfo, string ext)
 		{
 			string stubFilePath = string.Empty;
 			try
 			{
-				stubFilePath = path + @"\" + functionItem.Name + "_test_stub" + ext;
+				stubFilePath = path + @"\" + subFunction.Name + "_test_stub" + ext;
 				Logger.INFO($"\t\t-\tStub header file path : {stubFilePath}");
 
-				var template = new TestStubTemplate_Header(functionItem, testDataInfo);
+				var template = new TestStubTemplate_Header(functionItem, subFunction, testDataInfo);
 				using (var stream = new StreamWriter(stubFilePath, false, Encoding.Unicode))
 				{
 					stream.Write(template.TransformText());

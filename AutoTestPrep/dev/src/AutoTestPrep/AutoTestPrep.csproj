@@ -116,6 +116,11 @@
       <DependentUpon>TestStubTemplate_Header.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Tempaltes\Stub\Code\TestStubTemplate_Header_code.cs" />
+    <Compile Include="Model\Tempaltes\Stub\TestStubTemplate_Source.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestStubTemplate_Source.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Writer\StubHeaderWriter.cs" />
     <Compile Include="Model\Writer\StubSourceWriter.cs" />
     <Compile Include="Model\Writer\WriterHelper.cs" />
@@ -361,6 +366,10 @@
     <Content Include="Model\Tempaltes\Stub\TestStubTemplate_Header.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>TestStubTemplate_Header.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\Stub\TestStubTemplate_Source.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestStubTemplate_Source.cs</LastGenOutput>
     </Content>
     <Content Include="Model\Tempaltes\TestDriverTemplate_Header_gtest.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

@@ -5,21 +5,18 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 #pragma once
-<# foreach (var functionItem in Function.SubFunctions) { #>	
 //Sub function called count.
-<#= CreateFunctionCalledCountBufferDecalre(functionItem) #>
-<#= CreateFunctionReturnBufferDeclare(functionItem) #>
+<#= CreateFunctionCalledCountBufferDecalre(SubFunction) #>
+<#= CreateFunctionReturnBufferDeclare(SubFunction) #>
 
 //Argument buffer.
-<# foreach (var argumentItem in functionItem.Arguments) { #>
-<#= CreateFunctionArgumentBufferDeclare(functionItem, argumentItem) #>
+<# foreach (var argumentItem in SubFunction.Arguments) { #>
+<#= CreateFunctionArgumentBufferDeclare(SubFunction, argumentItem) #>
 <#	}	#>
 //Return value buffer
-<# foreach (var argumentItem in functionItem.Arguments) { #>
-<#= CreateFunctionOutputBufferDeclare(functionItem, argumentItem) #>
+<# foreach (var argumentItem in SubFunction.Arguments) { #>
+<#= CreateFunctionOutputBufferDeclare(SubFunction, argumentItem) #>
 <#	}	#>
-<#	}	#>
-
 <#+
 	/// <summary>
 	/// Create code declaring variable to set the count the function called.
