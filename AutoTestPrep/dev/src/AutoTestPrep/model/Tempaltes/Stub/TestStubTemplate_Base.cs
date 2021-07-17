@@ -12,6 +12,7 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
     using System.Linq;
     using System.Text;
     using System.Collections.Generic;
+    using AutoTestPrep.Model.InputInfos;
     using System;
     
     /// <summary>
@@ -31,7 +32,28 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 6 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Base.tt"
+        #line 7 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Base.tt"
+
+	/// <summary>
+	/// Function information.
+	/// </summary>
+	protected Function SubFunction;
+
+	/// <summary>
+	/// Sub function information
+	/// </summary>
+	protected Function ParentFunction;
+
+	/// <summary>
+	/// Test data information.
+	/// </summary>
+	protected TestDataInfo TestDataInfo;
+
+        
+        #line default
+        #line hidden
+        
+        #line 23 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Base.tt"
 
 
 	/// <summary>
@@ -119,6 +141,20 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 			throw new ArgumentException();
 		}
 		return outputBufferDeclare;
+	}
+
+	/// <summary>
+	/// Create code of function entry point to initialize 
+	/// </summary>
+	/// <returns>Code to declare function entry point to initialize buffer parameter.</returns>
+	protected virtual string CreateBufferInitializeFunction()
+	{
+		string bufferInitializeFunction = string.Empty;
+		bufferInitializeFunction = "void ";
+		bufferInitializeFunction += this.SubFunction.Name;
+		bufferInitializeFunction += "_init()";
+
+		return bufferInitializeFunction;
 	}
 
         

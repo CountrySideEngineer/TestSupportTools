@@ -6,7 +6,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 #pragma once
 //Sub function called count.
-<#= CreateFunctionCalledCountBufferDecalre(SubFunction) #>
+<#= CreateFunctionCalledCountBufferDecalre() #>
 <#= CreateFunctionReturnBufferDeclare(SubFunction) #>
 
 //Argument buffer.
@@ -17,15 +17,18 @@
 <# foreach (var argumentItem in SubFunction.Arguments) { #>
 <#= CreateFunctionOutputBufferDeclare(SubFunction, argumentItem) #>
 <#	}	#>
+
+//Function to initialize buffers.
+<#= CreateBufferInitializeFunction() #>
 <#+
 	/// <summary>
 	/// Create code declaring variable to set the count the function called.
 	/// </summary>
 	/// <param name="function">Function information</param>
 	/// <returns>Code to declare variable to set the count function called.</returns>
-	protected override string CreateFunctionCalledCountBufferDecalre(Function function)
+	protected override string CreateFunctionCalledCountBufferDecalre()
 	{
-		string calledCountBufferName = base.CreateFunctionCalledCountBufferDecalre(function);
+		string calledCountBufferName = base.CreateFunctionCalledCountBufferDecalre();
 		calledCountBufferName = "extern " + calledCountBufferName;
 		calledCountBufferName += ";";
 		return calledCountBufferName;
@@ -39,6 +42,18 @@
 			returnBufferName += "[];";
 		}
 		return returnBufferName;
+	}
+
+	/// <summary>
+	/// Create code of function entry point to initialize 
+	/// </summary>
+	/// <returns>Code to declare function entry point to initialize buffer parameter.</returns>
+	protected override string CreateBufferInitializeFunction()
+	{
+		string bufferInitializeFunction = base.CreateBufferInitializeFunction();
+		bufferInitializeFunction += ";";
+
+		return bufferInitializeFunction;
 	}
 #>
 

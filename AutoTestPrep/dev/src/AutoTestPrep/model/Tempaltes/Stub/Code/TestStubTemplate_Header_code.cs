@@ -32,6 +32,12 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 			:base(function, subFunction, testDataInfo)
 		{ }
 
+		/// <summary>
+		/// Create code to declare buffer for argument
+		/// </summary>
+		/// <param name="function">Function data.</param>
+		/// <param name="argument">Argument data.</param>
+		/// <returns>Code to declare argument buffer extern.</returns>
 		protected override string CreateFunctionArgumentBufferDeclare(Function function, Parameter argument)
 		{
 			string argumentBufferDeclare = base.CreateFunctionArgumentBufferDeclare(function, argument);

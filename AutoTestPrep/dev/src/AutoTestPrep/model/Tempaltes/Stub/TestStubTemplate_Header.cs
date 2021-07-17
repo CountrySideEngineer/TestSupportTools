@@ -31,7 +31,7 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
             this.Write("#pragma once\r\n//Sub function called count.\r\n");
             
             #line 9 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionCalledCountBufferDecalre(SubFunction)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionCalledCountBufferDecalre()));
             
             #line default
             #line hidden
@@ -82,19 +82,27 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
             
             #line default
             #line hidden
+            this.Write("\r\n//Function to initialize buffers.\r\n");
+            
+            #line 22 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CreateBufferInitializeFunction()));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 20 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
+        #line 23 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
 
 	/// <summary>
 	/// Create code declaring variable to set the count the function called.
 	/// </summary>
 	/// <param name="function">Function information</param>
 	/// <returns>Code to declare variable to set the count function called.</returns>
-	protected override string CreateFunctionCalledCountBufferDecalre(Function function)
+	protected override string CreateFunctionCalledCountBufferDecalre()
 	{
-		string calledCountBufferName = base.CreateFunctionCalledCountBufferDecalre(function);
+		string calledCountBufferName = base.CreateFunctionCalledCountBufferDecalre();
 		calledCountBufferName = "extern " + calledCountBufferName;
 		calledCountBufferName += ";";
 		return calledCountBufferName;
@@ -108,6 +116,18 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 			returnBufferName += "[];";
 		}
 		return returnBufferName;
+	}
+
+	/// <summary>
+	/// Create code of function entry point to initialize 
+	/// </summary>
+	/// <returns>Code to declare function entry point to initialize buffer parameter.</returns>
+	protected override string CreateBufferInitializeFunction()
+	{
+		string bufferInitializeFunction = base.CreateBufferInitializeFunction();
+		bufferInitializeFunction += ";";
+
+		return bufferInitializeFunction;
 	}
 
         

@@ -12,21 +12,24 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 		/// <summary>
 		/// Function information.
 		/// </summary>
-		public Function Function { get; set; }
+		//public Function Function { get; set; }
 
-		public Function SubFunction { get; set; }
+		/// <summary>
+		/// Sub function information
+		/// </summary>
+		//public Function SubFunction { get; set; }
 
 		/// <summary>
 		/// Test data information.
 		/// </summary>
-		public TestDataInfo TestDataInfo { get; set; }
+		//public TestDataInfo TestDataInfo { get; set; }
 
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		protected TestStubTemplate_Base()
 		{
-			this.Function = new Function();
+			this.ParentFunction = new Function();
 			this.TestDataInfo = new TestDataInfo();
 		}
 
@@ -37,7 +40,7 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 		/// <param name="testDataInfo">Test data information.</param>
 		public TestStubTemplate_Base(Function function, TestDataInfo testDataInfo)
 		{
-			this.Function = function;
+			this.ParentFunction = function;
 			this.TestDataInfo = testDataInfo;
 		}
 
@@ -45,11 +48,11 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 		/// Constructor with argument.
 		/// </summary>
 		/// <param name="function">Funtion information (Parent function information).</param>
-		/// <param name="subFunction"></param>
-		/// <param name="testDataInfo"></param>
+		/// <param name="subFunction">Sub function information.</param>
+		/// <param name="testDataInfo">Test data information.</param>
 		public TestStubTemplate_Base(Function function, Function subFunction, TestDataInfo testDataInfo)
 		{
-			this.Function = function;
+			this.ParentFunction = function;
 			this.SubFunction = subFunction;
 			this.TestDataInfo = testDataInfo;
 		}
@@ -59,12 +62,11 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 		/// </summary>
 		/// <param name="function">Function information</param>
 		/// <returns>Code to declare variable to set the count function called.</returns>
-		protected virtual string CreateFunctionCalledCountBufferDecalre(Function function)
+		protected virtual string CreateFunctionCalledCountBufferDecalre()
 		{
-			string calledCountBufferName = ("int " + function.Name);
+			string calledCountBufferName = ("int " + this.SubFunction.Name);
 			calledCountBufferName += "_called_count";
 			return calledCountBufferName;
 		}
-
 	}
 }
