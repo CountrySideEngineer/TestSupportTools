@@ -43,18 +43,5 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 			this.SubFunction = subFunction;
 			this.TestDataInfo = testDataInfo;
 		}
-
-		/// <summary>
-		/// Create code declaring variable to set the count the function called.
-		/// </summary>
-		/// <param name="function">Function information</param>
-		/// <returns>Code to declare variable to set the count function called.</returns>
-		protected virtual string CreateFunctionCalledCountBufferDecalre()
-		{
-			string calledCountBufferName = string.Empty;
-			calledCountBufferName = "int ";
-			calledCountBufferName += this.CreateFunctionCalledCountBufferName();
-			return calledCountBufferName;
-		}
 	}
 }
