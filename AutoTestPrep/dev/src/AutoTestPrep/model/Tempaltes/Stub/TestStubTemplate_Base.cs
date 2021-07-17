@@ -34,6 +34,8 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
         
         #line 7 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Base.tt"
 
+	//Property for stub templates.
+
 	/// <summary>
 	/// Function information.
 	/// </summary>
@@ -48,6 +50,74 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 	/// Test data information.
 	/// </summary>
 	protected TestDataInfo TestDataInfo;
+
+        
+        #line default
+        #line hidden
+        
+        #line 25 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Base.tt"
+
+	//Common method to create name of variables used in stub files.
+	
+	/// <summary>
+	/// Create "called count" variable name.
+	/// </summary>
+	/// <returns>"called count" variable name.</returns>
+	protected virtual string CreateFunctionCalledCountBufferName()
+	{
+		string calledCountVariableName = this.SubFunction.Name + "_called_count";
+		return calledCountVariableName;
+	}
+
+	protected virtual string CreateArgumentBufferVariableName(Parameter argument)
+	{
+		string variableArgumentBufferName = $"{this.SubFunction.Name}_{argument.Name}";
+		return variableArgumentBufferName;
+	}
+
+	/// <summary>
+	/// Create "function return" buffer name.
+	/// </summary>
+	/// <returns>"Function return" buffer name.</returns>
+	protected virtual string CreateFunctionReturnBufferName()
+	{
+		string functionReturnBufferName = string.Empty;
+		functionReturnBufferName = $"{this.SubFunction.Name}_return_value";
+		return functionReturnBufferName;
+	}
+
+	/// <summary>
+	/// Create "argument output buffer" name.
+	/// </summary>
+	/// <param name="argument">Argument information.</param>
+	/// <returns>"Argument output buffer" name.</returns>
+	protected virtual string CreateOutputBufferName(Parameter argument)
+	{
+		string variableName = string.Empty;
+		variableName = $"{CreateArgumentBufferVariableName(argument)}_value";
+		return variableName;
+	}
+
+        
+        #line default
+        #line hidden
+        
+        #line 67 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Base.tt"
+
+	//Common and base metods to create code for stub files.
+
+	/// <summary>
+	/// Create code declaring variable to set the count the function called.
+	/// </summary>
+	/// <param name="function">Function information</param>
+	/// <returns>Code to declare variable to set the count function called.</returns>
+	protected virtual string CreateFunctionCalledCountBufferDecalre()
+	{
+		string calledCountBufferName = string.Empty;
+		calledCountBufferName = "int ";
+		calledCountBufferName += this.CreateFunctionCalledCountBufferName();
+		return calledCountBufferName;
+	}
 
 	/// <summary>
 	/// Create buffer name to store value a stub should return.
@@ -64,8 +134,7 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 		{
 			returnBufferName = this.SubFunction.ActualDataType();
 			returnBufferName += " ";
-			returnBufferName += this.SubFunction.Name;
-			returnBufferName += "_return_value";
+			returnBufferName += $"{CreateFunctionReturnBufferName()}";
 		}
 		return returnBufferName;
 	}
@@ -84,14 +153,8 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 		string argumentBufferDeclare = string.Empty;
 		argumentBufferDeclare = argument.ActualDataType();
 		argumentBufferDeclare += " ";
-		argumentBufferDeclare += function.Name + "_" + argument.Name;
+		argumentBufferDeclare += CreateArgumentBufferVariableName(argument);
 		return argumentBufferDeclare;
-	}
-
-	protected virtual string CreateArgumentBufferVariableName(Parameter argument)
-	{
-		string variableArgumentBufferName = $"{this.SubFunction.Name}_{argument.Name}";
-		return variableArgumentBufferName;
 	}
 
 	/// <summary>
@@ -139,13 +202,6 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 		bufferInitializeFunction += "_init()";
 
 		return bufferInitializeFunction;
-	}
-
-	protected virtual string CreateOutputBufferName(Parameter argument)
-	{
-		string variableName = string.Empty;
-		variableName = $"{this.ParentFunction.Name}_{argument.Name}_value";
-		return variableName;
 	}
 
         

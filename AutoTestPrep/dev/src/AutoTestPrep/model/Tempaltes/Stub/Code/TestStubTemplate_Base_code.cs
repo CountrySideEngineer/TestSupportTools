@@ -15,6 +15,7 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 		protected TestStubTemplate_Base()
 		{
 			this.ParentFunction = new Function();
+			this.SubFunction = new Function();
 			this.TestDataInfo = new TestDataInfo();
 		}
 
@@ -26,6 +27,7 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 		public TestStubTemplate_Base(Function function, TestDataInfo testDataInfo)
 		{
 			this.ParentFunction = function;
+			this.SubFunction = new Function();
 			this.TestDataInfo = testDataInfo;
 		}
 
@@ -53,12 +55,6 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 			calledCountBufferName = "int ";
 			calledCountBufferName += this.CreateFunctionCalledCountBufferName();
 			return calledCountBufferName;
-		}
-
-		protected virtual string CreateFunctionCalledCountBufferName()
-		{
-			string calledCountVariableName = this.SubFunction.Name + "_called_count";
-			return calledCountVariableName;
 		}
 	}
 }
