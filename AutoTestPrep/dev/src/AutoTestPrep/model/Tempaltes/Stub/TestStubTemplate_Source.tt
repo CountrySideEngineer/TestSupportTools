@@ -7,6 +7,24 @@
 /*
  *	<#= base.SubFunction.Name #> stub source code.
  */
+<#
+	foreach (var headerFile in this.TestDataInfo.StubIncludeStandardHeaderFiles) {
+		if ((!(string.IsNullOrEmpty(headerFile))) && (!(string.IsNullOrWhiteSpace(headerFile)))) {
+#>
+#include <<#= headerFile #>>
+<#		
+		}
+	}
+#>
+<#
+	foreach (var headerFile in this.TestDataInfo.StubIncludeUserHeaderFiles) {
+		if ((!(string.IsNullOrEmpty(headerFile))) && (!(string.IsNullOrWhiteSpace(headerFile)))) {
+#>
+#include "<#= headerFile #>"
+<#		}
+	}
+#>
+
 //Declare buffers to store a value passed and pass.
 <#= CreateFunctionCalledCountBufferDecalre() #>
 <#= CreateFunctionReturnBufferDeclare() #>

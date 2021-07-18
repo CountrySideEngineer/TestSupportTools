@@ -27,8 +27,25 @@ namespace AutoTestPrep.ViewModel
 		/// <param name="testDataInfo">Object to set header file names.</param>
 		public override void SetupTestInfomation(ref TestDataInfo testDataInfo)
 		{
-			testDataInfo.StubIncludeStandardHeaderFiles = this.ToEnumrable(this.StandartHeader);
-			testDataInfo.StubIncludeUserHeaderFiles = this.ToEnumrable(this.UserHeader);
+			IEnumerable<string> stdHeaderFiles = this.ToEnumrable(this.StandartHeader);
+			if (0 < stdHeaderFiles.Count())
+			{
+				testDataInfo.StubIncludeStandardHeaderFiles = stdHeaderFiles;
+			}
+			else
+			{
+				testDataInfo.StubIncludeStandardHeaderFiles = new List<string>(0);
+			}
+
+			IEnumerable<string> usrHeaderFiles = this.ToEnumrable(this.StandartHeader);
+			if (0 < stdHeaderFiles.Count())
+			{
+				testDataInfo.StubIncludeUserHeaderFiles = usrHeaderFiles;
+			}
+			else
+			{
+				testDataInfo.StubIncludeUserHeaderFiles = new List<string>(0);
+			}
 		}
 	}
 }
