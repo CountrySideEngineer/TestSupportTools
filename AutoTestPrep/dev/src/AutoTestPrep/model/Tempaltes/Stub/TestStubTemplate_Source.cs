@@ -167,7 +167,7 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
             
             #line default
             #line hidden
-            this.Write("\tfor (int index  = 0; index < STUB_BUFFER_SIZE_2; index++) {\r\n");
+            this.Write("\tfor (int index = 0; index < STUB_BUFFER_SIZE_2; index++) {\r\n");
             
             #line 45 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
 	foreach (var argumentItem in SubFunction.Arguments) {	
@@ -274,7 +274,7 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 		returnBufferName = base.CreateFunctionReturnBufferDeclare();
 		if (!string.IsNullOrEmpty(returnBufferName))
 		{
-			returnBufferName = $"{returnBufferName}[STUB_BUFFER_SIZE_1]";
+			returnBufferName = $"{returnBufferName}[STUB_BUFFER_SIZE_1];";
 		}
 		else
 		{

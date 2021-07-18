@@ -4,7 +4,14 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
+/*
+ *	<#= base.SubFunction.Name #> stub header files.
+ */
 #pragma once
+//Stub buffer size macro.
+#define	STUB_BUFFER_SZE_1			(<#= TestDataInfo.StubBufferSize1 #>)
+#define	STUB_BUFFER_SZE_2			(<#= TestDataInfo.StubBufferSize2 #>)
+
 //Sub function called count.
 <#= CreateFunctionCalledCountBufferDecalre() #>
 <#= CreateFunctionReturnBufferDeclare() #>
@@ -96,7 +103,7 @@
 				outputBufferDeclare += "[]";
 				if (2 == argument.PointerNum)
 				{
-					outputBufferDeclare += $"[STUB_BUFFER_SIZE_2]";
+					outputBufferDeclare += $"[STUB_BUFFER_SIZE_2];";
 				}
 			}
 			else
