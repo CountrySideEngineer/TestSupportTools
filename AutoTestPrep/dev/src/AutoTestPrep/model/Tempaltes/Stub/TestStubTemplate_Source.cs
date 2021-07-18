@@ -28,169 +28,176 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
         /// </summary>
         public override string TransformText()
         {
-            this.Write("//Declare buffers to store a value passed and pass.\r\n");
+            this.Write("/*\r\n *\t");
             
             #line 8 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(base.SubFunction.Name));
+            
+            #line default
+            #line hidden
+            this.Write(" stub source code.\r\n */\r\n//Declare buffers to store a value passed and pass.\r\n");
+            
+            #line 11 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionCalledCountBufferDecalre()));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 9 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 12 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionReturnBufferDeclare()));
             
             #line default
             #line hidden
             this.Write("\r\n\r\n//Argument buffer\r\n");
             
-            #line 12 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 15 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
  foreach (var argumentItem in SubFunction.Arguments) { 
             
             #line default
             #line hidden
             
-            #line 13 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 16 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionArgumentBufferDeclare(argumentItem)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 14 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 17 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionOutputBufferDeclare(argumentItem)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 15 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 18 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
 	}	
             
             #line default
             #line hidden
             this.Write("\r\n//Initialize buffers.\r\n");
             
-            #line 18 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 21 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateBufferInitializeFunction()));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n\t");
             
-            #line 20 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 23 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionCalledCountBufferName()));
             
             #line default
             #line hidden
             this.Write(" = 0;\r\n\tfor (int index = 0; index < STUB_BUFFER_SIZE_1; index++) {\r\n");
             
-            #line 22 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 25 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
  foreach (var argumentItem in SubFunction.Arguments) { 
             
             #line default
             #line hidden
             this.Write("\t\t");
             
-            #line 23 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 26 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateArgumentInitializeCode_1(argumentItem, "index")));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 24 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 27 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
 	}	
             
             #line default
             #line hidden
             this.Write("\t\tfor (int index2 = 0; index2 < STUB_BUFFER_SIZE_2; index2++) {\r\n");
             
-            #line 26 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 29 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
  foreach (var argumentItem in SubFunction.Arguments) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t");
             
-            #line 27 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 30 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateArgumentInitializeCode_2(argumentItem, "index", "index2")));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 28 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 31 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
 	}	
             
             #line default
             #line hidden
             this.Write("\t\t}\r\n\t}\r\n}\r\n\r\n//Stub of function.\r\n");
             
-            #line 34 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 37 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.SubFunction.ToString()));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n\t");
             
-            #line 36 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 39 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateLatchReturnValue()));
             
             #line default
             #line hidden
             this.Write("\r\n\r\n");
             
-            #line 38 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 41 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
  foreach (var argumentItem in SubFunction.Arguments) {	
             
             #line default
             #line hidden
             this.Write("\t");
             
-            #line 39 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 42 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateSetArgumentToBuffer(argumentItem)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 40 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 43 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
 	}	
             
             #line default
             #line hidden
             this.Write("\tfor (int index  = 0; index < STUB_BUFFER_SIZE_2; index++) {\r\n");
             
-            #line 42 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 45 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
 	foreach (var argumentItem in SubFunction.Arguments) {	
             
             #line default
             #line hidden
             this.Write("\t\t");
             
-            #line 43 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 46 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateSetOutputBufferToArgument(argumentItem, "index")));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 44 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 47 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
 	}	
             
             #line default
             #line hidden
             this.Write("\t}\r\n\r\n\t//Increment called count.\r\n\t");
             
-            #line 48 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 51 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateCalledCountUpdate()));
             
             #line default
             #line hidden
             this.Write("\r\n\r\n\t//Return value;\r\n\t");
             
-            #line 51 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+            #line 54 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateReturnValue()));
             
             #line default
@@ -199,7 +206,9 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 53 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+        #line 56 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
+
+	//Methods to create code for source stub files.
 
 	protected override string CreateFunctionArgumentBufferDeclare(Parameter argument)
 	{
@@ -253,6 +262,160 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 			outputVariable = $"//{argument.Name} is not output.";
 		}
 		return outputVariable;
+	}
+
+	/// <summary>
+	/// Create code to declare buffer to store the value the stub should rerturn.
+	/// </summary>
+	/// <returns>Code to declare to store the value the stub should return.</returns>
+	protected override string CreateFunctionReturnBufferDeclare()
+	{
+		string returnBufferName = string.Empty;
+		returnBufferName = base.CreateFunctionReturnBufferDeclare();
+		if (!string.IsNullOrEmpty(returnBufferName))
+		{
+			returnBufferName = $"{returnBufferName}[STUB_BUFFER_SIZE_1]";
+		}
+		else
+		{
+			returnBufferName = $"//{this.SubFunction.Name} does not return value.";
+		}
+		return returnBufferName;
+	}
+
+	/// <summary>
+	/// Create code to declare buffer to store values the stub should return via pointer variable.
+	/// </summary>
+	/// <param name="argument">Argument data.</param>
+	/// <returns>Code to declare buffer to store values the stub should return.</returns>
+	protected override string CreateFunctionOutputBufferDeclare(Parameter argument)
+	{
+		string outputBufferDeclare = string.Empty;
+		try
+		{
+			outputBufferDeclare = base.CreateFunctionOutputBufferDeclare(argument);
+			if (!string.IsNullOrEmpty(outputBufferDeclare))
+			{
+				outputBufferDeclare = $"{outputBufferDeclare}[STUB_BUFFER_SIZE_1]";
+				if (2 == argument.PointerNum)
+				{
+					outputBufferDeclare = $"{outputBufferDeclare}[STUB_BUFFER_SIZE_2]";
+				}
+				outputBufferDeclare = $"{outputBufferDeclare};";
+			}
+			else
+			{
+				outputBufferDeclare = $"//{argument.Name} does not output.";
+			}
+		}
+		catch (Exception)
+		{
+			outputBufferDeclare = $"//{argument.Name} does not output.";
+		}
+		return outputBufferDeclare;
+	}
+
+	/// <summary>
+	/// Create code to latch return buffer value.
+	/// </summary>
+	/// <returns>Code to latch return buffer value.</returns>
+	protected virtual string CreateLatchReturnValue()
+	{
+		string latchReturnValueCode = string.Empty;
+		if (this.SubFunction.HasReturn())
+		{
+			latchReturnValueCode = $"{this.SubFunction.ActualDataType()} returnLatch = " +
+				$"{base.CreateFunctionReturnBufferName()}" +
+				$"[{base.CreateFunctionCalledCountBufferName()}];";
+		}
+		else
+		{
+			latchReturnValueCode = $"//{this.SubFunction.Name} does not return value.";
+		}
+		return latchReturnValueCode;
+	}
+
+	/// <summary>
+	/// Create code to return latched value.
+	/// </summary>
+	/// <returns>Code to return latched value.</returns>
+	protected virtual string CreateReturnValue()
+	{
+		string returnValueCode = string.Empty;
+		if (this.SubFunction.HasReturn())
+		{
+			returnValueCode = "return returnLatch;";
+		}
+		else
+		{
+			returnValueCode = $"//{this.SubFunction.Name} does not return value.";
+		}
+		return returnValueCode;
+	}
+
+	/// <summary>
+	/// Set argumet value into buffer.
+	/// </summary>
+	/// <param name="argument">Argument data.</param>
+	/// <returns>Code to set argument into buffer.</returns>
+	protected virtual string CreateSetArgumentToBuffer(Parameter argument)
+	{
+		string argumentToBufferCode = string.Empty;
+		if ((("void").Equals(argument.DataType)) &&
+			(0 == argument.PointerNum))
+		{
+			argumentToBufferCode = $"//{argument.Name} does not need keep value.";
+		}
+		else
+		{
+			argumentToBufferCode = $"{this.SubFunction.Name}_{argument.Name}" +
+				$"[{base.CreateFunctionCalledCountBufferName()}] = " +
+				$"{argument.Name};";
+		}
+		return argumentToBufferCode;
+	}
+
+	/// <summary>
+	/// Create code to set buffer value into pointer argument.
+	/// </summary>
+	/// <param name="argument">Argument data.</param>
+	/// <param name="indexName">"index" variable name.</param>
+	/// <returns>Code to set buffer value into pointer argument.</returns>
+	protected virtual string CreateSetOutputBufferToArgument(Parameter argument, string indexName)
+	{
+		string bufferToArgumentCode = string.Empty;
+		if ((1 == argument.PointerNum) ||
+			(2 == argument.PointerNum))
+		{
+			if ((argument.Mode == Parameter.AccessMode.Out) ||
+				(argument.Mode == Parameter.AccessMode.Both))
+			{
+				bufferToArgumentCode = $"{argument.Name}[{indexName}] = " +
+					$"{base.CreateOutputBufferName(argument)}" +
+					$"[{base.CreateFunctionCalledCountBufferName()}]" +
+					$"[{indexName}];";
+			}
+			else
+			{
+				bufferToArgumentCode = $"//{argument.Name} does not return value.";
+			}
+		}
+		else
+		{
+			bufferToArgumentCode = $"//{argument.Name} does not return value.";
+		}
+		return bufferToArgumentCode;
+	}
+
+	/// <summary>
+	/// Create code to increment the number of the stub called count.
+	/// </summary>
+	/// <returns>Code to set increment the numer of the stub called count.</returns>
+	protected virtual string CreateCalledCountUpdate()
+	{
+		string calledCountUpdate = string.Empty;
+		calledCountUpdate = $"{base.CreateFunctionCalledCountBufferName()}++;";
+		return calledCountUpdate;
 	}
 
         
