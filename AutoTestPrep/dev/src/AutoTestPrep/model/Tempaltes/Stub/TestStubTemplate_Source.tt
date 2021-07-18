@@ -10,8 +10,8 @@
 
 //Argument buffer
 <# foreach (var argumentItem in SubFunction.Arguments) { #>
-<#= CreateFunctionArgumentBufferDeclare(SubFunction, argumentItem) #>
-<#= CreateFunctionOutputBufferDeclare(SubFunction, argumentItem) #>
+<#= CreateFunctionArgumentBufferDeclare(argumentItem) #>
+<#= CreateFunctionOutputBufferDeclare(argumentItem) #>
 <#	}	#>
 
 //Initialize buffers.
@@ -51,9 +51,9 @@
 	<#= CreateReturnValue() #>
 }
 <#+
-	protected override string CreateFunctionArgumentBufferDeclare(Function function, Parameter argument)
+	protected override string CreateFunctionArgumentBufferDeclare(Parameter argument)
 	{
-		string argumentBufferDeclare = base.CreateFunctionArgumentBufferDeclare(function, argument);
+		string argumentBufferDeclare = base.CreateFunctionArgumentBufferDeclare(argument);
 		argumentBufferDeclare += "[STUB_BUFFER_SIZE_1];";
 		return argumentBufferDeclare;
 	}

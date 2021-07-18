@@ -51,7 +51,7 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
             #line hidden
             
             #line 14 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionArgumentBufferDeclare(SubFunction, argumentItem)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionArgumentBufferDeclare(argumentItem)));
             
             #line default
             #line hidden
@@ -71,7 +71,7 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
             #line hidden
             
             #line 18 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionOutputBufferDeclare(SubFunction, argumentItem)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionOutputBufferDeclare(argumentItem)));
             
             #line default
             #line hidden
@@ -94,6 +94,8 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
         }
         
         #line 23 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Header.tt"
+
+	//Methods to create stub header file.
 
 	/// <summary>
 	/// Create code declaring variable to set the count the function called.
@@ -128,6 +130,63 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 		bufferInitializeFunction += ";";
 
 		return bufferInitializeFunction;
+	}
+
+	/// <summary>
+	/// Create code to declare buffer for argument
+	/// </summary>
+	/// <param name="function">Function data.</param>
+	/// <param name="argument">Argument data.</param>
+	/// <returns>Code to declare argument buffer extern.</returns>
+	protected override string CreateFunctionArgumentBufferDeclare(Parameter argument)
+	{
+		string argumentBufferDeclare = base.CreateFunctionArgumentBufferDeclare(argument);
+		if (!(string.IsNullOrEmpty(argumentBufferDeclare)))
+		{
+			argumentBufferDeclare = "extern " + argumentBufferDeclare;
+			argumentBufferDeclare += "[];";
+		}
+		else
+		{
+			argumentBufferDeclare = $"//Argument {argument.Name} does not need buffer.";
+		}
+		return argumentBufferDeclare;
+	}
+
+	/// <summary>
+	/// Create code to declare buffer for output.
+	/// </summary>
+	/// <param name="argument">Argument information.</param>
+	/// <returns>Code to declare output buffer variable.</returns>
+	protected override string CreateFunctionOutputBufferDeclare(Parameter argument)
+	{
+		string outputBufferDeclare = string.Empty;
+		try
+		{
+			outputBufferDeclare = base.CreateFunctionOutputBufferDeclare(argument);
+			if (!(string.IsNullOrEmpty(outputBufferDeclare)))
+			{
+				outputBufferDeclare = "extern " + outputBufferDeclare;
+				outputBufferDeclare += "[]";
+				if (2 == argument.PointerNum)
+				{
+					outputBufferDeclare += $"[STUB_BUFFER_SIZE_2]";
+				}
+			}
+			else
+			{
+				outputBufferDeclare = $"//{argument.Name} does not need output buffer.";
+			}
+		}
+		catch (ArgumentException)
+		{
+			outputBufferDeclare = $"//{argument.Name} does not need output buffer.";
+		}
+		catch (Exception)
+		{
+			outputBufferDeclare = "Argument does not need output buffer.";
+		}
+		return outputBufferDeclare;
 	}
 
         

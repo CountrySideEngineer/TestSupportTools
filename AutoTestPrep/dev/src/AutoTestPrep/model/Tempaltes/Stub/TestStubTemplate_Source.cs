@@ -51,14 +51,14 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
             #line hidden
             
             #line 13 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionArgumentBufferDeclare(SubFunction, argumentItem)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionArgumentBufferDeclare(argumentItem)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
             #line 14 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionOutputBufferDeclare(SubFunction, argumentItem)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionOutputBufferDeclare(argumentItem)));
             
             #line default
             #line hidden
@@ -201,9 +201,9 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
         
         #line 53 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Stub\TestStubTemplate_Source.tt"
 
-	protected override string CreateFunctionArgumentBufferDeclare(Function function, Parameter argument)
+	protected override string CreateFunctionArgumentBufferDeclare(Parameter argument)
 	{
-		string argumentBufferDeclare = base.CreateFunctionArgumentBufferDeclare(function, argument);
+		string argumentBufferDeclare = base.CreateFunctionArgumentBufferDeclare(argument);
 		argumentBufferDeclare += "[STUB_BUFFER_SIZE_1];";
 		return argumentBufferDeclare;
 	}

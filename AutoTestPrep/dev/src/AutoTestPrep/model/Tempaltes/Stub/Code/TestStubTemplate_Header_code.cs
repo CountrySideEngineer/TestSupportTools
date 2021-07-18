@@ -31,57 +31,5 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 		public TestStubTemplate_Header(Function function, Function subFunction, TestDataInfo testDataInfo)
 			:base(function, subFunction, testDataInfo)
 		{ }
-
-		/// <summary>
-		/// Create code to declare buffer for argument
-		/// </summary>
-		/// <param name="function">Function data.</param>
-		/// <param name="argument">Argument data.</param>
-		/// <returns>Code to declare argument buffer extern.</returns>
-		protected override string CreateFunctionArgumentBufferDeclare(Function function, Parameter argument)
-		{
-			string argumentBufferDeclare = base.CreateFunctionArgumentBufferDeclare(function, argument);
-			if (!(string.IsNullOrEmpty(argumentBufferDeclare)))
-			{
-				argumentBufferDeclare = "extern " + argumentBufferDeclare;
-				argumentBufferDeclare += "[];";
-			}
-			else
-			{
-				argumentBufferDeclare = $"//Argument {argument.Name} does not need buffer.";
-			}
-			return argumentBufferDeclare;
-		}
-
-		protected override string CreateFunctionOutputBufferDeclare(Function function, Parameter argument)
-		{
-			string outputBufferDeclare = string.Empty;
-			try
-			{
-				outputBufferDeclare = base.CreateFunctionOutputBufferDeclare(function, argument);
-				if (!(string.IsNullOrEmpty(outputBufferDeclare)))
-				{
-					outputBufferDeclare = "extern " + outputBufferDeclare;
-					outputBufferDeclare += "[]";
-					if (2 == argument.PointerNum)
-					{
-						outputBufferDeclare += $"[{this.TestDataInfo.StubBufferSize2}]";
-					}
-				}
-				else
-				{
-					outputBufferDeclare = $"//{argument.Name} does not need output buffer.";
-				}
-			}
-			catch (ArgumentException)
-			{
-				outputBufferDeclare = $"//{argument.Name} does not need output buffer.";
-			}
-			catch (Exception)
-			{
-				outputBufferDeclare = "Argument does not need output buffer.";
-			}
-			return outputBufferDeclare;
-		}
 	}
 }

@@ -142,13 +142,12 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 	/// <summary>
 	/// Create code to declare buffer to store argument.
 	/// </summary>
-	/// <param name="function">Function information of stub.</param>
 	/// <param name="argument">Parameter object of argument.</param>
 	/// <returns>Code to declare buffer to store arugument.
 	///	It is in format below:
 	///	(ArgumentDataType) (FunctionName)_(ArgumentName)
 	/// </returns>
-	protected virtual string CreateFunctionArgumentBufferDeclare(Function function, Parameter argument)
+	protected virtual string CreateFunctionArgumentBufferDeclare(Parameter argument)
 	{
 		string argumentBufferDeclare = string.Empty;
 		argumentBufferDeclare = argument.ActualDataType();
@@ -163,7 +162,7 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 	/// <param name="function">Function information.</param>
 	/// <param name="argument">Argument information.</param>
 	/// <returns>Create code to store value to return via pointer.</returns>
-	protected virtual string CreateFunctionOutputBufferDeclare(Function function, Parameter argument)
+	protected virtual string CreateFunctionOutputBufferDeclare(Parameter argument)
 	{
 		string outputBufferDeclare = string.Empty;
 
@@ -175,7 +174,7 @@ namespace AutoTestPrep.Model.Tempaltes.Stub
 			{
 				outputBufferDeclare = argument.DataType;
 				outputBufferDeclare += " ";
-				outputBufferDeclare += $"{function.Name}_{argument.Name}";
+				outputBufferDeclare += $"{this.SubFunction.Name}_{argument.Name}";
 				outputBufferDeclare += "_value";
 			}
 			else
