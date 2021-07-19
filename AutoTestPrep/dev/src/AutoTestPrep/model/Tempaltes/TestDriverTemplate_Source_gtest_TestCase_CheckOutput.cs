@@ -31,37 +31,32 @@ namespace AutoTestPrep.Model.Tempaltes
             
             #line 6 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_CheckOutput.tt"
 
-if (null != Test.TestCases) {
-	foreach (var testCase in Test.TestCases)
+if (null != TestCase)
+{
+	foreach (var expectItem in TestCase.Expects)
 	{
-		if (null != testCase.Expects)
-		{
-			foreach (var testData in testCase.Expects)
-			{
 
             
             #line default
             #line hidden
             this.Write("\tASSERT_EQ(");
             
-            #line 15 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_CheckOutput.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(testData.Value));
+            #line 12 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_CheckOutput.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(expectItem.Value));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 15 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_CheckOutput.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(testData.Name));
+            #line 12 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_CheckOutput.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(expectItem.Name));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 16 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_CheckOutput.tt"
+            #line 13 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_CheckOutput.tt"
 
-			}
-		}
 	}
 }
 

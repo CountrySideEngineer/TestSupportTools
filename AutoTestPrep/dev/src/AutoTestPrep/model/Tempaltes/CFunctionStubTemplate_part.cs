@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoTestPrep.Model;
+using AutoTestPrep.Model.InputInfos;
+using AutoTestPrep.Model.Option;
 
 namespace AutoTestPrep.Model.Tempaltes
 {
@@ -12,7 +14,17 @@ namespace AutoTestPrep.Model.Tempaltes
 		/// <summary>
 		/// Parameter object to 
 		/// </summary>
-		protected Function Function { get; set; }
+		public Function Function { get; set; }
+
+		/// <summary>
+		/// Options for test stub.
+		/// </summary>
+		public Options Options { get; set; }
+
+		/// <summary>
+		/// Test data information for test stub.
+		/// </summary>
+		public TestDataInfo TestDataInfo;
 
 		/// <summary>
 		/// Constructor
@@ -21,6 +33,17 @@ namespace AutoTestPrep.Model.Tempaltes
 		public CFunctionStubTemplate(Function function)
 		{
 			this.Function = function;
+		}
+
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		/// <param name="function">Function data.</param>
+		/// <param name="testDataInfo">Test information data for test stub data.</param>
+		public CFunctionStubTemplate(Function function, TestDataInfo testDataInfo)
+		{
+			this.Function = function;
+			this.TestDataInfo = testDataInfo;
 		}
 	}
 }

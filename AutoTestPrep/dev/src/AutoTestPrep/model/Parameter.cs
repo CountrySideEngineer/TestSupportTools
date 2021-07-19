@@ -159,5 +159,21 @@ namespace AutoTestPrep.Model
 
 			return toString;
 		}
+
+		/// <summary>
+		/// Returns actual data type, data type name and "*" with the number of pointer.
+		/// </summary>
+		/// <returns>Actual data type.</returns>
+		public virtual string ActualDataType()
+		{
+			string actualDataType = string.Empty;
+
+			actualDataType = this.DataType;
+			for (int index = 0; index < this.PointerNum; index++)
+			{
+				actualDataType += "*";
+			}
+			return actualDataType;
+		}
 	}
 }

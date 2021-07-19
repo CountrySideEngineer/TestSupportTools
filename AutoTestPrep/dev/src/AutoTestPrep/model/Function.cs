@@ -69,5 +69,28 @@ namespace AutoTestPrep.Model
 
 			return toString;
 		}
+
+		/// <summary>
+		/// Returns whether the function will return any value or not.
+		/// </summary>
+		/// <returns>
+		/// Returns true if the function will return any value, 
+		/// otherwise return false.
+		/// </returns>
+		public bool HasReturn()
+		{
+			bool hasReturn = false;
+			if ((("void").Equals(this.DataType.ToLower(), StringComparison.Ordinal)) &&
+				(PointerNum <= 0))
+			{
+				//A case that the data type without pointer means the function returns no value via return value.
+				hasReturn = false;
+			}
+			else
+			{
+				hasReturn = true;
+			}
+			return hasReturn;
+		}
 	}
 }

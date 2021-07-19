@@ -13,7 +13,8 @@ extern <#= Function.DataType #> <#= Function.Name #>_return[];
 <#
 if (null != Function.Arguments) {
 	foreach (var argument in Function.Arguments) { #>
-extern <#= argument.ToString() #>[100];
+extern <#= argument.ToString() #>[];
 <# }
 } #>
+
 void <#= Function.Name #>_init();

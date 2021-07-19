@@ -2,6 +2,7 @@
 using CSEngineer.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,8 @@ namespace AutoTestPrep.ViewModel
 		{
 			this.InputiFilePathVM = new InformationInputViewModel("入力(テスト定義ファイル)：", string.Empty);
 			this.OutputPathVM = new InformationInputViewModel("出力ファイル：", string.Empty);
+
+			this.InputiFilePathVM.PropertyChanged += this.UserInputPropertyChanged;
 		}
 
 		/// <summary>
@@ -100,6 +103,27 @@ namespace AutoTestPrep.ViewModel
 		{
 			testDataInfo.TestDataFilePath = this.InputFilePath;
 			testDataInfo.OutputDirectoryPath = this.OutputPath;
+		}
+
+		/// <summary>
+		/// Property of InputFilePathVM object changed event handler.
+		/// </summary>
+		/// <param name="sender">Event sender</param>
+		/// <param name="e">Event argument.</param>
+		public void UserInputPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName.Equals(nameof(this.InputiFilePathVM.InputItem)))
+			{
+				if ((string.IsNullOrEmpty(this.OutputPath)) ||
+					(string.IsNullOrWhiteSpace(this.OutputPath)))
+				{
+					if (System.IO.File.Exists(this.InputFilePath))
+					{
+						string inputFileParentDirPath = System.IO.Path.GetDirectoryName(this.InputFilePath);
+						this.OutputPath = inputFileParentDirPath;
+					}
+				}
+			}
 		}
 	}
 }
