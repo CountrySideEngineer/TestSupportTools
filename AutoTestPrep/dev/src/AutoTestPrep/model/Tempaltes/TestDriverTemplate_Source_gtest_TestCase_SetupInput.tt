@@ -4,17 +4,12 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#
-if (null != Test.TestCases)
+if (null != TestCase)
 {
-	for (int index = 0; index < Test.TestCases.Count(); index++)
-	{
-		var testCase = Test.TestCases.ElementAt(index);
-		foreach (var testData in testCase.Input) 
-		{
+	foreach (var inputItem in TestCase.Input) {
 #>
-	<#= testData.Name #> = <#= testData.Value #>;
+	<#= inputItem.Name #> = <#= inputItem.Value #>
 <#
-		}
 	}
 }
 #>

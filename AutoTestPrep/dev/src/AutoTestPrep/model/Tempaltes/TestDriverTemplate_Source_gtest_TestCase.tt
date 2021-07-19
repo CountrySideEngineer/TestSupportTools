@@ -7,13 +7,14 @@
 for (int index = 0; index < Test.TestCases.Count(); index++) {
 	var testCase = Test.TestCases.ElementAt(index);
 #>
+
 TEST_F(<#= Test.Name #>, <#= Test.Target.Name #>_test_<#= testCase.Id #>)
 {
 <#= TestDeclare #>
-<#= TestInput #>
+<#= TestInput(testCase) #>
 <#= FunctionCall #>
 
-<#= CheckOutput #>
+<#= CheckOutput(testCase) #>
 }
 <#
 }

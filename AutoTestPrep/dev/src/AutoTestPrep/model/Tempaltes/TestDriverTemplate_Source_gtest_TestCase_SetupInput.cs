@@ -31,36 +31,31 @@ namespace AutoTestPrep.Model.Tempaltes
             
             #line 6 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_SetupInput.tt"
 
-if (null != Test.TestCases)
+if (null != TestCase)
 {
-	for (int index = 0; index < Test.TestCases.Count(); index++)
-	{
-		var testCase = Test.TestCases.ElementAt(index);
-		foreach (var testData in testCase.Input) 
-		{
+	foreach (var inputItem in TestCase.Input) {
 
             
             #line default
             #line hidden
             this.Write("\t");
             
-            #line 15 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_SetupInput.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(testData.Name));
+            #line 11 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_SetupInput.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(inputItem.Name));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 15 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_SetupInput.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(testData.Value));
+            #line 11 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_SetupInput.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(inputItem.Value));
             
             #line default
             #line hidden
-            this.Write(";\r\n");
+            this.Write("\r\n");
             
-            #line 16 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_SetupInput.tt"
+            #line 12 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_SetupInput.tt"
 
-		}
 	}
 }
 

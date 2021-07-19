@@ -29,10 +29,15 @@
                    Margin="0"
                    Text="{Binding Path=InputItemTitle}"
                    />
-        <TextBox Grid.Row="1"
+        <TextBox x:Name="InputTextBox"
+                 Grid.Row="1"
                  Style="{StaticResource ResourceKey=TextBox_ItemItem}"
                  Margin="0"
                  Text="{Binding Path=InputItem, UpdateSourceTrigger=PropertyChanged}"
+                 PreviewDragOver="TextBox_PreviewDragOver"
+                 Drop="TextBox_Drop"
+                 AllowDrop="True"
+                 
                  />
     </Grid>
 </UserControl>

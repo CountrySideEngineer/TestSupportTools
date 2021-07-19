@@ -9,6 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CSEngineer;
+
 
 namespace AutoTestPrep.Command
 {
@@ -19,70 +21,58 @@ namespace AutoTestPrep.Command
 	public class RunToolCommand
 	{
 		/// <summary>
+		/// Run cimmand interface.
+		/// </summary>
+		/// <param name="data">Data for command.</param>
+		public void Run(object data)
+		{
+			string logFileName = @"./log.txt";
+			using (var stream = new StreamWriter(logFileName, false, Encoding.UTF8))
+			{
+				Logger.Level = Logger.LogLevel.All;
+				Logger.AddStream(stream);
+				Logger.INFO("Start logging!");
+				this._Run(data);
+				Logger.RemoveStream(stream);
+			}
+
+		}
+
+		/// <summary>
 		/// Run command.
 		/// </summary>
 		/// <param name="data">Parameters used when run command.</param>
-		public void Run(object data)
+		protected void _Run(object data)
 		{
 			try
 			{
 				var inputInfos = data as TestDataInfo;
-				var rootDirectory = new DirectoryInfo(inputInfos.OutputDirectoryPath);
-				string outputDirName = System.IO.Path.GetFileNameWithoutExtension(inputInfos.TestDataFilePath);
-				DirectoryInfo outputDirectoryInfo = this.CreateOutputDirectory(rootDirectory, outputDirName);
+
+				Logger.INFO($"Start parsing the test data in {inputInfos.TestDataFilePath}.");
 				var parser = new TestParser();
 				var tests = (IEnumerable<Test>)parser.Parse(inputInfos.TestDataFilePath);
+				IEnumerable<IWriter> writers = new List<IWriter>
+				{
+					new StubWriter(),
+					new TestDriverWriter(),
+				};
 
-				//Create stub codes.
+				Logger.INFO("Start generating test codes.");
+				var helper = new WriterHelper();
 				foreach (var testItem in tests)
 				{
-					this.WriteStubCodes(testItem, outputDirectoryInfo);
-					this.WriteDriverCode(testItem, outputDirectoryInfo);
+					helper.Write(inputInfos, testItem, writers);
 				}
 			}
 			catch (InvalidCastException)
 			{
+				Logger.FATAL("Input data type error!");
+
 				throw;
-			}
-		}
-
-		protected DirectoryInfo CreateOutputDirectory(DirectoryInfo parent, string child)
-		{
-			string parentPath = parent.FullName;
-			string targetPath = parentPath + @"\" + child;
-			DirectoryInfo childDirectoryInfo = Directory.CreateDirectory(targetPath);
-
-			return childDirectoryInfo;
-		}
-
-		protected void WriteStubCodes(Test test, DirectoryInfo outputTopDirectory)
-		{
-			DirectoryInfo outputDirectory = this.CreateOutputDirectory(outputTopDirectory, test.SourcePath);
-
-			string extention = System.IO.Path.GetExtension(test.SourcePath);
-			var writer = new StubWriter();
-			foreach ( var subFunctionItem in test.Target.SubFunctions)
-			{
-				string stubFileName = subFunctionItem.Name;
-				string stubFilePath = outputDirectory.FullName + @"\" + stubFileName + "_test_stub" + extention;
-				writer.Write(stubFilePath, subFunctionItem);
-			}
-		}
-
-		protected void WriteDriverCode(Test test, DirectoryInfo outputTopDirectory)
-		{
-			//Create driver codes.
-			string extention = System.IO.Path.GetExtension(test.SourcePath);
-			string driverFileName = test.Target.Name;
-			string driverFilePath = outputTopDirectory.FullName + @"\" + driverFileName + "_test" + extention;
-			var writer = new TestDriverWriter();
-			try
-			{
-				writer.Write(driverFilePath, test);
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine(ex.Message);
+				Logger.ERROR(ex.Message);
 			}
 		}
 	}

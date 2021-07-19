@@ -133,13 +133,6 @@ namespace AutoTestPrep.ViewModel
 			}
 		}
 
-		public override void SetupTestInfomation(ref TestDataInfo testDataInfo)
-		{
-			testDataInfo.DriverIncludeStandardHeaderFiles = this.ToEnumrable(this.StandartHeader);
-			testDataInfo.DriverIncludeUserHeaderFiles = this.ToEnumrable(this.UserHeader);
-			testDataInfo.IncludeDirectoryPath = this.ToEnumrable(this.IncludeDirectory);
-		}
-
 		protected IEnumerable<string> ToEnumrable(string inputData)
 		{
 			var enumerableValue = inputData.Replace("\r\n", "\n").Split(new[] { '\n', '\r' });

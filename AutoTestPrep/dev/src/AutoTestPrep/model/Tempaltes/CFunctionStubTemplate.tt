@@ -6,20 +6,20 @@
 //Declare buffers to store a value passed and pass.
 int <#= Function.Name #>_called_count;
 <# if (!(("void").Equals(Function.Name.ToLower(), StringComparison.Ordinal))) { #>
-<#= Function.DataType #> <#= Function.Name #>_return[100];
+<#= Function.DataType #> <#= Function.Name #>_return[<#= TestDataInfo.StubBufferSize1 #>];
 <# } #>
 <#
 if (null != Function.Arguments)
 {
 	foreach (var argument in Function.Arguments) { #>
-<#= argument.DataType #>	<#= Function.Name #>_<#= argument.Name #>[100];
+<#= argument.DataType #>	<#= Function.Name #>_<#= argument.Name #>[<#= TestDataInfo.StubBufferSize1 #>];
 <#	}	} #>
 
 //Functoin to initialize buffers
 void <#= Function.Name #>_Initialize()
 {
 	<#= Function.Name #>_called_count = 0;
-	for (int index1 = 0; index1 < 100; index1++) {
+	for (int index1 = 0; index1 < <#= TestDataInfo.StubBufferSize1 #>; index1++) {
 <#
 if (null != Function.Arguments)
 {

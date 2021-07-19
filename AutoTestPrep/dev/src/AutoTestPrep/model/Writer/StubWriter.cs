@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using AutoTestPrep.Model.Tempaltes;
+using CSEngineer;
 
 namespace AutoTestPrep.Model.Writer
 {
@@ -13,14 +14,27 @@ namespace AutoTestPrep.Model.Writer
 	/// </summary>
 	public class StubWriter : IWriter
 	{
-		public void Write(string path, object parameter)
+		public void Write(string path, object[] parameters)
 		{
-			Function function = (Function)parameter;
-			var template = new CFunctionStubTemplate(function);
-
-			using (var stream = new StreamWriter(path, false, Encoding.Unicode))
+			try
 			{
-				stream.Write(template.TransformText());
+				var stubWriters = new List<IWriter>
+				{
+					new StubSourceWriter(),
+					new StubHeaderWriter()
+				};
+				foreach (var stubWriter in stubWriters)
+				{
+					stubWriter.Write(path, parameters);
+				}
+			}
+			catch (NullReferenceException)
+			{
+				Logger.INFO("Skip generating stub source and header code.");
+			}
+			catch (Exception)
+			{
+				throw;
 			}
 		}
 	}

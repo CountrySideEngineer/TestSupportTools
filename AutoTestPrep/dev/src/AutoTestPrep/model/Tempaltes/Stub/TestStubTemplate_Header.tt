@@ -1,0 +1,125 @@
+﻿<#@ template language="C#"
+	inherits="TestStubTemplate_Base" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+/*
+ *	<#= base.SubFunction.Name #> stub header files.
+ */
+#pragma once
+//Stub buffer size macro.
+#define	STUB_BUFFER_SZE_1			(<#= TestDataInfo.StubBufferSize1 #>)
+#define	STUB_BUFFER_SZE_2			(<#= TestDataInfo.StubBufferSize2 #>)
+
+//Sub function called count.
+<#= CreateFunctionCalledCountBufferDecalre() #>
+<#= CreateFunctionReturnBufferDeclare() #>
+
+//Argument buffer.
+<# foreach (var argumentItem in SubFunction.Arguments) { #>
+<#= CreateFunctionArgumentBufferDeclare(argumentItem) #>
+<#	}	#>
+//Return value buffer
+<# foreach (var argumentItem in SubFunction.Arguments) { #>
+<#= CreateFunctionOutputBufferDeclare(argumentItem) #>
+<#	}	#>
+
+//Function to initialize buffers.
+<#= CreateBufferInitializeFunction() #>
+<#+
+	//Methods to create stub header file.
+
+	/// <summary>
+	/// Create code declaring variable to set the count the function called.
+	/// </summary>
+	/// <param name="function">Function information</param>
+	/// <returns>Code to declare variable to set the count function called.</returns>
+	protected override string CreateFunctionCalledCountBufferDecalre()
+	{
+		string calledCountBufferName = base.CreateFunctionCalledCountBufferDecalre();
+		calledCountBufferName = "extern " + calledCountBufferName;
+		calledCountBufferName += ";";
+		return calledCountBufferName;
+	}
+
+	protected override string CreateFunctionReturnBufferDeclare()
+	{
+		string returnBufferName = base.CreateFunctionReturnBufferDeclare();
+		if (!(string.IsNullOrEmpty(returnBufferName))) {
+			returnBufferName = "extern " + returnBufferName;
+			returnBufferName += "[];";
+		}
+		return returnBufferName;
+	}
+
+	/// <summary>
+	/// Create code of function entry point to initialize 
+	/// </summary>
+	/// <returns>Code to declare function entry point to initialize buffer parameter.</returns>
+	protected override string CreateBufferInitializeFunction()
+	{
+		string bufferInitializeFunction = base.CreateBufferInitializeFunction();
+		bufferInitializeFunction += ";";
+
+		return bufferInitializeFunction;
+	}
+
+	/// <summary>
+	/// Create code to declare buffer for argument
+	/// </summary>
+	/// <param name="function">Function data.</param>
+	/// <param name="argument">Argument data.</param>
+	/// <returns>Code to declare argument buffer extern.</returns>
+	protected override string CreateFunctionArgumentBufferDeclare(Parameter argument)
+	{
+		string argumentBufferDeclare = base.CreateFunctionArgumentBufferDeclare(argument);
+		if (!(string.IsNullOrEmpty(argumentBufferDeclare)))
+		{
+			argumentBufferDeclare = "extern " + argumentBufferDeclare;
+			argumentBufferDeclare += "[];";
+		}
+		else
+		{
+			argumentBufferDeclare = $"//Argument {argument.Name} does not need buffer.";
+		}
+		return argumentBufferDeclare;
+	}
+
+	/// <summary>
+	/// Create code to declare buffer for output.
+	/// </summary>
+	/// <param name="argument">Argument information.</param>
+	/// <returns>Code to declare output buffer variable.</returns>
+	protected override string CreateFunctionOutputBufferDeclare(Parameter argument)
+	{
+		string outputBufferDeclare = string.Empty;
+		try
+		{
+			outputBufferDeclare = base.CreateFunctionOutputBufferDeclare(argument);
+			if (!(string.IsNullOrEmpty(outputBufferDeclare)))
+			{
+				outputBufferDeclare = "extern " + outputBufferDeclare;
+				outputBufferDeclare += "[]";
+				if (2 == argument.PointerNum)
+				{
+					outputBufferDeclare += $"[STUB_BUFFER_SIZE_2];";
+				}
+			}
+			else
+			{
+				outputBufferDeclare = $"//{argument.Name} does not need output buffer.";
+			}
+		}
+		catch (ArgumentException)
+		{
+			outputBufferDeclare = $"//{argument.Name} does not need output buffer.";
+		}
+		catch (Exception)
+		{
+			outputBufferDeclare = "Argument does not need output buffer.";
+		}
+		return outputBufferDeclare;
+	}
+#>
+

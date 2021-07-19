@@ -66,6 +66,10 @@
     <Reference Include="ExcelNumberFormat, Version=1.0.10.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
+    <Reference Include="Logger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Logger.1.0.0\Logger.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -100,15 +104,38 @@
     <Compile Include="Model\Parser\Exception\ParseDataNotFoundException.cs" />
     <Compile Include="Model\Parser\FunctionListParser.cs" />
     <Compile Include="Model\Parser\Exception\ParseException.cs" />
+    <Compile Include="Model\Tempaltes\Stub\Code\TestStubTemplate_Source_code.cs" />
+    <Compile Include="Model\Tempaltes\Stub\TestStubTemplate_Base.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestStubTemplate_Base.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\Stub\Code\TestStubTemplate_Base_code.cs" />
+    <Compile Include="Model\Tempaltes\Stub\TestStubTemplate_Header.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestStubTemplate_Header.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\Stub\Code\TestStubTemplate_Header_code.cs" />
+    <Compile Include="Model\Tempaltes\Stub\TestStubTemplate_Source.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestStubTemplate_Source.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Writer\StubHeaderWriter.cs" />
+    <Compile Include="Model\Writer\StubSourceWriter.cs" />
+    <Compile Include="Model\Writer\WriterHelper.cs" />
     <Compile Include="ViewModel\AutoTestPrepViewModelBase.cs" />
     <Compile Include="ViewModel\BufferSizeViewModel.cs" />
     <Compile Include="ViewModel\DefineMacroInputViewModel.cs" />
+    <Compile Include="ViewModel\DriverHeaderInformationInputViewModel.cs" />
     <Compile Include="ViewModel\HeaderInformationInputViewModel.cs" />
     <Compile Include="ViewModel\InformationInputViewModel.cs" />
     <Compile Include="ViewModel\LibraryInformationInputViewModel.cs" />
     <Compile Include="ViewModel\MainWindowsViewModel.cs" />
     <Compile Include="ViewModel\MultiLineInputViewModel.cs" />
     <Compile Include="ViewModel\SizeInputViewModel.cs" />
+    <Compile Include="ViewModel\StubHeaderInformationInputViewModel.cs" />
     <Compile Include="ViewModel\TestInformationInputViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\BufferSizeView.xaml.cs">
@@ -333,6 +360,18 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>CFunctionTemplateIncludeUserHeader.cs</LastGenOutput>
     </Content>
+    <Content Include="Model\Tempaltes\Stub\TestStubTemplate_Base.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestStubTemplate_Base.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\Stub\TestStubTemplate_Header.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestStubTemplate_Header.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\Stub\TestStubTemplate_Source.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestStubTemplate_Source.cs</LastGenOutput>
+    </Content>
     <Content Include="Model\Tempaltes\TestDriverTemplate_Header_gtest.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>TestDriverTemplate_Header_gtest.cs</LastGenOutput>
@@ -373,6 +412,8 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Model\Tempaltes\Driver\gtest\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
