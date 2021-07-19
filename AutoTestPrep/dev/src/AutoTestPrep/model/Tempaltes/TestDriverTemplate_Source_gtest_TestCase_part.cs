@@ -35,14 +35,11 @@ namespace AutoTestPrep.Model.Tempaltes
 			}
 		}
 
-		public string TestInput
+		public string TestInput(TestCase testCase)
 		{
-			get
-			{
-				var template = new TestDriverTemplate_Source_gtest_TestCase_SetupInput(this.Test);
-				var content = template.TransformText();
-				return content;
-			}
+			var template = new TestDriverTemplate_Source_gtest_TestCase_SetupInput(testCase);
+			var content = template.TransformText();
+			return content;
 		}
 
 		public string FunctionCall
@@ -55,14 +52,11 @@ namespace AutoTestPrep.Model.Tempaltes
 			}
 		}
 
-		public string CheckOutput
+		public string CheckOutput(TestCase testCase)
 		{
-			get
-			{
-				var template = new TestDriverTemplate_Source_gtest_TestCase_CheckOutput(Test);
-				var content = template.TransformText();
-				return content;
-			}
+			var template = new TestDriverTemplate_Source_gtest_TestCase_CheckOutput(testCase);
+			var content = template.TransformText();
+			return content;
 		}
 	}
 }

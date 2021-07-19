@@ -37,58 +37,58 @@ for (int index = 0; index < Test.TestCases.Count(); index++) {
             
             #line default
             #line hidden
-            this.Write("TEST_F(");
+            this.Write("\r\nTEST_F(");
             
-            #line 10 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase.tt"
+            #line 11 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Test.Name));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 10 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase.tt"
+            #line 11 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Test.Target.Name));
             
             #line default
             #line hidden
             this.Write("_test_");
             
-            #line 10 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase.tt"
+            #line 11 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(testCase.Id));
             
             #line default
             #line hidden
             this.Write(")\r\n{\r\n");
             
-            #line 12 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase.tt"
+            #line 13 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TestDeclare));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 13 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TestInput));
+            #line 14 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TestInput(testCase)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 14 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase.tt"
+            #line 15 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(FunctionCall));
             
             #line default
             #line hidden
             this.Write("\r\n\r\n");
             
-            #line 16 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(CheckOutput));
+            #line 17 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CheckOutput(testCase)));
             
             #line default
             #line hidden
             this.Write("\r\n}\r\n");
             
-            #line 18 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase.tt"
+            #line 19 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase.tt"
 
 }
 

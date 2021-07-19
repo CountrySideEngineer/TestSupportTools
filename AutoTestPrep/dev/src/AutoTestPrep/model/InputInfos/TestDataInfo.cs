@@ -56,6 +56,16 @@ namespace AutoTestPrep.Model.InputInfos
 		public IEnumerable<string> DriverIncludeUserHeaderFiles;
 
 		/// <summary>
+		/// Colelction of standard header file names being included in stub source file.
+		/// </summary>
+		public IEnumerable<string> StubIncludeStandardHeaderFiles;
+
+		/// <summary>
+		/// Collection of user header file names being included in stub source file.
+		/// </summary>
+		public IEnumerable<string> StubIncludeUserHeaderFiles;
+
+		/// <summary>
 		/// Collection of directories to scan when header file including.
 		/// </summary>
 		public IEnumerable<string> IncludeDirectoryPath;

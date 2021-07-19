@@ -60,7 +60,7 @@ namespace AutoTestPrep.Model.Reader
 			}
 			catch (NullReferenceException)
 			{
-				throw new ArgumentOutOfRangeException();
+				throw new FormatException();
 			}
 		}
 
@@ -100,7 +100,7 @@ namespace AutoTestPrep.Model.Reader
 		/// </summary>
 		/// <param name="item">String a cell should contain.</param>
 		/// <returns>A range which contains string.</returns>
-		/// <exception cref="ArgumentOutOfRangeException">A cell can not be found.</exception>
+		/// <exception cref="FormatException">A cell can not be found.</exception>
 		public Range FindFirstItemInRow(string item, Range range)
 		{
 			try
@@ -122,7 +122,7 @@ namespace AutoTestPrep.Model.Reader
 			}
 			catch (NullReferenceException)
 			{
-				throw new ArgumentOutOfRangeException();
+				throw new FormatException($"No cell contains {item} in {this.SheetName}.");
 			}
 		}
 
@@ -162,13 +162,21 @@ namespace AutoTestPrep.Model.Reader
 		/// </summary>
 		/// <param name="item">String a cell should contain.</param>
 		/// <returns>A range which contains string.</returns>
-		/// <exception cref="ArgumentOutOfRangeException">A cell can not be found.</exception>
+		/// <exception cref="FormatException">A cell can not be found.</exception>
 		public IEnumerable<Range> FindItem(string item)
 		{
 			var workBook = new XLWorkbook(this._excelStream);
 			var workSheet = workBook.Worksheet(this.SheetName);
 			var itemCells = workSheet.CellsUsed()
 				.Where(_ => (0 == string.Compare(item, _.GetString())));
+			if (0 == itemCells.Count())
+			{
+				/*
+				 * A case that any cell contains "item" can not found in a sheet, it means
+				 * that the format is invalid.
+				 */
+				throw new FormatException($"No cell contains {item} can be found in {this.SheetName}.");
+			}
 			var ranges = new List<Range>();
 			foreach (var itemCell in itemCells)
 			{

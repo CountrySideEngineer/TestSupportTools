@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoTestPrep.Model.Parser.Exception;
+using CSEngineer;
 
 namespace AutoTestPrep.Model.Parser
 {
@@ -60,11 +61,17 @@ namespace AutoTestPrep.Model.Parser
 		/// <returns>List of function information.</returns>
 		protected IEnumerable<ParameterInfo> ReadFunctionInfo(ExcelReader reader)
 		{
+			Logger.INFO("Start reading target function info, function and sheet name.");
+
 			Range tableItemRange = new Range();
 			reader.GetRowRange(ref tableItemRange);
 			reader.GetColumnRange(ref tableItemRange);
 			tableItemRange.StartRow++;
 			tableItemRange.ColumnCount = 4;
+
+			Logger.DEBUG($"\t\t-\tTable range:");
+			Logger.DEBUG($"\t\t\t\t--\tStart row = {tableItemRange.StartRow}, start column = {tableItemRange.StartColumn}");
+			Logger.DEBUG($"\t\t\t\t\tRow count = {tableItemRange.RowCount}, row column = {tableItemRange.ColumnCount}");
 
 			var parameterInfoList = new List<ParameterInfo>();
 			for (int index = 0; index < tableItemRange.RowCount; index++)
@@ -73,20 +80,20 @@ namespace AutoTestPrep.Model.Parser
 				{
 					ParameterInfo parameterInfo = this.ReadFunctionInfo(reader, tableItemRange);
 					parameterInfoList.Add(parameterInfo);
-					tableItemRange.StartRow++;
 				}
 				catch (ParseException)
 				{
-					Console.WriteLine("Skip!");
+					Logger.WARN($"\t\t-\tSkip ({tableItemRange.StartRow}, {tableItemRange.StartColumn}) because empty cell found.");
 				}
 				catch (ParseDataNotFoundException)
 				{
-					Console.WriteLine($"({tableItemRange.StartRow}, {tableItemRange.StartColumn}) Skip! Invalid data found.");
+					Logger.WARN($"\t\t-\tSkip ({tableItemRange.StartRow}, {tableItemRange.StartColumn}) because invalid data found.");
 				}
-				catch (FormatException ex)
+				catch (FormatException)
 				{
-					Console.WriteLine($"{ex.Message}");
+					Logger.WARN($"\t\t-\tSkip ({tableItemRange.StartRow}, {tableItemRange.StartColumn}) because invalid format.");
 				}
+				tableItemRange.StartRow++;
 			}
 			return parameterInfoList;
 		}
@@ -105,6 +112,7 @@ namespace AutoTestPrep.Model.Parser
 			IEnumerable<string> rowItem = reader.ReadRow(range);
 			if (0 == rowItem.Count())
 			{
+				Logger.WARN($"\t\t-\tNo item found in row ({range.StartRow}.");
 				throw new ParseDataNotFoundException(range);
 			}
 

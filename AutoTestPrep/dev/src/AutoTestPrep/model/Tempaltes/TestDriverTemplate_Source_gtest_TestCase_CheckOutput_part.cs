@@ -13,6 +13,8 @@ namespace AutoTestPrep.Model.Tempaltes
 		/// </summary>
 		public Test Test { get; set; }
 
+		public TestCase TestCase { get; set; }
+
 		/// <summary>
 		/// Constructor.
 		/// </summary>
@@ -20,6 +22,11 @@ namespace AutoTestPrep.Model.Tempaltes
 		public TestDriverTemplate_Source_gtest_TestCase_CheckOutput(Test test)
 		{
 			this.Test = test;
+		}
+
+		public TestDriverTemplate_Source_gtest_TestCase_CheckOutput(TestCase testCase)
+		{
+			this.TestCase = testCase;
 		}
 	}
 }

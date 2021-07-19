@@ -32,7 +32,12 @@ namespace AutoTestPrep.ViewModel
 		/// <summary>
 		/// View model field to input header file information.
 		/// </summary>
-		protected HeaderInformationInputViewModel _HeaderInformationVM;
+		protected HeaderInformationInputViewModel _DriverHeaderInformationVM;
+
+		/// <summary>
+		/// View model field to input header file information.
+		/// </summary>
+		protected HeaderInformationInputViewModel _StubHeaderInformationVM;
 
 		/// <summary>
 		/// View model field of input library file information.
@@ -66,26 +71,30 @@ namespace AutoTestPrep.ViewModel
 			{
 				"テスト情報",
 				"スタブ情報",
-				"ヘッダ情報",
-				"ライブラリ情報",
+				"ヘッダ情報(ドライバ)",
+				"ヘッダ情報(スタブ)",
+				"ライブラリ情報()",
 				"マクロ情報"
 			};
 
 			this.TestInformationInputVM = new TestInformationInputViewModel(0);
 			this.BufferSizeVM = new BufferSizeViewModel(1);
-			this.HeaderInformationVM = new HeaderInformationInputViewModel(2);
-			this.LibraryInforamtionVM = new LibraryInformationInputViewModel(3);
-			this.DefineMacroVM = new DefineMacroInputViewModel(4);
+			this.DriverHeaderInformationVM = new HeaderInformationInputViewModel(2);
+			this.StubHeaderInformationVM = new StubHeaderInformationInputViewModel(3);
+			this.LibraryInforamtionVM = new LibraryInformationInputViewModel(4);
+			this.DefineMacroVM = new DefineMacroInputViewModel(5);
 
 			this.SelectedChanged += TestInformationInputVM.SelectedStateChangedEventHandler;
 			this.SelectedChanged += BufferSizeVM.SelectedStateChangedEventHandler;
-			this.SelectedChanged += HeaderInformationVM.SelectedStateChangedEventHandler;
+			this.SelectedChanged += DriverHeaderInformationVM.SelectedStateChangedEventHandler;
+			this.SelectedChanged += StubHeaderInformationVM.SelectedStateChangedEventHandler;
 			this.SelectedChanged += LibraryInforamtionVM.SelectedStateChangedEventHandler;
 			this.SelectedChanged += DefineMacroVM.SelectedStateChangedEventHandler;
 
 			this.SetupTestInformationReq += this.TestInformationInputVM.SetupTestInfomation;
 			this.SetupTestInformationReq += this.BufferSizeVM.SetupTestInfomation;
-			this.SetupTestInformationReq += this.HeaderInformationVM.SetupTestInfomation;
+			this.SetupTestInformationReq += this.DriverHeaderInformationVM.SetupTestInfomation;
+			this.SetupTestInformationReq += this.StubHeaderInformationVM.SetupTestInfomation;
 			this.SetupTestInformationReq += this.LibraryInforamtionVM.SetupTestInfomation;
 			this.SetupTestInformationReq += this.DefineMacroVM.SetupTestInfomation;
 
@@ -154,18 +163,34 @@ namespace AutoTestPrep.ViewModel
 		}
 
 		/// <summary>
-		/// Property of view model of header files.
+		/// Property of view model of header files test driver includes.
 		/// </summary>
-		public HeaderInformationInputViewModel HeaderInformationVM
+		public HeaderInformationInputViewModel DriverHeaderInformationVM
 		{
 			get
 			{
-				return this._HeaderInformationVM;
+				return this._DriverHeaderInformationVM;
 			}
 			set
 			{
-				this._HeaderInformationVM = value;
-				this.RaisePropertyChanged(nameof(HeaderInformationVM));
+				this._DriverHeaderInformationVM = value;
+				this.RaisePropertyChanged(nameof(DriverHeaderInformationVM));
+			}
+		}
+
+		/// <summary>
+		/// Property of view model of header files stub file includes.
+		/// </summary>
+		public HeaderInformationInputViewModel  StubHeaderInformationVM
+		{
+			get
+			{
+				return this._StubHeaderInformationVM;
+			}
+			set
+			{
+				this._StubHeaderInformationVM = value;
+				this.RaisePropertyChanged(nameof(StubHeaderInformationVM));
 			}
 		}
 
