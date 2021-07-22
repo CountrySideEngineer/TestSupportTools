@@ -142,6 +142,8 @@
     </Compile>
     <Compile Include="Model\Writer\StubHeaderWriter.cs" />
     <Compile Include="Model\Writer\StubSourceWriter.cs" />
+    <Compile Include="Model\Writer\TestDriverHeaderWriter.cs" />
+    <Compile Include="Model\Writer\TestDriverSourceWriter.cs" />
     <Compile Include="Model\Writer\WriterHelper.cs" />
     <Compile Include="ViewModel\AutoTestPrepViewModelBase.cs" />
     <Compile Include="ViewModel\BufferSizeViewModel.cs" />
