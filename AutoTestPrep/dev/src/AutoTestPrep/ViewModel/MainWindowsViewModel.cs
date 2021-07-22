@@ -79,7 +79,7 @@ namespace AutoTestPrep.ViewModel
 
 			this.TestInformationInputVM = new TestInformationInputViewModel(0);
 			this.BufferSizeVM = new BufferSizeViewModel(1);
-			this.DriverHeaderInformationVM = new HeaderInformationInputViewModel(2);
+			this.DriverHeaderInformationVM = new DriverHeaderInformationInputViewModel(2);
 			this.StubHeaderInformationVM = new StubHeaderInformationInputViewModel(3);
 			this.LibraryInforamtionVM = new LibraryInformationInputViewModel(4);
 			this.DefineMacroVM = new DefineMacroInputViewModel(5);

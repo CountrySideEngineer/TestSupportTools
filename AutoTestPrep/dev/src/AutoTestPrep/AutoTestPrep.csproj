@@ -104,6 +104,24 @@
     <Compile Include="Model\Parser\Exception\ParseDataNotFoundException.cs" />
     <Compile Include="Model\Parser\FunctionListParser.cs" />
     <Compile Include="Model\Parser\Exception\ParseException.cs" />
+    <Compile Include="Model\Tempaltes\Driver\gtest\code\TestDriverTemplate_gtest_Base_code.cs" />
+    <Compile Include="Model\Tempaltes\Driver\gtest\code\TestDriverTemplate_gtest_Header_code.cs" />
+    <Compile Include="Model\Tempaltes\Driver\gtest\code\TestDriverTemplate_gtest_Source_code.cs" />
+    <Compile Include="Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Base.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriverTemplate_gtest_Base.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Header.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriverTemplate_gtest_Header.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriverTemplate_gtest_Source.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Tempaltes\Stub\Code\TestStubTemplate_Source_code.cs" />
     <Compile Include="Model\Tempaltes\Stub\TestStubTemplate_Base.cs">
       <AutoGen>True</AutoGen>
@@ -360,6 +378,18 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>CFunctionTemplateIncludeUserHeader.cs</LastGenOutput>
     </Content>
+    <Content Include="Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Base.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestDriverTemplate_gtest_Base.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Header.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestDriverTemplate_gtest_Header.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestDriverTemplate_gtest_Source.cs</LastGenOutput>
+    </Content>
     <Content Include="Model\Tempaltes\Stub\TestStubTemplate_Base.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>TestStubTemplate_Base.cs</LastGenOutput>
@@ -412,8 +442,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\Tempaltes\Driver\gtest\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

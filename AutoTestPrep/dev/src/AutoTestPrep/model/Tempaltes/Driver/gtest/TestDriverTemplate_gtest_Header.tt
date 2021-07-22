@@ -1,0 +1,83 @@
+﻿<#@ template language="C#"
+	inherits="TestDriverTemplate_gtest_Base" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+/*
+ *	<#= this.TargetFunction.Name #> test driver source code.
+ */
+#pragma once
+
+<#=	this.CreateTestClassDeclareCode() #>
+{
+protected:
+<#=	this.CreateSetupMethodDeclareCode() #>
+<#=	this.CreateTearDownMethodDeclareCode() #>
+
+protected:
+<#=	this.CreateSetupTestCaseMethodDeclareCode() #>
+<#=	this.CreateTearDownTestCaseMethodDeclareCode() #>
+};
+<#+
+
+	/// <summary>
+	/// Create test class name.
+	/// </summary>
+	///	<return>Test class name</return>
+	protected virtual string CreateTestClassDeclareCode()
+	{
+		string testClassDeclare = string.Empty;
+		testClassDeclare = base.CreateTestClassName();
+		testClassDeclare = $"class {testClassDeclare}";
+		return testClassDeclare;
+	}
+
+	/// <summary>
+	///	Create code to declare method to setup test.
+	///	</summary>
+	///	<return>Code to declare method to setup test.</return>
+	protected virtual string CreateSetupMethodDeclareCode()
+	{
+		string setupMethodDeclare = string.Empty;
+		setupMethodDeclare = base.CreateSetupMethodName();
+		setupMethodDeclare = $"\tvoid {setupMethodDeclare}();";
+		return setupMethodDeclare;
+	}
+
+	/// <summary>
+	///	Create code to declare method to teardown test.
+	///	</summary>
+	///	<return>Code to declare method to teardown test.</return>
+	protected virtual string CreateTearDownMethodDeclareCode()
+	{
+		string tearDownMethodDeclareCode = string.Empty;
+		tearDownMethodDeclareCode = base.CreateTearDownMethodName();
+		tearDownMethodDeclareCode = $"\tvoid {tearDownMethodDeclareCode}();";
+		return tearDownMethodDeclareCode;
+	}
+
+	/// <summary>
+	///	Create code to declare method to set up test case.
+	///	</summary>
+	///	<return>Code to declare method to set up test cases.</return>
+	protected virtual string CreateSetupTestCaseMethodDeclareCode()
+	{
+		string setupTestCaseMethodDeclareCode = string.Empty;
+		setupTestCaseMethodDeclareCode = base.CreateTestSetUpMethodName();
+		setupTestCaseMethodDeclareCode = $"\tstatic void {setupTestCaseMethodDeclareCode}();";
+		return setupTestCaseMethodDeclareCode;
+	}
+
+	/// <summary>
+	///	Create code to declare method to tear down test case.
+	///	</summary>
+	///	<return>Code to declare method to tear down tes case.</return>
+	protected virtual string CreateTearDownTestCaseMethodDeclareCode()
+	{
+		string tearDownTestCaseMethodDeclareCode = string.Empty;
+		tearDownTestCaseMethodDeclareCode = base.CreateTestTearDownMethodName();
+		tearDownTestCaseMethodDeclareCode = $"\tstatic void {tearDownTestCaseMethodDeclareCode}();";
+		return tearDownTestCaseMethodDeclareCode;
+	}
+#>
