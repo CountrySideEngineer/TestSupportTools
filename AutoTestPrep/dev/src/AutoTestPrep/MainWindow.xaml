@@ -35,12 +35,14 @@
                           Style="{StaticResource MenuItem_MenuItem}"
                           />
                     <MenuItem Header="開く"
-                          Style="{StaticResource MenuItem_MenuItem}"
-                          />
+                              Style="{StaticResource MenuItem_MenuItem}"
+                              Command="{Binding Path=LoadProjectCommand}"
+                              />
                     <Separator/>
                     <MenuItem Header="名前をつけて保存"
-                          Style="{StaticResource MenuItem_MenuItem}"
-                          />
+                              Style="{StaticResource MenuItem_MenuItem}"
+                              Command="{Binding Path=SaveProjectCommand}"
+                              />
                     <MenuItem Header="上書き保存"
                           Style="{StaticResource MenuItem_MenuItem}"
                           />

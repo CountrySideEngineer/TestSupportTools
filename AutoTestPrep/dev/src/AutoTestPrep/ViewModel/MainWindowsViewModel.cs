@@ -1,4 +1,5 @@
 ﻿using AutoTestPrep.Command;
+using AutoTestPrep.Command.Argument;
 using AutoTestPrep.Model.EventArgs;
 using AutoTestPrep.Model.InputInfos;
 using CSEngineer.ViewModel;
@@ -50,6 +51,10 @@ namespace AutoTestPrep.ViewModel
 		protected DefineMacroInputViewModel _DefineMacroVM;
 
 		protected DelegateCommand _RunCommand;
+
+		protected DelegateCommand _SaveProjectCommand;
+
+		protected DelegateCommand _LoadProjectCommand;
 
 		/// <summary>
 		/// Event handler to handle a event 
@@ -249,6 +254,68 @@ namespace AutoTestPrep.ViewModel
 		}
 
 		public bool CanRunCommandExecute()
+		{
+			return true;
+		}
+
+		public DelegateCommand SaveProjectCommand
+		{
+			get
+			{
+				if (null == this._SaveProjectCommand)
+				{
+					this._SaveProjectCommand = 
+						new DelegateCommand(
+							this.SaveProjectCommandExecute, this.CanSaveProjectCommand);
+				}
+				return this._SaveProjectCommand;
+			}
+		}
+
+		public bool CanSaveProjectCommand()
+		{
+			return true;
+		}
+
+		public void SaveProjectCommandExecute()
+		{
+			var testDataInfo = new TestDataInfo();
+			this.SetupTestInformationReq?.Invoke(ref testDataInfo);
+
+			Debug.WriteLine("RunSaveProjectCommandExecute()");
+			var commandArg = new ProjectCommandArgument()
+			{
+				FilePath = string.Empty,
+				TestDataInfo = testDataInfo
+			};
+			var command = new SaveProjectCommand();
+			command.Run(commandArg);
+		}
+
+		public DelegateCommand LoadProjectCommand
+		{
+			get
+			{
+				if (null == _LoadProjectCommand)
+				{
+					this._LoadProjectCommand =
+						new DelegateCommand(
+							this.LoadProjectCommandExecute, this.CanLoadProjectCommandExecute);
+				}
+				return this._LoadProjectCommand;
+			}
+		}
+
+		public void LoadProjectCommandExecute()
+		{
+			Debug.WriteLine("LoadProjectCommandExecute()");
+
+			var commandArg = new ProjectCommandArgument();
+			var command = new LoadProjectCommand();
+			command.Run(commandArg);
+		}
+
+		public bool CanLoadProjectCommandExecute()
 		{
 			return true;
 		}
