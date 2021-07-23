@@ -27,8 +27,8 @@ namespace AutoTestPrep.ViewModel
 
 		public BufferSizeViewModel(int index) : base(index)
 		{
-			this.BufferSize1VM = new SizeInputViewModel("バッファサイズ1", 0);
-			this.BufferSize2VM = new SizeInputViewModel("バッファサイズ2", 0);
+			this.BufferSize1VM = new SizeInputViewModel("バッファサイズ1", 100);
+			this.BufferSize2VM = new SizeInputViewModel("バッファサイズ2", 100);
 		}
 
 		/// <summary>
