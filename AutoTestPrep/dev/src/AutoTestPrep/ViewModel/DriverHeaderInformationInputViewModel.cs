@@ -31,5 +31,16 @@ namespace AutoTestPrep.ViewModel
 			testDataInfo.DriverIncludeUserHeaderFiles = this.ToEnumrable(this.UserHeader);
 			testDataInfo.IncludeDirectoryPath = this.ToEnumrable(this.IncludeDirectory);
 		}
+
+		/// <summary>
+		/// Restore the data in object specified by argument.
+		/// </summary>
+		/// <param name="testDataInfo">Source data object.</param>
+		public override void RestoreTestInforamtion(TestDataInfo testDataInfo)
+		{
+			this.StandartHeader = this.StandartHeaderVM.EnumerableToMultilineString(testDataInfo.DriverIncludeStandardHeaderFiles);
+			this.UserHeader = this.UserHeaderVM.EnumerableToMultilineString(testDataInfo.DriverIncludeUserHeaderFiles);
+			this.IncludeDirectory = this.IncludeDirectoryVM.EnumerableToMultilineString(testDataInfo.IncludeDirectoryPath);
+		}
 	}
 }

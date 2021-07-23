@@ -68,9 +68,23 @@ namespace AutoTestPrep.ViewModel
 			return this.DefineMacroVM.InputItemInIenumerable();
 		}
 
+		/// <summary>
+		/// Setup test user input data into
+		/// Set the data entered by users in the object specified by the argument.
+		/// </summary>
+		/// <param name="testDataInfo">Object to set input data.</param>
 		public override void SetupTestInfomation(ref TestDataInfo testDataInfo)
 		{
 			testDataInfo.DefineMacros = this.DefineMacroInEnumerable();
+		}
+
+		/// <summary>
+		/// Restore the data in object specified by argument.
+		/// </summary>
+		/// <param name="testDataInfo">Source data object.</param>
+		public override void RestoreTestInforamtion(TestDataInfo testDataInfo)
+		{
+			this.DefineMacro = this.DefineMacroVM.EnumerableToMultilineString(testDataInfo.DefineMacros);
 		}
 	}
 }

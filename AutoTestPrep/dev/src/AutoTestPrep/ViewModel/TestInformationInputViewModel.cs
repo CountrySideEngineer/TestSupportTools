@@ -99,10 +99,25 @@ namespace AutoTestPrep.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Setup test user input data into
+		/// Set the data entered by users in the object specified by the argument.
+		/// </summary>
+		/// <param name="testDataInfo">Object to set input data.</param>
 		public override void SetupTestInfomation(ref TestDataInfo testDataInfo)
 		{
 			testDataInfo.TestDataFilePath = this.InputFilePath;
 			testDataInfo.OutputDirectoryPath = this.OutputPath;
+		}
+
+		/// <summary>
+		/// Restore the data in object specified by argument.
+		/// </summary>
+		/// <param name="testDataInfo">Source data object.</param>
+		public override void RestoreTestInforamtion(TestDataInfo testDataInfo)
+		{
+			this.InputFilePath = testDataInfo.TestDataFilePath;
+			this.OutputPath = testDataInfo.OutputDirectoryPath;
 		}
 
 		/// <summary>

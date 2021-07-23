@@ -1,6 +1,7 @@
 ﻿using AutoTestPrep.Model.InputInfos;
 using AutoTestPrep.Model.Option;
 using AutoTestPrep.Model.Tempaltes;
+using AutoTestPrep.Model.Tempaltes.Driver.gtest;
 using CSEngineer;
 using System;
 using System.Collections.Generic;
@@ -21,34 +22,27 @@ namespace AutoTestPrep.Model.Writer
 		/// <param name="parameters">Collection of parameters used to genearate codes.</param>
 		public void Write(string path, object[] parameters)
 		{
-			Logger.INFO("Start generating test driver source code.");
+			Logger.INFO("Start generating test driver codes.");
 
 			try
 			{
-				var test = (Test)parameters[0];
-				var testDataInfo = (TestDataInfo)parameters[1];
-				string ext = System.IO.Path.GetExtension(test.SourcePath);
-				Function function = test.Target;
-				string fileName = function.Name + "_test" + ext;
-				string outputPath = path + @"\" + fileName;
-
-				Logger.INFO($"\t\t-\tDriver source file path : {outputPath}.");
-
-				using (var stream = new StreamWriter(outputPath, false, Encoding.UTF8))
+				var writers = new IWriter[]
 				{
-					var options = new Options()
-					{
-						IncludeStdHeaderFiles = testDataInfo.DriverIncludeStandardHeaderFiles,
-						IncludeUserHeaderFiles = testDataInfo.DriverIncludeUserHeaderFiles
-					};
-					var template = new TestDriverTemplate_Source_gtest(test, options);
-					stream.Write(template.TransformText());
+					new TestDriverSourceWriter(),
+					new TestDriverHeaderWriter()
+				};
+
+				foreach (var writer in writers)
+				{
+					writer.Write(path, parameters);
 				}
 			}
-			catch (Exception ex)
-			when ((ex is InvalidCastException) || (ex is IndexOutOfRangeException))
+			catch (NullReferenceException)
 			{
-				Logger.FATAL("Parameters to generate test driver code are invalid.");
+				Logger.WARN("Skip generating driver source code and header code.");
+			}
+			catch (Exception)
+			{
 				throw;
 			}
 		}
