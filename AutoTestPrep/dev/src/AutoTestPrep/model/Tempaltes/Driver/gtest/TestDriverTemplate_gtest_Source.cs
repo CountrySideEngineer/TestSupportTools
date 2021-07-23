@@ -111,62 +111,70 @@ namespace AutoTestPrep.Model.Tempaltes.Driver.gtest
             this.Write("\r\n{\r\n");
             
             #line 37 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
- foreach (var subFunctionItem in this.SubFunctions) {	
+
+	if ((null != this.SubFunctions) &&
+		(0 < this.SubFunctions.Count()))
+	{
+		foreach (var subFunctionItem in this.SubFunctions) {
+
             
             #line default
             #line hidden
             this.Write("\t");
             
-            #line 38 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
+            #line 43 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateInitializeStubMethodCall(subFunctionItem)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 39 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
-	}	
+            #line 44 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
+
+		}
+	}
+
             
             #line default
             #line hidden
             this.Write("}\r\n\r\n//Finalize test case.\r\n");
             
-            #line 43 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
+            #line 51 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateTearDownMethodEntryPointCode()));
             
             #line default
             #line hidden
             this.Write(" { }\r\n\r\n//Finalize test cases.(Called after all test functions have run.)\r\n");
             
-            #line 46 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
+            #line 54 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateTearDownTestCaseMethodEntryPointCode()));
             
             #line default
             #line hidden
             this.Write(" { }\r\n\r\n//Test method\r\n");
             
-            #line 49 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
+            #line 57 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
  foreach (var testCase in this.Test.TestCases) {	
             
             #line default
             #line hidden
             this.Write("TEST_F(");
             
-            #line 50 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
+            #line 58 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(base.CreateTestClassName()));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 50 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
+            #line 58 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateTestCaseMethodName(testCase)));
             
             #line default
             #line hidden
             this.Write(")\r\n{\r\n\t//Declare arguments.\r\n");
             
-            #line 53 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
+            #line 61 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
 
 	if ((null != this.TargetFunction.Arguments) && (0 < this.TargetFunction.Arguments.Count())) {
 		foreach (var argumentItem in this.TargetFunction.Arguments) {
@@ -176,14 +184,14 @@ namespace AutoTestPrep.Model.Tempaltes.Driver.gtest
             #line hidden
             this.Write("\t");
             
-            #line 57 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
+            #line 65 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateCodeToDeclareArgument(argumentItem)));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 58 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
+            #line 66 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
 		}	
 	
 	}
@@ -193,7 +201,7 @@ namespace AutoTestPrep.Model.Tempaltes.Driver.gtest
             #line hidden
             this.Write("\r\n\t//Setup test values.\r\n");
             
-            #line 64 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
+            #line 72 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
 	if ((null != testCase.Input) && (0 < testCase.Input.Count())) {
 		foreach (var inputItem in testCase.Input) {
 
@@ -202,14 +210,14 @@ namespace AutoTestPrep.Model.Tempaltes.Driver.gtest
             #line hidden
             this.Write("\t");
             
-            #line 67 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
+            #line 75 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateCodeToSetUpTestParameter(inputItem)));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 68 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
+            #line 76 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
 
 		}
 	}
@@ -219,14 +227,14 @@ namespace AutoTestPrep.Model.Tempaltes.Driver.gtest
             #line hidden
             this.Write("\t//Call target function.\r\n\t");
             
-            #line 73 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
+            #line 81 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateCodeToCallTargetFunction()));
             
             #line default
             #line hidden
             this.Write("\r\n\r\n\t//Check output and expectes.\r\n");
             
-            #line 76 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
+            #line 84 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
 
 	if ((null != testCase.Expects) &&
 		(0 < testCase.Expects.Count()))
@@ -239,14 +247,14 @@ namespace AutoTestPrep.Model.Tempaltes.Driver.gtest
             #line hidden
             this.Write("\t");
             
-            #line 83 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
+            #line 91 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateCodeToCheckOutputAndExpect(expectItem)));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 84 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
+            #line 92 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
 
 		}
 	}
@@ -256,7 +264,7 @@ namespace AutoTestPrep.Model.Tempaltes.Driver.gtest
             #line hidden
             this.Write("}\r\n\r\n");
             
-            #line 90 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
+            #line 98 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
 	}	
             
             #line default
@@ -264,7 +272,7 @@ namespace AutoTestPrep.Model.Tempaltes.Driver.gtest
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 91 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
+        #line 99 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
 
 	//Methods used to create test driver code using google test as test framework.
 

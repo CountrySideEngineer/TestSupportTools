@@ -34,9 +34,17 @@
 //Initialize test stub buffers.
 <#= CreateSetupMethodEntryPointCode() #>
 {
-<# foreach (var subFunctionItem in this.SubFunctions) {	#>
+<#
+	if ((null != this.SubFunctions) &&
+		(0 < this.SubFunctions.Count()))
+	{
+		foreach (var subFunctionItem in this.SubFunctions) {
+#>
 	<#= CreateInitializeStubMethodCall(subFunctionItem) #>
-<#	}	#>
+<#
+		}
+	}
+#>
 }
 
 //Finalize test case.
