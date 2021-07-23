@@ -86,6 +86,7 @@ namespace AutoTestPrep.Model.Tempaltes.Driver.gtest
 		string testClassDeclare = string.Empty;
 		testClassDeclare = base.CreateTestClassName();
 		testClassDeclare = $"class {testClassDeclare}";
+		testClassDeclare = $"{testClassDeclare} : public ::testing::Test";
 		return testClassDeclare;
 	}
 
@@ -97,7 +98,8 @@ namespace AutoTestPrep.Model.Tempaltes.Driver.gtest
 	{
 		string setupMethodDeclare = string.Empty;
 		setupMethodDeclare = base.CreateSetupMethodName();
-		setupMethodDeclare = $"\tvoid {setupMethodDeclare}();";
+		setupMethodDeclare = $"void {setupMethodDeclare}();";
+		setupMethodDeclare = $"\tvirtual {setupMethodDeclare}";
 		return setupMethodDeclare;
 	}
 
@@ -109,7 +111,8 @@ namespace AutoTestPrep.Model.Tempaltes.Driver.gtest
 	{
 		string tearDownMethodDeclareCode = string.Empty;
 		tearDownMethodDeclareCode = base.CreateTearDownMethodName();
-		tearDownMethodDeclareCode = $"\tvoid {tearDownMethodDeclareCode}();";
+		tearDownMethodDeclareCode = $"void {tearDownMethodDeclareCode}();";
+		tearDownMethodDeclareCode = $"\tvirtual {tearDownMethodDeclareCode}";
 		return tearDownMethodDeclareCode;
 	}
 

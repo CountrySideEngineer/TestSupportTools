@@ -78,7 +78,7 @@ TEST_F(<#= base.CreateTestClassName() #>, <#= this.CreateTestCaseMethodName(test
 	}
 #>
 	//Call target function.
-	<#= CreateCodeToCallTargetFunction() #>
+	<#= CreateCodeToCallTargetFunction() #>;
 
 	//Check output and expectes.
 <#

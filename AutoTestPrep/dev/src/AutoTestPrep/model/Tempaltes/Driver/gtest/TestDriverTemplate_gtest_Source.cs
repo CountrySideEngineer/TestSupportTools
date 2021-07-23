@@ -232,7 +232,7 @@ namespace AutoTestPrep.Model.Tempaltes.Driver.gtest
             
             #line default
             #line hidden
-            this.Write("\r\n\r\n\t//Check output and expectes.\r\n");
+            this.Write(";\r\n\r\n\t//Check output and expectes.\r\n");
             
             #line 84 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt"
 
