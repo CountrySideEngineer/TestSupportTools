@@ -7,20 +7,21 @@
 //     コードが再生成されると失われます。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace AutoTestPrep.Model.Tempaltes
+namespace AutoTestPrep.Model.Tempaltes.Driver.gtest
 {
     using System.Linq;
     using System.Text;
     using System.Collections.Generic;
+    using AutoTestPrep.Model.InputInfos;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_InitStub.tt"
+    #line 1 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Base.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class TestDriverTemplate_Source_gtest_InitStub : TestDriverTemplate_Source_gtest_InitStubBase
+    public partial class TestDriverTemplate_gtest_Base : TestDriverTemplate_gtest_BaseBase
     {
 #line hidden
         /// <summary>
@@ -28,37 +29,106 @@ namespace AutoTestPrep.Model.Tempaltes
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("void ");
-            
-            #line 6 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_InitStub.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Test.Name));
-            
-            #line default
-            #line hidden
-            this.Write("::SetUp()\r\n{\r\n");
-            
-            #line 8 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_InitStub.tt"
- foreach (var subFunction in Test.Target.SubFunctions) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t");
-            
-            #line 9 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_InitStub.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(subFunction.Name));
-            
-            #line default
-            #line hidden
-            this.Write("_init();\r\n");
-            
-            #line 10 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\TestDriverTemplate_Source_gtest_InitStub.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("}");
             return this.GenerationEnvironment.ToString();
         }
+        
+        #line 7 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Base.tt"
+
+	//Property for driver template.
+
+	/// <summary>
+	/// Target function information to be test.
+	/// </summary>
+	protected Test Test;
+
+	/// <summary>
+	/// Target function information to be test.
+	/// </summary>
+	protected Function TargetFunction
+	{
+		get
+		{
+			return this.Test.Target;
+		}
+	}
+
+	/// <summary>
+	/// Collection of function target function will call.
+	/// </summary>
+	protected IEnumerable<Function> SubFunctions
+	{
+		get
+		{
+			return this.Test.Target.SubFunctions;
+		}
+	}
+
+	/// <summary>
+	/// Test data information.
+	/// </summary>
+	protected TestDataInfo TestDataInfo;
+
+        
+        #line default
+        #line hidden
+        
+        #line 42 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Base.tt"
+
+	//Common method to create name of class, or variables.
+
+	/// <summary>
+	/// Create test class name.
+	/// </summary>
+	///	<return>Test class name</return>
+	protected virtual string CreateTestClassName()
+	{
+		string testClassName = string.Empty;
+		testClassName = $"{TargetFunction.Name}_test";
+		return testClassName;
+	}
+
+	/// <summary>
+	///	Create method name to set up test.
+	///	</summary>
+	///	<return>Set up test method name.</return>
+	protected virtual string CreateSetupMethodName()
+	{
+		string setupMethod = "SetUp";
+		return setupMethod;
+	}
+
+	/// <summary>
+	///	Create method name to tear down, finalize test method.
+	///	</summary>
+	/// <return>Finalize test method name.</return>
+	protected virtual string CreateTearDownMethodName()
+	{
+		string tearDownMethod = "TearDown";
+		return tearDownMethod;
+	}
+
+	/// <summary>
+	///	Create method name called before the tests start.
+	///	</summary>
+	protected virtual string CreateTestSetUpMethodName()
+	{
+		string testSetUpMethod = "SetUpTestCase";
+		return testSetUpMethod;
+	}
+
+	/// <summary>
+	///	Create method name called after all test case are run.
+	/// </summary>
+	///	<return>Method name to finalize test called after all test cases have been done.
+	protected virtual string CreateTestTearDownMethodName()
+	{
+		string testTearDownMethod = "TearDownTestCase";
+		return testTearDownMethod;
+	}
+
+        
+        #line default
+        #line hidden
     }
     
     #line default
@@ -68,7 +138,7 @@ namespace AutoTestPrep.Model.Tempaltes
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class TestDriverTemplate_Source_gtest_InitStubBase
+    public class TestDriverTemplate_gtest_BaseBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

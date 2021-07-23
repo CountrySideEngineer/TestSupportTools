@@ -1,4 +1,5 @@
 ﻿using AutoTestPrep.Command;
+using AutoTestPrep.Command.Argument;
 using AutoTestPrep.Model.EventArgs;
 using AutoTestPrep.Model.InputInfos;
 using CSEngineer.ViewModel;
@@ -16,6 +17,10 @@ namespace AutoTestPrep.ViewModel
 {
 	public class MainWindowsViewModel : ViewModelBase
 	{
+		protected string _CurrentFilePath;
+
+		protected string _CurrentTitle;
+
 		protected ObservableCollection<string> _testConfigurationItems;
 		protected int _selectedConfigurationItemIndex;
 
@@ -51,6 +56,12 @@ namespace AutoTestPrep.ViewModel
 
 		protected DelegateCommand _RunCommand;
 
+		protected DelegateCommand _SaveProjectCommand;
+
+		protected DelegateCommand _LoadProjectCommand;
+
+		protected DelegateCommand _OverWriteProjectCommand;
+
 		/// <summary>
 		/// Event handler to handle a event 
 		/// </summary>
@@ -61,6 +72,9 @@ namespace AutoTestPrep.ViewModel
 
 		public delegate void SetupTestInformationRequest(ref TestDataInfo testDataInf);
 		public event SetupTestInformationRequest SetupTestInformationReq;
+
+		public delegate void RestoreTestInformationRequest(TestDataInfo testDataInfo);
+		public event RestoreTestInformationRequest RestoreInformationReq;
 
 		/// <summary>
 		/// Default consttuctor
@@ -73,13 +87,15 @@ namespace AutoTestPrep.ViewModel
 				"スタブ情報",
 				"ヘッダ情報(ドライバ)",
 				"ヘッダ情報(スタブ)",
-				"ライブラリ情報()",
+				"ライブラリ情報",
 				"マクロ情報"
 			};
+			this.CurrentFilePath = string.Empty;
+			this.CurrentTitle = "AutoTestPrep";
 
 			this.TestInformationInputVM = new TestInformationInputViewModel(0);
 			this.BufferSizeVM = new BufferSizeViewModel(1);
-			this.DriverHeaderInformationVM = new HeaderInformationInputViewModel(2);
+			this.DriverHeaderInformationVM = new DriverHeaderInformationInputViewModel(2);
 			this.StubHeaderInformationVM = new StubHeaderInformationInputViewModel(3);
 			this.LibraryInforamtionVM = new LibraryInformationInputViewModel(4);
 			this.DefineMacroVM = new DefineMacroInputViewModel(5);
@@ -98,7 +114,48 @@ namespace AutoTestPrep.ViewModel
 			this.SetupTestInformationReq += this.LibraryInforamtionVM.SetupTestInfomation;
 			this.SetupTestInformationReq += this.DefineMacroVM.SetupTestInfomation;
 
+			this.RestoreInformationReq += this.TestInformationInputVM.RestoreTestInforamtion;
+			this.RestoreInformationReq += this.BufferSizeVM.RestoreTestInforamtion;
+			this.RestoreInformationReq += this.DriverHeaderInformationVM.RestoreTestInforamtion;
+			this.RestoreInformationReq += this.StubHeaderInformationVM.RestoreTestInforamtion;
+			this.RestoreInformationReq += this.LibraryInforamtionVM.RestoreTestInforamtion;
+			this.RestoreInformationReq += this.DefineMacroVM.RestoreTestInforamtion;
+
 			this.SelectedConfigurationItemIndex = 0;
+		}
+
+		public string CurrentTitle
+		{
+			get
+			{
+				return this._CurrentTitle;
+			}
+			set
+			{
+				this._CurrentTitle = value;
+				this.RaisePropertyChanged(nameof(CurrentTitle));
+			}
+		}
+
+		public string CurrentFilePath
+		{
+			get
+			{
+				return this._CurrentFilePath;
+			}
+			set
+			{
+				this._CurrentFilePath = value;
+				if ((!string.IsNullOrEmpty(this._CurrentFilePath)) &&
+					(!string.IsNullOrWhiteSpace(this._CurrentFilePath)))
+				{
+					this.CurrentTitle = $"AutoTestPrep : {this._CurrentFilePath}";
+				}
+				else
+				{
+					this.CurrentTitle = "AutoTestPrep";
+				}
+			}
 		}
 
 		public ObservableCollection<string> TestConfigurationItems
@@ -251,6 +308,108 @@ namespace AutoTestPrep.ViewModel
 		public bool CanRunCommandExecute()
 		{
 			return true;
+		}
+
+		public DelegateCommand SaveProjectCommand
+		{
+			get
+			{
+				if (null == this._SaveProjectCommand)
+				{
+					this._SaveProjectCommand = 
+						new DelegateCommand(
+							this.SaveProjectCommandExecute, this.CanSaveProjectCommand);
+				}
+				return this._SaveProjectCommand;
+			}
+		}
+
+		public bool CanSaveProjectCommand()
+		{
+			return true;
+		}
+
+		public void SaveProjectCommandExecute()
+		{
+			var testDataInfo = new TestDataInfo();
+			this.SetupTestInformationReq?.Invoke(ref testDataInfo);
+
+			Debug.WriteLine("RunSaveProjectCommandExecute()");
+			var commandArg = new ProjectCommandArgument()
+			{
+				FilePath = this.CurrentFilePath,
+				TestDataInfo = testDataInfo
+			};
+			var command = new SaveProjectCommand();
+			command.Run(commandArg);
+
+			this.CurrentFilePath = commandArg.FilePath;
+		}
+
+		public DelegateCommand LoadProjectCommand
+		{
+			get
+			{
+				if (null == _LoadProjectCommand)
+				{
+					this._LoadProjectCommand =
+						new DelegateCommand(
+							this.LoadProjectCommandExecute, this.CanLoadProjectCommandExecute);
+				}
+				return this._LoadProjectCommand;
+			}
+		}
+
+		public void LoadProjectCommandExecute()
+		{
+			Debug.WriteLine("LoadProjectCommandExecute()");
+
+			var commandArg = new ProjectCommandArgument();
+			var command = new LoadProjectCommand();
+			command.Run(commandArg);
+
+			this.CurrentFilePath = commandArg.FilePath;
+			this.RestoreInformationReq?.Invoke(commandArg.TestDataInfo);
+		}
+
+		public bool CanLoadProjectCommandExecute()
+		{
+			return true;
+		}
+
+		public DelegateCommand OverWriteProjectCommand
+		{
+			get
+			{
+				if (null == this._OverWriteProjectCommand)
+				{
+					this._OverWriteProjectCommand = new DelegateCommand(
+						this.OverWriteProjectCommandExecute, this.CanOverWriteProjectCommandExecute);
+				}
+				return this._OverWriteProjectCommand;
+			}
+		}
+
+		public void OverWriteProjectCommandExecute()
+		{
+			var testDataInfo = new TestDataInfo();
+			this.SetupTestInformationReq?.Invoke(ref testDataInfo);
+
+			Debug.WriteLine("OverWriteProjectCommandExecute()");
+			var commandArg = new ProjectCommandArgument()
+			{
+				FilePath = this.CurrentFilePath,
+				TestDataInfo = testDataInfo
+			};
+			var command = new OverWriteProjectCommand();
+			command.Run(commandArg);
+
+			this.CurrentFilePath = commandArg.FilePath;
+		}
+		
+		public bool CanOverWriteProjectCommandExecute()
+		{
+			return (!((string.IsNullOrEmpty(this.CurrentFilePath)) || (string.IsNullOrWhiteSpace(this.CurrentFilePath))));
 		}
 	}
 }

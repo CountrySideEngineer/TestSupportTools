@@ -96,14 +96,36 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Command\Argument\ProjectCommandArgument.cs" />
     <Compile Include="Command\DelegateCommand.cs" />
+    <Compile Include="Command\LoadProjectCommand.cs" />
+    <Compile Include="Command\OverWriteProjectCommand.cs" />
     <Compile Include="Command\RunToolCommand.cs" />
+    <Compile Include="Command\SaveProjectCommand.cs" />
     <Compile Include="Model\EventArgs\SelectedStateChangedEventArgs.cs" />
     <Compile Include="Model\InputInfos\TestDataInfo.cs" />
     <Compile Include="Model\ParameterInfo.cs" />
     <Compile Include="Model\Parser\Exception\ParseDataNotFoundException.cs" />
     <Compile Include="Model\Parser\FunctionListParser.cs" />
     <Compile Include="Model\Parser\Exception\ParseException.cs" />
+    <Compile Include="Model\Tempaltes\Driver\gtest\code\TestDriverTemplate_gtest_Base_code.cs" />
+    <Compile Include="Model\Tempaltes\Driver\gtest\code\TestDriverTemplate_gtest_Header_code.cs" />
+    <Compile Include="Model\Tempaltes\Driver\gtest\code\TestDriverTemplate_gtest_Source_code.cs" />
+    <Compile Include="Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Base.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriverTemplate_gtest_Base.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Header.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriverTemplate_gtest_Header.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriverTemplate_gtest_Source.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Tempaltes\Stub\Code\TestStubTemplate_Source_code.cs" />
     <Compile Include="Model\Tempaltes\Stub\TestStubTemplate_Base.cs">
       <AutoGen>True</AutoGen>
@@ -124,6 +146,8 @@
     </Compile>
     <Compile Include="Model\Writer\StubHeaderWriter.cs" />
     <Compile Include="Model\Writer\StubSourceWriter.cs" />
+    <Compile Include="Model\Writer\TestDriverHeaderWriter.cs" />
+    <Compile Include="Model\Writer\TestDriverSourceWriter.cs" />
     <Compile Include="Model\Writer\WriterHelper.cs" />
     <Compile Include="ViewModel\AutoTestPrepViewModelBase.cs" />
     <Compile Include="ViewModel\BufferSizeViewModel.cs" />
@@ -221,84 +245,6 @@
     <Compile Include="Model\Parser\TestParser.cs" />
     <Compile Include="Model\Reader\ExcelReader.cs" />
     <Compile Include="Model\Reader\Range.cs" />
-    <Compile Include="Model\Tempaltes\CFunctionStubTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CFunctionStubTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tempaltes\CFunctionStubTemplate_Header.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CFunctionStubTemplate_Header.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tempaltes\CFunctionStubTemplate_Header_part.cs" />
-    <Compile Include="Model\Tempaltes\CFunctionStubTemplate_part.cs" />
-    <Compile Include="Model\Tempaltes\CFunctionTemplateIncludeStdHeader.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CFunctionTemplateIncludeStdHeader.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tempaltes\CFunctionTemplateIncludeStdHeader_part.cs" />
-    <Compile Include="Model\Tempaltes\CFunctionTemplateIncludeUserHeader.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CFunctionTemplateIncludeUserHeader.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tempaltes\CFunctionTemplateIncludeUserHeader_part.cs" />
-    <Compile Include="Model\Tempaltes\TestDriverTemplate_Header_gtest.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TestDriverTemplate_Header_gtest.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tempaltes\TestDriverTemplate_Header_gtest_part.cs" />
-    <Compile Include="Model\Tempaltes\TestDriverTemplate_Source_FunctionCall.cs" />
-    <Compile Include="Model\Tempaltes\TestDriverTemplate_Source_gtest.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TestDriverTemplate_Source_gtest.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tempaltes\TestDriverTemplate_Source_gtest_InitStub.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TestDriverTemplate_Source_gtest_InitStub.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tempaltes\TestDriverTemplate_Source_gtest_InitStub_part.cs" />
-    <Compile Include="Model\Tempaltes\TestDriverTemplate_Source_gtest_part.cs" />
-    <Compile Include="Model\Tempaltes\TestDriverTemplate_Source_gtest_SetupInput.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TestDriverTemplate_Source_gtest_SetupInput.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TestDriverTemplate_Source_gtest_TestCase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_CheckOutput.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TestDriverTemplate_Source_gtest_TestCase_CheckOutput.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_CheckOutput_part.cs" />
-    <Compile Include="Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_DeclareInput.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TestDriverTemplate_Source_gtest_TestCase_DeclareInput.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_DeclareInput_part.cs" />
-    <Compile Include="Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_part.cs" />
-    <Compile Include="Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_SetupInput.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TestDriverTemplate_Source_gtest_TestCase_SetupInput.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_SetupInput_part.cs" />
-    <Compile Include="Model\Tempaltes\TestDriver_source_gtest.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TestDriver_source_gtest.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tempaltes\TestDriver_source_gtest_part.cs" />
     <Compile Include="Model\Test.cs" />
     <Compile Include="Model\TestCase.cs" />
     <Compile Include="Model\TestData.cs" />
@@ -344,21 +290,17 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Model\Tempaltes\CFunctionStubTemplate.tt">
+    <Content Include="Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Base.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>CFunctionStubTemplate.cs</LastGenOutput>
+      <LastGenOutput>TestDriverTemplate_gtest_Base.cs</LastGenOutput>
     </Content>
-    <Content Include="Model\Tempaltes\CFunctionStubTemplate_Header.tt">
+    <Content Include="Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Header.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>CFunctionStubTemplate_Header.cs</LastGenOutput>
+      <LastGenOutput>TestDriverTemplate_gtest_Header.cs</LastGenOutput>
     </Content>
-    <Content Include="Model\Tempaltes\CFunctionTemplateIncludeStdHeader.tt">
+    <Content Include="Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>CFunctionTemplateIncludeStdHeader.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model\Tempaltes\CFunctionTemplateIncludeUserHeader.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>CFunctionTemplateIncludeUserHeader.cs</LastGenOutput>
+      <LastGenOutput>TestDriverTemplate_gtest_Source.cs</LastGenOutput>
     </Content>
     <Content Include="Model\Tempaltes\Stub\TestStubTemplate_Base.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -372,48 +314,10 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>TestStubTemplate_Source.cs</LastGenOutput>
     </Content>
-    <Content Include="Model\Tempaltes\TestDriverTemplate_Header_gtest.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>TestDriverTemplate_Header_gtest.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model\Tempaltes\TestDriverTemplate_Source_gtest.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>TestDriverTemplate_Source_gtest.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model\Tempaltes\TestDriverTemplate_Source_gtest_InitStub.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>TestDriverTemplate_Source_gtest_InitStub.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model\Tempaltes\TestDriverTemplate_Source_gtest_SetupInput.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>TestDriverTemplate_Source_gtest_SetupInput.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>TestDriverTemplate_Source_gtest_TestCase.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_CheckOutput.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>TestDriverTemplate_Source_gtest_TestCase_CheckOutput.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_DeclareInput.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>TestDriverTemplate_Source_gtest_TestCase_DeclareInput.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model\Tempaltes\TestDriverTemplate_Source_gtest_TestCase_SetupInput.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>TestDriverTemplate_Source_gtest_TestCase_SetupInput.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model\Tempaltes\TestDriver_source_gtest.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>TestDriver_source_gtest.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\Tempaltes\Driver\gtest\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
