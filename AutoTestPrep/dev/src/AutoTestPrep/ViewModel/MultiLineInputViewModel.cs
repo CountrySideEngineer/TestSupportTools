@@ -76,5 +76,27 @@ namespace AutoTestPrep.ViewModel
 			var enumerableValue = this.InputItem.Replace("\r\n", "\n").Split(new[] { '\n', '\r' });
 			return enumerableValue;
 		}
+
+		public virtual string EnumerableToMultilineString(IEnumerable<string> src)
+		{
+			string multilineContent = string.Empty;
+			bool isTop = true;
+			foreach (var srcItem in src)
+			{
+				if ((string.IsNullOrEmpty(srcItem)) || (string.IsNullOrWhiteSpace(srcItem))) {
+
+				}
+
+
+				if (!isTop)
+				{
+					multilineContent += "\r\n";
+				}
+				isTop = false;
+				multilineContent += srcItem;
+
+			}
+			return multilineContent;
+		}
 	}
 }

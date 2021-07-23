@@ -1,0 +1,270 @@
+﻿<#@ template language="C#" 
+	inherits="TestDriverTemplate_gtest_Base" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+/*
+ *	<#= this.TargetFunction.Name #> test driver source code.
+ */
+<#
+	foreach (var headerFile in this.TestDataInfo.DriverIncludeStandardHeaderFiles) {
+		if ((!(string.IsNullOrEmpty(headerFile))) && (!(string.IsNullOrWhiteSpace(headerFile)))) {
+#>
+#include <<#= headerFile #>>
+<#		
+		}
+	}
+#>
+<#
+	foreach (var headerFile in this.TestDataInfo.DriverIncludeUserHeaderFiles) {
+		if ((!(string.IsNullOrEmpty(headerFile))) && (!(string.IsNullOrWhiteSpace(headerFile)))) {
+#>
+#include "<#= headerFile #>"
+<#		}
+	}
+#>
+<#
+	//Include header files about stub of sub functions.
+	if ((null != this.SubFunctions) &&
+		(0 < this.SubFunctions.Count()))
+	{
+		foreach (var subFunctionItem in this.SubFunctions) {
+#>
+#include "<#= CreateStubHeaderIncludeCode(subFunctionItem) #>"
+<#
+		}
+	}
+#>
+#include "gtest/gtest.h"
+
+//Test target function.
+<#= this.TargetFunction.ToString() #>;
+
+//Setup test case.(Called before all test functions tun.)
+<#= CreateSetupTestCaseMethodEntryPointCode() #> { }
+
+//Initialize test stub buffers.
+<#= CreateSetupMethodEntryPointCode() #>
+{
+<#
+	if ((null != this.SubFunctions) &&
+		(0 < this.SubFunctions.Count()))
+	{
+		foreach (var subFunctionItem in this.SubFunctions) {
+#>
+	<#= CreateInitializeStubMethodCall(subFunctionItem) #>
+<#
+		}
+	}
+#>
+}
+
+//Finalize test case.
+<#= CreateTearDownMethodEntryPointCode() #> { }
+
+//Finalize test cases.(Called after all test functions have run.)
+<#= CreateTearDownTestCaseMethodEntryPointCode() #> { }
+
+//Test method
+<# foreach (var testCase in this.Test.TestCases) {	#>
+TEST_F(<#= base.CreateTestClassName() #>, <#= this.CreateTestCaseMethodName(testCase) #>)
+{
+	//Declare arguments.
+<#
+	if ((null != this.TargetFunction.Arguments) && (0 < this.TargetFunction.Arguments.Count())) {
+		foreach (var argumentItem in this.TargetFunction.Arguments) {
+#>
+	<#=	CreateCodeToDeclareArgument(argumentItem) #>;
+<#		}	
+	
+	}
+#>
+
+	//Setup test values.
+<#	if ((null != testCase.Input) && (0 < testCase.Input.Count())) {
+		foreach (var inputItem in testCase.Input) {
+#>
+	<#= CreateCodeToSetUpTestParameter(inputItem) #>;
+<#
+		}
+	}
+#>
+	//Call target function.
+	<#= CreateCodeToCallTargetFunction() #>;
+
+	//Check output and expectes.
+<#
+	if ((null != testCase.Expects) &&
+		(0 < testCase.Expects.Count()))
+	{
+		foreach (var expectItem in testCase.Expects)
+		{
+#>
+	<#= CreateCodeToCheckOutputAndExpect(expectItem) #>;
+<#
+		}
+	}
+#>
+}
+
+<#	}	#>
+<#+
+	//Methods used to create test driver code using google test as test framework.
+
+	/// <summary>
+	///	Create entry point of method to setup test case.
+	///	</summary>
+	/// <return>Entry point of method to setup test case.</return>
+	protected virtual string CreateSetupTestCaseMethodEntryPointCode()
+	{
+		string setupTestCaseMethodEntryPointCode = string.Empty;
+		setupTestCaseMethodEntryPointCode = $"void {base.CreateTestClassName()}" +
+			"::" +
+			$"{base.CreateTestSetUpMethodName()}()";
+		return setupTestCaseMethodEntryPointCode;
+	}
+
+	/// <summary>
+	///	Create entry point of method to setup test.
+	///	</summary>
+	///	<return>Entry point of method to setup test.</return>
+	protected virtual string CreateSetupMethodEntryPointCode()
+	{
+		string setupMethodEntryPointCode = string.Empty;
+		setupMethodEntryPointCode = $"void {base.CreateTestClassName()}" +
+			"::" +
+			$"{base.CreateSetupMethodName()}()";
+		return setupMethodEntryPointCode;
+	}
+
+	/// <summary>
+	///	Create code to call stub initialize method.
+	///	</summary>
+	/// <return>Code to call stub initialize method.</return>
+	protected virtual string CreateInitializeStubMethodCall(Function subFunction)
+	{
+		string stubInitMethodCall = string.Empty;
+		stubInitMethodCall = $"{subFunction.Name}_init();";
+		return stubInitMethodCall;
+	}
+
+	/// <summary>
+	///	Create entry point of method to tear down test.
+	///	</summary>
+	///	<return>Entry point of method to tear down test.</return>
+	protected virtual string CreateTearDownMethodEntryPointCode()
+	{
+		string tearDownMethodEntryPointCode = string.Empty;
+		tearDownMethodEntryPointCode = $"void {base.CreateTestClassName()}" +
+			"::" +
+			$"{base.CreateTearDownMethodName()}()";
+		return tearDownMethodEntryPointCode;
+	}
+
+	/// <summary>
+	///	Create entry point of method to tear down test cases.
+	/// </summary>
+	/// <return>Entry point of method to tear down test case.</return>
+	protected virtual string CreateTearDownTestCaseMethodEntryPointCode()
+	{
+		string tearDownMethodTestCaseEntryPointCode = string.Empty;
+		tearDownMethodTestCaseEntryPointCode = $"void {base.CreateTestClassName()}" +
+			"::" +
+			$"{base.CreateTestTearDownMethodName()}()";
+		return tearDownMethodTestCaseEntryPointCode;
+	}
+
+	/// <summary>
+	/// Create test case name.
+	/// </summary>
+	///	<return>test case name.</return>
+	protected virtual string CreateTestCaseMethodName(TestCase testCase)
+	{
+		string testCaseMethodName = string.Empty;
+		testCaseMethodName = $"{this.TargetFunction.Name}_{testCase.Id}";
+		return testCaseMethodName;
+	}
+
+	///	<summary>
+	///	Creat code to declare argument.
+	///	</summary>
+	///	<return>Code to declare argument.</return>
+	protected virtual string CreateCodeToDeclareArgument(Parameter argument)
+	{
+		string declareArgumentCode = string.Empty;
+		declareArgumentCode = argument.ToString();
+		return declareArgumentCode;
+	}
+
+	///	<summary>
+	///	Create code to set value to argument variable.
+	///	</summary>
+	///	<return>Code to set value to argument variable.</return>
+	protected virtual string CreateCodeToSetUpTestParameter(TestData testData)
+	{
+		string codeToSetupTestParameter = string.Empty;
+		codeToSetupTestParameter = $"{testData.Name} = {testData.Value}";
+		return codeToSetupTestParameter;
+	}
+
+	///	<summary>
+	///	Create code to call test target function.
+	///	</summary>
+	///	<return>Code to call test target function.</return>
+	protected virtual string CreateCodeToCallTargetFunction()
+	{
+		string codeToCallTargetFunction = string.Empty;
+
+		if (this.TargetFunction.HasReturn())
+		{
+			codeToCallTargetFunction = this.TargetFunction.DataType;
+			codeToCallTargetFunction += " ";
+			codeToCallTargetFunction += "returnValue = ";
+		}
+		codeToCallTargetFunction += this.TargetFunction.Name;
+		codeToCallTargetFunction += "(";
+		if (null != this.TargetFunction.Arguments) {
+			bool isTop = true;
+			foreach (var argumentItem in this.TargetFunction.Arguments) {
+				if (!isTop)
+				{
+					codeToCallTargetFunction += ",";
+					codeToCallTargetFunction += " ";
+				}
+				codeToCallTargetFunction += argumentItem.Name;
+				isTop = false;
+			}
+		}
+		codeToCallTargetFunction += ")";
+
+		return codeToCallTargetFunction;
+	}
+
+	///	<summary>
+	///	Create code to check output value whether it equals to expect.
+	///	</summary>
+	///	<return>Code to check output value whether it equals to expect.</return>
+	protected virtual string CreateCodeToCheckOutputAndExpect(TestData expect)
+	{
+		string codeToCheckExpect = string.Empty;
+
+		codeToCheckExpect = "ASSERT_EQ(";
+		if (("return").Equals(expect.Name)) {
+			codeToCheckExpect = $"{codeToCheckExpect}returnValue";
+		}
+		else
+		{
+			codeToCheckExpect = $"{codeToCheckExpect}{expect.Name}";
+		}
+		codeToCheckExpect = $"{codeToCheckExpect}, {expect.Value})";
+		return codeToCheckExpect;
+	}
+
+	protected string CreateStubHeaderIncludeCode(Function subFunction)
+	{
+		string stubHeaderInclude = string.Empty;
+		stubHeaderInclude = $"{subFunction.Name}_test_stub.h";
+		return stubHeaderInclude;
+	}
+#>

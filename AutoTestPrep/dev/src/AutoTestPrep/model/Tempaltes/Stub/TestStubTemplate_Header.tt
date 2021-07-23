@@ -5,12 +5,16 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 /*
- *	<#= base.SubFunction.Name #> stub header files.
+ *	<#= base.SubFunction.Name #> stub header file.
  */
 #pragma once
 //Stub buffer size macro.
+#ifndef STUB_BUFFER_SZE_1
 #define	STUB_BUFFER_SZE_1			(<#= TestDataInfo.StubBufferSize1 #>)
+#endif
+#ifndef STUB_BUFFER_SZE_2
 #define	STUB_BUFFER_SZE_2			(<#= TestDataInfo.StubBufferSize2 #>)
+#endif
 
 //Sub function called count.
 <#= CreateFunctionCalledCountBufferDecalre() #>
