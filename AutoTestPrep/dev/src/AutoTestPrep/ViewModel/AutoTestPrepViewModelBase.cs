@@ -46,6 +46,17 @@ namespace AutoTestPrep.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Setup test user input data into
+		/// Set the data entered by users in the object specified by the argument.
+		/// </summary>
+		/// <param name="testDataInfo">Object to set input data.</param>
 		public virtual void SetupTestInfomation(ref TestDataInfo testDataInfo) { }
+
+		/// <summary>
+		/// Restore the data in object specified by argument.
+		/// </summary>
+		/// <param name="testDataInfo">Source data object.</param>
+		public virtual void RestoreTestInforamtion(TestDataInfo testDataInfo) { }
 	}
 }

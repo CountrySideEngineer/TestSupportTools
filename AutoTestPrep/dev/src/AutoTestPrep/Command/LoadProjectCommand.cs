@@ -23,6 +23,7 @@ namespace AutoTestPrep.Command
 				object obj = xmlDeserializer.Deserialize(xmlStream);
 				argument.TestDataInfo = (TestDataInfo)obj;
 			}
+			argument.FilePath = filePath;
 		}
 
 		protected string GetLoadFilePath()

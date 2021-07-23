@@ -14,22 +14,64 @@ namespace AutoTestPrep.Command
 {
 	public class SaveProjectCommand
 	{
-		public void Run(object data)
+		public virtual void Run(object data)
 		{
 			var argument = data as ProjectCommandArgument;
-			argument.FilePath = this.GetSaveFilePath();
+			string filePath = this.GetFilePath(argument.FilePath);
+			this.Save(filePath, argument.TestDataInfo);
+			argument.FilePath = filePath;
+		}
 
+		public virtual void Save(string filePath, TestDataInfo testDataInfo)
+		{
 			var xmlSerializer = new XmlSerializer(typeof(TestDataInfo));
-			using (var xmlStream = new StreamWriter(argument.FilePath, false, Encoding.UTF8))
+			using (var xmlStream = new StreamWriter(filePath, false, Encoding.UTF8))
 			{
-				xmlSerializer.Serialize(xmlStream, argument.TestDataInfo);
+				xmlSerializer.Serialize(xmlStream, testDataInfo);
 			}
 		}
 
-		protected string GetSaveFilePath()
+		protected virtual string GetFilePath(string filePath)
+		{
+			if ((string.IsNullOrEmpty(filePath)) ||
+				(string.IsNullOrWhiteSpace(filePath)))
+			{
+				filePath = this.GetSaveFilePath();
+			}
+			else
+			{
+				if (File.Exists(filePath))
+				{
+					DirectoryInfo dirInfo = new DirectoryInfo(filePath);
+					DirectoryInfo parentDir = dirInfo.Parent;
+					filePath = this.GetSaveFilePath(parentDir);
+				}
+				else
+				{
+					filePath = this.GetSaveFilePath();
+				}
+			}
+			return filePath;
+		}
+
+		protected virtual string GetSaveFilePath()
+		{
+			var dialog = new SaveFileDialog();
+			string filePath = this.GetSaveFilePath(dialog);
+			return filePath;
+		}
+
+		protected virtual string GetSaveFilePath(DirectoryInfo directoryInfo)
+		{
+			var dialog = new SaveFileDialog();
+			dialog.InitialDirectory = directoryInfo.FullName;
+			string filePath = this.GetSaveFilePath(dialog);
+			return filePath;
+		}
+
+		protected virtual string GetSaveFilePath(FileDialog dialog)
 		{
 			string filePath = string.Empty;
-			var dialog = new SaveFileDialog();
 			dialog.Title = "名前をつけて保存";
 			dialog.Filter = "プロジェクトファイル|*.tstprj|全てのファイル|*.*";
 			dialog.AddExtension = true;

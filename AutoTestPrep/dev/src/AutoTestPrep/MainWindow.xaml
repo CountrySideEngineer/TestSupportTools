@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:AutoTestPrep.ViewModel"
         xmlns:uc="clr-namespace:AutoTestPrep.View"
         mc:Ignorable="d"
-        Title="AutoTestPrep" Height="450" Width="800">
+        Title="{Binding Path=CurrentTitle}" Height="450" Width="800">
     <Window.Resources>
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BoolVisibilityConverter"/>
@@ -32,8 +32,8 @@
                       Style="{StaticResource MenuItem_MenuBar}"
                       >
                     <MenuItem Header="新規作成"
-                          Style="{StaticResource MenuItem_MenuItem}"
-                          />
+                              Style="{StaticResource MenuItem_MenuItem}"
+                              />
                     <MenuItem Header="開く"
                               Style="{StaticResource MenuItem_MenuItem}"
                               Command="{Binding Path=LoadProjectCommand}"
@@ -44,11 +44,12 @@
                               Command="{Binding Path=SaveProjectCommand}"
                               />
                     <MenuItem Header="上書き保存"
-                          Style="{StaticResource MenuItem_MenuItem}"
-                          />
+                              Style="{StaticResource MenuItem_MenuItem}"
+                              Command="{Binding Path=OverWriteProjectCommand}"
+                              />
                     <Separator/>
                     <MenuItem Header="終了"
-                          Style="{StaticResource MenuItem_MenuItem}"
+                              Style="{StaticResource MenuItem_MenuItem}"
                           />
                 </MenuItem>
                 <MenuItem Header="実行"

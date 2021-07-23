@@ -47,5 +47,15 @@ namespace AutoTestPrep.ViewModel
 				testDataInfo.StubIncludeUserHeaderFiles = new List<string>(0);
 			}
 		}
+
+		/// <summary>
+		/// Restore the data in object specified by argument.
+		/// </summary>
+		/// <param name="testDataInfo">Source data object.</param>
+		public override void RestoreTestInforamtion(TestDataInfo testDataInfo)
+		{
+			this.StandartHeader = this.StandartHeaderVM.EnumerableToMultilineString(testDataInfo.StubIncludeStandardHeaderFiles);
+			this.UserHeader = this.UserHeaderVM.EnumerableToMultilineString(testDataInfo.StubIncludeUserHeaderFiles);
+		}
 	}
 }
