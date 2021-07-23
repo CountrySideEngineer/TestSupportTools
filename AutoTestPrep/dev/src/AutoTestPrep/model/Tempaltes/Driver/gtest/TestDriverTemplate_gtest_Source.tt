@@ -24,6 +24,19 @@
 <#		}
 	}
 #>
+<#
+	//Include header files about stub of sub functions.
+	if ((null != this.SubFunctions) &&
+		(0 < this.SubFunctions.Count()))
+	{
+		foreach (var subFunctionItem in this.SubFunctions) {
+#>
+#include "<#= CreateStubHeaderIncludeCode(subFunctionItem) #>"
+<#
+		}
+	}
+#>
+#include "gtest/gtest.h"
 
 //Test target function.
 <#= this.TargetFunction.ToString() #>;
@@ -246,5 +259,12 @@ TEST_F(<#= base.CreateTestClassName() #>, <#= this.CreateTestCaseMethodName(test
 		}
 		codeToCheckExpect = $"{codeToCheckExpect}, {expect.Value})";
 		return codeToCheckExpect;
+	}
+
+	protected string CreateStubHeaderIncludeCode(Function subFunction)
+	{
+		string stubHeaderInclude = string.Empty;
+		stubHeaderInclude = $"{subFunction.Name}_test_stub.h";
+		return stubHeaderInclude;
 	}
 #>
