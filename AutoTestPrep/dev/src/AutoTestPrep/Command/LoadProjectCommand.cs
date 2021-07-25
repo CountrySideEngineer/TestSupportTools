@@ -15,14 +15,14 @@ using System.Xml.Serialization;
 
 namespace AutoTestPrep.Command
 {
-	public class LoadProjectCommand
+	public class LoadProjectCommand : NewProjectCommand
 	{
 		/// <summary>
 		/// Load data user selected.
 		/// </summary>
 		/// <param name="parameter">Parameters about command.</param>
 		/// <exception cref="CommandCancelException">Load data canceled.</exception>
-		public void Execute(object parameter)
+		public override void Execute(object parameter)
 		{
 			try
 			{
@@ -42,31 +42,6 @@ namespace AutoTestPrep.Command
 			{
 				//Cancel does not need to notify to user.
 				Debug.WriteLine("Load canceled by user");
-			}
-		}
-
-		/// <summary>
-		/// If the data <para>argument.BaseData</para> has been changed, confirm with the user
-		/// and save the data.
-		/// </summary>
-		/// <param name="argument">Data to compare, base and latest.</param>
-		public void SaveBaseDataIfChanged(ProjectCommandArgument argument)
-		{
-			TestDataInfo baseData = argument.BaseData;
-			TestDataInfo latestData = argument.LatestData;
-			if (!(baseData.Equals(latestData)))
-			{
-				MessageBoxResult result = MessageBox.Show("データが変更されています。\n" +
-					"保存しますか？",
-					"変更/保存確認",
-					MessageBoxButton.YesNo,
-					MessageBoxImage.None);
-				if (MessageBoxResult.Yes == result)
-				{
-
-					var command = new OverWriteProjectCommand();
-					command.Execute(argument);
-				}
 			}
 		}
 

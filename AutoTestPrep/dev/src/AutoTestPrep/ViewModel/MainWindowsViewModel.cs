@@ -335,9 +335,19 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		public void NewProjectCommandExecute()
 		{
-			var testDataInfo = new TestDataInfo();
-			this.RestoreInformationReq(testDataInfo);
-			this.BaseTestDataInfo = testDataInfo;
+			var testData = new TestDataInfo();
+			this.SetupTestInformationReq?.Invoke(ref testData);
+			var commandArg = new ProjectCommandArgument()
+			{
+				BaseData = this.BaseTestDataInfo,
+				LatestData = testData
+			};
+			var command = new NewProjectCommand();
+			command.Execute(commandArg);
+
+			this.CurrentFilePath = string.Empty;
+			this.BaseTestDataInfo = testData;
+			this.RestoreInformationReq?.Invoke(testData);
 		}
 
 		public bool CanNewProjectCommandExecute() { return true; }

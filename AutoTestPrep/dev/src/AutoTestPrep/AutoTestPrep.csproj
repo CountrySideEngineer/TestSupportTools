@@ -100,7 +100,9 @@
     <Compile Include="Command\Argument\ProjectCommandArgument.cs" />
     <Compile Include="Command\DelegateCommand.cs" />
     <Compile Include="Command\Exception\CommandCancelException.cs" />
+    <Compile Include="Command\IProjectCommand.cs" />
     <Compile Include="Command\LoadProjectCommand.cs" />
+    <Compile Include="Command\NewProjectCommand.cs" />
     <Compile Include="Command\OverWriteProjectCommand.cs" />
     <Compile Include="Command\RunToolCommand.cs" />
     <Compile Include="Command\SaveProjectCommand.cs" />

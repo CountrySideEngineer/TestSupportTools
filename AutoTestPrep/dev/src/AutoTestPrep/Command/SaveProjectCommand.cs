@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 
 namespace AutoTestPrep.Command
 {
-	public class SaveProjectCommand
+	public class SaveProjectCommand : IProjectCommand
 	{
 
 		public virtual void Execute(object data)
