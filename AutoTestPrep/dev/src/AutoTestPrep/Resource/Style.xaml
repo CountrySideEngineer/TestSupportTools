@@ -4,34 +4,52 @@
     <Style TargetType="Grid" x:Key="Grid_CommonBase">
         <Setter Property="Margin" Value="8"/>
     </Style>
+    <Style TargetType="Grid" x:Key="Grid_InputArea">
+        <Setter Property="Background" Value="WhiteSmoke"/>
+    </Style>
 
     <!-- メニュー -->
     <Style TargetType="Menu" x:Key="Menu_MenuBar">
         <Setter Property="Padding" Value="0, 0"/>
         <Setter Property="Margin" Value="0"/>
+        <Setter Property="Background" Value="Black"/>
     </Style>
     <!-- メニューアイテム -->
     <Style TargetType="MenuItem" x:Key="MenuItem_MenuBar">
         <Setter Property="Margin" Value="0,8"/>
-        <Setter Property="Padding" Value="16, 0"/>
+        <Setter Property="Padding" Value="16, 0, 16, 0"/>
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="White"/>
     </Style>
     <!-- メニューアイテム -->
     <Style TargetType="MenuItem" x:Key="MenuItem_MenuItem">
         <Setter Property="Margin" Value="0,0"/>
         <Setter Property="Padding" Value="0, 0"/>
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="White"/>
     </Style>
-    <!-- リストアイテム -->
+    <!-- リストボックス -->
     <Style TargetType="ListBox" x:Key="ListBox_BaseStyle">
         <Setter Property="Margin" Value="8"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Background" Value="Transparent"/>
     </Style>
+    <Style TargetType="ListBox" x:Key="ListBox_SelectSetting" BasedOn="{StaticResource ListBox_BaseStyle}">
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="Red"/>
+        <Setter Property="Background" Value="Black"/>
+    </Style>
+    <!-- リストアイテム -->
     <Style TargetType="ListBoxItem" x:Key="ListBoxItem_BaseStyle">
         <Setter Property="Margin" Value="0"/>
-        <Setter Property="Padding" Value="0, 8"/>
-        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="Padding" Value="32, 0"/>
+        <Setter Property="Foreground" Value="LightGray"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
@@ -63,7 +81,15 @@
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="TextAlignment" Value="Left"/>
     </Style>
-
+    <Style TargetType="TextBlock" x:Key="TextBlock_ListBoxItem" BasedOn="{StaticResource TextBlock_Base}">
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="TextAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="8, 8, 16, 8"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+    
     <!-- TexTBox -->
     <Style TargetType="TextBox" x:Key="TextBox_Base">
         <Setter Property="Margin" Value="8"/>
@@ -76,6 +102,8 @@
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="BorderBrush" Value="DimGray"/>
     </Style>
     <Style TargetType="TextBox" x:Key="TextBox_NumberItemInput" BasedOn="{StaticResource TextBox_Base}">
         <Setter Property="VerticalAlignment" Value="Stretch"/>
