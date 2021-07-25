@@ -56,11 +56,15 @@ namespace AutoTestPrep.ViewModel
 
 		protected DelegateCommand _RunCommand;
 
+		protected DelegateCommand _NewProjectCommand;
+
 		protected DelegateCommand _SaveProjectCommand;
 
 		protected DelegateCommand _LoadProjectCommand;
 
 		protected DelegateCommand _OverWriteProjectCommand;
+
+		protected TestDataInfo BaseTestDataInfo;
 
 		/// <summary>
 		/// Event handler to handle a event 
@@ -122,6 +126,9 @@ namespace AutoTestPrep.ViewModel
 			this.RestoreInformationReq += this.DefineMacroVM.RestoreTestInforamtion;
 
 			this.SelectedConfigurationItemIndex = 0;
+
+			this.BaseTestDataInfo = new TestDataInfo();
+			this.SetupTestInformationReq(ref this.BaseTestDataInfo);
 		}
 
 		public string CurrentTitle
@@ -302,13 +309,38 @@ namespace AutoTestPrep.ViewModel
 
 			Debug.WriteLine("RunCommandExecute()");
 			var command = new RunToolCommand();
-			command.Run(testDataInfo);
+			command.Execute(testDataInfo);
 		}
 
 		public bool CanRunCommandExecute()
 		{
 			return true;
 		}
+
+		public DelegateCommand NewProjectCommand
+		{
+			get
+			{
+				if (null == this._NewProjectCommand)
+				{
+					this._NewProjectCommand = new DelegateCommand(
+						this.NewProjectCommandExecute, this.CanNewProjectCommandExecute);
+				}
+				return this._NewProjectCommand;
+			}
+		}
+
+		/// <summary>
+		/// Reset project by new project.
+		/// </summary>
+		public void NewProjectCommandExecute()
+		{
+			var testDataInfo = new TestDataInfo();
+			this.RestoreInformationReq(testDataInfo);
+			this.BaseTestDataInfo = testDataInfo;
+		}
+
+		public bool CanNewProjectCommandExecute() { return true; }
 
 		public DelegateCommand SaveProjectCommand
 		{
@@ -324,11 +356,11 @@ namespace AutoTestPrep.ViewModel
 			}
 		}
 
-		public bool CanSaveProjectCommand()
-		{
-			return true;
-		}
+		public bool CanSaveProjectCommand() { return true; }
 
+		/// <summary>
+		/// Save project.
+		/// </summary>
 		public void SaveProjectCommandExecute()
 		{
 			var testDataInfo = new TestDataInfo();
@@ -338,12 +370,13 @@ namespace AutoTestPrep.ViewModel
 			var commandArg = new ProjectCommandArgument()
 			{
 				FilePath = this.CurrentFilePath,
-				TestDataInfo = testDataInfo
+				LatestData = testDataInfo
 			};
 			var command = new SaveProjectCommand();
-			command.Run(commandArg);
+			command.Execute(commandArg);
 
 			this.CurrentFilePath = commandArg.FilePath;
+			this.BaseTestDataInfo = new TestDataInfo(commandArg.LatestData);
 		}
 
 		public DelegateCommand LoadProjectCommand
@@ -360,22 +393,29 @@ namespace AutoTestPrep.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Load project file.
+		/// </summary>
 		public void LoadProjectCommandExecute()
 		{
 			Debug.WriteLine("LoadProjectCommandExecute()");
 
-			var commandArg = new ProjectCommandArgument();
+			var latestTestDataInfo = new TestDataInfo();
+			this.SetupTestInformationReq?.Invoke(ref latestTestDataInfo);
+			var commandArg = new ProjectCommandArgument()
+			{
+				BaseData = this.BaseTestDataInfo,
+				LatestData = latestTestDataInfo
+			};
 			var command = new LoadProjectCommand();
-			command.Run(commandArg);
+			command.Execute(commandArg);
 
 			this.CurrentFilePath = commandArg.FilePath;
-			this.RestoreInformationReq?.Invoke(commandArg.TestDataInfo);
+			this.RestoreInformationReq?.Invoke(commandArg.LatestData);
+			this.BaseTestDataInfo = new TestDataInfo(commandArg.LatestData);
 		}
 
-		public bool CanLoadProjectCommandExecute()
-		{
-			return true;
-		}
+		public bool CanLoadProjectCommandExecute() { return true; }
 
 		public DelegateCommand OverWriteProjectCommand
 		{
@@ -390,6 +430,9 @@ namespace AutoTestPrep.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Save (over write) current project.
+		/// </summary>
 		public void OverWriteProjectCommandExecute()
 		{
 			var testDataInfo = new TestDataInfo();
@@ -399,12 +442,13 @@ namespace AutoTestPrep.ViewModel
 			var commandArg = new ProjectCommandArgument()
 			{
 				FilePath = this.CurrentFilePath,
-				TestDataInfo = testDataInfo
+				LatestData = testDataInfo
 			};
 			var command = new OverWriteProjectCommand();
-			command.Run(commandArg);
+			command.Execute(commandArg);
 
 			this.CurrentFilePath = commandArg.FilePath;
+			this.BaseTestDataInfo = new TestDataInfo(testDataInfo);
 		}
 		
 		public bool CanOverWriteProjectCommandExecute()

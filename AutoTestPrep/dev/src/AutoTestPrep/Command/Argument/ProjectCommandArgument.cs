@@ -17,7 +17,12 @@ namespace AutoTestPrep.Command.Argument
 		/// <summary>
 		/// Read or write data.
 		/// </summary>
-		public TestDataInfo TestDataInfo { get; set; }
+		public TestDataInfo LatestData { get; set; }
+
+		/// <summary>
+		/// Base test data.
+		/// </summary>
+		public TestDataInfo BaseData { get; set; }
 
 		/// <summary>
 		/// Default constructor.
@@ -25,7 +30,8 @@ namespace AutoTestPrep.Command.Argument
 		public ProjectCommandArgument()
 		{
 			this.FilePath = string.Empty;
-			this.TestDataInfo = new TestDataInfo();
+			this.LatestData = new TestDataInfo();
+			this.BaseData = new TestDataInfo();
 		}
 	}
 }
