@@ -33,6 +33,7 @@
                       >
                     <MenuItem Header="新規作成"
                               Style="{StaticResource MenuItem_MenuItem}"
+                              Command="{Binding Path=NewProjectCommand}"
                               />
                     <MenuItem Header="開く"
                               Style="{StaticResource MenuItem_MenuItem}"

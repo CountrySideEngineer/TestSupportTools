@@ -1,4 +1,5 @@
 ﻿using AutoTestPrep.Command.Argument;
+using AutoTestPrep.Command.Exception;
 using AutoTestPrep.Model.InputInfos;
 using Microsoft.Win32;
 using System;
@@ -12,14 +13,23 @@ using System.Xml.Serialization;
 
 namespace AutoTestPrep.Command
 {
-	public class SaveProjectCommand
+	public class SaveProjectCommand : IProjectCommand
 	{
-		public virtual void Run(object data)
+
+		public virtual void Execute(object data)
 		{
-			var argument = data as ProjectCommandArgument;
-			string filePath = this.GetFilePath(argument.FilePath);
-			this.Save(filePath, argument.TestDataInfo);
-			argument.FilePath = filePath;
+			try
+			{
+				var argument = data as ProjectCommandArgument;
+				string filePath = this.GetFilePath(argument.FilePath);
+				this.Save(filePath, argument.LatestData);
+				argument.FilePath = filePath;
+			}
+			catch (CommandCancelException)
+			{
+				//Cancel does not need to notify to user.
+				Debug.WriteLine("Save canceled by user");
+			}
 		}
 
 		public virtual void Save(string filePath, TestDataInfo testDataInfo)
@@ -33,42 +43,83 @@ namespace AutoTestPrep.Command
 
 		protected virtual string GetFilePath(string filePath)
 		{
-			if ((string.IsNullOrEmpty(filePath)) ||
-				(string.IsNullOrWhiteSpace(filePath)))
+			try
 			{
-				filePath = this.GetSaveFilePath();
-			}
-			else
-			{
-				if (File.Exists(filePath))
-				{
-					DirectoryInfo dirInfo = new DirectoryInfo(filePath);
-					DirectoryInfo parentDir = dirInfo.Parent;
-					filePath = this.GetSaveFilePath(parentDir);
-				}
-				else
+				if ((string.IsNullOrEmpty(filePath)) ||
+					(string.IsNullOrWhiteSpace(filePath)))
 				{
 					filePath = this.GetSaveFilePath();
 				}
+				else
+				{
+					if (File.Exists(filePath))
+					{
+						DirectoryInfo dirInfo = new DirectoryInfo(filePath);
+						DirectoryInfo parentDir = dirInfo.Parent;
+						filePath = this.GetSaveFilePath(parentDir);
+					}
+					else
+					{
+						filePath = this.GetSaveFilePath();
+					}
+				}
+				return filePath;
 			}
-			return filePath;
+			catch (CommandCancelException)
+			{
+				Debug.WriteLine("Save canceled by user");
+				throw;
+			}
 		}
 
+		/// <summary>
+		/// Get file path to write data into via file dialog.
+		/// </summary>
+		/// <returns>File path to write data into.</returns>
+		/// <exception cref="CommandCancelException">Specify file canceled.</exception>
 		protected virtual string GetSaveFilePath()
 		{
-			var dialog = new SaveFileDialog();
-			string filePath = this.GetSaveFilePath(dialog);
-			return filePath;
+			try
+			{
+				var dialog = new SaveFileDialog();
+				string filePath = this.GetSaveFilePath(dialog);
+				return filePath;
+			}
+			catch (CommandCancelException)
+			{
+				Debug.WriteLine("Save canceled by user");
+				throw;
+			}
 		}
 
+		/// <summary>
+		/// Get file path to write data into via file dialog.
+		/// </summary>
+		/// <param name="directoryInfo">Information on the directory displayed when a dialog is displayed.</param>
+		/// <returns>File path to write data into.</returns>
+		/// <exception cref="CommandCancelException">Specify file canceled.</exception>
 		protected virtual string GetSaveFilePath(DirectoryInfo directoryInfo)
 		{
-			var dialog = new SaveFileDialog();
-			dialog.InitialDirectory = directoryInfo.FullName;
-			string filePath = this.GetSaveFilePath(dialog);
-			return filePath;
+			try
+			{
+				var dialog = new SaveFileDialog();
+				dialog.InitialDirectory = directoryInfo.FullName;
+				string filePath = this.GetSaveFilePath(dialog);
+				return filePath;
+			}
+			catch (CommandCancelException)
+			{
+				Debug.WriteLine("Save canceled by user");
+				throw;
+			}
 		}
 
+		/// <summary>
+		/// Get file path to write data into via file dialog.
+		/// </summary>
+		/// <param name="dialog">File dialog object.</param>
+		/// <returns>File path to write data into.</returns>
+		/// <exception cref="CommandCancelException">Specify file canceled.</exception>
 		protected virtual string GetSaveFilePath(FileDialog dialog)
 		{
 			string filePath = string.Empty;
@@ -80,6 +131,10 @@ namespace AutoTestPrep.Command
 			if (true == dialog.ShowDialog())
 			{
 				filePath = dialog.FileName;
+			}
+			else
+			{
+				throw new CommandCancelException();
 			}
 			return filePath;
 		}
