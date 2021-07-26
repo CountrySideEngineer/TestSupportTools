@@ -35,6 +35,27 @@ namespace AutoTestPrep.Model.InputInfos
 		}
 
 		/// <summary>
+		///	Copy constructor.
+		/// </summary>
+		/// <param name="src">Source TestDataInfo object</param>
+		public TestDataInfo(TestDataInfo src)
+		{
+			this.TestDataFilePath = src.TestDataFilePath;
+			this.OutputDirectoryPath = src.OutputDirectoryPath;
+			this.StubBufferSize1 = src.StubBufferSize1;
+			this.StubBufferSize2 = src.StubBufferSize2;
+
+			this.DriverIncludeStandardHeaderFiles = new List<string>(src.DriverIncludeStandardHeaderFiles);
+			this.DriverIncludeUserHeaderFiles = new List<string>(src.DriverIncludeUserHeaderFiles);
+			this.StubIncludeStandardHeaderFiles = new List<string>(src.StubIncludeStandardHeaderFiles);
+			this.StubIncludeUserHeaderFiles = new List<string>(src.StubIncludeUserHeaderFiles);
+			this.IncludeDirectoryPath = new List<string>(src.IncludeDirectoryPath);
+			this.LibraryNames = new List<string>(src.LibraryNames);
+			this.LibraryDirectoryPath = new List<string>(src.LibraryNames);
+			this.DefineMacros = new List<string>(src.DefineMacros);
+		}
+
+		/// <summary>
 		/// Path to test design file.
 		/// </summary>
 		[XmlElement(nameof(TestDataFilePath))]
@@ -214,6 +235,58 @@ namespace AutoTestPrep.Model.InputInfos
 			set
 			{
 				this.DefineMacros = value;
+			}
+		}
+
+		public override bool Equals(object obj)
+		{
+			try
+			{
+				TestDataInfo target = (TestDataInfo)obj;
+				if ((!(this.TestDataFilePath.Equals(target.TestDataFilePath))) ||
+					(!(this.OutputDirectoryPath.Equals(target.OutputDirectoryPath))) ||
+					(!(this.StubBufferSize1.Equals(target.StubBufferSize1))) ||
+					(!(this.StubBufferSize2.Equals(target.StubBufferSize2))))
+				{
+					return false;
+				}
+				if (!(this.DriverIncludeStandardHeaderFiles.Equals(target.DriverIncludeStandardHeaderFiles)))
+				{
+					return false;
+				}
+				if (!(this.DriverIncludeUserHeaderFiles.Equals(target.DriverIncludeUserHeaderFiles)))
+				{
+					return false;
+				}
+				if (!(this.StubIncludeStandardHeaderFiles.Equals(target.StubIncludeStandardHeaderFiles)))
+				{
+					return false;
+				}
+				if (!(this.StubIncludeUserHeaderFiles.Equals(target.StubIncludeUserHeaderFiles)))
+				{
+					return false;
+				}
+				if (!(this.IncludeDirectoryPath.Equals(target.IncludeDirectoryPath)))
+				{
+					return false;
+				}
+				if (!(this.LibraryNames.Equals(target.LibraryNames)))
+				{
+					return false;
+				}
+				if (!(this.LibraryDirectoryPath.Equals(target.LibraryDirectoryPath)))
+				{
+					return false;
+				}
+				if (!(this.DefineMacros.Equals(target.DefineMacros)))
+				{
+					return false;
+				}
+				return true;
+			}
+			catch (InvalidCastException)
+			{
+				return false;
 			}
 		}
 	}
