@@ -1,6 +1,8 @@
 ﻿using AutoTestPrep.Command.Argument;
+using AutoTestPrep.Command.Exception;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,25 +12,37 @@ namespace AutoTestPrep.Command
 {
 	public class OverWriteProjectCommand : SaveProjectCommand
 	{
-		public override void Run(object data)
+		/// <summary>
+		/// Write data into a file.
+		/// </summary>
+		/// <param name="parameter">Parameters about command.</param>
+		public override void Execute(object parameter)
 		{
-			var argument = data as ProjectCommandArgument;
-			string filePath = argument.FilePath;
-			if ((string.IsNullOrEmpty(filePath)) ||
-				(string.IsNullOrWhiteSpace(filePath)))
+			try
 			{
-				base.Run(data);
-			}
-			else
-			{
-				if (!(File.Exists(filePath)))
+				var argument = parameter as ProjectCommandArgument;
+				string filePath = argument.FilePath;
+				if ((string.IsNullOrEmpty(filePath)) ||
+					(string.IsNullOrWhiteSpace(filePath)))
 				{
-					base.Run(data);
+					base.Execute(parameter);
 				}
 				else
 				{
-					base.Save(filePath, argument.TestDataInfo);
+					if (!(File.Exists(filePath)))
+					{
+						base.Execute(parameter);
+					}
+					else
+					{
+						base.Save(filePath, argument.LatestData);
+					}
 				}
+			}
+			catch (CommandCancelException)
+			{
+				//Cancel does not need to notify to user.
+				Debug.WriteLine("Load canceled by user");
 			}
 		}
 	}

@@ -23,8 +23,8 @@ namespace AutoTestPrep.Command
 		/// <summary>
 		/// Run cimmand interface.
 		/// </summary>
-		/// <param name="data">Data for command.</param>
-		public void Run(object data)
+		/// <param name="parameter">Data for command.</param>
+		public void Execute(object parameter)
 		{
 			string logFileName = @"./log.txt";
 			using (var stream = new StreamWriter(logFileName, false, Encoding.UTF8))
@@ -32,7 +32,7 @@ namespace AutoTestPrep.Command
 				Logger.Level = Logger.LogLevel.All;
 				Logger.AddStream(stream);
 				Logger.INFO("Start logging!");
-				this._Run(data);
+				this._Run(parameter);
 				Logger.RemoveStream(stream);
 			}
 
@@ -70,7 +70,7 @@ namespace AutoTestPrep.Command
 
 				throw;
 			}
-			catch (Exception ex)
+			catch (System.Exception ex)
 			{
 				Logger.ERROR(ex.Message);
 			}
