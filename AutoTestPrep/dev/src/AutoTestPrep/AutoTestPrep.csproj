@@ -97,6 +97,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Command\AProjectChangeCommand.cs" />
     <Compile Include="Command\Argument\ProjectCommandArgument.cs" />
     <Compile Include="Command\DelegateCommand.cs" />
     <Compile Include="Command\Exception\CommandCancelException.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Command\OverWriteProjectCommand.cs" />
     <Compile Include="Command\RunToolCommand.cs" />
     <Compile Include="Command\SaveProjectCommand.cs" />
+    <Compile Include="Command\ShutdownCommand.cs" />
     <Compile Include="Model\EventArgs\SelectedStateChangedEventArgs.cs" />
     <Compile Include="Model\InputInfos\TestDataInfo.cs" />
     <Compile Include="Model\ParameterInfo.cs" />

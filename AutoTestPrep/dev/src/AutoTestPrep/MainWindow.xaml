@@ -51,7 +51,8 @@
                     <Separator/>
                     <MenuItem Header="終了"
                               Style="{StaticResource MenuItem_MenuItem}"
-                          />
+                              Command="{Binding Path=ShutdownCommand}"
+                              />
                 </MenuItem>
                 <MenuItem Header="実行"
                           Style="{StaticResource MenuItem_MenuBar}"
