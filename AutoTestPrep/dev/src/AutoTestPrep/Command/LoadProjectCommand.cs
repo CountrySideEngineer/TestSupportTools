@@ -15,7 +15,7 @@ using System.Xml.Serialization;
 
 namespace AutoTestPrep.Command
 {
-	public class LoadProjectCommand : NewProjectCommand
+	public class LoadProjectCommand : AProjectChangeCommand
 	{
 		/// <summary>
 		/// Load data user selected.

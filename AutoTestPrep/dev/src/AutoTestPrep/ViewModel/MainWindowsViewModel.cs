@@ -64,6 +64,8 @@ namespace AutoTestPrep.ViewModel
 
 		protected DelegateCommand _OverWriteProjectCommand;
 
+		protected DelegateCommand _ShutdownCommand;
+
 		protected TestDataInfo BaseTestDataInfo;
 
 		/// <summary>
@@ -465,5 +467,35 @@ namespace AutoTestPrep.ViewModel
 		{
 			return (!((string.IsNullOrEmpty(this.CurrentFilePath)) || (string.IsNullOrWhiteSpace(this.CurrentFilePath))));
 		}
+
+		public DelegateCommand ShutdownCommand
+		{
+			get
+			{
+				if (null == this._ShutdownCommand)
+				{
+					this._ShutdownCommand = new DelegateCommand(
+						this.ShutdownCommandExecute, this.CanShutdownCommandExecute);
+				}
+				return this._ShutdownCommand;
+			}
+		}
+
+		public void ShutdownCommandExecute()
+		{
+			var testDataInfo = new TestDataInfo();
+			this.SetupTestInformationReq?.Invoke(ref testDataInfo);
+
+			var commandArg = new ProjectCommandArgument
+			{
+				FilePath = this.CurrentFilePath,
+				BaseData = this.BaseTestDataInfo,
+				LatestData = testDataInfo
+			};
+			var command = new ShutdownCommand();
+			command.Execute(commandArg);
+		}
+
+		public bool CanShutdownCommandExecute() { return true; }
 	}
 }

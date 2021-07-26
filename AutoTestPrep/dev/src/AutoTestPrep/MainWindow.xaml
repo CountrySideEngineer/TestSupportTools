@@ -51,7 +51,8 @@
                     <Separator/>
                     <MenuItem Header="終了"
                               Style="{StaticResource MenuItem_MenuItem}"
-                          />
+                              Command="{Binding Path=ShutdownCommand}"
+                              />
                 </MenuItem>
                 <MenuItem Header="実行"
                           Style="{StaticResource MenuItem_MenuBar}"
@@ -59,16 +60,25 @@
                       />
             </Menu>
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1"
+              Style="{StaticResource Grid_InputArea}"
+              >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ListBox Style="{StaticResource ListBox_BaseStyle}"
+            <ListBox Style="{StaticResource ListBox_SelectSetting}"
                      ItemsSource="{Binding Path=TestConfigurationItems}"
                      SelectedIndex="{Binding Path=SelectedConfigurationItemIndex}"
                      ItemContainerStyle="{StaticResource ListBoxItem_BaseStyle}"
                      >
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="string">
+                        <TextBlock Text="{Binding}"
+                                   Style="{StaticResource TextBlock_ListBoxItem}"
+                                   />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
             <uc:TestInformationInputView Grid.Column="1"
                                          HorizontalAlignment="Stretch"
