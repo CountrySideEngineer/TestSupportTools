@@ -108,6 +108,7 @@
     <Compile Include="Command\RunToolCommand.cs" />
     <Compile Include="Command\SaveProjectCommand.cs" />
     <Compile Include="Command\ShutdownCommand.cs" />
+    <Compile Include="Model\EventArgs\NotificationEventArgs.cs" />
     <Compile Include="Model\EventArgs\SelectedStateChangedEventArgs.cs" />
     <Compile Include="Model\InputInfos\TestDataInfo.cs" />
     <Compile Include="Model\ParameterInfo.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="ViewModel\LibraryInformationInputViewModel.cs" />
     <Compile Include="ViewModel\MainWindowsViewModel.cs" />
     <Compile Include="ViewModel\MultiLineInputViewModel.cs" />
+    <Compile Include="ViewModel\NotificationViewModelBase.cs" />
     <Compile Include="ViewModel\SizeInputViewModel.cs" />
     <Compile Include="ViewModel\StubHeaderInformationInputViewModel.cs" />
     <Compile Include="ViewModel\TestInformationInputViewModel.cs" />

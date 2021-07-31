@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace AutoTestPrep.ViewModel
 {
-	public class MainWindowsViewModel : ViewModelBase
+	public class MainWindowsViewModel : NotificationViewModelBase
 	{
 		protected string _CurrentFilePath;
 
@@ -306,12 +306,32 @@ namespace AutoTestPrep.ViewModel
 
 		public void RunCommandExecute()
 		{
-			var testDataInfo = new TestDataInfo();
-			this.SetupTestInformationReq?.Invoke(ref testDataInfo);
+			try
+			{
+				var testDataInfo = new TestDataInfo();
+				this.SetupTestInformationReq?.Invoke(ref testDataInfo);
 
-			Debug.WriteLine("RunCommandExecute()");
-			var command = new RunToolCommand();
-			command.Execute(testDataInfo);
+				Debug.WriteLine("RunCommandExecute()");
+				var command = new RunToolCommand();
+				command.Execute(testDataInfo);
+
+				var eventArg = new NotificationEventArgs()
+				{
+					Tilte = "完了",
+					Message = "テストデータの解析とコード生成が完了しました。"
+				};
+				this.NotifyOkInformation?.Invoke(this, eventArg);
+			}
+			catch (Exception)
+			{
+				var errArg = new NotificationEventArgs()
+				{
+					Tilte = "完了",
+					Message = "エラー発生\n" +
+						"詳細はログを確認してください。"
+				};
+				this.NotifyErrorInformation?.Invoke(this, errArg);
+			}
 		}
 
 		public bool CanRunCommandExecute()
