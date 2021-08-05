@@ -36,8 +36,8 @@ namespace AutoTestPrep.ViewModel
 		public HeaderInformationInputViewModel(int index) : base(index)
 		{
 			this.StandartHeaderVM = new MultiLineInputViewModel("標準ヘッダ：", string.Empty);
-			this.UserHeaderVM = new MultiLineInputViewModel("ユーザヘッダ", string.Empty);
-			this.IncludeDirectoryVM = new MultiLineInputViewModel("インクルードディレクトリ", string.Empty);
+			this.UserHeaderVM = new MultiLineInputViewModel("ユーザヘッダ：", string.Empty);
+			this.IncludeDirectoryVM = new MultiLineInputViewModel("インクルードディレクトリ：", string.Empty);
 		}
 
 		/// <summary>
@@ -137,6 +137,51 @@ namespace AutoTestPrep.ViewModel
 		{
 			var enumerableValue = inputData.Replace("\r\n", "\n").Split(new[] { '\n', '\r' });
 			return enumerableValue;
+		}
+
+		/// <summary>
+		/// Property of "standart header" input area visibility.
+		/// </summary>
+		public bool IsStandartHeaderVisible
+		{
+			get
+			{
+				return this.StandartHeaderVM.IsVisible;
+			}
+			set
+			{
+				this.StandartHeaderVM.IsVisible = value;
+			}
+		}
+
+		/// <summary>
+		/// Property of "user header" input area visibility.
+		/// </summary>
+		public bool IsUserHeaderVivible
+		{
+			get
+			{
+				return this.UserHeaderVM.IsVisible;
+			}
+			set
+			{
+				this.UserHeaderVM.IsVisible = value;
+			}
+		}
+
+		/// <summary>
+		/// Property of "include directories" input area visibility.
+		/// </summary>
+		public bool IsIncludeDirectoryVisible
+		{
+			get
+			{
+				return this.IncludeDirectoryVM.IsVisible;
+			}
+			set
+			{
+				this.IncludeDirectoryVM.IsVisible = value;
+			}
 		}
 	}
 }
