@@ -44,7 +44,7 @@ namespace AutoTestPrep
 			viewModel.NotifyErrorInformation += this.NotifyErrorInformation;
 			try
 			{
-				((MainWindowsViewModel)viewModel).ShowAboutReq += this.ShowAbout;
+				((MainWindowsViewModel)viewModel).ShowAboutReq += this.ShowAboutEventHandler;
 
 			}
 			catch (InvalidCastException)
@@ -73,7 +73,12 @@ namespace AutoTestPrep
 			MessageBox.Show(args.Message, args.Tilte, MessageBoxButton.OK, MessageBoxImage.Error);
 		}
 
-		protected void ShowAbout(object sender, EventArgs e)
+		/// <summary>
+		/// Show "about" window event handler.
+		/// </summary>
+		/// <param name="sender">Event sender.</param>
+		/// <param name="e">Event argument.</param>
+		protected void ShowAboutEventHandler(object sender, EventArgs e)
 		{
 			var about = new HelpWindow()
 			{
