@@ -40,10 +40,24 @@
                    Text="{Binding Path=CopyRight}"
                    Style="{StaticResource ResourceKey=TextBlock_About}"
                    />
-        <ListBox x:Name="UsingAssembly"
-                 Grid.Row="3"
-                 Style="{StaticResource ResourceKey=ListBox_InstalledItem}"
-                 ItemsSource="{Binding Path=Installed}"
+        <Grid x:Name="InstalledAssemblyArea"
+              Grid.Row="3"
+              >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                       Style="{StaticResource ResourceKey=TextBlock_About}"
+                       Margin="8, 8, 8, 4"
+                       Text="{Binding Path=InstalledTitle}"
+                />
+            <ListBox x:Name="UsingAssembly"
+                     Grid.Row="1"
+                     Style="{StaticResource ResourceKey=ListBox_InstalledItem}"
+                     ItemsSource="{Binding Path=Installed}"
+                     Margin="8, 4, 8, 8"
                  />
+        </Grid>
     </Grid>
 </UserControl>

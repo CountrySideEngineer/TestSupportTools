@@ -53,6 +53,20 @@ namespace CSEngineer.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Title of installed product.
+		/// </summary>
+		public string InstalledTitle
+		{
+			get
+			{
+				return "インストールされている製品：";
+			}
+		}
+
+		/// <summary>
+		/// List of all assemblies referenced by this assembly.
+		/// </summary>
 		public IEnumerable<string> Installed
 		{
 			get

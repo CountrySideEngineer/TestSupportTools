@@ -56,6 +56,7 @@
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Background" Value="White"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="8"/>
     </Style>
     <!-- リストアイテム -->
     <Style TargetType="ListBoxItem" x:Key="ListBoxItem_BaseStyle">
@@ -104,7 +105,7 @@
         <Setter Property="Background" Value="Transparent"/>
     </Style>
     <Style TargetType="TextBlock" x:Key="TextBlock_About" BasedOn="{StaticResource TextBlock_Base}">
-        <Setter Property="Margin" Value="16, 0, 8, 0"/>
+        <Setter Property="Margin" Value="8, 0, 8, 0"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="TextAlignment" Value="Left"/>
