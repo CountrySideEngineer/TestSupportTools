@@ -10,6 +10,11 @@ namespace AutoTestPrep.ViewModel
 	public class MultiLineInputViewModel : ViewModelBase
 	{
 		/// <summary>
+		/// Field of visibility of control.
+		/// </summary>
+		protected bool _isVisible;
+
+		/// <summary>
 		/// Field of input item title.
 		/// </summary>
 		protected string _InputItemTitle;
@@ -22,7 +27,10 @@ namespace AutoTestPrep.ViewModel
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public MultiLineInputViewModel() : this(string.Empty, string.Empty) { }
+		public MultiLineInputViewModel() : this(string.Empty, string.Empty)
+		{
+			this.IsVisible = true;
+		}
 
 		/// <summary>
 		/// Constructor with arguments.
@@ -33,6 +41,7 @@ namespace AutoTestPrep.ViewModel
 		{
 			this.InputItemTitle = inputItemTitle;
 			this.InputItem = inputItem;
+			this.IsVisible = true;
 		}
 
 		/// <summary>
@@ -97,6 +106,22 @@ namespace AutoTestPrep.ViewModel
 
 			}
 			return multilineContent;
+		}
+
+		/// <summary>
+		/// Property of control visibility.
+		/// </summary>
+		public bool IsVisible
+		{
+			get
+			{
+				return this._isVisible;
+			}
+			set
+			{
+				this._isVisible = value;
+				this.RaisePropertyChanged(nameof(this.IsVisible));
+			}
 		}
 	}
 }

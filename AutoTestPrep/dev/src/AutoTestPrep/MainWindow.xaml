@@ -7,7 +7,8 @@
         xmlns:vm="clr-namespace:AutoTestPrep.ViewModel"
         xmlns:uc="clr-namespace:AutoTestPrep.View"
         mc:Ignorable="d"
-        Title="{Binding Path=CurrentTitle}" Height="450" Width="800">
+        Title="{Binding Path=CurrentTitle}" Height="450" Width="800"
+        DataContextChanged="MainWindow_DataContextChanged">
     <Window.Resources>
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BoolVisibilityConverter"/>
@@ -58,6 +59,15 @@
                           Style="{StaticResource MenuItem_MenuBar}"
                           Command="{Binding Path=RunCommand}"
                       />
+                <MenuItem Header="ヘルプ"
+                          Style="{StaticResource MenuItem_MenuBar}"
+                          Command="{Binding Path=RunCommand}"
+                      >
+                    <MenuItem Header="AutoTestPrepのバージョン情報"
+                              Style="{StaticResource MenuItem_MenuItem}"
+                              Command="{Binding Path=AboutCommand}"
+                              />
+                </MenuItem>
             </Menu>
         </Grid>
         <Grid Grid.Row="1"
