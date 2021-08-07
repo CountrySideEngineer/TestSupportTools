@@ -14,8 +14,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AutoTestPrep.Model.EventArgs;
+using AutoTestPrep.View;
 using AutoTestPrep.ViewModel;
 using CSEngineer;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace AutoTestPrep
 {
@@ -40,6 +42,15 @@ namespace AutoTestPrep
 			var viewModel = (NotificationViewModelBase)this.DataContext;
 			viewModel.NotifyOkInformation += this.NotifyOkInformation;
 			viewModel.NotifyErrorInformation += this.NotifyErrorInformation;
+			try
+			{
+				((MainWindowsViewModel)viewModel).ShowAboutReq += this.ShowAbout;
+
+			}
+			catch (InvalidCastException)
+			{
+				//If can not cast, ignore the exception.
+			}
 		}
 
 		/// <summary>
@@ -60,6 +71,17 @@ namespace AutoTestPrep
 		protected void NotifyErrorInformation(object sender, NotificationEventArgs args)
 		{
 			MessageBox.Show(args.Message, args.Tilte, MessageBoxButton.OK, MessageBoxImage.Error);
+		}
+
+		protected void ShowAbout(object sender, EventArgs e)
+		{
+			var about = new HelpWindow()
+			{
+				Owner = this
+			};
+			about.ShowDialog();
+
+
 		}
 	}
 }

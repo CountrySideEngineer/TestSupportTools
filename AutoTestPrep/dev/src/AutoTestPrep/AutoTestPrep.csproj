@@ -155,11 +155,13 @@
     <Compile Include="Model\Writer\TestDriverHeaderWriter.cs" />
     <Compile Include="Model\Writer\TestDriverSourceWriter.cs" />
     <Compile Include="Model\Writer\WriterHelper.cs" />
+    <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="ViewModel\AutoTestPrepViewModelBase.cs" />
     <Compile Include="ViewModel\BufferSizeViewModel.cs" />
     <Compile Include="ViewModel\DefineMacroInputViewModel.cs" />
     <Compile Include="ViewModel\DriverHeaderInformationInputViewModel.cs" />
     <Compile Include="ViewModel\HeaderInformationInputViewModel.cs" />
+    <Compile Include="ViewModel\HelpViewModel.cs" />
     <Compile Include="ViewModel\InformationInputViewModel.cs" />
     <Compile Include="ViewModel\LibraryInformationInputViewModel.cs" />
     <Compile Include="ViewModel\MainWindowsViewModel.cs" />
@@ -169,6 +171,9 @@
     <Compile Include="ViewModel\StubHeaderInformationInputViewModel.cs" />
     <Compile Include="ViewModel\TestInformationInputViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="View\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\BufferSizeView.xaml.cs">
       <DependentUpon>BufferSizeView.xaml</DependentUpon>
     </Compile>
@@ -177,6 +182,9 @@
     </Compile>
     <Compile Include="View\HeaderInformationInputView.xaml.cs">
       <DependentUpon>HeaderInformationInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\HelpWindow.xaml.cs">
+      <DependentUpon>HelpWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\InformationInputView.xaml.cs">
       <DependentUpon>InformationInputView.xaml</DependentUpon>
@@ -209,6 +217,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\BufferSizeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -218,6 +230,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\HeaderInformationInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\HelpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -66,6 +66,8 @@ namespace AutoTestPrep.ViewModel
 
 		protected DelegateCommand _ShutdownCommand;
 
+		protected DelegateCommand _AboutCommand;
+
 		protected TestDataInfo BaseTestDataInfo;
 
 		/// <summary>
@@ -81,6 +83,9 @@ namespace AutoTestPrep.ViewModel
 
 		public delegate void RestoreTestInformationRequest(TestDataInfo testDataInfo);
 		public event RestoreTestInformationRequest RestoreInformationReq;
+
+		public delegate void RequestAboutDialogShowRequestEventHandler(object sender, EventArgs e);
+		public event RequestAboutDialogShowRequestEventHandler ShowAboutReq;
 
 		/// <summary>
 		/// Default consttuctor
@@ -527,5 +532,28 @@ namespace AutoTestPrep.ViewModel
 		}
 
 		public bool CanShutdownCommandExecute() { return true; }
+
+		public DelegateCommand AboutCommand
+		{
+			get
+			{
+				if (null == this._AboutCommand)
+				{
+					this._AboutCommand = new DelegateCommand(
+						this.AboutCommandExecute, this.CanAboutCommandExecute);
+				}
+				return this._AboutCommand;
+			}
+		}
+
+		public void AboutCommandExecute()
+		{
+			this.ShowAboutReq?.Invoke(this, new EventArgs());
+		}
+
+		public bool CanAboutCommandExecute()
+		{
+			return true;
+		}
 	}
 }
