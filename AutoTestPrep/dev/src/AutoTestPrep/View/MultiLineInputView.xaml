@@ -12,12 +12,13 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="./../Resource/Style.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BoolToVisibleConterter"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.DataContext>
         <vm:MultiLineInputViewModel/>
     </UserControl.DataContext>
-    <Grid>
+    <Grid Visibility="{Binding Path=IsVisible, Converter={StaticResource BoolToVisibleConterter}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="24"/>
             <RowDefinition Height="1*"/>
