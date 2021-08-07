@@ -9,6 +9,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
         WindowStyle="ToolWindow"
+        ResizeMode="NoResize"
         Title="{Binding Path=Title}" Height="300" Width="600"
         DataContextChanged="HelpWindow_DataContextChanged"
         >
