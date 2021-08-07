@@ -20,6 +20,5 @@ namespace AutoTestPrep.Command
 
 			System.Windows.Application.Current.Shutdown();
 		}
-
 	}
 }

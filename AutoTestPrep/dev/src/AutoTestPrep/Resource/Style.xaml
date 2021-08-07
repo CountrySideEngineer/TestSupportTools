@@ -1,10 +1,18 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Windowコントロール -->
+    <Style TargetType="Window" x:Key="WindowCommonBase">
+        <Setter Property="Background" Value="#EFEFEF" />
+    </Style>
     <!-- Gridコントロール -->
     <Style TargetType="Grid" x:Key="Grid_CommonBase">
         <Setter Property="Margin" Value="8"/>
     </Style>
     <Style TargetType="Grid" x:Key="Grid_InputArea">
+        <Setter Property="Background" Value="#EFEFEF" />
+        <Setter Property="Margin" Value="0"/>
+    </Style>
+    <Style TargetType="Grid" x:Key="Grid_AboutArea" BasedOn="{StaticResource Grid_CommonBase}">
         <Setter Property="Background" Value="#EFEFEF" />
         <Setter Property="Margin" Value="0"/>
     </Style>
@@ -42,6 +50,13 @@
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Background" Value="WhiteSmoke"/>
+    </Style>
+    <Style TargetType="ListBox" x:Key="ListBox_InstalledItem" BasedOn="{StaticResource ListBox_BaseStyle}">
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="8"/>
     </Style>
     <!-- リストアイテム -->
     <Style TargetType="ListBoxItem" x:Key="ListBoxItem_BaseStyle">
@@ -89,6 +104,12 @@
         <Setter Property="Margin" Value="-1, -1"/>
         <Setter Property="Background" Value="Transparent"/>
     </Style>
+    <Style TargetType="TextBlock" x:Key="TextBlock_About" BasedOn="{StaticResource TextBlock_Base}">
+        <Setter Property="Margin" Value="8, 0, 8, 0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="TextAlignment" Value="Left"/>
+    </Style>
     
     <!-- TexTBox -->
     <Style TargetType="TextBox" x:Key="TextBox_Base">
@@ -119,4 +140,8 @@
         <Setter Property="AcceptsReturn" Value="True"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
+    <Style TargetType="Button" x:Key="Button_CommonBase">
+    </Style>
+    
+    
 </ResourceDictionary>
