@@ -70,6 +70,12 @@ namespace AutoTestPrep.Command
 
 				throw;
 			}
+			catch (IOException)
+			{
+				Logger.FATAL("Input data type error!");
+
+				throw;
+			}
 			catch (System.Exception ex)
 			{
 				Logger.ERROR(ex.Message);

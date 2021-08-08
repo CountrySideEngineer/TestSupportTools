@@ -341,7 +341,7 @@ namespace AutoTestPrep.ViewModel
 			{
 				var errArg = new NotificationEventArgs()
 				{
-					Tilte = "完了",
+					Tilte = "完了(エラーあり)",
 					Message = "エラー発生\n" +
 						"詳細はログを確認してください。"
 				};
@@ -413,7 +413,6 @@ namespace AutoTestPrep.ViewModel
 			var testDataInfo = new TestDataInfo();
 			this.SetupTestInformationReq?.Invoke(ref testDataInfo);
 
-			Debug.WriteLine("RunSaveProjectCommandExecute()");
 			var commandArg = new ProjectCommandArgument()
 			{
 				FilePath = this.CurrentFilePath,
@@ -445,8 +444,6 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		public void LoadProjectCommandExecute()
 		{
-			Debug.WriteLine("LoadProjectCommandExecute()");
-
 			var latestTestDataInfo = new TestDataInfo();
 			this.SetupTestInformationReq?.Invoke(ref latestTestDataInfo);
 			var commandArg = new ProjectCommandArgument()
@@ -485,7 +482,6 @@ namespace AutoTestPrep.ViewModel
 			var testDataInfo = new TestDataInfo();
 			this.SetupTestInformationReq?.Invoke(ref testDataInfo);
 
-			Debug.WriteLine("OverWriteProjectCommandExecute()");
 			var commandArg = new ProjectCommandArgument()
 			{
 				FilePath = this.CurrentFilePath,
