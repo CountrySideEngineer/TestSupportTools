@@ -1,0 +1,115 @@
+﻿<#@ template language="C#"
+	inherits="TestDriverTemplate_min_unit_Base" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+/*
+ *	<#= this.TargetFunction.Name #> test driver source code using min_unit unit test framework.
+ */
+<#
+	foreach (var headerFile in this.TestDataInfo.DriverIncludeStandardHeaderFiles) {
+		if ((!(string.IsNullOrEmpty(headerFile))) && (!(string.IsNullOrWhiteSpace(headerFile)))) {
+#>
+#include <<#= headerFile #>>
+<#		
+		}
+	}
+#>
+<#
+	foreach (var headerFile in this.TestDataInfo.DriverIncludeUserHeaderFiles) {
+		if ((!(string.IsNullOrEmpty(headerFile))) && (!(string.IsNullOrWhiteSpace(headerFile)))) {
+#>
+#include "<#= headerFile #>"
+<#		}
+	}
+#>
+<#
+	//Include header files about stub of sub functions.
+	if ((null != this.SubFunctions) &&
+		(0 < this.SubFunctions.Count()))
+	{
+		foreach (var subFunctionItem in this.SubFunctions) {
+#>
+#include "<#= CreateStubHeaderIncludeCode(subFunctionItem) #>"
+<#
+		}
+	}
+#>
+#include "min_unit.h"
+
+//Test target function
+<#= this.TargetFunction.ToString() #>;
+
+//Initialize test stub buffers.
+<#= CreateSetupMethodEntryPointCode() #>
+{
+<#
+	if ((null != this.SubFunctions) &&
+		(0 < this.SubFunctions.Count()))
+	{
+		foreach (var subFunctionItem in this.SubFunctions) {
+#>
+	<#= (subFunctionItem) #>
+<#
+		}
+	}
+#>
+}
+
+//Test method.
+<# foreach (var testCase in this.Test.TestCases) {	#>
+static char* <#= this.CreateTestCaseMethodName(testCase) #>
+{
+	//Declare argument.
+<#
+	if ((null != this.TargetFunction.Arguments) && (0 < this.TargetFunction.Arguments.Count())) {
+		foreach (var argumentItem in this.TargetFunction.Arguments) {
+#>
+	<#=	CreateCodeToDeclareArgument(argumentItem) #>;
+<#		}	
+	
+	}
+#>
+
+	//Setup test values.
+<#	if ((null != testCase.Input) && (0 < testCase.Input.Count())) {
+		foreach (var inputItem in testCase.Input) {
+#>
+	<#= CreateCodeToSetUpTestParameter(inputItem) #>;
+<#
+		}
+	}
+#>
+
+	//Call target function
+	<#= CreateCodeToCallTargetFunction() #>;
+
+	//Check output and expects.
+<#
+	if ((null != testCase.Expects) &&
+		(0 < testCase.Expects.Count()))
+	{
+		foreach (var expectItem in testCase.Expects)
+		{
+#>
+	<#= CreateCodeToCheckOutputAndExpect(expectItem) #>;
+<#
+		}
+	}
+#>
+
+	return 0;
+}
+
+<#	}	//End of top "foreach" scope. #>
+
+//Method to call all test case method.
+char* <#= CreateRunTestMethodEntryPoint() #>()
+{
+<# foreach (var testCase in this.Test.TestCases) {	#>
+	<#= CreateCodeToCallTestRunMethod(testCase) #>;
+<# }	//End of "foreach" scope. #>
+
+	return 0;
+}

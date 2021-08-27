@@ -15,6 +15,8 @@ using System.Threading.Tasks;
 
 namespace AutoTestPrep.ViewModel
 {
+	using AutoTestPrep.Model;
+
 	public class MainWindowsViewModel : NotificationViewModelBase
 	{
 		protected string _CurrentFilePath;
@@ -54,7 +56,7 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		protected DefineMacroInputViewModel _DefineMacroVM;
 
-		protected DelegateCommand _RunCommand;
+		protected DelegateCommand<TestFramework.FrameworkTye> _RunCommand;
 
 		protected DelegateCommand _NewProjectCommand;
 
@@ -150,10 +152,7 @@ namespace AutoTestPrep.ViewModel
 
 		public string CurrentTitle
 		{
-			get
-			{
-				return this._CurrentTitle;
-			}
+			get => this._CurrentTitle;
 			set
 			{
 				this._CurrentTitle = value;
@@ -163,10 +162,7 @@ namespace AutoTestPrep.ViewModel
 
 		public string CurrentFilePath
 		{
-			get
-			{
-				return this._CurrentFilePath;
-			}
+			get => this._CurrentFilePath;
 			set
 			{
 				this._CurrentFilePath = value;
@@ -184,10 +180,7 @@ namespace AutoTestPrep.ViewModel
 
 		public ObservableCollection<string> TestConfigurationItems
 		{
-			get
-			{
-				return this._testConfigurationItems;
-			}
+			get => this._testConfigurationItems;
 			protected set
 			{
 				this._testConfigurationItems = value;
@@ -197,10 +190,7 @@ namespace AutoTestPrep.ViewModel
 
 		public int SelectedConfigurationItemIndex
 		{
-			get
-			{
-				return this._selectedConfigurationItemIndex;
-			}
+			get => this._selectedConfigurationItemIndex;
 			set
 			{
 				this._selectedConfigurationItemIndex = value;
@@ -216,10 +206,7 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		public TestInformationInputViewModel TestInformationInputVM
 		{
-			get
-			{
-				return this._TestInformationInputVM;
-			}
+			get => this._TestInformationInputVM;
 			set
 			{
 				this._TestInformationInputVM = value;
@@ -232,10 +219,7 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		public BufferSizeViewModel BufferSizeVM
 		{
-			get
-			{
-				return this._BufferSizeVM;
-			}
+			get => this._BufferSizeVM;
 			set
 			{
 				this._BufferSizeVM = value;
@@ -248,10 +232,7 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		public HeaderInformationInputViewModel DriverHeaderInformationVM
 		{
-			get
-			{
-				return this._DriverHeaderInformationVM;
-			}
+			get => this._DriverHeaderInformationVM;
 			set
 			{
 				this._DriverHeaderInformationVM = value;
@@ -265,9 +246,7 @@ namespace AutoTestPrep.ViewModel
 		public HeaderInformationInputViewModel  StubHeaderInformationVM
 		{
 			get
-			{
-				return this._StubHeaderInformationVM;
-			}
+			=> this._StubHeaderInformationVM;
 			set
 			{
 				this._StubHeaderInformationVM = value;
@@ -280,10 +259,7 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		public LibraryInformationInputViewModel LibraryInforamtionVM
 		{
-			get
-			{
-				return this._LibraryInformationVM;
-			}
+			get => this._LibraryInformationVM;
 			set
 			{
 				this._LibraryInformationVM = value;
@@ -296,10 +272,7 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		public DefineMacroInputViewModel DefineMacroVM
 		{
-			get
-			{
-				return this._DefineMacroVM;
-			}
+			get => this._DefineMacroVM;
 			set
 			{
 				this._DefineMacroVM = value;
@@ -307,19 +280,19 @@ namespace AutoTestPrep.ViewModel
 			}
 		}
 
-		public DelegateCommand RunCommand
+		public DelegateCommand<TestFramework.FrameworkTye> RunCommand
 		{
 			get
 			{
 				if (null == this._RunCommand)
 				{
-					this._RunCommand = new DelegateCommand(this.RunCommandExecute, this.CanRunCommandExecute);
+					this._RunCommand = new DelegateCommand<TestFramework.FrameworkTye>(this.RunCommandExecute, this.CanRunCommandExecute);
 				}
 				return this._RunCommand;
 			}
 		}
 
-		public void RunCommandExecute()
+		public void RunCommandExecute(TestFramework.FrameworkTye frameworkTye)
 		{
 			try
 			{
@@ -349,7 +322,7 @@ namespace AutoTestPrep.ViewModel
 			}
 		}
 
-		public bool CanRunCommandExecute()
+		public bool CanRunCommandExecute(object	 parameter)
 		{
 			return true;
 		}
@@ -550,6 +523,11 @@ namespace AutoTestPrep.ViewModel
 		public bool CanAboutCommandExecute()
 		{
 			return true;
+		}
+
+		protected void RunCommandWithFramework()
+		{
+
 		}
 	}
 }

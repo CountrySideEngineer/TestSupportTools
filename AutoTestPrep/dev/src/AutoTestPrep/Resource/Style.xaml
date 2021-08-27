@@ -100,8 +100,8 @@
         <Setter Property="VerticalAlignment" Value="Bottom"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="TextAlignment" Value="Left"/>
-        <Setter Property="Padding" Value="8, 8, 16, 8"/>
-        <Setter Property="Margin" Value="-1, -1"/>
+        <Setter Property="Padding" Value="18, 8, 16, 8"/>
+        <Setter Property="Margin" Value="-2, 0, -2, 0"/>
         <Setter Property="Background" Value="Transparent"/>
     </Style>
     <Style TargetType="TextBlock" x:Key="TextBlock_About" BasedOn="{StaticResource TextBlock_Base}">
