@@ -189,6 +189,7 @@
     <Compile Include="ViewModel\NotificationViewModelBase.cs" />
     <Compile Include="ViewModel\SizeInputViewModel.cs" />
     <Compile Include="ViewModel\StubHeaderInformationInputViewModel.cs" />
+    <Compile Include="ViewModel\TestFrameworkSelectViewModel.cs" />
     <Compile Include="ViewModel\TestInformationInputViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\AboutView.xaml.cs">
@@ -217,6 +218,9 @@
     </Compile>
     <Compile Include="View\SizeInputView.xaml.cs">
       <DependentUpon>SizeInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TestFrameworkSelectView.xaml.cs">
+      <DependentUpon>TestFrameworkSelectView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TestInformationInputView.xaml.cs">
       <DependentUpon>TestInformationInputView.xaml</DependentUpon>
@@ -270,6 +274,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SizeInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TestFrameworkSelectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

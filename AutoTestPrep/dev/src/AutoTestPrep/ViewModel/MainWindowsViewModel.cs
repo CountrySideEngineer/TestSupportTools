@@ -51,12 +51,14 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		protected LibraryInformationInputViewModel _LibraryInformationVM;
 
+		protected TestFrameworkSelectViewModel _FrameworkSelectVM;
+
 		/// <summary>
 		/// View model field of input define macro information.
 		/// </summary>
 		protected DefineMacroInputViewModel _DefineMacroVM;
 
-		protected DelegateCommand<TestFramework.FrameworkTye> _RunCommand;
+		protected DelegateCommand<TestFramework.Framework> _RunCommand;
 
 		protected DelegateCommand _NewProjectCommand;
 
@@ -101,7 +103,8 @@ namespace AutoTestPrep.ViewModel
 				"ヘッダ情報(ドライバ)",
 				"ヘッダ情報(スタブ)",
 				"ライブラリ情報",
-				"マクロ情報"
+				"マクロ情報",
+				"フレーワーク設定",
 			};
 			this.CurrentFilePath = string.Empty;
 			this.CurrentTitle = "AutoTestPrep";
@@ -122,6 +125,7 @@ namespace AutoTestPrep.ViewModel
 			};
 			this.LibraryInforamtionVM = new LibraryInformationInputViewModel(4);
 			this.DefineMacroVM = new DefineMacroInputViewModel(5);
+			this.FrameworkSelectVM = new TestFrameworkSelectViewModel(6);
 
 			this.SelectedChanged += TestInformationInputVM.SelectedStateChangedEventHandler;
 			this.SelectedChanged += BufferSizeVM.SelectedStateChangedEventHandler;
@@ -129,6 +133,7 @@ namespace AutoTestPrep.ViewModel
 			this.SelectedChanged += StubHeaderInformationVM.SelectedStateChangedEventHandler;
 			this.SelectedChanged += LibraryInforamtionVM.SelectedStateChangedEventHandler;
 			this.SelectedChanged += DefineMacroVM.SelectedStateChangedEventHandler;
+			this.SelectedChanged += FrameworkSelectVM.SelectedStateChangedEventHandler;
 
 			this.SetupTestInformationReq += this.TestInformationInputVM.SetupTestInfomation;
 			this.SetupTestInformationReq += this.BufferSizeVM.SetupTestInfomation;
@@ -148,6 +153,10 @@ namespace AutoTestPrep.ViewModel
 
 			this.BaseTestDataInfo = new TestDataInfo();
 			this.SetupTestInformationReq(ref this.BaseTestDataInfo);
+
+			var framework = TestFramework.Framework.google_test;
+			string frameworkName = framework.ToString();
+			int frameworkValue = ((int)framework);
 		}
 
 		public string CurrentTitle
@@ -280,25 +289,37 @@ namespace AutoTestPrep.ViewModel
 			}
 		}
 
-		public DelegateCommand<TestFramework.FrameworkTye> RunCommand
+		/// <summary>
+		/// Test framework select view model.
+		/// </summary>
+		public TestFrameworkSelectViewModel FrameworkSelectVM
+		{
+			get => this._FrameworkSelectVM;
+			set
+			{
+				this._FrameworkSelectVM = value;
+				this.RaisePropertyChanged(nameof(this.FrameworkSelectVM));
+			}
+		}
+
+		public DelegateCommand<TestFramework.Framework> RunCommand
 		{
 			get
 			{
 				if (null == this._RunCommand)
 				{
-					this._RunCommand = new DelegateCommand<TestFramework.FrameworkTye>(this.RunCommandExecute, this.CanRunCommandExecute);
+					this._RunCommand = new DelegateCommand<TestFramework.Framework>(this.RunCommandExecute, this.CanRunCommandExecute);
 				}
 				return this._RunCommand;
 			}
 		}
 
-		public void RunCommandExecute(TestFramework.FrameworkTye frameworkTye)
+		public void RunCommandExecute(TestFramework.Framework frameworkTye)
 		{
 			try
 			{
 				var testDataInfo = new TestDataInfo();
 				this.SetupTestInformationReq?.Invoke(ref testDataInfo);
-
 				Debug.WriteLine("RunCommandExecute()");
 				var command = new RunToolCommand();
 				command.Execute(testDataInfo);

@@ -19,18 +19,18 @@ namespace AutoTestPrep.Command.Converter
 				return null;
 			}
 
-			TestFramework.FrameworkTye frameworkType = TestFramework.FrameworkTye.Invalid;
+			TestFramework.Framework frameworkType = TestFramework.Framework.Invalid;
 			if ("framework_google_test".Equals(testFrameworkName))
 			{
-				frameworkType = TestFramework.FrameworkTye.google_test;
+				frameworkType = TestFramework.Framework.google_test;
 			}
 			else if ("framework_min_unit".Equals(testFrameworkName))
 			{
-				frameworkType = TestFramework.FrameworkTye.min_unit;
+				frameworkType = TestFramework.Framework.min_unit;
 			}
 			else
 			{
-				frameworkType = TestFramework.FrameworkTye.Invalid;
+				frameworkType = TestFramework.Framework.Invalid;
 			}
 			return frameworkType;
 		}
