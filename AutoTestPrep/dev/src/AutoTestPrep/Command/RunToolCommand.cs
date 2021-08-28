@@ -59,10 +59,7 @@ namespace AutoTestPrep.Command
 
 				Logger.INFO("Start generating test codes.");
 				var helper = new WriterHelper();
-				foreach (var testItem in tests)
-				{
-					helper.Write(inputInfos, testItem, writers);
-				}
+				helper.Write(inputInfos, tests, writers);
 			}
 			catch (InvalidCastException)
 			{

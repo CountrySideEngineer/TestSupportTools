@@ -11,6 +11,20 @@ namespace AutoTestPrep.Model.Writer
 {
 	public class WriterHelper
 	{
+		/// <summary>
+		/// Write test date and its test information using write inherits IWriter object.
+		/// </summary>
+		/// <param name="testDataInfo">Test data information</param>
+		/// <param name="tests">Collection of test.</param>
+		/// <param name="writers">Collection of writer to write code using test and test information.</param>
+		public void Write(TestDataInfo testDataInfo, IEnumerable<Test> tests, IEnumerable<IWriter> writers)
+		{
+			foreach (var testItem in tests)
+			{
+				this.Write(testDataInfo, testItem, writers);
+			}
+		}
+
 		public void Write(TestDataInfo testDataInfo, Test test, IEnumerable<IWriter> writers)
 		{
 			//Create output directory.
