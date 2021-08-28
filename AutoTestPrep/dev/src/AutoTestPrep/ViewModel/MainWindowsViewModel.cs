@@ -58,7 +58,7 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		protected DefineMacroInputViewModel _DefineMacroVM;
 
-		protected DelegateCommand<TestFramework.Framework> _RunCommand;
+		protected DelegateCommand _RunCommand;
 
 		protected DelegateCommand _NewProjectCommand;
 
@@ -302,19 +302,19 @@ namespace AutoTestPrep.ViewModel
 			}
 		}
 
-		public DelegateCommand<TestFramework.Framework> RunCommand
+		public DelegateCommand RunCommand
 		{
 			get
 			{
 				if (null == this._RunCommand)
 				{
-					this._RunCommand = new DelegateCommand<TestFramework.Framework>(this.RunCommandExecute, this.CanRunCommandExecute);
+					this._RunCommand = new DelegateCommand(this.RunCommandExecute, this.CanRunCommandExecute);
 				}
 				return this._RunCommand;
 			}
 		}
 
-		public void RunCommandExecute(TestFramework.Framework frameworkTye)
+		public void RunCommandExecute()
 		{
 			try
 			{
@@ -343,7 +343,7 @@ namespace AutoTestPrep.ViewModel
 			}
 		}
 
-		public bool CanRunCommandExecute(object	 parameter)
+		public bool CanRunCommandExecute()
 		{
 			return true;
 		}

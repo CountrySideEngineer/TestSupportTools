@@ -59,20 +59,7 @@
                 </MenuItem>
                 <MenuItem Header="実行"
                           Style="{StaticResource MenuItem_MenuBar}"
-                      >
-                    <MenuItem x:Name="framework_google_test"
-                              Header="テストフレームワーク：google test"
-                              Style="{StaticResource MenuItem_MenuItem}"
-                              Command="{Binding Path=RunCommand}"
-                              CommandParameter="{Binding ElementName=framework_google_test, Path=Name, Converter={StaticResource TestFrameworkConverter}}"
-                              />
-                    <MenuItem x:Name="framework_min_unit"
-                              Header="テストフレームワーク：min_unit"
-                              Style="{StaticResource MenuItem_MenuItem}"
-                              Command="{Binding Path=RunCommand}"
-                              CommandParameter="{Binding ElementName=framework_min_unit, Path=Name, Converter={StaticResource TestFrameworkConverter}}"
-                              />
-                </MenuItem>
+                          Command="{Binding Path=RunCommand}"/>
                 <MenuItem Header="ヘルプ"
                           Style="{StaticResource MenuItem_MenuBar}"
                           Command="{Binding Path=RunCommand}"
