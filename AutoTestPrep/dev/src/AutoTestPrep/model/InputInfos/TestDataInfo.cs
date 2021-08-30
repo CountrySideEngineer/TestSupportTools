@@ -244,7 +244,21 @@ namespace AutoTestPrep.Model.InputInfos
 		/// <summary>
 		/// Framwork of test user selected.
 		/// </summary>
+		[XmlIgnore]
 		public TestFramework.Framework FrameworkTye;
+
+		[XmlElement(nameof(FrameworkTye))]
+		public int FrameworkTypeSurrogate
+		{
+			get
+			{
+				return (int)this.FrameworkTye;
+			}
+			set
+			{
+				this.FrameworkTye = TestFramework.ToFramework(value);
+			}
+		}
 
 		public override bool Equals(object obj)
 		{
