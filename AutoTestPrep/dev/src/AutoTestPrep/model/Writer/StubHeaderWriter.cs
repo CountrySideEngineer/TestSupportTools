@@ -14,6 +14,11 @@ namespace AutoTestPrep.Model.Writer
 
 	public class StubHeaderWriter : IWriter
 	{
+		/// <summary>
+		/// Write stub header code into a file.
+		/// </summary>
+		/// <param name="path">Path to directory to generate header file.</param>
+		/// <param name="parameters">Parameters for header code.</param>
 		public void Write(string path, object[] parameters)
 		{
 			try
@@ -49,6 +54,12 @@ namespace AutoTestPrep.Model.Writer
 			}
 		}
 
+		/// <summary>
+		/// Write stub header code.
+		/// </summary>
+		/// <param name="path">Path to directory to generate header file.</param>
+		/// <param name="test">Test data.</param>
+		/// <param name="testDataInfo">Test information data.</param>
 		protected void Write(string path, Test test, TestDataInfo testDataInfo)
 		{
 			Logger.INFO($"Start generating stub header code fo {test.Target.Name}");
@@ -71,6 +82,12 @@ namespace AutoTestPrep.Model.Writer
 			}
 		}
 
+		/// <summary>
+		/// Write stub header code.
+		/// </summary>
+		/// <param name="path">Path to directory to output header file.</param>
+		/// <param name="tests">Test data.</param>
+		/// <param name="testDataInfo">test data information.</param>
 		protected void Write(string path, IEnumerable<Test> tests, TestDataInfo testDataInfo)
 		{
 			foreach (var testItem in tests)
