@@ -16,35 +16,27 @@ namespace AutoTestPrep.Model.Writer
 	{
 		public void Write(string path, object[] parameters)
 		{
-			Test testParameter = null;
-			TestDataInfo testDataInfo = null;
 			try
 			{
-				testParameter = (Test)parameters[0];
-				testDataInfo = (TestDataInfo)parameters[1];
-
-				Logger.INFO($"Start generating stub header code of {testParameter.Target.Name}");
-
-				string ext = ".h";
-				Function testFunction = testParameter.Target;
-				IEnumerable<Function> subFunctions = testFunction.SubFunctions;
-				foreach (var subFunctionItem in subFunctions)
+				TestDataInfo testDataInfo = (TestDataInfo)parameters[1];
+				if (parameters[0] is Test)
 				{
-					try
-					{
-						this.Write(path, testFunction, subFunctionItem, testDataInfo, ext);
-					}
-					catch (Exception ex)
-					when ((ex is PathTooLongException) || (ex is IOException))
-					{
-						Logger.ERROR($"\t\t-\tAn error occurred while generating stub header of method {testFunction.Name}.");
-						Logger.ERROR("\t\t\tSkip the generating stub header.");
-					}
+					Test test = (Test)parameters[0];
+					this.Write(path, test, testDataInfo);
+				}
+				else if (parameters[0] is IEnumerable<Test>)
+				{
+					IEnumerable<Test> tests = (IEnumerable<Test>)parameters[0];
+					this.Write(path, tests, testDataInfo);
+				}
+				else
+				{
+					throw new ArgumentException();
 				}
 			}
 			catch (NullReferenceException)
 			{
-				Logger.WARN($"\t\t-\tThe function \"{testParameter.Target.Name}\" has no sub function.");
+				Logger.WARN($"\t\t-\tThe function has no sub function.");
 				Logger.WARN($"\t\t\tSkip generating stub header file.");
 
 				throw;
@@ -52,8 +44,38 @@ namespace AutoTestPrep.Model.Writer
 			catch (Exception ex)
 			when ((ex is InvalidCastException) || (ex is IndexOutOfRangeException))
 			{
-				Logger.FATAL("\t\t-\tThe parameters to generate stub soruce cdeo are invalid.");
+				Logger.FATAL("\t\t-\tThe parameters to generate stub soruce code are invalid.");
 				throw;
+			}
+		}
+
+		protected void Write(string path, Test test, TestDataInfo testDataInfo)
+		{
+			Logger.INFO($"Start generating stub header code fo {test.Target.Name}");
+
+			string ext = ".h";
+			Function testFunction = test.Target;
+			IEnumerable<Function> subFunctions = testFunction.SubFunctions;
+			foreach (var subFunctionItem in subFunctions)
+			{
+				try
+				{
+					this.Write(path, testFunction, subFunctionItem, testDataInfo, ext);
+				}
+				catch (Exception ex)
+				when ((ex is PathTooLongException) || (ex is IOException))
+				{
+					Logger.ERROR($"\t\t-\tAn error occurred while generating stub header of method {testFunction.Name}.");
+					Logger.ERROR("\t\t\tSkip the generating stub header.");
+				}
+			}
+		}
+
+		protected void Write(string path, IEnumerable<Test> tests, TestDataInfo testDataInfo)
+		{
+			foreach (var testItem in tests)
+			{
+				this.Write(path, testItem, testDataInfo);
 			}
 		}
 

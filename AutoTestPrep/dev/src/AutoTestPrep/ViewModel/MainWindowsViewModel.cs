@@ -141,6 +141,7 @@ namespace AutoTestPrep.ViewModel
 			this.SetupTestInformationReq += this.StubHeaderInformationVM.SetupTestInfomation;
 			this.SetupTestInformationReq += this.LibraryInforamtionVM.SetupTestInfomation;
 			this.SetupTestInformationReq += this.DefineMacroVM.SetupTestInfomation;
+			this.SetupTestInformationReq += this.FrameworkSelectVM.SetupTestInfomation;
 
 			this.RestoreInformationReq += this.TestInformationInputVM.RestoreTestInforamtion;
 			this.RestoreInformationReq += this.BufferSizeVM.RestoreTestInforamtion;
@@ -148,6 +149,7 @@ namespace AutoTestPrep.ViewModel
 			this.RestoreInformationReq += this.StubHeaderInformationVM.RestoreTestInforamtion;
 			this.RestoreInformationReq += this.LibraryInforamtionVM.RestoreTestInforamtion;
 			this.RestoreInformationReq += this.DefineMacroVM.RestoreTestInforamtion;
+			this.RestoreInformationReq += this.FrameworkSelectVM.RestoreTestInforamtion;
 
 			this.SelectedConfigurationItemIndex = 0;
 

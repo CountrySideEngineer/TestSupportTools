@@ -108,6 +108,10 @@
     <Compile Include="Command\RunToolCommand.cs" />
     <Compile Include="Command\SaveProjectCommand.cs" />
     <Compile Include="Command\ShutdownCommand.cs" />
+    <Compile Include="Model\DirectoryCreator.cs" />
+    <Compile Include="Model\DriverStubCreator\GTestDriverStubCreator.cs" />
+    <Compile Include="Model\DriverStubCreator\IDriverStubCreator.cs" />
+    <Compile Include="Model\DriverStubCreator\MinUnitDriverStubCreator.cs" />
     <Compile Include="Model\EventArgs\NotificationEventArgs.cs" />
     <Compile Include="Model\EventArgs\SelectedStateChangedEventArgs.cs" />
     <Compile Include="Model\InputInfos\TestDataInfo.cs" />
@@ -120,6 +124,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TestDriverTemplateCommonBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\Driver\min_unit\code\TestDriverTemplate_min_unit_main_Source_code.cs" />
+    <Compile Include="Model\Tempaltes\Driver\min_unit\TestDriverTemplate_min_unit_main_Source.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriverTemplate_min_unit_main_Source.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Tempaltes\Driver\gtest\code\TestDriverTemplate_gtest_Base_code.cs" />
     <Compile Include="Model\Tempaltes\Driver\gtest\code\TestDriverTemplate_gtest_Header_code.cs" />
@@ -170,6 +180,10 @@
       <DependentUpon>TestStubTemplate_Source.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\TestFramework.cs" />
+    <Compile Include="Model\Writer\IWriterHelper.cs" />
+    <Compile Include="Model\Writer\MinUnitTestDriverMainSourceWriter.cs" />
+    <Compile Include="Model\Writer\MinUnitTestDriverSourceWriter.cs" />
+    <Compile Include="Model\Writer\MinUnitWriterHelper.cs" />
     <Compile Include="Model\Writer\StubHeaderWriter.cs" />
     <Compile Include="Model\Writer\StubSourceWriter.cs" />
     <Compile Include="Model\Writer\TestDriverHeaderWriter.cs" />
@@ -347,6 +361,10 @@
     <Content Include="Model\Tempaltes\Driver\common\TestDriverTemplateCommonBase.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>TestDriverTemplateCommonBase.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\Driver\min_unit\TestDriverTemplate_min_unit_main_Source.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestDriverTemplate_min_unit_main_Source.cs</LastGenOutput>
     </Content>
     <Content Include="Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Base.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
