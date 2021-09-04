@@ -126,6 +126,24 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TestDriverTemplateCommonBase.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Tempaltes\Driver\mid_unit\code\TestDriverTemplate_mid_unit_Base_code.cs" />
+    <Compile Include="Model\Tempaltes\Driver\mid_unit\code\TestDriverTemplate_mid_unit_main_Source.cs" />
+    <Compile Include="Model\Tempaltes\Driver\mid_unit\code\TestDriverTemplate_mid_unit_Source.cs" />
+    <Compile Include="Model\Tempaltes\Driver\mid_unit\TestDriverTemplate_mid_unit_Base.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriverTemplate_mid_unit_Base.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\Driver\mid_unit\TestDriverTemplate_mid_unit_main_Source.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriverTemplate_mid_unit_main_Source.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\Driver\mid_unit\TestDriverTemplate_mid_unit_Source.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriverTemplate_mid_unit_Source.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Tempaltes\Driver\min_unit\code\TestDriverTemplate_min_unit_main_Source_code.cs" />
     <Compile Include="Model\Tempaltes\Driver\min_unit\TestDriverTemplate_min_unit_main_Source.cs">
       <AutoGen>True</AutoGen>
@@ -362,6 +380,18 @@
     <Content Include="Model\Tempaltes\Driver\common\TestDriverTemplateCommonBase.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>TestDriverTemplateCommonBase.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\Driver\mid_unit\TestDriverTemplate_mid_unit_Base.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestDriverTemplate_mid_unit_Base.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\Driver\mid_unit\TestDriverTemplate_mid_unit_main_Source.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestDriverTemplate_mid_unit_main_Source.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\Driver\mid_unit\TestDriverTemplate_mid_unit_Source.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestDriverTemplate_mid_unit_Source.cs</LastGenOutput>
     </Content>
     <Content Include="Model\Tempaltes\Driver\min_unit\TestDriverTemplate_min_unit_main_Source.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
