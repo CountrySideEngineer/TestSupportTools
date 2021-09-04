@@ -8,7 +8,7 @@
         xmlns:vm="clr-namespace:AutoTestPrep.ViewModel"
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
-        WindowStyle="ToolWindow"
+        WindowStyle="ToolWindow" 
         ResizeMode="NoResize"
         Title="{Binding Path=Title}" Height="300" Width="600"
         DataContextChanged="HelpWindow_DataContextChanged"
@@ -25,19 +25,23 @@
         <vm:HelpViewModel/>
     </Window.DataContext>
     <Grid Style="{StaticResource Grid_AboutArea}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="135*"/>
+            <ColumnDefinition Width="61*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <cslocal:AboutView/>
+        <cslocal:AboutView Grid.ColumnSpan="2"/>
         <Button x:Name="CloseWindow"
                 Grid.Row="1"
                 Content="閉じる"
-                Margin="8"
+                Margin="0,8,8,8"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Right"
                 Padding="32, 0"
-                Command="{Binding Path=RequestCloseWindowsCommand}" 
+                Command="{Binding Path=RequestCloseWindowsCommand}" Grid.Column="1" 
                 />
     </Grid>
 </Window>
