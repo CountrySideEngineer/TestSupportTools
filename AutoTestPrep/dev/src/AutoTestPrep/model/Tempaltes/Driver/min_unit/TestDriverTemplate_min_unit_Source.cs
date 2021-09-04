@@ -173,7 +173,7 @@ namespace AutoTestPrep.Model.Tempaltes.Driver.min_unit
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n\t//Declare argument.\r\n");
+            this.Write("()\r\n{\r\n\t//Declare argument.\r\n");
             
             #line 65 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\min_unit\TestDriverTemplate_min_unit_Source.tt"
 

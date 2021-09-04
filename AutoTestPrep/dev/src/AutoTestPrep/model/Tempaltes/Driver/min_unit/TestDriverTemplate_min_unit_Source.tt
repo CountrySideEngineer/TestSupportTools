@@ -59,7 +59,7 @@
 
 //Test method.
 <# foreach (var testCase in this.Test.TestCases) {	#>
-static char* <#= this.CreateTestCaseMethodName(testCase) #>
+static char* <#= this.CreateTestCaseMethodName(testCase) #>()
 {
 	//Declare argument.
 <#
