@@ -37,6 +37,7 @@
 	}
 #>
 #include "gtest/gtest.h"
+#include "<#= DriverHeaderFileName #>"
 
 //Test target function.
 <#= this.TargetFunction.ToString() #>;
@@ -111,6 +112,7 @@ TEST_F(<#= base.CreateTestClassName() #>, <#= this.CreateTestCaseMethodName(test
 <#	}	#>
 <#+
 	//Methods used to create test driver code using google test as test framework.
+	public virtual string DriverHeaderFileName { get; set; }
 
 	/// <summary>
 	///	Create entry point of method to setup test case.

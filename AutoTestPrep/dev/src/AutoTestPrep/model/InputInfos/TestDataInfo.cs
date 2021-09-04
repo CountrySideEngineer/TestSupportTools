@@ -32,6 +32,8 @@ namespace AutoTestPrep.Model.InputInfos
 			this.LibraryNames = new List<string>(0);
 			this.LibraryDirectoryPath = new List<string>(0);
 			this.DefineMacros = new List<string>(0);
+			this.FrameworkTye = TestFramework.Framework.Invalid;
+
 		}
 
 		/// <summary>
@@ -53,6 +55,7 @@ namespace AutoTestPrep.Model.InputInfos
 			this.LibraryNames = new List<string>(src.LibraryNames);
 			this.LibraryDirectoryPath = new List<string>(src.LibraryNames);
 			this.DefineMacros = new List<string>(src.DefineMacros);
+			this.FrameworkTye = src.FrameworkTye;
 		}
 
 		/// <summary>
@@ -235,6 +238,25 @@ namespace AutoTestPrep.Model.InputInfos
 			set
 			{
 				this.DefineMacros = value;
+			}
+		}
+
+		/// <summary>
+		/// Framwork of test user selected.
+		/// </summary>
+		[XmlIgnore]
+		public TestFramework.Framework FrameworkTye;
+
+		[XmlElement(nameof(FrameworkTye))]
+		public int FrameworkTypeSurrogate
+		{
+			get
+			{
+				return (int)this.FrameworkTye;
+			}
+			set
+			{
+				this.FrameworkTye = TestFramework.ToFramework(value);
 			}
 		}
 

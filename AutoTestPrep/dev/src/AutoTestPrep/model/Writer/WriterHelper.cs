@@ -11,7 +11,21 @@ namespace AutoTestPrep.Model.Writer
 {
 	public class WriterHelper
 	{
-		public void Write(TestDataInfo testDataInfo, Test test, IEnumerable<IWriter> writers)
+		/// <summary>
+		/// Write test date and its test information using write inherits IWriter object.
+		/// </summary>
+		/// <param name="testDataInfo">Test data information</param>
+		/// <param name="tests">Collection of test.</param>
+		/// <param name="writers">Collection of writer to write code using test and test information.</param>
+		public virtual void Write(TestDataInfo testDataInfo, IEnumerable<Test> tests, IEnumerable<IWriter> writers)
+		{
+			foreach (var testItem in tests)
+			{
+				this.Write(testDataInfo, testItem, writers);
+			}
+		}
+
+		public virtual void Write(TestDataInfo testDataInfo, Test test, IEnumerable<IWriter> writers)
 		{
 			//Create output directory.
 			DirectoryInfo outputTopDirInfo = this.CreateOutputTopDirectory(testDataInfo);
@@ -22,7 +36,7 @@ namespace AutoTestPrep.Model.Writer
 			}
 		}
 
-		public void Write(TestDataInfo testDataInfo, Test test, IWriter writer)
+		public virtual void Write(TestDataInfo testDataInfo, Test test, IWriter writer)
 		{
 			//Create output directory.
 			DirectoryInfo outputTopDirInfo = this.CreateOutputTopDirectory(testDataInfo);
@@ -30,7 +44,7 @@ namespace AutoTestPrep.Model.Writer
 			this.Write(testDataInfo, test, writer, outputDirInfo);
 		}
 
-		protected DirectoryInfo CreateOutputTopDirectory(TestDataInfo testDataInfo)
+		protected virtual DirectoryInfo CreateOutputTopDirectory(TestDataInfo testDataInfo)
 		{
 			var outputRootDirInfo = new DirectoryInfo(testDataInfo.OutputDirectoryPath);
 			var testDataFlieName = Path.GetFileNameWithoutExtension(testDataInfo.TestDataFilePath);
@@ -42,7 +56,7 @@ namespace AutoTestPrep.Model.Writer
 			return outputTopDirInfo;
 		}
 
-		protected DirectoryInfo CreateOutputDirectory(DirectoryInfo rootDirectory, Test test)
+		protected virtual DirectoryInfo CreateOutputDirectory(DirectoryInfo rootDirectory, Test test)
 		{
 			string rootDirectoryPath = rootDirectory.FullName;
 			string outputDirectoryPath = rootDirectoryPath + @"\" + test.Name + "_test";
@@ -53,7 +67,7 @@ namespace AutoTestPrep.Model.Writer
 			return outputDirectoryInfo;
 		}
 
-		protected void Write(TestDataInfo testDataInfo, Test test, IWriter writer, DirectoryInfo outputDirInfo)
+		protected virtual void Write(TestDataInfo testDataInfo, Test test, IWriter writer, DirectoryInfo outputDirInfo)
 		{
 			object parameters = new object[2]
 			{

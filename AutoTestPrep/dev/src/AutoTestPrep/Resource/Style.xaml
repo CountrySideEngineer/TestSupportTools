@@ -51,6 +51,12 @@
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Background" Value="WhiteSmoke"/>
     </Style>
+    <Style TargetType="ListBox" x:Key="ListBox_SelectTestFramework" BasedOn="{StaticResource ListBox_BaseStyle}">
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="WhiteSmoke"/>
+    </Style>
     <Style TargetType="ListBox" x:Key="ListBox_InstalledItem" BasedOn="{StaticResource ListBox_BaseStyle}">
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="BorderThickness" Value="1"/>
@@ -85,7 +91,26 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
+    <!-- ComboBox -->
+    <Style TargetType="ComboBox" x:Key="ComboBox_BaseStyle">
+        <Setter Property="Margin" Value="8"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+    <Style TargetType="ComboBox" x:Key="ComboBox_SelectTestFramework" BasedOn="{StaticResource ComboBox_BaseStyle}">
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Background" Value="LightSlateGray"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+    </Style>
+
     <!-- TextBlock -->
     <Style TargetType="TextBlock" x:Key="TextBlock_Base">
         <Setter Property="Margin" Value="8"/>
@@ -100,8 +125,8 @@
         <Setter Property="VerticalAlignment" Value="Bottom"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="TextAlignment" Value="Left"/>
-        <Setter Property="Padding" Value="8, 8, 16, 8"/>
-        <Setter Property="Margin" Value="-1, -1"/>
+        <Setter Property="Padding" Value="18, 8, 16, 8"/>
+        <Setter Property="Margin" Value="-2, 0, -2, 0"/>
         <Setter Property="Background" Value="Transparent"/>
     </Style>
     <Style TargetType="TextBlock" x:Key="TextBlock_About" BasedOn="{StaticResource TextBlock_Base}">
