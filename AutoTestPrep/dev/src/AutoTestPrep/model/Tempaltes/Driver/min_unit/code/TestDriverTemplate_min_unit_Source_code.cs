@@ -135,18 +135,18 @@ namespace AutoTestPrep.Model.Tempaltes.Driver.min_unit
 		/// <remarks>Declare as an abstract method in base class.</remarks>
 		protected virtual string CreateCodeToCheckOutputAndExpect(TestData expect)
 		{
-			string codeToCheckExpect = string.Empty;
-
-			codeToCheckExpect = "mu_assert(";
+			string nameOfExpect = string.Empty;
 			if (("return").Equals(expect.Name))
 			{
-				codeToCheckExpect = $"{codeToCheckExpect}returnValue";
+				nameOfExpect = "returnValue";
 			}
 			else
 			{
-				codeToCheckExpect = $"{codeToCheckExpect}{expect.Name}";
+				nameOfExpect = $"{expect.Value}";
 			}
-			codeToCheckExpect = $"{codeToCheckExpect}, {expect.Value})";
+
+			string codeToCheckExpect = string.Empty;
+			codeToCheckExpect = $"mu_assert(\"{nameOfExpect}\", {nameOfExpect} == {expect.Value})";
 			return codeToCheckExpect;
 		}
 
@@ -171,7 +171,6 @@ namespace AutoTestPrep.Model.Tempaltes.Driver.min_unit
 		{
 			string codeToCallTestRunMethod = string.Empty;
 			codeToCallTestRunMethod = $"mu_run_test(" +
-				$"\"{this.CreateTestCaseMethodName(testCase)}\", " +
 				$"{this.CreateTestCaseMethodName(testCase)})";
 			return codeToCallTestRunMethod;
 		}
