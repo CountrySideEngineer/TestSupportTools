@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AutoTestPrep.Model.Writer
 {
@@ -10,7 +8,6 @@ namespace AutoTestPrep.Model.Writer
 	using AutoTestPrep.Model.Tempaltes.Stub;
 	using CSEngineer;
 	using System.IO;
-	using Tempaltes;
 
 	public class StubSourceWriter : IWriter
 	{
@@ -24,42 +21,76 @@ namespace AutoTestPrep.Model.Writer
 		/// </param>
 		public void Write(string path, object[] parameters)
 		{
-			Test testParameter = null;
-			TestDataInfo testDataInfo = null;
 			try
 			{
-				testParameter = (Test)parameters[0];
-				testDataInfo = (TestDataInfo)parameters[1];
-
-				Logger.INFO($"Start generating stub source code of {testParameter.Target.Name}");
-
-				string ext = System.IO.Path.GetExtension(testParameter.SourcePath);
-				Function testFunction = testParameter.Target;
-				IEnumerable<Function> subFunction = testFunction.SubFunctions;
-				foreach (var subFunctionItem in subFunction)
+				TestDataInfo testDataInfo = (TestDataInfo)parameters[1];
+				if (parameters[0] is Test)
 				{
-					try
-					{
-						this.Write(path, testFunction, subFunctionItem, testDataInfo, ext);
-					}
-					catch (Exception ex)
-					when ((ex is PathTooLongException) || (ex is IOException))
-					{
-						Logger.ERROR($"\t\t-\tAn error occurred while generating stub source of method {subFunctionItem.Name}.");
-						Logger.ERROR("\t\t-\tSkip the generating stub source.");
-					}
+					Test test = (Test)parameters[0];
+					this.Write(path, test, testDataInfo);
+				}
+				else if (parameters[0] is IEnumerable<Test>)
+				{
+					IEnumerable<Test> tests = (IEnumerable<Test>)parameters[0];
+					this.Write(path, tests, testDataInfo);
+				}
+				else
+				{
+					throw new ArgumentException();
 				}
 			}
 			catch (NullReferenceException)
 			{
-				Logger.WARN($"\t\t-\tThe function \"{testParameter.Target.Name}\" has no sub function.");
+				Logger.WARN($"\t\t-\tThe function has no sub function.");
 				Logger.WARN($"\t\t\tSkip generating stub source file.");
 			}
 			catch (Exception ex)
 			when ((ex is InvalidCastException) || (ex is IndexOutOfRangeException))
 			{
-				Logger.FATAL("\t\t-\tThe parameters to generate stub soruce cdeo are invalid.");
+				Logger.FATAL("\t\t-\tThe parameters to generate stub soruce code are invalid.");
 				throw;
+			}
+		}
+
+		/// <summary>
+		/// Write stub source code.
+		/// </summary>
+		/// <param name="path">Path to directory to output stub source code.</param>
+		/// <param name="test">Test data.</param>
+		/// <param name="testDataInfo">Test data information.</param>
+		protected void Write(string path, Test test, TestDataInfo testDataInfo)
+		{
+			Logger.INFO($"Start generating stub source code of {test.Target.Name}");
+
+			string ext = System.IO.Path.GetExtension(test.SourcePath);
+			Function testFunction = test.Target;
+			IEnumerable<Function> subFunction = testFunction.SubFunctions;
+			foreach (var subFunctionItem in subFunction)
+			{
+				try
+				{
+					this.Write(path, testFunction, subFunctionItem, testDataInfo, ext);
+				}
+				catch (Exception ex)
+				when ((ex is PathTooLongException) || (ex is IOException))
+				{
+					Logger.ERROR($"\t\t-\tAn error occurred while generating stub source of method {subFunctionItem.Name}.");
+					Logger.ERROR("\t\t-\tSkip the generating stub source.");
+				}
+			}
+		}
+
+		/// <summary>
+		/// Wrtie stub source code.
+		/// </summary>
+		/// <param name="path">Path to directory to output stub source code.</param>
+		/// <param name="tests">Collection of test, Test object.</param>
+		/// <param name="testDataInfo">Test data information.</param>
+		protected void Write(string path, IEnumerable<Test> tests, TestDataInfo testDataInfo)
+		{
+			foreach (var test in tests)
+			{
+				this.Write(path, test, testDataInfo);
 			}
 		}
 
@@ -81,7 +112,6 @@ namespace AutoTestPrep.Model.Writer
 				Logger.INFO($"\t\t-\tStub source file path : {stubFilePath}");
 
 				var template = new TestStubTemplate_Source(functionItem, subFunction, testDataInfo);
-				//var template = new CFunctionStubTemplate(functionItem, testDataInfo);
 				using (var stream = new StreamWriter(stubFilePath, false, Encoding.Unicode))
 				{
 					stream.Write(template.TransformText());

@@ -1,0 +1,24 @@
+﻿<#@ template language="C#"
+	inherits="TestDriverTemplate_min_unit_Source" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+#include <stdio.h>
+#include "min_unit.h"
+
+//Declare function to run test.
+<# foreach (var testItem in Tests) { #>
+char* <#= CreateRunTestMethodEntryPointName(testItem.Target) #>();
+<# } #>
+
+int tests_run = 0;
+
+int main()
+{
+<# foreach (var testItem in Tests) { #>
+	mu_run_all_test("<#= CreateRunTestMethodEntryPointName(testItem.Target) #>", <#= CreateRunTestMethodEntryPointName(testItem.Target) #>);
+<# } #>
+
+	return 0;
+}

@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CSEngineer;
-
+using AutoTestPrep.Model.DriverStubCreator;
 
 namespace AutoTestPrep.Command
 {
@@ -35,7 +35,6 @@ namespace AutoTestPrep.Command
 				this._Run(parameter);
 				Logger.RemoveStream(stream);
 			}
-
 		}
 
 		/// <summary>
@@ -47,24 +46,12 @@ namespace AutoTestPrep.Command
 			try
 			{
 				var inputInfos = data as TestDataInfo;
-
-				Logger.INFO($"Start parsing the test data in {inputInfos.TestDataFilePath}.");
-				var parser = new TestParser();
-				var tests = (IEnumerable<Test>)parser.Parse(inputInfos.TestDataFilePath);
-				IEnumerable<IWriter> writers = new List<IWriter>
-				{
-					new StubWriter(),
-					new TestDriverWriter(),
-				};
-
-				Logger.INFO("Start generating test codes.");
-				var helper = new WriterHelper();
-				foreach (var testItem in tests)
-				{
-					helper.Write(inputInfos, testItem, writers);
-				}
+				IDriverStubCreator driveStubCreator = SequenceFactory.Create(inputInfos);
+				driveStubCreator.Create(inputInfos);
 			}
-			catch (InvalidCastException)
+			catch (System.Exception ex)
+			when ((ex is InvalidCastException) ||
+				(ex is IOException))
 			{
 				Logger.FATAL("Input data type error!");
 
