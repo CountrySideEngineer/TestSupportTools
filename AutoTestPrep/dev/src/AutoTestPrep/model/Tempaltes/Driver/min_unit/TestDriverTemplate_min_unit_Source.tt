@@ -50,7 +50,7 @@
 	{
 		foreach (var subFunctionItem in this.SubFunctions) {
 #>
-	<#= (subFunctionItem) #>
+	<#= CreateBufferInitializeFunctionName(subFunctionItem) #>;
 <#
 		}
 	}

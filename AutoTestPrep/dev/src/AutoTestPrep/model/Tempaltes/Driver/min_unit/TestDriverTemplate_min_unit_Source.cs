@@ -145,11 +145,11 @@ namespace AutoTestPrep.Model.Tempaltes.Driver.min_unit
             this.Write("\t");
             
             #line 53 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\min_unit\TestDriverTemplate_min_unit_Source.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture((subFunctionItem)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(CreateBufferInitializeFunctionName(subFunctionItem)));
             
             #line default
             #line hidden
-            this.Write("\r\n");
+            this.Write(";\r\n");
             
             #line 54 "E:\development\TestSupportTools\AutoTestPrep\dev\src\AutoTestPrep\Model\Tempaltes\Driver\min_unit\TestDriverTemplate_min_unit_Source.tt"
 

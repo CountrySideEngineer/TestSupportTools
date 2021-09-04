@@ -188,5 +188,14 @@ namespace AutoTestPrep.Model.Tempaltes.Driver.min_unit
 
 			return stubHeaderInclude;
 		}
+
+		protected virtual string CreateBufferInitializeFunctionName(Function subFunction)
+		{
+			string bufferInitializeFuncName = string.Empty;
+			bufferInitializeFuncName = subFunction.Name;
+			bufferInitializeFuncName += "_init()";
+
+			return bufferInitializeFuncName;
+		}
 	}
 }
