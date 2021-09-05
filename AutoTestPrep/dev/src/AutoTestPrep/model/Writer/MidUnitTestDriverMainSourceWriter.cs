@@ -1,5 +1,5 @@
 ﻿using AutoTestPrep.Model.InputInfos;
-using AutoTestPrep.Model.Tempaltes.Driver.min_unit;
+using AutoTestPrep.Model.Tempaltes.Driver.mid_unit;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,9 +9,14 @@ using System.Threading.Tasks;
 
 namespace AutoTestPrep.Model.Writer
 {
-	public class MinUnitTestDriverMainSourceWriter : IWriter
+	public class MidUnitTestDriverMainSourceWriter : MinUnitTestDriverMainSourceWriter
 	{
-		public virtual void Write(string path, object[] parameters)
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public MidUnitTestDriverMainSourceWriter() : base() { }
+
+		public override void Write(string path, object[] parameters)
 		{
 			var tests = (IEnumerable<Test>)parameters[0];
 			var testDataInfo = (TestDataInfo)parameters[1];
@@ -21,7 +26,7 @@ namespace AutoTestPrep.Model.Writer
 
 			using (var stream = new StreamWriter(outputPath, false, Encoding.UTF8))
 			{
-				var template = new TestDriverTemplate_min_unit_main_Source(tests, testDataInfo);
+				var template = new TestDriverTemplate_mid_unit_main_Source(tests, testDataInfo);
 				stream.Write(template.TransformText());
 			}
 		}
