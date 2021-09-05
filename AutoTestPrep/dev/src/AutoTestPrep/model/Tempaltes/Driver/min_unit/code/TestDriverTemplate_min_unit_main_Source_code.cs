@@ -12,6 +12,11 @@ namespace AutoTestPrep.Model.Tempaltes.Driver.min_unit
 		protected IEnumerable<Test> Tests;
 
 		/// <summary>
+		/// Default constructor
+		/// </summary>
+		protected TestDriverTemplate_min_unit_main_Source() : base() { }
+
+		/// <summary>
 		/// Constructor with argument.
 		/// </summary>
 		/// <param name="test">Test data.</param>

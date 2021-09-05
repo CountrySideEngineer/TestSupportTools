@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace AutoTestPrep.Model.DriverStubCreator
 {
-	public class MinUnitDriverStubCreator : IDriverStubCreator
+	public class MidUnitDriverStubCreator : MinUnitDriverStubCreator
 	{
-		public virtual void Create(TestDataInfo dataInfo)
+		public override void Create(TestDataInfo dataInfo)
 		{
 			try
 			{
@@ -20,8 +20,8 @@ namespace AutoTestPrep.Model.DriverStubCreator
 				IEnumerable<IWriter> writers = new List<IWriter>
 				{
 					new StubWriter(),
-					new MinUnitTestDriverSourceWriter(),
-					new MinUnitTestDriverMainSourceWriter()
+					new MidUnitTestDriverSourceWriter(),
+					new MidUnitTestDriverMainSourceWriter()
 				};
 				var helper = new MinUnitWriterHelper();
 				helper.Write(dataInfo, tests, writers);
