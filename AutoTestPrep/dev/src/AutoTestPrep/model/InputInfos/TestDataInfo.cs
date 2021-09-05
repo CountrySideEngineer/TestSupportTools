@@ -89,7 +89,7 @@ namespace AutoTestPrep.Model.InputInfos
 		public IEnumerable<string> DriverIncludeStandardHeaderFiles;
 
 		[XmlArray(nameof(DriverIncludeStandardHeaderFiles))]
-		[XmlArrayItem(nameof(DriverIncludeStandardHeaderFiles) +"Item", typeof(string))]
+		[XmlArrayItem(nameof(DriverIncludeStandardHeaderFiles) + "Item", typeof(string))]
 		public string[] DriverIncludeStandardHeaderFilesSurrogate
 		{
 			get
@@ -129,7 +129,7 @@ namespace AutoTestPrep.Model.InputInfos
 		public IEnumerable<string> StubIncludeStandardHeaderFiles;
 
 		[XmlArray(nameof(StubIncludeStandardHeaderFiles))]
-		[XmlArrayItem(nameof(StubIncludeStandardHeaderFiles) +"Item", typeof(string))]
+		[XmlArrayItem(nameof(StubIncludeStandardHeaderFiles) + "Item", typeof(string))]
 		public string[] StubIncludeStandardHeaderFilesSurrogate
 		{
 			get
