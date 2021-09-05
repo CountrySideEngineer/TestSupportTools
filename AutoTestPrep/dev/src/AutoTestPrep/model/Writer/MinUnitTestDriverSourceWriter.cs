@@ -18,7 +18,7 @@ namespace AutoTestPrep.Model.Writer
 		/// <param name="parameters">Parameters fot test diver.
 		/// 1st object in the array is Test obejct.
 		/// 2nd is TestDataInfo object.</param>
-		public void Write(string path, object[] parameters)
+		public virtual void Write(string path, object[] parameters)
 		{
 			TestDataInfo testDataInfo = (TestDataInfo)parameters[1];
 			if (parameters[0] is Test)
@@ -37,7 +37,7 @@ namespace AutoTestPrep.Model.Writer
 			}
 		}
 
-		protected void Write(string path, IEnumerable<Test> tests, TestDataInfo testDataInfo)
+		protected virtual void Write(string path, IEnumerable<Test> tests, TestDataInfo testDataInfo)
 		{
 			foreach (var test in tests)
 			{
@@ -45,7 +45,7 @@ namespace AutoTestPrep.Model.Writer
 			}
 		}
 
-		protected void Write(string path, Test test, TestDataInfo testDataInfo)
+		protected virtual void Write(string path, Test test, TestDataInfo testDataInfo)
 		{
 			string driverFilePath = string.Empty;
 			try
@@ -68,8 +68,6 @@ namespace AutoTestPrep.Model.Writer
 			{
 				Logger.WARN($"\t\t-\tFile {driverFilePath} can not access.");
 			}
-
 		}
-
 	}
 }
