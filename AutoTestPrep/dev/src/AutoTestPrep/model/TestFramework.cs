@@ -12,6 +12,7 @@ namespace AutoTestPrep.Model
 		{
 			google_test,
 			min_unit,
+			mid_unit,
 			Invalid
 		};
 

@@ -112,6 +112,7 @@
     <Compile Include="Model\DirectoryCreator.cs" />
     <Compile Include="Model\DriverStubCreator\GTestDriverStubCreator.cs" />
     <Compile Include="Model\DriverStubCreator\IDriverStubCreator.cs" />
+    <Compile Include="Model\DriverStubCreator\MidUnitDriverStubCreator.cs" />
     <Compile Include="Model\DriverStubCreator\MinUnitDriverStubCreator.cs" />
     <Compile Include="Model\EventArgs\NotificationEventArgs.cs" />
     <Compile Include="Model\EventArgs\SelectedStateChangedEventArgs.cs" />
@@ -200,6 +201,9 @@
     </Compile>
     <Compile Include="Model\TestFramework.cs" />
     <Compile Include="Model\Writer\IWriterHelper.cs" />
+    <Compile Include="Model\Writer\MidUnitTestDriverMainSourceWriter.cs" />
+    <Compile Include="Model\Writer\MidUnitTestDriverSourceWriter.cs" />
+    <Compile Include="Model\Writer\MidUnitWriterHelper.cs" />
     <Compile Include="Model\Writer\MinUnitTestDriverMainSourceWriter.cs" />
     <Compile Include="Model\Writer\MinUnitTestDriverSourceWriter.cs" />
     <Compile Include="Model\Writer\MinUnitWriterHelper.cs" />

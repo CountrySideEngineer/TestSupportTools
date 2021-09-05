@@ -27,6 +27,10 @@ namespace AutoTestPrep.Model.DriverStubCreator
 			{
 				driverStubCreator = new MinUnitDriverStubCreator();
 			}
+			else if(TestFramework.Framework.mid_unit.Equals(framework))
+			{
+				driverStubCreator = new MidUnitDriverStubCreator();
+			}
 			return driverStubCreator;
 		}
 	}

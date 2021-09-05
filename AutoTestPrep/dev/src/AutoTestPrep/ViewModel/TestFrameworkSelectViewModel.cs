@@ -34,7 +34,7 @@ namespace AutoTestPrep.ViewModel
 		{
 			this._frameworkList = new ObservableCollection<string>
 			{
-				"google test", "min_unit"
+				"google test", "min_unit", "mid_unit"
 			}; ;
 			this.SelectedItemIndex = 0;
 		}
