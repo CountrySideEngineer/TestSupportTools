@@ -272,35 +272,35 @@ namespace AutoTestPrep.Model.InputInfos
 				{
 					return false;
 				}
-				if (!(this.DriverIncludeStandardHeaderFiles.Equals(target.DriverIncludeStandardHeaderFiles)))
+				if (!(this.DriverIncludeStandardHeaderFiles.SequenceEqual(target.DriverIncludeStandardHeaderFiles)))
 				{
 					return false;
 				}
-				if (!(this.DriverIncludeUserHeaderFiles.Equals(target.DriverIncludeUserHeaderFiles)))
+				if (!(this.DriverIncludeUserHeaderFiles.SequenceEqual(target.DriverIncludeUserHeaderFiles)))
 				{
 					return false;
 				}
-				if (!(this.StubIncludeStandardHeaderFiles.Equals(target.StubIncludeStandardHeaderFiles)))
+				if (!(this.StubIncludeStandardHeaderFiles.SequenceEqual(target.StubIncludeStandardHeaderFiles)))
 				{
 					return false;
 				}
-				if (!(this.StubIncludeUserHeaderFiles.Equals(target.StubIncludeUserHeaderFiles)))
+				if (!(this.StubIncludeUserHeaderFiles.SequenceEqual(target.StubIncludeUserHeaderFiles)))
 				{
 					return false;
 				}
-				if (!(this.IncludeDirectoryPath.Equals(target.IncludeDirectoryPath)))
+				if (!(this.IncludeDirectoryPath.SequenceEqual(target.IncludeDirectoryPath)))
 				{
 					return false;
 				}
-				if (!(this.LibraryNames.Equals(target.LibraryNames)))
+				if (!(this.LibraryNames.SequenceEqual(target.LibraryNames)))
 				{
 					return false;
 				}
-				if (!(this.LibraryDirectoryPath.Equals(target.LibraryDirectoryPath)))
+				if (!(this.LibraryDirectoryPath.SequenceEqual(target.LibraryDirectoryPath)))
 				{
 					return false;
 				}
-				if (!(this.DefineMacros.Equals(target.DefineMacros)))
+				if (!(this.DefineMacros.SequenceEqual(target.DefineMacros)))
 				{
 					return false;
 				}
