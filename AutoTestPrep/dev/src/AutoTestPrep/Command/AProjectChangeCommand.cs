@@ -20,7 +20,7 @@ namespace AutoTestPrep.Command
 		/// <param name="argument">Data to compare, base and latest.</param>
 		protected virtual void SaveBaseDataIfChanged(ProjectCommandArgument argument)
 		{
-			if (!(argument.BaseData.Equals(argument.BaseData)))
+			if (!(argument.BaseData.Equals(argument.LatestData)))
 			{
 				MessageBoxResult result = MessageBox.Show("データが変更されています。\n" +
 					"保存しますか？",
@@ -29,7 +29,6 @@ namespace AutoTestPrep.Command
 					MessageBoxImage.None);
 				if (MessageBoxResult.Yes == result)
 				{
-
 					var command = new OverWriteProjectCommand();
 					command.Execute(argument);
 				}
