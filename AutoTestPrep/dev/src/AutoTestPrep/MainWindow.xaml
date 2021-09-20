@@ -6,11 +6,14 @@
         xmlns:local="clr-namespace:AutoTestPrep"
         xmlns:vm="clr-namespace:AutoTestPrep.ViewModel"
         xmlns:uc="clr-namespace:AutoTestPrep.View"
+        xmlns:conv="clr-namespace:AutoTestPrep.Command.Converter"
         mc:Ignorable="d"
-        Title="{Binding Path=CurrentTitle}" Height="450" Width="800">
+        Title="{Binding Path=CurrentTitle}" Height="450" Width="800"
+        DataContextChanged="MainWindow_DataContextChanged">
     <Window.Resources>
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BoolVisibilityConverter"/>
+            <conv:TestFrameworkConverter x:Key="TestFrameworkConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="./Resource/Style.xaml"/>
             </ResourceDictionary.MergedDictionaries>
@@ -56,8 +59,16 @@
                 </MenuItem>
                 <MenuItem Header="実行"
                           Style="{StaticResource MenuItem_MenuBar}"
+                          Command="{Binding Path=RunCommand}"/>
+                <MenuItem Header="ヘルプ"
+                          Style="{StaticResource MenuItem_MenuBar}"
                           Command="{Binding Path=RunCommand}"
-                      />
+                      >
+                    <MenuItem Header="AutoTestPrepのバージョン情報"
+                              Style="{StaticResource MenuItem_MenuItem}"
+                              Command="{Binding Path=AboutCommand}"
+                              />
+                </MenuItem>
             </Menu>
         </Grid>
         <Grid Grid.Row="1"
@@ -108,6 +119,11 @@
             <uc:DefineMacroInputView Grid.Column="1"
                                      HorizontalAlignment="Stretch"
                                      DataContext="{Binding Path=DefineMacroVM}"
+                                     Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolVisibilityConverter}}"
+                                     />
+            <uc:TestFrameworkSelectView Grid.Column="1"
+                                     HorizontalAlignment="Stretch"
+                                     DataContext="{Binding Path=FrameworkSelectVM}"
                                      Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolVisibilityConverter}}"
                                      />
         </Grid>

@@ -32,6 +32,8 @@ namespace AutoTestPrep.Model.InputInfos
 			this.LibraryNames = new List<string>(0);
 			this.LibraryDirectoryPath = new List<string>(0);
 			this.DefineMacros = new List<string>(0);
+			this.FrameworkTye = TestFramework.Framework.Invalid;
+
 		}
 
 		/// <summary>
@@ -53,6 +55,7 @@ namespace AutoTestPrep.Model.InputInfos
 			this.LibraryNames = new List<string>(src.LibraryNames);
 			this.LibraryDirectoryPath = new List<string>(src.LibraryNames);
 			this.DefineMacros = new List<string>(src.DefineMacros);
+			this.FrameworkTye = src.FrameworkTye;
 		}
 
 		/// <summary>
@@ -86,7 +89,7 @@ namespace AutoTestPrep.Model.InputInfos
 		public IEnumerable<string> DriverIncludeStandardHeaderFiles;
 
 		[XmlArray(nameof(DriverIncludeStandardHeaderFiles))]
-		[XmlArrayItem(nameof(DriverIncludeStandardHeaderFiles) +"Item", typeof(string))]
+		[XmlArrayItem(nameof(DriverIncludeStandardHeaderFiles) + "Item", typeof(string))]
 		public string[] DriverIncludeStandardHeaderFilesSurrogate
 		{
 			get
@@ -126,7 +129,7 @@ namespace AutoTestPrep.Model.InputInfos
 		public IEnumerable<string> StubIncludeStandardHeaderFiles;
 
 		[XmlArray(nameof(StubIncludeStandardHeaderFiles))]
-		[XmlArrayItem(nameof(StubIncludeStandardHeaderFiles) +"Item", typeof(string))]
+		[XmlArrayItem(nameof(StubIncludeStandardHeaderFiles) + "Item", typeof(string))]
 		public string[] StubIncludeStandardHeaderFilesSurrogate
 		{
 			get
@@ -238,6 +241,25 @@ namespace AutoTestPrep.Model.InputInfos
 			}
 		}
 
+		/// <summary>
+		/// Framwork of test user selected.
+		/// </summary>
+		[XmlIgnore]
+		public TestFramework.Framework FrameworkTye;
+
+		[XmlElement(nameof(FrameworkTye))]
+		public int FrameworkTypeSurrogate
+		{
+			get
+			{
+				return (int)this.FrameworkTye;
+			}
+			set
+			{
+				this.FrameworkTye = TestFramework.ToFramework(value);
+			}
+		}
+
 		public override bool Equals(object obj)
 		{
 			try
@@ -250,35 +272,35 @@ namespace AutoTestPrep.Model.InputInfos
 				{
 					return false;
 				}
-				if (!(this.DriverIncludeStandardHeaderFiles.Equals(target.DriverIncludeStandardHeaderFiles)))
+				if (!(this.DriverIncludeStandardHeaderFiles.SequenceEqual(target.DriverIncludeStandardHeaderFiles)))
 				{
 					return false;
 				}
-				if (!(this.DriverIncludeUserHeaderFiles.Equals(target.DriverIncludeUserHeaderFiles)))
+				if (!(this.DriverIncludeUserHeaderFiles.SequenceEqual(target.DriverIncludeUserHeaderFiles)))
 				{
 					return false;
 				}
-				if (!(this.StubIncludeStandardHeaderFiles.Equals(target.StubIncludeStandardHeaderFiles)))
+				if (!(this.StubIncludeStandardHeaderFiles.SequenceEqual(target.StubIncludeStandardHeaderFiles)))
 				{
 					return false;
 				}
-				if (!(this.StubIncludeUserHeaderFiles.Equals(target.StubIncludeUserHeaderFiles)))
+				if (!(this.StubIncludeUserHeaderFiles.SequenceEqual(target.StubIncludeUserHeaderFiles)))
 				{
 					return false;
 				}
-				if (!(this.IncludeDirectoryPath.Equals(target.IncludeDirectoryPath)))
+				if (!(this.IncludeDirectoryPath.SequenceEqual(target.IncludeDirectoryPath)))
 				{
 					return false;
 				}
-				if (!(this.LibraryNames.Equals(target.LibraryNames)))
+				if (!(this.LibraryNames.SequenceEqual(target.LibraryNames)))
 				{
 					return false;
 				}
-				if (!(this.LibraryDirectoryPath.Equals(target.LibraryDirectoryPath)))
+				if (!(this.LibraryDirectoryPath.SequenceEqual(target.LibraryDirectoryPath)))
 				{
 					return false;
 				}
-				if (!(this.DefineMacros.Equals(target.DefineMacros)))
+				if (!(this.DefineMacros.SequenceEqual(target.DefineMacros)))
 				{
 					return false;
 				}

@@ -15,7 +15,9 @@ using System.Threading.Tasks;
 
 namespace AutoTestPrep.ViewModel
 {
-	public class MainWindowsViewModel : ViewModelBase
+	using AutoTestPrep.Model;
+
+	public class MainWindowsViewModel : NotificationViewModelBase
 	{
 		protected string _CurrentFilePath;
 
@@ -49,6 +51,8 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		protected LibraryInformationInputViewModel _LibraryInformationVM;
 
+		protected TestFrameworkSelectViewModel _FrameworkSelectVM;
+
 		/// <summary>
 		/// View model field of input define macro information.
 		/// </summary>
@@ -66,6 +70,8 @@ namespace AutoTestPrep.ViewModel
 
 		protected DelegateCommand _ShutdownCommand;
 
+		protected DelegateCommand _AboutCommand;
+
 		protected TestDataInfo BaseTestDataInfo;
 
 		/// <summary>
@@ -82,6 +88,9 @@ namespace AutoTestPrep.ViewModel
 		public delegate void RestoreTestInformationRequest(TestDataInfo testDataInfo);
 		public event RestoreTestInformationRequest RestoreInformationReq;
 
+		public delegate void RequestAboutDialogShowRequestEventHandler(object sender, EventArgs e);
+		public event RequestAboutDialogShowRequestEventHandler ShowAboutReq;
+
 		/// <summary>
 		/// Default consttuctor
 		/// </summary>
@@ -94,17 +103,29 @@ namespace AutoTestPrep.ViewModel
 				"ヘッダ情報(ドライバ)",
 				"ヘッダ情報(スタブ)",
 				"ライブラリ情報",
-				"マクロ情報"
+				"マクロ情報",
+				"フレーワーク設定",
 			};
 			this.CurrentFilePath = string.Empty;
 			this.CurrentTitle = "AutoTestPrep";
 
 			this.TestInformationInputVM = new TestInformationInputViewModel(0);
 			this.BufferSizeVM = new BufferSizeViewModel(1);
-			this.DriverHeaderInformationVM = new DriverHeaderInformationInputViewModel(2);
-			this.StubHeaderInformationVM = new StubHeaderInformationInputViewModel(3);
+			this.DriverHeaderInformationVM = new DriverHeaderInformationInputViewModel(2)
+			{
+				IsStandartHeaderVisible = true,
+				IsUserHeaderVivible = true,
+				IsIncludeDirectoryVisible = true
+			};
+			this.StubHeaderInformationVM = new StubHeaderInformationInputViewModel(3)
+			{
+				IsStandartHeaderVisible = true,
+				IsUserHeaderVivible = true,
+				IsIncludeDirectoryVisible = false
+			};
 			this.LibraryInforamtionVM = new LibraryInformationInputViewModel(4);
 			this.DefineMacroVM = new DefineMacroInputViewModel(5);
+			this.FrameworkSelectVM = new TestFrameworkSelectViewModel(6);
 
 			this.SelectedChanged += TestInformationInputVM.SelectedStateChangedEventHandler;
 			this.SelectedChanged += BufferSizeVM.SelectedStateChangedEventHandler;
@@ -112,6 +133,7 @@ namespace AutoTestPrep.ViewModel
 			this.SelectedChanged += StubHeaderInformationVM.SelectedStateChangedEventHandler;
 			this.SelectedChanged += LibraryInforamtionVM.SelectedStateChangedEventHandler;
 			this.SelectedChanged += DefineMacroVM.SelectedStateChangedEventHandler;
+			this.SelectedChanged += FrameworkSelectVM.SelectedStateChangedEventHandler;
 
 			this.SetupTestInformationReq += this.TestInformationInputVM.SetupTestInfomation;
 			this.SetupTestInformationReq += this.BufferSizeVM.SetupTestInfomation;
@@ -119,6 +141,7 @@ namespace AutoTestPrep.ViewModel
 			this.SetupTestInformationReq += this.StubHeaderInformationVM.SetupTestInfomation;
 			this.SetupTestInformationReq += this.LibraryInforamtionVM.SetupTestInfomation;
 			this.SetupTestInformationReq += this.DefineMacroVM.SetupTestInfomation;
+			this.SetupTestInformationReq += this.FrameworkSelectVM.SetupTestInfomation;
 
 			this.RestoreInformationReq += this.TestInformationInputVM.RestoreTestInforamtion;
 			this.RestoreInformationReq += this.BufferSizeVM.RestoreTestInforamtion;
@@ -126,19 +149,21 @@ namespace AutoTestPrep.ViewModel
 			this.RestoreInformationReq += this.StubHeaderInformationVM.RestoreTestInforamtion;
 			this.RestoreInformationReq += this.LibraryInforamtionVM.RestoreTestInforamtion;
 			this.RestoreInformationReq += this.DefineMacroVM.RestoreTestInforamtion;
+			this.RestoreInformationReq += this.FrameworkSelectVM.RestoreTestInforamtion;
 
 			this.SelectedConfigurationItemIndex = 0;
 
 			this.BaseTestDataInfo = new TestDataInfo();
 			this.SetupTestInformationReq(ref this.BaseTestDataInfo);
+
+			var framework = TestFramework.Framework.google_test;
+			string frameworkName = framework.ToString();
+			int frameworkValue = ((int)framework);
 		}
 
 		public string CurrentTitle
 		{
-			get
-			{
-				return this._CurrentTitle;
-			}
+			get => this._CurrentTitle;
 			set
 			{
 				this._CurrentTitle = value;
@@ -148,10 +173,7 @@ namespace AutoTestPrep.ViewModel
 
 		public string CurrentFilePath
 		{
-			get
-			{
-				return this._CurrentFilePath;
-			}
+			get => this._CurrentFilePath;
 			set
 			{
 				this._CurrentFilePath = value;
@@ -169,10 +191,7 @@ namespace AutoTestPrep.ViewModel
 
 		public ObservableCollection<string> TestConfigurationItems
 		{
-			get
-			{
-				return this._testConfigurationItems;
-			}
+			get => this._testConfigurationItems;
 			protected set
 			{
 				this._testConfigurationItems = value;
@@ -182,10 +201,7 @@ namespace AutoTestPrep.ViewModel
 
 		public int SelectedConfigurationItemIndex
 		{
-			get
-			{
-				return this._selectedConfigurationItemIndex;
-			}
+			get => this._selectedConfigurationItemIndex;
 			set
 			{
 				this._selectedConfigurationItemIndex = value;
@@ -201,10 +217,7 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		public TestInformationInputViewModel TestInformationInputVM
 		{
-			get
-			{
-				return this._TestInformationInputVM;
-			}
+			get => this._TestInformationInputVM;
 			set
 			{
 				this._TestInformationInputVM = value;
@@ -217,10 +230,7 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		public BufferSizeViewModel BufferSizeVM
 		{
-			get
-			{
-				return this._BufferSizeVM;
-			}
+			get => this._BufferSizeVM;
 			set
 			{
 				this._BufferSizeVM = value;
@@ -233,10 +243,7 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		public HeaderInformationInputViewModel DriverHeaderInformationVM
 		{
-			get
-			{
-				return this._DriverHeaderInformationVM;
-			}
+			get => this._DriverHeaderInformationVM;
 			set
 			{
 				this._DriverHeaderInformationVM = value;
@@ -250,9 +257,7 @@ namespace AutoTestPrep.ViewModel
 		public HeaderInformationInputViewModel  StubHeaderInformationVM
 		{
 			get
-			{
-				return this._StubHeaderInformationVM;
-			}
+			=> this._StubHeaderInformationVM;
 			set
 			{
 				this._StubHeaderInformationVM = value;
@@ -265,10 +270,7 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		public LibraryInformationInputViewModel LibraryInforamtionVM
 		{
-			get
-			{
-				return this._LibraryInformationVM;
-			}
+			get => this._LibraryInformationVM;
 			set
 			{
 				this._LibraryInformationVM = value;
@@ -281,14 +283,24 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		public DefineMacroInputViewModel DefineMacroVM
 		{
-			get
-			{
-				return this._DefineMacroVM;
-			}
+			get => this._DefineMacroVM;
 			set
 			{
 				this._DefineMacroVM = value;
 				this.RaisePropertyChanged(nameof(DefineMacroVM));
+			}
+		}
+
+		/// <summary>
+		/// Test framework select view model.
+		/// </summary>
+		public TestFrameworkSelectViewModel FrameworkSelectVM
+		{
+			get => this._FrameworkSelectVM;
+			set
+			{
+				this._FrameworkSelectVM = value;
+				this.RaisePropertyChanged(nameof(this.FrameworkSelectVM));
 			}
 		}
 
@@ -306,12 +318,31 @@ namespace AutoTestPrep.ViewModel
 
 		public void RunCommandExecute()
 		{
-			var testDataInfo = new TestDataInfo();
-			this.SetupTestInformationReq?.Invoke(ref testDataInfo);
+			try
+			{
+				var testDataInfo = new TestDataInfo();
+				this.SetupTestInformationReq?.Invoke(ref testDataInfo);
+				Debug.WriteLine("RunCommandExecute()");
+				var command = new RunToolCommand();
+				command.Execute(testDataInfo);
 
-			Debug.WriteLine("RunCommandExecute()");
-			var command = new RunToolCommand();
-			command.Execute(testDataInfo);
+				var eventArg = new NotificationEventArgs()
+				{
+					Tilte = "完了",
+					Message = "テストデータの解析とコード生成が完了しました。"
+				};
+				this.NotifyOkInformation?.Invoke(this, eventArg);
+			}
+			catch (Exception)
+			{
+				var errArg = new NotificationEventArgs()
+				{
+					Tilte = "完了(エラーあり)",
+					Message = "エラー発生\n" +
+						"詳細はログを確認してください。"
+				};
+				this.NotifyErrorInformation?.Invoke(this, errArg);
+			}
 		}
 
 		public bool CanRunCommandExecute()
@@ -378,7 +409,6 @@ namespace AutoTestPrep.ViewModel
 			var testDataInfo = new TestDataInfo();
 			this.SetupTestInformationReq?.Invoke(ref testDataInfo);
 
-			Debug.WriteLine("RunSaveProjectCommandExecute()");
 			var commandArg = new ProjectCommandArgument()
 			{
 				FilePath = this.CurrentFilePath,
@@ -410,8 +440,6 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		public void LoadProjectCommandExecute()
 		{
-			Debug.WriteLine("LoadProjectCommandExecute()");
-
 			var latestTestDataInfo = new TestDataInfo();
 			this.SetupTestInformationReq?.Invoke(ref latestTestDataInfo);
 			var commandArg = new ProjectCommandArgument()
@@ -450,7 +478,6 @@ namespace AutoTestPrep.ViewModel
 			var testDataInfo = new TestDataInfo();
 			this.SetupTestInformationReq?.Invoke(ref testDataInfo);
 
-			Debug.WriteLine("OverWriteProjectCommandExecute()");
 			var commandArg = new ProjectCommandArgument()
 			{
 				FilePath = this.CurrentFilePath,
@@ -497,5 +524,33 @@ namespace AutoTestPrep.ViewModel
 		}
 
 		public bool CanShutdownCommandExecute() { return true; }
+
+		public DelegateCommand AboutCommand
+		{
+			get
+			{
+				if (null == this._AboutCommand)
+				{
+					this._AboutCommand = new DelegateCommand(
+						this.AboutCommandExecute, this.CanAboutCommandExecute);
+				}
+				return this._AboutCommand;
+			}
+		}
+
+		public void AboutCommandExecute()
+		{
+			this.ShowAboutReq?.Invoke(this, new EventArgs());
+		}
+
+		public bool CanAboutCommandExecute()
+		{
+			return true;
+		}
+
+		protected void RunCommandWithFramework()
+		{
+
+		}
 	}
 }

@@ -1,15 +1,5 @@
-﻿using AutoTestPrep.Model.InputInfos;
-using AutoTestPrep.Model.Option;
-using AutoTestPrep.Model.Tempaltes;
-using AutoTestPrep.Model.Tempaltes.Driver.gtest;
-using CSEngineer;
+﻿using CSEngineer;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutoTestPrep.Model.Writer
 {

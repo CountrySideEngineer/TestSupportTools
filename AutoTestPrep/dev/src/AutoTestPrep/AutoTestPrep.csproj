@@ -13,7 +13,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
+    <Deterministic>false</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -35,7 +35,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -44,27 +44,27 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>
-    </StartupObject>
+    <StartupObject>AutoTestPrep.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ClosedXML, Version=0.95.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ClosedXML.0.95.4\lib\net46\ClosedXML.dll</HintPath>
     </Reference>
-    <Reference Include="CSEngineer.TestSupport.Utility">
-      <HintPath>..\..\..\..\..\VisualStudioSample\CsMySamples\TestSupport.Utility\TestSupport.Utility\bin\Release\CSEngineer.TestSupport.Utility.dll</HintPath>
+    <Reference Include="CSEngineer.TestSupport.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\CSEngineer.TestSupport.Utility\CSEngineer.TestSupport.Utility.dll</HintPath>
     </Reference>
-    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
-      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.13.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.13.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
-    <Reference Include="ExcelNumberFormat, Version=1.0.10.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
-      <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
+    <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
     <Reference Include="Logger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -72,11 +72,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.0.1\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="System.IO.Packaging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.Packaging.4.0.0\lib\net46\System.IO.Packaging.dll</HintPath>
+    <Reference Include="System.IO.Packaging, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.6.0.0-preview.6.21352.12\lib\net461\System.IO.Packaging.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -99,6 +99,7 @@
     </ApplicationDefinition>
     <Compile Include="Command\AProjectChangeCommand.cs" />
     <Compile Include="Command\Argument\ProjectCommandArgument.cs" />
+    <Compile Include="Command\Converter\TestFrameworkConverter.cs" />
     <Compile Include="Command\DelegateCommand.cs" />
     <Compile Include="Command\Exception\CommandCancelException.cs" />
     <Compile Include="Command\IProjectCommand.cs" />
@@ -108,12 +109,48 @@
     <Compile Include="Command\RunToolCommand.cs" />
     <Compile Include="Command\SaveProjectCommand.cs" />
     <Compile Include="Command\ShutdownCommand.cs" />
+    <Compile Include="Model\DirectoryCreator.cs" />
+    <Compile Include="Model\DriverStubCreator\GTestDriverStubCreator.cs" />
+    <Compile Include="Model\DriverStubCreator\IDriverStubCreator.cs" />
+    <Compile Include="Model\DriverStubCreator\MidUnitDriverStubCreator.cs" />
+    <Compile Include="Model\DriverStubCreator\MinUnitDriverStubCreator.cs" />
+    <Compile Include="Model\EventArgs\NotificationEventArgs.cs" />
     <Compile Include="Model\EventArgs\SelectedStateChangedEventArgs.cs" />
     <Compile Include="Model\InputInfos\TestDataInfo.cs" />
     <Compile Include="Model\ParameterInfo.cs" />
     <Compile Include="Model\Parser\Exception\ParseDataNotFoundException.cs" />
     <Compile Include="Model\Parser\FunctionListParser.cs" />
     <Compile Include="Model\Parser\Exception\ParseException.cs" />
+    <Compile Include="Model\Tempaltes\Driver\common\code\TestDriverTemplateCommonBase_code.cs" />
+    <Compile Include="Model\Tempaltes\Driver\common\TestDriverTemplateCommonBase.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriverTemplateCommonBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\Driver\mid_unit\code\TestDriverTemplate_mid_unit_Base_code.cs" />
+    <Compile Include="Model\Tempaltes\Driver\mid_unit\code\TestDriverTemplate_mid_unit_main_Source.cs" />
+    <Compile Include="Model\Tempaltes\Driver\mid_unit\code\TestDriverTemplate_mid_unit_Source.cs" />
+    <Compile Include="Model\Tempaltes\Driver\mid_unit\TestDriverTemplate_mid_unit_Base.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriverTemplate_mid_unit_Base.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\Driver\mid_unit\TestDriverTemplate_mid_unit_main_Source.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriverTemplate_mid_unit_main_Source.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\Driver\mid_unit\TestDriverTemplate_mid_unit_Source.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriverTemplate_mid_unit_Source.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\Driver\min_unit\code\TestDriverTemplate_min_unit_main_Source_code.cs" />
+    <Compile Include="Model\Tempaltes\Driver\min_unit\TestDriverTemplate_min_unit_main_Source.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriverTemplate_min_unit_main_Source.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Tempaltes\Driver\gtest\code\TestDriverTemplate_gtest_Base_code.cs" />
     <Compile Include="Model\Tempaltes\Driver\gtest\code\TestDriverTemplate_gtest_Header_code.cs" />
     <Compile Include="Model\Tempaltes\Driver\gtest\code\TestDriverTemplate_gtest_Source_code.cs" />
@@ -131,6 +168,18 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TestDriverTemplate_gtest_Source.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\Driver\min_unit\code\TestDriverTemplate_min_unit_Base_code.cs" />
+    <Compile Include="Model\Tempaltes\Driver\min_unit\code\TestDriverTemplate_min_unit_Source_code.cs" />
+    <Compile Include="Model\Tempaltes\Driver\min_unit\TestDriverTemplate_min_unit_Base.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriverTemplate_min_unit_Base.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tempaltes\Driver\min_unit\TestDriverTemplate_min_unit_Source.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDriverTemplate_min_unit_Source.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Tempaltes\Stub\Code\TestStubTemplate_Source_code.cs" />
     <Compile Include="Model\Tempaltes\Stub\TestStubTemplate_Base.cs">
@@ -150,24 +199,39 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TestStubTemplate_Source.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\TestFramework.cs" />
+    <Compile Include="Model\Writer\IWriterHelper.cs" />
+    <Compile Include="Model\Writer\MidUnitTestDriverMainSourceWriter.cs" />
+    <Compile Include="Model\Writer\MidUnitTestDriverSourceWriter.cs" />
+    <Compile Include="Model\Writer\MidUnitWriterHelper.cs" />
+    <Compile Include="Model\Writer\MinUnitTestDriverMainSourceWriter.cs" />
+    <Compile Include="Model\Writer\MinUnitTestDriverSourceWriter.cs" />
+    <Compile Include="Model\Writer\MinUnitWriterHelper.cs" />
     <Compile Include="Model\Writer\StubHeaderWriter.cs" />
     <Compile Include="Model\Writer\StubSourceWriter.cs" />
     <Compile Include="Model\Writer\TestDriverHeaderWriter.cs" />
     <Compile Include="Model\Writer\TestDriverSourceWriter.cs" />
     <Compile Include="Model\Writer\WriterHelper.cs" />
+    <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="ViewModel\AutoTestPrepViewModelBase.cs" />
     <Compile Include="ViewModel\BufferSizeViewModel.cs" />
     <Compile Include="ViewModel\DefineMacroInputViewModel.cs" />
     <Compile Include="ViewModel\DriverHeaderInformationInputViewModel.cs" />
     <Compile Include="ViewModel\HeaderInformationInputViewModel.cs" />
+    <Compile Include="ViewModel\HelpViewModel.cs" />
     <Compile Include="ViewModel\InformationInputViewModel.cs" />
     <Compile Include="ViewModel\LibraryInformationInputViewModel.cs" />
     <Compile Include="ViewModel\MainWindowsViewModel.cs" />
     <Compile Include="ViewModel\MultiLineInputViewModel.cs" />
+    <Compile Include="ViewModel\NotificationViewModelBase.cs" />
     <Compile Include="ViewModel\SizeInputViewModel.cs" />
     <Compile Include="ViewModel\StubHeaderInformationInputViewModel.cs" />
+    <Compile Include="ViewModel\TestFrameworkSelectViewModel.cs" />
     <Compile Include="ViewModel\TestInformationInputViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="View\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\BufferSizeView.xaml.cs">
       <DependentUpon>BufferSizeView.xaml</DependentUpon>
     </Compile>
@@ -176,6 +240,9 @@
     </Compile>
     <Compile Include="View\HeaderInformationInputView.xaml.cs">
       <DependentUpon>HeaderInformationInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\HelpWindow.xaml.cs">
+      <DependentUpon>HelpWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\InformationInputView.xaml.cs">
       <DependentUpon>InformationInputView.xaml</DependentUpon>
@@ -188,6 +255,9 @@
     </Compile>
     <Compile Include="View\SizeInputView.xaml.cs">
       <DependentUpon>SizeInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TestFrameworkSelectView.xaml.cs">
+      <DependentUpon>TestFrameworkSelectView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TestInformationInputView.xaml.cs">
       <DependentUpon>TestInformationInputView.xaml</DependentUpon>
@@ -208,6 +278,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\BufferSizeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -217,6 +291,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\HeaderInformationInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\HelpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -233,6 +311,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SizeInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TestFrameworkSelectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -274,6 +356,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -296,6 +381,26 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Model\Tempaltes\Driver\common\TestDriverTemplateCommonBase.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestDriverTemplateCommonBase.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\Driver\mid_unit\TestDriverTemplate_mid_unit_Base.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestDriverTemplate_mid_unit_Base.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\Driver\mid_unit\TestDriverTemplate_mid_unit_main_Source.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestDriverTemplate_mid_unit_main_Source.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\Driver\mid_unit\TestDriverTemplate_mid_unit_Source.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestDriverTemplate_mid_unit_Source.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\Driver\min_unit\TestDriverTemplate_min_unit_main_Source.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestDriverTemplate_min_unit_main_Source.cs</LastGenOutput>
+    </Content>
     <Content Include="Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Base.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>TestDriverTemplate_gtest_Base.cs</LastGenOutput>
@@ -307,6 +412,14 @@
     <Content Include="Model\Tempaltes\Driver\gtest\TestDriverTemplate_gtest_Source.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>TestDriverTemplate_gtest_Source.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\Driver\min_unit\TestDriverTemplate_min_unit_Base.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestDriverTemplate_min_unit_Base.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Tempaltes\Driver\min_unit\TestDriverTemplate_min_unit_Source.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestDriverTemplate_min_unit_Source.cs</LastGenOutput>
     </Content>
     <Content Include="Model\Tempaltes\Stub\TestStubTemplate_Base.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

@@ -34,7 +34,7 @@ namespace AutoTestPrep.ViewModel
 		public LibraryInformationInputViewModel(int index) : base(index)
 		{
 			this.LibraryInputVM = new MultiLineInputViewModel("ライブラリ：", string.Empty);
-			this.LibraryDirectoryVM = new MultiLineInputViewModel("ライブラリディレクトリ", string.Empty);
+			this.LibraryDirectoryVM = new MultiLineInputViewModel("ライブラリディレクトリ：", string.Empty);
 		}
 
 		/// <summary>
