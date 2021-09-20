@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestParser.Test.Data
+namespace TestParser.Data
 {
 	/// <summary>
 	/// Test data model class.

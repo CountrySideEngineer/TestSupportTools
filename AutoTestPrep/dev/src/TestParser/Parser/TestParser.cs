@@ -1,14 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TestParser.Parser;
-using TestParser.Parameter;
-using TestParser.Test.Data;
+using TestParser.Target;
+using TestParser.Data;
 
-namespace AutoTestPrep.TestParser.Parser
+namespace TestParser.Parser
 {
 	public class TestParser : ATestParser
 	{

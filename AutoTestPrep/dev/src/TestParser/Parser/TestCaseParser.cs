@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using CSEngineer;
 using TestParser.Parser;
 using TestParser.Reader;
-using TestParser.Test.Data;
+using TestParser.Data;
 
-namespace AutoTestPrep.TestParser.Parser
+namespace TestParser.Parser
 {
 
 	public class TestCaseParser : AParser

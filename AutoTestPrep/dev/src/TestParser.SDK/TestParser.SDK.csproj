@@ -43,11 +43,11 @@
   <ItemGroup>
     <Compile Include="Parser\IParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test\Function.cs" />
-    <Compile Include="Test\Parameter.cs" />
-    <Compile Include="Test\Test.cs" />
-    <Compile Include="Test\TestCase.cs" />
-    <Compile Include="Test\TestData.cs" />
+    <Compile Include="Test\Data\Test.cs" />
+    <Compile Include="Test\Data\TestCase.cs" />
+    <Compile Include="Test\Data\TestData.cs" />
+    <Compile Include="Test\Target\Function.cs" />
+    <Compile Include="Test\Target\Parameter.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

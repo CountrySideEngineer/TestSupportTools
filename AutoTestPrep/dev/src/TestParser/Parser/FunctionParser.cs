@@ -5,7 +5,8 @@ using System.Linq;
 using CSEngineer;
 using CSEngineer.TestSupport.Utility;
 using TestParser.Reader;
-using TestParser.Test.Data;
+using TestParser;
+using TestParser.Target;
 
 namespace TestParser.Parser
 {
@@ -23,7 +24,7 @@ namespace TestParser.Parser
 
 		public override object Parse(Stream stream)
 		{
-			TestParser.Test.Data.Parameter parameter = this.ReadTargetFunction(stream);
+			Parameter parameter = this.ReadTargetFunction(stream);
 
 			return parameter;
 		}
@@ -37,7 +38,7 @@ namespace TestParser.Parser
 		{
 			using (var stream = new FileStream(srcPath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
 			{
-				Test.Data.Parameter parameter = this.ReadTargetFunction(stream);
+				Parameter parameter = this.ReadTargetFunction(stream);
 
 				return parameter;
 			}
@@ -48,13 +49,13 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="stream">Stream of file.</param>
 		/// <returns>Parameter of target function.</returns>
-		protected TestParser.Test.Data.Parameter ReadTargetFunction(Stream stream)
+		protected Parameter ReadTargetFunction(Stream stream)
 		{
 			var reader = new ExcelReader(stream)
 			{
 				SheetName = this.Target
 			};
-			TestParser.Test.Data.Parameter readFunction = GetFunctionInfo(reader);
+			Parameter readFunction = GetFunctionInfo(reader);
 
 			return readFunction;
 		}
@@ -155,7 +156,7 @@ namespace TestParser.Parser
 			}
 
 			//Get arguments
-			IEnumerable<TestParser.Test.Data.Parameter> arguments = null;
+			IEnumerable<Parameter> arguments = null;
 			try
 			{
 				arguments = this.GetArguments(reader, range);
@@ -183,7 +184,7 @@ namespace TestParser.Parser
 		/// <param name="range">Range to read.</param>
 		/// <returns>A list of argument in <para>Parameter</para> object.</returns>
 		/// <exception cref="FormatException">Format of data sheet is invalid.</exception>
-		protected IEnumerable<TestParser.Test.Data.Parameter> GetArguments(ExcelReader reader, Range range)
+		protected IEnumerable<Parameter> GetArguments(ExcelReader reader, Range range)
 		{
 			try
 			{
@@ -193,7 +194,7 @@ namespace TestParser.Parser
 				argRange.StartRow++;
 				argRange.RowCount--;
 
-				var arguments = new List<TestParser.Test.Data.Parameter>();
+				var arguments = new List<Parameter>();
 				for (int index = 0; index < argRange.RowCount; index++)
 				{
 					var rowRange = new Range
@@ -216,13 +217,13 @@ namespace TestParser.Parser
 
 					var dataTypeWithoutPointer = Util.RemovePointer(argInfos[2]);
 					int poinuterNum = Util.GetPointerNum(argInfos[2]);
-					var argInfo = new TestParser.Test.Data.Parameter
+					var argInfo = new Parameter
 					{
 						Name = argInfos[1],
 						DataType = dataTypeWithoutPointer,
 						PointerNum = poinuterNum,
 						Description = argInfos[3],
-						Mode = TestParser.Test.Data.Parameter.ToMode(argInfos[4])
+						Mode = Parameter.ToMode(argInfos[4])
 					};
 					arguments.Add(argInfo);
 				}
