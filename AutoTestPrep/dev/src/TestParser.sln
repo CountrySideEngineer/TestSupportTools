@@ -5,6 +5,11 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestParser.SDK", "TestParser.SDK\TestParser.SDK.csproj", "{D5829CB0-34AB-4011-9CDA-BDA4CB993A34}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestParser", "TestParser\TestParser.csproj", "{71D812BF-5E0D-480C-93BA-B8D3E9D97380}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D5829CB0-34AB-4011-9CDA-BDA4CB993A34} = {D5829CB0-34AB-4011-9CDA-BDA4CB993A34}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +20,10 @@ Global
 		{D5829CB0-34AB-4011-9CDA-BDA4CB993A34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5829CB0-34AB-4011-9CDA-BDA4CB993A34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5829CB0-34AB-4011-9CDA-BDA4CB993A34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71D812BF-5E0D-480C-93BA-B8D3E9D97380}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71D812BF-5E0D-480C-93BA-B8D3E9D97380}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71D812BF-5E0D-480C-93BA-B8D3E9D97380}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71D812BF-5E0D-480C-93BA-B8D3E9D97380}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

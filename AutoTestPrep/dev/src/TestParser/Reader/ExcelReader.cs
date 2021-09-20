@@ -213,6 +213,11 @@ namespace TestParser.Reader
 			return items;
 		}
 
+		/// <summary>
+		/// Read column
+		/// </summary>
+		/// <param name="range">Range to read.</param>
+		/// <returns>Collection of read item.</returns>
 		public IEnumerable<string> ReadColumn(Range range)
 		{
 			var workBook = new XLWorkbook(this._excelStream);

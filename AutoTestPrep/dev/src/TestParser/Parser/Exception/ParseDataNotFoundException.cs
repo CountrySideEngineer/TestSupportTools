@@ -19,5 +19,11 @@ namespace TestParser.Parser.Exception
 		{
 			this.Range = range;
 		}
+
+		/// <summary>
+		/// Constructor with message
+		/// </summary>
+		/// <param name="message">Exception message.</param>
+		public ParseDataNotFoundException(string message) : base(message) { }
 	}
 }

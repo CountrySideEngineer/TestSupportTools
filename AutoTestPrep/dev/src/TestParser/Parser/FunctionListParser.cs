@@ -21,12 +21,20 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="srcPath">Path to input file.</param>
 		/// <returns></returns>
+		/// <exception cref="ParseDataNotFoundException"></exception>
 		public override object Parse(string srcPath)
 		{
 			using (var stream = new FileStream(srcPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
 			{
-				IEnumerable<ParameterInfo> functionInfoList = this.ReadFunctionList(stream);
-				return functionInfoList;
+				try
+				{
+					IEnumerable<ParameterInfo> functionInfoList = this.ReadFunctionList(stream);
+					return functionInfoList;
+				}
+				catch (ParseDataNotFoundException)
+				{
+					throw;
+				}
 			}
 		}
 
@@ -35,9 +43,17 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="stream">FileStream of function information.</param>
 		/// <returns>Function information list.</returns>
+		/// <exception cref="ParseDataNotFoundException"></exception>
 		public override object Parse(Stream stream)
 		{
-			return this.ReadFunctionList(stream);
+			try
+			{
+				return this.ReadFunctionList(stream);
+			}
+			catch (ParseDataNotFoundException)
+			{
+				throw;
+			}
 		}
 
 		/// <summary>
@@ -45,12 +61,14 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="stream">Stream object from file.</param>
 		/// <returns>List of ParameterInfo object.</returns>
+		/// <exception cref="ParseDataNotFoundException">The sheet to get target functions has not been set.</exception>
 		protected IEnumerable<ParameterInfo> ReadFunctionList(Stream stream)
 		{
 			string targetSheetName = string.Empty;
 			if (string.IsNullOrEmpty(this.Target) || (string.IsNullOrWhiteSpace(this.Target)))
 			{
-				this.Target = "テスト一覧";
+				Logger.ERROR($"The sheet name target functin and sheet name has not been set.");
+				throw new ParseDataNotFoundException("Target sheet has not been set.");
 			}
 			var reader = new ExcelReader(stream)
 			{
