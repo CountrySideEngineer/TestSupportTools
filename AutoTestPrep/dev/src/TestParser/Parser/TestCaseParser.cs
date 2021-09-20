@@ -1,15 +1,16 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AutoTestPrep.Test;
+using CSEngineer;
+using TestParser.Parser;
+using TestParser.Reader;
+using TestParser.Test.Data;
 
 namespace AutoTestPrep.TestParser.Parser
 {
-	using CSEngineer;
-	using Reader;
-	using System.IO;
 
 	public class TestCaseParser : AParser
 	{
@@ -73,7 +74,7 @@ namespace AutoTestPrep.TestParser.Parser
 		/// </summary>
 		/// <param name="stream">Stream to test data.</param>
 		/// <returns>Collection of test case.</returns>
-		public override object Parse(FileStream stream)
+		public override object Parse(Stream stream)
 		{
 			return this.ReadTestCase(stream);
 		}

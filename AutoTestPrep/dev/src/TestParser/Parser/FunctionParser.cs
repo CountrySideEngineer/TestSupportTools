@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CSEngineer;
 using CSEngineer.TestSupport.Utility;
+using TestParser.Reader;
+using TestParser.Test.Data;
 
-namespace AutoTestPrep.TestParser.Parser
+namespace TestParser.Parser
 {
-	using AutoTestPrep.Test;
-	using AutoTestPrep.TestParser;
-	using Reader;
-
 	public class FunctionParser : AParser
 	{
 		/// <summary>
@@ -25,9 +21,9 @@ namespace AutoTestPrep.TestParser.Parser
 			return this.Read(srcPath);
 		}
 
-		public override object Parse(FileStream stream)
+		public override object Parse(Stream stream)
 		{
-			Parameter parameter = this.ReadTargetFunction(stream);
+			TestParser.Test.Data.Parameter parameter = this.ReadTargetFunction(stream);
 
 			return parameter;
 		}
@@ -41,7 +37,7 @@ namespace AutoTestPrep.TestParser.Parser
 		{
 			using (var stream = new FileStream(srcPath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
 			{
-				Parameter parameter = this.ReadTargetFunction(stream);
+				Test.Data.Parameter parameter = this.ReadTargetFunction(stream);
 
 				return parameter;
 			}
@@ -52,13 +48,13 @@ namespace AutoTestPrep.TestParser.Parser
 		/// </summary>
 		/// <param name="stream">Stream of file.</param>
 		/// <returns>Parameter of target function.</returns>
-		protected Parameter ReadTargetFunction(Stream stream)
+		protected TestParser.Test.Data.Parameter ReadTargetFunction(Stream stream)
 		{
 			var reader = new ExcelReader(stream)
 			{
 				SheetName = this.Target
 			};
-			Parameter readFunction = GetFunctionInfo(reader);
+			TestParser.Test.Data.Parameter readFunction = GetFunctionInfo(reader);
 
 			return readFunction;
 		}
@@ -159,7 +155,7 @@ namespace AutoTestPrep.TestParser.Parser
 			}
 
 			//Get arguments
-			IEnumerable<Parameter> arguments = null;
+			IEnumerable<TestParser.Test.Data.Parameter> arguments = null;
 			try
 			{
 				arguments = this.GetArguments(reader, range);
@@ -187,7 +183,7 @@ namespace AutoTestPrep.TestParser.Parser
 		/// <param name="range">Range to read.</param>
 		/// <returns>A list of argument in <para>Parameter</para> object.</returns>
 		/// <exception cref="FormatException">Format of data sheet is invalid.</exception>
-		protected IEnumerable<Parameter> GetArguments(ExcelReader reader, Range range)
+		protected IEnumerable<TestParser.Test.Data.Parameter> GetArguments(ExcelReader reader, Range range)
 		{
 			try
 			{
@@ -197,7 +193,7 @@ namespace AutoTestPrep.TestParser.Parser
 				argRange.StartRow++;
 				argRange.RowCount--;
 
-				var arguments = new List<Parameter>();
+				var arguments = new List<TestParser.Test.Data.Parameter>();
 				for (int index = 0; index < argRange.RowCount; index++)
 				{
 					var rowRange = new Range
@@ -220,13 +216,13 @@ namespace AutoTestPrep.TestParser.Parser
 
 					var dataTypeWithoutPointer = Util.RemovePointer(argInfos[2]);
 					int poinuterNum = Util.GetPointerNum(argInfos[2]);
-					var argInfo = new Parameter
+					var argInfo = new TestParser.Test.Data.Parameter
 					{
 						Name = argInfos[1],
 						DataType = dataTypeWithoutPointer,
 						PointerNum = poinuterNum,
 						Description = argInfos[3],
-						Mode = Parameter.ToMode(argInfos[4])
+						Mode = TestParser.Test.Data.Parameter.ToMode(argInfos[4])
 					};
 					arguments.Add(argInfo);
 				}

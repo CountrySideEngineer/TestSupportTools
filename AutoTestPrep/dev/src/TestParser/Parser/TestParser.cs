@@ -4,14 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestParser.Parser;
+using TestParser.Parameter;
+using TestParser.Test.Data;
 
 namespace AutoTestPrep.TestParser.Parser
 {
-	using AutoTestPrep.Test;
-	using AutoTestPrep.TestParser.Parameter;
-	using AutoTestPrep.TestParser.Parser;
-	using Reader;
-
 	public class TestParser : ATestParser
 	{
 		/// <summary>
@@ -42,7 +40,7 @@ namespace AutoTestPrep.TestParser.Parser
 		/// <exception cref="NullReferenceException">
 		/// Object to parse function list, function, or test case has not been set.
 		/// </exception>
-		public override object Parse(FileStream stream)
+		public override object Parse(Stream stream)
 		{
 			try
 			{
@@ -85,7 +83,7 @@ namespace AutoTestPrep.TestParser.Parser
 		/// <exception cref="NullReferenceException">
 		/// Object to parse function list, function, or test case has not been set.
 		/// </exception>
-		protected object Read(FileStream stream)
+		protected object Read(Stream stream)
 		{
 			try
 			{
@@ -114,7 +112,7 @@ namespace AutoTestPrep.TestParser.Parser
 		/// <param name="paramInfo">Parameter information to read.</param>
 		/// <returns>Test data read from <para>stream</para> and <para>paramInfo</para>.</returns>
 		/// <exception cref="NullReferenceException">Object to parse function or test case has not been set.</exception>
-		protected Test Read(FileStream stream, ParameterInfo paramInfo)
+		protected Test Read(Stream stream, ParameterInfo paramInfo)
 		{
 			try
 			{

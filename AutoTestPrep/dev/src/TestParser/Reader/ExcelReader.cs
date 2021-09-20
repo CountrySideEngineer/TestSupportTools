@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using ClosedXML;
 using ClosedXML.Excel;
 
-namespace AutoTestPrep.TestParser.Reader
+namespace TestParser.Reader
 {
 	/// <summary>
 	/// Read read and get data from excel file.

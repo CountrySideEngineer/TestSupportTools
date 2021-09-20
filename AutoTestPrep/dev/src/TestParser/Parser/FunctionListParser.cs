@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CSEngineer;
-using AutoTestPrep.TestParser.Reader;
-using AutoTestPrep.TestParser.Parameter;
-using AutoTestPrep.TestParser.Parser.Exception;
+using TestParser.Reader;
+using TestParser.Parameter;
+using TestParser.Parser.Exception;
 
-namespace AutoTestPrep.TestParser.Parser
+namespace TestParser.Parser
 {
 	/// <summary>
 	/// Parse function info in a test design file.
@@ -35,7 +35,7 @@ namespace AutoTestPrep.TestParser.Parser
 		/// </summary>
 		/// <param name="stream">FileStream of function information.</param>
 		/// <returns>Function information list.</returns>
-		public override object Parse(FileStream stream)
+		public override object Parse(Stream stream)
 		{
 			return this.ReadFunctionList(stream);
 		}
@@ -45,7 +45,7 @@ namespace AutoTestPrep.TestParser.Parser
 		/// </summary>
 		/// <param name="stream">Stream object from file.</param>
 		/// <returns>List of ParameterInfo object.</returns>
-		protected IEnumerable<ParameterInfo> ReadFunctionList(FileStream stream)
+		protected IEnumerable<ParameterInfo> ReadFunctionList(Stream stream)
 		{
 			string targetSheetName = string.Empty;
 			if (string.IsNullOrEmpty(this.Target) || (string.IsNullOrWhiteSpace(this.Target)))

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AutoTestPrep.TestParser.Reader;
+using TestParser.Reader;
 
-namespace AutoTestPrep.TestParser.Parser.Exception
+namespace TestParser.Parser.Exception
 {
 	/// <summary>
 	/// Exception while parsing test information.

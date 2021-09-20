@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutoTestPrep.TestParser.Parser
+namespace TestParser.Parser
 {
 	public abstract class ATestParser : IParser
 	{
@@ -36,6 +36,6 @@ namespace AutoTestPrep.TestParser.Parser
 		/// </summary>
 		/// <param name="path">Stream to read from data to parse.</param>
 		/// <returns>Object about test.</returns>
-		public abstract object Parse(FileStream stream);
+		public abstract object Parse(Stream stream);
 	}
 }

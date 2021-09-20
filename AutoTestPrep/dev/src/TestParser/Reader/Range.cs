@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutoTestPrep.TestParser.Reader
+namespace TestParser.Reader
 {
 	public class Range
 	{
