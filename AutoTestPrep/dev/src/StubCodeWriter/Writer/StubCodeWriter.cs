@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeWriter.Writer
+namespace CodeWriter.Stub
 {
 	public class StubCodeWriter : ICodeWriter
 	{

@@ -7,7 +7,7 @@
     <ProjectGuid>{A9313C3B-7BFB-4F4B-8D0E-9B133952144B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StubCodeWriter</RootNamespace>
+    <RootNamespace>CodeWriter</RootNamespace>
     <AssemblyName>StubCodeWriter</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -47,13 +47,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Template\Stub\StubTemplate.cs" />
+    <Compile Include="Template\Stub\Code\StubTemplate_code.cs" />
+    <Compile Include="Template\Stub\StubTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StubTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Include="Writer\StubCodeWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Template\Stub\StubTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>StubTemplate.cs</LastGenOutput>
+      <CustomToolNamespace>CodeWriter.Template.Stub</CustomToolNamespace>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
