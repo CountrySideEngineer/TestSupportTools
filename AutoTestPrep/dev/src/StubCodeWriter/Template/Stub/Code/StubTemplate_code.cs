@@ -80,8 +80,7 @@ namespace CodeWriter.Template.Stub
 		/// <returns>Code declare buffer to store argument value.</returns>
 		protected virtual string CreateArgumentBufferDeclare(Function function, Parameter argument)
 		{
-			string bufferDeclare = string.Empty;
-			bufferDeclare = $"{argument.ActualDataType()} {CreateArgumentBufferName(function, argument)}";
+			string bufferDeclare = $"{argument.ActualDataType()} {CreateArgumentBufferName(function, argument)}";
 			return bufferDeclare;
 		}
 
@@ -122,6 +121,11 @@ namespace CodeWriter.Template.Stub
 			return bufferDeclare;
 		}
 
+		/// <summary>
+		/// Create function name to initialize variable.
+		/// </summary>
+		/// <param name="function">Function to initialize</param>
+		/// <returns>Initialize function name.</returns>
 		protected virtual string CreateInitializeFunctionName(Function function)
 		{
 			string functionName = string.Empty;
@@ -129,6 +133,11 @@ namespace CodeWriter.Template.Stub
 			return functionName;
 		}
 
+		/// <summary>
+		/// Create code to declare initialize method.
+		/// </summary>
+		/// <param name="function">Function to initialize</param>
+		/// <returns>Code to declare initialize method.</returns>
 		protected virtual string CreateInitializeFunctionDeclare(Function function)
 		{
 			string entryPoint = string.Empty;

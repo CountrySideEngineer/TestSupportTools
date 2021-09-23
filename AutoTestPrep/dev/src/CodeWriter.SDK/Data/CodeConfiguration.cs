@@ -19,12 +19,12 @@ namespace CodeWriter.Data
 		/// <summary>
 		/// Buffer size for stub.
 		/// </summary>
-		public int StubBufferSize1 { get; set; }
+		public int BufferSize1 { get; set; }
 
 		/// <summary>
 		/// Buffer size for stub.
 		/// </summary>
-		public int StubBufferSize2 { get; set; }
+		public int BufferSize2 { get; set; }
 
 		/// <summary>
 		/// Collection of standard header file to include.
@@ -42,8 +42,8 @@ namespace CodeWriter.Data
 		public CodeConfiguration()
 		{
 			OutputDirPath = @"C:\";
-			this.StubBufferSize1 = 100;
-			this.StubBufferSize2 = 100;
+			this.BufferSize1 = 100;
+			this.BufferSize2 = 100;
 
 			this.StandardHeaderFiles = new List<string>();
 			this.UserHeaderFiles = new List<string>();
@@ -59,8 +59,8 @@ namespace CodeWriter.Data
 			try
 			{
 				this.OutputDirPath = src.OutputDirPath;
-				this.StubBufferSize1 = src.StubBufferSize1;
-				this.StubBufferSize2 = src.StubBufferSize2;
+				this.BufferSize1 = src.BufferSize1;
+				this.BufferSize2 = src.BufferSize2;
 				this.StandardHeaderFiles = new List<string>(src.StandardHeaderFiles);
 				this.UserHeaderFiles = new List<string>(src.UserHeaderFiles);
 			}

@@ -47,7 +47,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Template\Stub\Code\StubHeaderTemplate_code.cs" />
     <Compile Include="Template\Stub\Code\StubTemplate_code.cs" />
+    <Compile Include="Template\Stub\StubHeaderTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StubHeaderTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Include="Template\Stub\StubTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -57,6 +63,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Template\Stub\StubHeaderTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>StubHeaderTemplate.cs</LastGenOutput>
+      <CustomToolNamespace>CodeWriter.Template.Stub</CustomToolNamespace>
+    </Content>
     <Content Include="Template\Stub\StubTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>StubTemplate.cs</LastGenOutput>

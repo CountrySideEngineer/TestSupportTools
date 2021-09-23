@@ -88,6 +88,12 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="TestParse">
+      <HintPath>..\..\bin\TestParse.dll</HintPath>
+    </Reference>
+    <Reference Include="TestParser.SDK">
+      <HintPath>..\..\bin\sdk\TestParser.SDK.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -117,10 +123,6 @@
     <Compile Include="Model\EventArgs\NotificationEventArgs.cs" />
     <Compile Include="Model\EventArgs\SelectedStateChangedEventArgs.cs" />
     <Compile Include="Model\InputInfos\TestDataInfo.cs" />
-    <Compile Include="Model\ParameterInfo.cs" />
-    <Compile Include="Model\Parser\Exception\ParseDataNotFoundException.cs" />
-    <Compile Include="Model\Parser\FunctionListParser.cs" />
-    <Compile Include="Model\Parser\Exception\ParseException.cs" />
     <Compile Include="Model\Tempaltes\Driver\common\code\TestDriverTemplateCommonBase_code.cs" />
     <Compile Include="Model\Tempaltes\Driver\common\TestDriverTemplateCommonBase.cs">
       <AutoGen>True</AutoGen>
