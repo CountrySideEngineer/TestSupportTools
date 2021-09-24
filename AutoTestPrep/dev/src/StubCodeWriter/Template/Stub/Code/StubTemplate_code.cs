@@ -115,7 +115,7 @@ namespace CodeWriter.Template.Stub
 				if ((Parameter.AccessMode.Out == argument.Mode) ||
 					(Parameter.AccessMode.Both == argument.Mode))
 				{
-					bufferDeclare = $"{argument.DataType} {this.CreateOutputBufferName(function, argument)}_value";
+					bufferDeclare = $"{argument.DataType} {this.CreateOutputBufferName(function, argument)}";
 				}
 			}
 			return bufferDeclare;
