@@ -9,7 +9,7 @@ namespace StubTemplate_Test
 	public class StubTemplate_Tests
 	{
 		[TestMethod]
-		[TestCategory("UniTest")]
+		[TestCategory("UnitTest")]
 		public void CreateFunctionCalledBufferName_Test_001()
 		{
 			var function = new Function()
@@ -24,7 +24,7 @@ namespace StubTemplate_Test
 		}
 
 		[TestMethod]
-		[TestCategory("UniTest")]
+		[TestCategory("UnitTest")]
 		public void CreateArgumentBufferName_Test_001()
 		{
 			var function = new Function()
@@ -43,7 +43,7 @@ namespace StubTemplate_Test
 		}
 
 		[TestMethod]
-		[TestCategory("UniTest")]
+		[TestCategory("UnitTest")]
 		public void CreateFunctionReturnBufferName_Test_001()
 		{
 			var function = new Function()
@@ -59,7 +59,7 @@ namespace StubTemplate_Test
 		}
 
 		[TestMethod]
-		[TestCategory("UniTest")]
+		[TestCategory("UnitTest")]
 		public void CreateFunctionReturnBufferName_Test_002()
 		{
 			var function = new Function()
@@ -75,7 +75,7 @@ namespace StubTemplate_Test
 		}
 
 		[TestMethod]
-		[TestCategory("UniTest")]
+		[TestCategory("UnitTest")]
 		public void CreateFunctionReturnBufferName_Test_003()
 		{
 			var function = new Function()
@@ -91,7 +91,7 @@ namespace StubTemplate_Test
 		}
 
 		[TestMethod]
-		[TestCategory("UniTest")]
+		[TestCategory("UnitTest")]
 		public void CreateOutputBufferName_Test_001()
 		{
 			var function = new Function()
@@ -111,7 +111,7 @@ namespace StubTemplate_Test
 		}
 
 		[TestMethod]
-		[TestCategory("UniTest")]
+		[TestCategory("UnitTest")]
 		public void CreateFunctoinCalledCountBufferDeclare_Test_001()
 		{
 			var function = new Function()
@@ -127,7 +127,7 @@ namespace StubTemplate_Test
 		}
 
 		[TestMethod]
-		[TestCategory("UniTest")]
+		[TestCategory("UnitTest")]
 		public void CreateArgumentBufferDeclare_Test_001()
 		{
 			var function = new Function()
@@ -143,7 +143,7 @@ namespace StubTemplate_Test
 		}
 
 		[TestMethod]
-		[TestCategory("UniTest")]
+		[TestCategory("UnitTest")]
 		public void CreateArgumentBufferDeclare_Test_002()
 		{
 			var function = new Function()
@@ -159,7 +159,7 @@ namespace StubTemplate_Test
 		}
 
 		[TestMethod]
-		[TestCategory("UniTest")]
+		[TestCategory("UnitTest")]
 		public void CreateArgumentBufferDeclare_Test_003()
 		{
 			var function = new Function()
@@ -175,7 +175,7 @@ namespace StubTemplate_Test
 		}
 
 		[TestMethod]
-		[TestCategory("UniTest")]
+		[TestCategory("UnitTest")]
 		public void CreateOutputBufferDeclare_Test_001()
 		{
 			var function = new Function()
@@ -198,7 +198,7 @@ namespace StubTemplate_Test
 		}
 
 		[TestMethod]
-		[TestCategory("UniTest")]
+		[TestCategory("UnitTest")]
 		public void CreateOutputBufferDeclare_Test_002()
 		{
 			var function = new Function()
@@ -221,7 +221,7 @@ namespace StubTemplate_Test
 		}
 
 		[TestMethod]
-		[TestCategory("UniTest")]
+		[TestCategory("UnitTest")]
 		public void CreateOutputBufferDeclare_Test_003()
 		{
 			var function = new Function()
@@ -244,7 +244,7 @@ namespace StubTemplate_Test
 		}
 
 		[TestMethod]
-		[TestCategory("UniTest")]
+		[TestCategory("UnitTest")]
 		public void CreateOutputBufferDeclare_Test_004()
 		{
 			var function = new Function()
@@ -267,7 +267,7 @@ namespace StubTemplate_Test
 		}
 
 		[TestMethod]
-		[TestCategory("UniTest")]
+		[TestCategory("UnitTest")]
 		public void CreateOutputBufferDeclare_Test_005()
 		{
 			var function = new Function()
@@ -290,7 +290,7 @@ namespace StubTemplate_Test
 		}
 
 		[TestMethod]
-		[TestCategory("UniTest")]
+		[TestCategory("UnitTest")]
 		public void CreateInitializeFunctionName_Test_001()
 		{
 			var function = new Function()
@@ -306,7 +306,7 @@ namespace StubTemplate_Test
 		}
 
 		[TestMethod]
-		[TestCategory("UniTest")]
+		[TestCategory("UnitTest")]
 		public void CreateInitializeFunctionDeclare_Test_001()
 		{
 			var function = new Function()

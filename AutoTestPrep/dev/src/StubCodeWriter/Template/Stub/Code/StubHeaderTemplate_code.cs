@@ -59,7 +59,7 @@ namespace CodeWriter.Template.Stub
 			string bufferDecalre = string.Empty;
 			if (function.HasReturn())
 			{
-				bufferDecalre = $"extern {base.CreateFunctionReturnBufferDeclare(function)};";
+				bufferDecalre = $"extern {base.CreateFunctionReturnBufferDeclare(function)}[];";
 			}
 			return bufferDecalre;
 		}
