@@ -26,4 +26,4 @@
 <# } #>
 
 //Function to initialize buffers.
-<#= CreateInitializeFunctionDeclare(this.TargetFunction) #>();
+<#= this.CreateInitializeFunctionDeclare(this.TargetFunction) #>

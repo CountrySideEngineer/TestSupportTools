@@ -87,11 +87,11 @@ namespace CodeWriter.Template.Stub
             this.Write("\r\n//Function to initialize buffers.\r\n");
             
             #line 29 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubHeaderTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(CreateInitializeFunctionDeclare(this.TargetFunction)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateInitializeFunctionDeclare(this.TargetFunction)));
             
             #line default
             #line hidden
-            this.Write("();\r\n");
+            this.Write("\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

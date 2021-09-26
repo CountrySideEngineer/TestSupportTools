@@ -1,6 +1,64 @@
-﻿<#@ template language="C#"
+﻿<#@ template language="C#" 
 	inherits="StubTemplate" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
+/*
+ *	<#= TargetFunction.Name #> stub header file.
+ */
+<#	foreach (var headerFile in Config.StandardHeaderFiles) {	#>
+#include <<#= headerFile #>>
+<#	}	#>
+<#	foreach (var headerFile in Config.UserHeaderFiles) {	#>
+#include "<#= headerFile #>
+<#	}	#>
+
+//Declare buffers to store a value passed and pass.
+<#= CreateFunctoinCalledCountBufferDeclare(this.TargetFunction) #>;
+
+//Declare buffer to store a value the stub method should return.
+<#= CreateFunctionReturnBufferDeclare(this.TargetFunction) #>;
+
+<# foreach (var argItem in this.TargetFunction.Arguments) {	#>
+<#= CreateArgumentBufferDeclare(this.TargetFunction, argItem) #>
+<#	}	#>
+
+//Initialize buffers.
+<#= this.CreateInitializeFunctionDeclare(this.TargetFunction) #>
+{
+	<#= this.CreateFunctionCalledBufferName(this.TargetFunction) #> = 0;
+	for (int index = 0; index < STUB_BUFFER_SIZE_1; index++)
+	{
+<# foreach (var argItem in this.TargetFunction.Arguments) { #>
+		<#= this.CreateArgumentBufferName(this.TargetFunction, argItem) #>[index] = 0;
+<#	}	#>
+		for (int index2 = 0; index < STUB_BUFFER_SIZE_2; index2++)
+		{
+<# foreach (var argItem in this.TargetFunction.Arguments) { #>
+			<#= this.CreateOutputArgumentInitialize(this.TargetFunction, argItem) #> = 0;
+<#	}	#>
+		}
+	}
+}
+
+//Body of stub function.
+<#= this.TargetFunction.ToString() #>
+{
+	<#=	CreateLatchReturnValueCode(this.TargetFunction) #>;
+
+<# foreach (var argItem in this.TargetFunction.Arguments) { #>
+	<#= this.CreateArgumentBufferName(this.TargetFunction, argItem) #>[<#= this.CreateFunctionCalledBufferName(this.TargetFunction) #>] = <#= argItem.Name #>;
+<#	}	#>
+
+	for (int index = 0; index < STUB_BUFFER_SIZE_2; index++) {
+<#	foreach (var argItem in this.TargetFunction.Arguments) {	#>
+		<#= CreateSetOutputBufferToArgument(this.TargetFunction, argItem)	#>
+<#	}	#>
+	}
+
+	//Increment called count;
+	<#= CreateFunctionCalledBufferName(this.TargetFunction) #>++;
+
+	<#= CreateReturnLatchedValueCode(this.TargetFunction) #>;
+}

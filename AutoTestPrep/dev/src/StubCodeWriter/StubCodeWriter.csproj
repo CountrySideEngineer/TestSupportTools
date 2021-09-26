@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -48,11 +48,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Template\Stub\Code\StubHeaderTemplate_code.cs" />
+    <Compile Include="Template\Stub\Code\StubSourceTemplate_code.cs" />
     <Compile Include="Template\Stub\Code\StubTemplate_code.cs" />
     <Compile Include="Template\Stub\StubHeaderTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StubHeaderTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Template\Stub\StubSourceTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StubSourceTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="Template\Stub\StubTemplate.cs">
       <AutoGen>True</AutoGen>
@@ -66,6 +72,11 @@
     <Content Include="Template\Stub\StubHeaderTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>StubHeaderTemplate.cs</LastGenOutput>
+      <CustomToolNamespace>CodeWriter.Template.Stub</CustomToolNamespace>
+    </Content>
+    <Content Include="Template\Stub\StubSourceTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>StubSourceTemplate.cs</LastGenOutput>
       <CustomToolNamespace>CodeWriter.Template.Stub</CustomToolNamespace>
     </Content>
     <Content Include="Template\Stub\StubTemplate.tt">

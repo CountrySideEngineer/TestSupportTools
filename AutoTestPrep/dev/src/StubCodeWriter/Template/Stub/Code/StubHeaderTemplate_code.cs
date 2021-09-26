@@ -63,5 +63,17 @@ namespace CodeWriter.Template.Stub
 			}
 			return bufferDecalre;
 		}
+
+		/// <summary>
+		/// Create code to declare initialize method.
+		/// </summary>
+		/// <param name="function">Function to initialize</param>
+		/// <returns>Code to declare initialize method.</returns>
+		protected override string CreateInitializeFunctionDeclare(Function function)
+		{
+			string entryPoint = base.CreateInitializeFunctionDeclare(function);
+			entryPoint = $"{entryPoint}();";
+			return entryPoint;
+		}
 	}
 }
