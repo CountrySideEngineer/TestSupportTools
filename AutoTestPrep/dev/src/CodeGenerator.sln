@@ -3,12 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeWriter.SDK", "CodeWriter.SDK\CodeWriter.SDK.csproj", "{11065085-6BC4-42E5-B716-F77EC325154A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StubCodeWriter", "StubCodeWriter\StubCodeWriter.csproj", "{A9313C3B-7BFB-4F4B-8D0E-9B133952144B}"
-	ProjectSection(ProjectDependencies) = postProject
-		{11065085-6BC4-42E5-B716-F77EC325154A} = {11065085-6BC4-42E5-B716-F77EC325154A}
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator.SDK", "CodeGenerator.SDK\CodeGenerator.SDK.csproj", "{11065085-6BC4-42E5-B716-F77EC325154A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,10 +15,6 @@ Global
 		{11065085-6BC4-42E5-B716-F77EC325154A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11065085-6BC4-42E5-B716-F77EC325154A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11065085-6BC4-42E5-B716-F77EC325154A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A9313C3B-7BFB-4F4B-8D0E-9B133952144B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9313C3B-7BFB-4F4B-8D0E-9B133952144B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A9313C3B-7BFB-4F4B-8D0E-9B133952144B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A9313C3B-7BFB-4F4B-8D0E-9B133952144B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
