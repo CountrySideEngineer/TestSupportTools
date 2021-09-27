@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestParser.Target;
-using CodeWriter.Data;
+using CodeGenerator.Data;
 
-namespace CodeWriter.Template.Stub
+namespace CodeGenerator.Stub.Template
 {
 	public partial class StubHeaderTemplate
 	{

@@ -7,7 +7,7 @@
 //     コードが再生成されると失われます。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace CodeWriter.Template.Stub
+namespace CodeGenerator.Stub.Template
 {
     using System.Linq;
     using System.Text;
@@ -18,7 +18,7 @@ namespace CodeWriter.Template.Stub
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubHeaderTemplate.tt"
+    #line 1 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubHeaderTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class StubHeaderTemplate : StubTemplate
     {
@@ -30,7 +30,7 @@ namespace CodeWriter.Template.Stub
         {
             this.Write("/*\r\n *\t");
             
-            #line 8 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubHeaderTemplate.tt"
+            #line 8 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubHeaderTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TargetFunction.Name));
             
             #line default
@@ -38,55 +38,55 @@ namespace CodeWriter.Template.Stub
             this.Write(" stub header file.\r\n */\r\n#pragma once\r\n//Buffer size macro\r\n#ifndef\tSTUB_BUFFER_S" +
                     "IZE_1\r\n#define\tSTUB_BUFFER_SIZE_1\t\t\t(");
             
-            #line 13 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubHeaderTemplate.tt"
+            #line 13 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubHeaderTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.Config.BufferSize1));
             
             #line default
             #line hidden
             this.Write(")\r\n#endif\r\n#ifndef\tSTUB_BUFFER_SIZE_2\r\n#define\tSTUB_BUFFER_SIZE_2\t\t\t(");
             
-            #line 16 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubHeaderTemplate.tt"
+            #line 16 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubHeaderTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.Config.BufferSize1));
             
             #line default
             #line hidden
             this.Write(")\r\n#endif\r\n\r\n//Stub function variable\r\n");
             
-            #line 20 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubHeaderTemplate.tt"
+            #line 20 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubHeaderTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateFunctoinCalledCountBufferDeclare(this.TargetFunction)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 21 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubHeaderTemplate.tt"
+            #line 21 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubHeaderTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateFunctionReturnBufferDeclare(this.TargetFunction)));
             
             #line default
             #line hidden
             this.Write("\r\n\r\n//Argument buffer\r\n");
             
-            #line 24 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubHeaderTemplate.tt"
+            #line 24 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubHeaderTemplate.tt"
  foreach (var argItem in this.TargetFunction.Arguments) {
             
             #line default
             #line hidden
             
-            #line 25 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubHeaderTemplate.tt"
+            #line 25 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubHeaderTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateArgumentBufferDeclare(this.TargetFunction, argItem)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 26 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubHeaderTemplate.tt"
+            #line 26 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubHeaderTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n//Function to initialize buffers.\r\n");
             
-            #line 29 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubHeaderTemplate.tt"
+            #line 29 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubHeaderTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateInitializeFunctionDeclare(this.TargetFunction)));
             
             #line default

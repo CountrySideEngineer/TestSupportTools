@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestParser.Target;
 
-namespace CodeWriter.Template.Stub
+namespace CodeGenerator.Stub.Template
 {
 	public partial class StubTemplate
 	{

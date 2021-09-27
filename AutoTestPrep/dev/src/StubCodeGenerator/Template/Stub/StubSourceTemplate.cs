@@ -7,7 +7,7 @@
 //     コードが再生成されると失われます。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace CodeWriter.Template.Stub
+namespace CodeGenerator.Stub.Template
 {
     using System.Linq;
     using System.Text;
@@ -18,7 +18,7 @@ namespace CodeWriter.Template.Stub
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+    #line 1 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class StubSourceTemplate : StubTemplate
     {
@@ -30,222 +30,222 @@ namespace CodeWriter.Template.Stub
         {
             this.Write("/*\r\n *\t");
             
-            #line 8 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 8 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TargetFunction.Name));
             
             #line default
             #line hidden
             this.Write(" stub header file.\r\n */\r\n");
             
-            #line 10 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 10 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
 	foreach (var headerFile in Config.StandardHeaderFiles) {	
             
             #line default
             #line hidden
             this.Write("#include <");
             
-            #line 11 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 11 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(headerFile));
             
             #line default
             #line hidden
             this.Write(">\r\n");
             
-            #line 12 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 12 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
 	}	
             
             #line default
             #line hidden
             
-            #line 13 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 13 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
 	foreach (var headerFile in Config.UserHeaderFiles) {	
             
             #line default
             #line hidden
             this.Write("#include \"");
             
-            #line 14 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 14 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(headerFile));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 15 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 15 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
 	}	
             
             #line default
             #line hidden
             this.Write("\r\n//Declare buffers to store a value passed and pass.\r\n");
             
-            #line 18 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 18 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctoinCalledCountBufferDeclare(this.TargetFunction)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\n//Declare buffer to store a value the stub method should return.\r\n");
             
-            #line 21 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 21 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionReturnBufferDeclare(this.TargetFunction)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\n");
             
-            #line 23 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 23 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
  foreach (var argItem in this.TargetFunction.Arguments) {	
             
             #line default
             #line hidden
             
-            #line 24 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 24 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateArgumentBufferDeclare(this.TargetFunction, argItem)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 25 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 25 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
 	}	
             
             #line default
             #line hidden
             this.Write("\r\n//Initialize buffers.\r\n");
             
-            #line 28 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 28 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateInitializeFunctionDeclare(this.TargetFunction)));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n\t");
             
-            #line 30 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 30 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateFunctionCalledBufferName(this.TargetFunction)));
             
             #line default
             #line hidden
             this.Write(" = 0;\r\n\tfor (int index = 0; index < STUB_BUFFER_SIZE_1; index++)\r\n\t{\r\n");
             
-            #line 33 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 33 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
  foreach (var argItem in this.TargetFunction.Arguments) { 
             
             #line default
             #line hidden
             this.Write("\t\t");
             
-            #line 34 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 34 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateArgumentBufferName(this.TargetFunction, argItem)));
             
             #line default
             #line hidden
             this.Write("[index] = 0;\r\n");
             
-            #line 35 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 35 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
 	}	
             
             #line default
             #line hidden
             this.Write("\t\tfor (int index2 = 0; index < STUB_BUFFER_SIZE_2; index2++)\r\n\t\t{\r\n");
             
-            #line 38 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 38 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
  foreach (var argItem in this.TargetFunction.Arguments) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t");
             
-            #line 39 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 39 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateOutputArgumentInitialize(this.TargetFunction, argItem)));
             
             #line default
             #line hidden
             this.Write(" = 0;\r\n");
             
-            #line 40 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 40 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
 	}	
             
             #line default
             #line hidden
             this.Write("\t\t}\r\n\t}\r\n}\r\n\r\n//Body of stub function.\r\n");
             
-            #line 46 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 46 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.TargetFunction.ToString()));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n\t");
             
-            #line 48 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 48 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateLatchReturnValueCode(this.TargetFunction)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\n");
             
-            #line 50 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 50 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
  foreach (var argItem in this.TargetFunction.Arguments) { 
             
             #line default
             #line hidden
             this.Write("\t");
             
-            #line 51 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 51 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateArgumentBufferName(this.TargetFunction, argItem)));
             
             #line default
             #line hidden
             this.Write("[");
             
-            #line 51 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 51 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateFunctionCalledBufferName(this.TargetFunction)));
             
             #line default
             #line hidden
             this.Write("] = ");
             
-            #line 51 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 51 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(argItem.Name));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 52 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 52 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
 	}	
             
             #line default
             #line hidden
             this.Write("\r\n\tfor (int index = 0; index < STUB_BUFFER_SIZE_2; index++) {\r\n");
             
-            #line 55 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 55 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
 	foreach (var argItem in this.TargetFunction.Arguments) {	
             
             #line default
             #line hidden
             this.Write("\t\t");
             
-            #line 56 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 56 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateSetOutputBufferToArgument(this.TargetFunction, argItem)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 57 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 57 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
 	}	
             
             #line default
             #line hidden
             this.Write("\t}\r\n\r\n\t//Increment called count;\r\n\t");
             
-            #line 61 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 61 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionCalledBufferName(this.TargetFunction)));
             
             #line default
             #line hidden
             this.Write("++;\r\n\r\n\t");
             
-            #line 63 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubSourceTemplate.tt"
+            #line 63 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateReturnLatchedValueCode(this.TargetFunction)));
             
             #line default

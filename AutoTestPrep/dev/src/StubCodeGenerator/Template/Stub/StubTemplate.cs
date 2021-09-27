@@ -7,7 +7,7 @@
 //     コードが再生成されると失われます。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace CodeWriter.Template.Stub
+namespace CodeGenerator.Stub.Template
 {
     using System.Linq;
     using System.Text;
@@ -18,7 +18,7 @@ namespace CodeWriter.Template.Stub
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeWriter\Template\Stub\StubTemplate.tt"
+    #line 1 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\Stub\StubTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class StubTemplate : StubTemplateBase
     {

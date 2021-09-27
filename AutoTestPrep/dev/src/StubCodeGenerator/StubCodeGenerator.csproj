@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CodeWriter.SDK">
-      <HintPath>..\..\bin\sdk\CodeWriter.SDK.dll</HintPath>
+    <Reference Include="CodeGenerator.SDK">
+      <HintPath>..\..\bin\sdk\CodeGenerator.SDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,6 +47,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeGenerator\StubCodeGenerator.cs" />
     <Compile Include="Template\Stub\Code\StubHeaderTemplate_code.cs" />
     <Compile Include="Template\Stub\Code\StubSourceTemplate_code.cs" />
     <Compile Include="Template\Stub\Code\StubTemplate_code.cs" />
@@ -65,25 +66,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StubTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Writer\StubCodeWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Writer\StubHeaderCodeWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Template\Stub\StubHeaderTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>StubHeaderTemplate.cs</LastGenOutput>
-      <CustomToolNamespace>CodeWriter.Template.Stub</CustomToolNamespace>
+      <CustomToolNamespace>CodeGenerator.Stub.Template</CustomToolNamespace>
     </Content>
     <Content Include="Template\Stub\StubSourceTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>StubSourceTemplate.cs</LastGenOutput>
-      <CustomToolNamespace>CodeWriter.Template.Stub</CustomToolNamespace>
+      <CustomToolNamespace>CodeGenerator.Stub.Template</CustomToolNamespace>
     </Content>
     <Content Include="Template\Stub\StubTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>StubTemplate.cs</LastGenOutput>
-      <CustomToolNamespace>CodeWriter.Template.Stub</CustomToolNamespace>
+      <CustomToolNamespace>CodeGenerator.Stub.Template</CustomToolNamespace>
     </Content>
   </ItemGroup>
   <ItemGroup>
