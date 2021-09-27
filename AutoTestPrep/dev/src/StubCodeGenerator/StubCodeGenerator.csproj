@@ -7,7 +7,7 @@
     <ProjectGuid>{A9313C3B-7BFB-4F4B-8D0E-9B133952144B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CodeGenerator.stub</RootNamespace>
+    <RootNamespace>CodeGenerator.Stub</RootNamespace>
     <AssemblyName>StubCodeGenerator</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -48,46 +48,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeGenerator\StubCodeGenerator.cs" />
-    <Compile Include="Template\Stub\Code\StubHeaderTemplate_code.cs" />
-    <Compile Include="Template\Stub\Code\StubSourceTemplate_code.cs" />
-    <Compile Include="Template\Stub\Code\StubTemplate_code.cs" />
-    <Compile Include="Template\Stub\StubHeaderTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StubHeaderTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Template\Stub\StubSourceTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StubSourceTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Template\Stub\StubTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StubTemplate.tt</DependentUpon>
-    </Compile>
+    <Compile Include="CodeGenerator\StubHeaderGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Template\Stub\StubHeaderTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>StubHeaderTemplate.cs</LastGenOutput>
-      <CustomToolNamespace>CodeGenerator.Stub.Template</CustomToolNamespace>
-    </Content>
-    <Content Include="Template\Stub\StubSourceTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>StubSourceTemplate.cs</LastGenOutput>
-      <CustomToolNamespace>CodeGenerator.Stub.Template</CustomToolNamespace>
-    </Content>
-    <Content Include="Template\Stub\StubTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>StubTemplate.cs</LastGenOutput>
-      <CustomToolNamespace>CodeGenerator.Stub.Template</CustomToolNamespace>
-    </Content>
+    <Compile Include="Template\Code\StubTemplate_code.cs" />
+    <Compile Include="Template\StubTemplate.cs">
+      <DependentUpon>StubTemplate.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Template\StubTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>StubTemplate1.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

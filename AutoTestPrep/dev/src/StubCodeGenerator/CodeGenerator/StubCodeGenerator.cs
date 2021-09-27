@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.Stub
 {
-	public abstract class StubCodeWriter : ICodeGenerator
+	public abstract class StubCodeGenerator : ICodeGenerator
 	{
 		/// <summary>
 		/// Generate stub code.
