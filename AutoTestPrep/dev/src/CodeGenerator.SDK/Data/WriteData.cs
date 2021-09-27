@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TestParser.Data;
 using TestParser.Target;
 
-namespace CodeWriter.Data
+namespace CodeGenerator.Data
 {
 	/// <summary>
 	/// Data to write into code.
@@ -21,7 +21,7 @@ namespace CodeWriter.Data
 		/// <summary>
 		/// Collection of test.
 		/// </summary>
-		public IEnumerable<Test> Tests;
+		public Test Test;
 
 		/// <summary>
 		/// Default constructor.
@@ -29,7 +29,7 @@ namespace CodeWriter.Data
 		public WriteData()
 		{
 			this.CodeConfig = new CodeConfiguration();
-			this.Tests = new List<Test>();
+			this.Test = new Test();
 		}
 	}
 }
