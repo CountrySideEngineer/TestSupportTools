@@ -13,17 +13,9 @@
 #define	STUB_BUFFER_SIZE_1			(<#= this.Config.BufferSize1 #>)
 #endif
 #ifndef	STUB_BUFFER_SIZE_2
-#define	STUB_BUFFER_SIZE_2			(<#= this.Config.BufferSize1 #>)
+#define	STUB_BUFFER_SIZE_2			(<#= this.Config.BufferSize2 #>)
 #endif
 
-//Stub function variable
-<#= this.CreateFunctoinCalledCountBufferDeclare(this.TargetFunction) #>
-<#= this.CreateFunctionReturnBufferDeclare(this.TargetFunction) #>
-
-//Argument buffer
-<# foreach (var argItem in this.TargetFunction.Arguments) {#>
-<#= this.CreateArgumentBufferDeclare(this.TargetFunction, argItem) #>
-<# } #>
-
-//Function to initialize buffers.
-<#= this.CreateInitializeFunctionDeclare(this.TargetFunction) #>
+<#	foreach (var subFunction in this.TargetFunction.SubFunctions) {	#>
+<#=	this.CreateStubBody(this.ParentFunction, subFunction)	#>
+<#	}	#>
