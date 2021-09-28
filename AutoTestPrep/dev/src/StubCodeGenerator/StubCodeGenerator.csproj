@@ -50,20 +50,32 @@
     <Compile Include="CodeGenerator\StubCodeGenerator.cs" />
     <Compile Include="CodeGenerator\StubHeaderGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Template\Code\StubHeaderTemplate_code.cs" />
     <Compile Include="Template\Code\StubTemplate_code.cs" />
-    <Compile Include="Template\StubTemplate.cs">
-      <DependentUpon>StubTemplate.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
+    <Compile Include="Template\StubHeaderTemplate.cs">
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StubHeaderTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Template\StubTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StubTemplate.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Template\StubHeaderTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>StubHeaderTemplate.cs</LastGenOutput>
+      <CustomToolNamespace>CodeGenerator.Stub.Template</CustomToolNamespace>
+    </Content>
     <Content Include="Template\StubTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>StubTemplate1.cs</LastGenOutput>
+      <LastGenOutput>StubTemplate.cs</LastGenOutput>
+      <CustomToolNamespace>CodeGenerator.Stub.Template</CustomToolNamespace>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
