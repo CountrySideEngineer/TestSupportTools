@@ -202,7 +202,7 @@ namespace CodeGenerator.Stub.Template
             
             #line default
             #line hidden
-            this.Write(";\r\n}");
+            this.Write(";\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
