@@ -4,15 +4,9 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-/*
- *	<#= TargetFunction.Name #> header test driver header code.
- */
-#pragma once
-
-class <#= TestClassName(TargetFunction) #> : public ::testing::Test
+void <#= TestClassName(this.TargetFunction) #>::SetUp()
 {
-protected:
-	virtual void SetUp();
-
-protected:
-};
+<# foreach (var subFunction in this.TargetFunction.SubFunctions) {	#>
+	<#= this.CreateStubInitializeMethodName(subFunction)	#>();
+<#	}	#>
+}

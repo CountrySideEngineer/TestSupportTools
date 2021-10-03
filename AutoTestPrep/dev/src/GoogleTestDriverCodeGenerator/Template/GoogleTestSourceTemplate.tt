@@ -4,3 +4,11 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#	foreach (var headerFile in Config.StandardHeaderFiles) { #>
+#include <<#= headerFile #>>
+<#	}	#>
+<#	foreach (var headerFile in Config.UserHeaderFiles) { #>
+#include "<#= headerFile #>
+<#	}	#>
+
+<#= CreateSetUpCode(this.TargetFunction) #>

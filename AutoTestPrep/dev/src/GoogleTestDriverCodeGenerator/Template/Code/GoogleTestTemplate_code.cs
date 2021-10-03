@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestParser.Data;
 using TestParser.Target;
 
 namespace CodeGenerator.TestDriver.Template
@@ -23,7 +24,7 @@ namespace CodeGenerator.TestDriver.Template
 		}
 
         /// <summary>
-        /// Craete test function name for unit test.
+        /// Create test function name for unit test.
         /// </summary>
         /// <param name="caseNumber">Test case number.</param>
         /// <param name="function">Target function data.</param>
@@ -34,5 +35,18 @@ namespace CodeGenerator.TestDriver.Template
             testCaseMethodName = $"{function.Name}_utest_{caseNumber.ToString("D3")}";
             return testCaseMethodName;
 		}
+
+        /// <summary>
+        /// Create test function name for unit test.
+        /// </summary>
+        /// <param name="function">Target function data</param>
+        /// <param name="testCase">Test case data.</param>
+        /// <returns>Test function name for unit test.</returns>
+        protected virtual string TestCaseMethodName(Function function, TestCase testCase)
+		{
+            string testCaseMethodName = string.Empty;
+            testCaseMethodName = $"{function.Name}_utest_{testCase.Id}";
+            return testCaseMethodName;
+        }
     }
 }

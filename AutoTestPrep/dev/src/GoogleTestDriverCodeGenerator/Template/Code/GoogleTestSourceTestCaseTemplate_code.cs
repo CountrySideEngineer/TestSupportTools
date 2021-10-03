@@ -46,6 +46,17 @@ namespace CodeGenerator.TestDriver.Template
 		}
 
 		/// <summary>
+		/// Constructor with argument.
+		/// </summary>
+		/// <param name="targetFunction">Test target function data.</param>
+		/// <param name="testCase">Test case data.</param>
+		public GoogleTestSourceTestCaseTemplate(Function targetFunction, TestCase testCase)
+		{
+			this.TargetFunction = targetFunction;
+			this.TestCase = testCase;
+		}
+
+		/// <summary>
 		/// Create code to setup test input data.
 		/// </summary>
 		/// <param name="testData"></param>

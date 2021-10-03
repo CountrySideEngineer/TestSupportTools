@@ -42,9 +42,8 @@ namespace CodeGenerator.TestDriver.Template
             
             #line default
             #line hidden
-            this.Write(" : public ::testing::Test\r\n{\r\nprotected:\r\n\tvirtual void SetUp();\r\n\tvirtual void T" +
-                    "earDown();\r\n\r\nprotected:\r\n\tstatic void SetUpTestCase();\r\n\tstatic void TearDownTe" +
-                    "stCase();\r\n};\r\n");
+            this.Write(" : public ::testing::Test\r\n{\r\nprotected:\r\n\tvirtual void SetUp();\r\n\r\nprotected:\r\n}" +
+                    ";\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
