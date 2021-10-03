@@ -1,0 +1,25 @@
+﻿<#@ template language="C#"
+	inherits="GoogleTestTemplate" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+
+TEST_F(<#= TestClassName(this.TargetFunction) #>, <#= TestCaseMethodName(this.TestCaseNumber, this.TargetFunction) #>)
+{
+	//Declare argument for target
+<# foreach (var argument in TargetFunction.Arguments) {	#>
+	<#= argument.ActualDataType()	#>	<#= argument.Name	#>;
+<#	}	#>
+
+	//Setup test parameters.
+<# foreach (var input in TestCase.Input) {	#>
+	<#= input.Name #> = <#= input.Value #>;
+<#	}	#>
+
+	<#=	CreateTargetFunctionCall(this.TargetFunction)	#>;
+
+<# foreach (var expect in TestCase.Expects) {	#>
+	ASSERT_EQ(<#= expect.Value #>, <#= expect.Name #>);
+<#	}	#>
+}
