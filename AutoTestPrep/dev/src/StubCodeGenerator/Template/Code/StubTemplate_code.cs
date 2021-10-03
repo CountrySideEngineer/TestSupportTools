@@ -14,7 +14,7 @@ namespace CodeGenerator.Stub.Template
 		/// </summary>
 		/// <param name="function">Target function information.</param>
 		/// <returns>Buffer name to store the count of the method called count</returns>
-		protected virtual string CreateFunctionCalledBufferName(Function function)
+		public virtual string CreateFunctionCalledBufferName(Function function)
 		{
 			string bufferName = $"{function.Name}_called_count";
 			return bufferName;
@@ -26,7 +26,7 @@ namespace CodeGenerator.Stub.Template
 		/// <param name="function">Functoin data.</param>
 		/// <param name="argument">Argument data.</param>
 		/// <returns>Buffer name to store the argument value.</returns>
-		protected virtual string CreateArgumentBufferName(Function function, Parameter argument)
+		public virtual string CreateArgumentBufferName(Function function, Parameter argument)
 		{
 			string bufferName = $"{function.Name}_{argument.Name}";
 			return bufferName;
@@ -37,7 +37,7 @@ namespace CodeGenerator.Stub.Template
 		/// </summary>
 		/// <param name="function">Target function.</param>
 		/// <returns>Buffer name to store value to return.</returns>
-		protected virtual string CreateFunctionReturnBufferName(Function function)
+		public virtual string CreateFunctionReturnBufferName(Function function)
 		{
 			string bufferName = string.Empty;
 			if (!("void".Equals(function.DataType.ToLower())))
@@ -52,7 +52,7 @@ namespace CodeGenerator.Stub.Template
 		/// </summary>
 		/// <param name="argument">Argument</param>
 		/// <returns>Buffer name to store value to return via argument.</returns>
-		protected virtual string CreateOutputBufferName(Function function, Parameter argument)
+		public virtual string CreateOutputBufferName(Function function, Parameter argument)
 		{
 			string bufferName = string.Empty;
 			bufferName = $"{CreateArgumentBufferName(function, argument)}_value";
@@ -126,7 +126,7 @@ namespace CodeGenerator.Stub.Template
 		/// </summary>
 		/// <param name="function">Function to initialize</param>
 		/// <returns>Initialize function name.</returns>
-		protected virtual string CreateInitializeFunctionName(Function function)
+		public virtual string CreateInitializeFunctionName(Function function)
 		{
 			string functionName = string.Empty;
 			functionName = $"{function.Name}_init";
