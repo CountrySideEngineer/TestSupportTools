@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StubCodeGenerator", "StubCo
 		{11065085-6BC4-42E5-B716-F77EC325154A} = {11065085-6BC4-42E5-B716-F77EC325154A}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTestDriverCodeGenerator", "GoogleTestDriverCodeGenerator\GTestDriverCodeGenerator.csproj", "{6EED3803-E1AF-40D7-AC7A-48F054437821}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{A9313C3B-7BFB-4F4B-8D0E-9B133952144B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9313C3B-7BFB-4F4B-8D0E-9B133952144B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9313C3B-7BFB-4F4B-8D0E-9B133952144B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EED3803-E1AF-40D7-AC7A-48F054437821}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EED3803-E1AF-40D7-AC7A-48F054437821}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EED3803-E1AF-40D7-AC7A-48F054437821}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EED3803-E1AF-40D7-AC7A-48F054437821}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
