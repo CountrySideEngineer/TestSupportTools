@@ -52,7 +52,7 @@ namespace CodeGenerator.Stub.Template
 			try
 			{
 				string bufferDeclare = base.CreateArgumentBufferDeclare(function, argument);
-				bufferDeclare = $"{bufferDeclare}[STUB_BUFFER_SIZE_1]";
+				bufferDeclare = $"{bufferDeclare}[STUB_BUFFER_SIZE_1];";
 				return bufferDeclare;
 			}
 			catch (ArgumentException)
@@ -77,7 +77,7 @@ namespace CodeGenerator.Stub.Template
 			}
 			else
 			{
-				bufferDeclare = $"{bufferDeclare}[STUB_BUFFER_SIZE_1][STUB_BUFFER_SIZE_2]";
+				bufferDeclare = $"{bufferDeclare}[STUB_BUFFER_SIZE_1][STUB_BUFFER_SIZE_2];";
 			}
 			return bufferDeclare;
 		}
@@ -172,17 +172,23 @@ namespace CodeGenerator.Stub.Template
 		protected virtual string CreateSetOutputBufferToArgument(Function function, Parameter argument)
 		{
 			string buffCode = string.Empty;
-			if (((1 == argument.PointerNum) ||
-				(2 == argument.PointerNum)) &&                  //Condition1.Check whether the argument is pointer or not.
+			if ((1 == argument.PointerNum) &&
 				((Parameter.AccessMode.Out == argument.Mode) ||
-				(Parameter.AccessMode.Both == argument.Mode)))  //Condition2.Check whether the argument is output or not.
+				(Parameter.AccessMode.Both == argument.Mode)))
 			{
-				buffCode = $"{argument.Name}[index] = " +
-					$"{CreateOutputBufferName(function, argument)}[{CreateFunctionCalledBufferName(function)}][index]";
+				buffCode = $"{argument.Name}[0] = " +
+					$"{CreateOutputBufferName(function, argument)}[{CreateFunctionCalledBufferName(function)}][0];";
+			}
+			else if ((2 == argument.PointerNum) &&
+				((Parameter.AccessMode.Out == argument.Mode) ||
+				(Parameter.AccessMode.Both == argument.Mode)))
+			{
+				buffCode = $"*{argument.Name} = " +
+					$"{CreateOutputBufferName(function, argument)}[{CreateFunctionCalledBufferName(function)}];";
 			}
 			else
 			{
-				buffCode = $"//{argument.Name} does not return value.";
+				buffCode = $"//{argument.Name} is not output.";
 			}
 			return buffCode;
 		}

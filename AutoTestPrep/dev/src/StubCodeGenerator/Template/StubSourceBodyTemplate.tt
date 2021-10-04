@@ -4,14 +4,23 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
+/*
+ *	Stub of <#= TargetFunction.Name #>().
+ */
 //Declare buffers to store a value passed and pass.
 <#= CreateFunctoinCalledCountBufferDeclare(this.TargetFunction) #>;
 
 //Declare buffer to store a value the stub method should return.
 <#= CreateFunctionReturnBufferDeclare(this.TargetFunction) #>;
 
+//Declare buffer to store a value passed via arguments.
 <# foreach (var argItem in this.TargetFunction.Arguments) {	#>
 <#= CreateArgumentBufferDeclare(this.TargetFunction, argItem) #>
+<#	}	#>
+
+//Declare buffer to store values the stub should return via argument, pointer.
+<# foreach (var argItem in this.TargetFunction.Arguments) {	#>
+<#= CreateOutputBufferDeclare(this.TargetFunction, argItem) #>
 <#	}	#>
 
 //Initialize buffers.
@@ -37,9 +46,16 @@
 {
 	<#=	CreateLatchReturnValueCode(this.TargetFunction) #>;
 
+	//Set argument into buffer.
 <# foreach (var argItem in this.TargetFunction.Arguments) { #>
 	<#= this.CreateArgumentBufferName(this.TargetFunction, argItem) #>[<#= this.CreateFunctionCalledBufferName(this.TargetFunction) #>] = <#= argItem.Name #>;
 <#	}	#>
+
+	//Set back buffer value into argument.
+<# foreach (var argItem in this.TargetFunction.Arguments) { #>
+	<#= this.CreateSetOutputBufferToArgument(this.TargetFunction, argItem) #>
+<#	}	#>
+
 
 	//Increment called count;
 	<#= CreateFunctionCalledBufferName(this.TargetFunction) #>++;

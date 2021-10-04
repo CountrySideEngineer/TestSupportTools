@@ -28,70 +28,62 @@ namespace CodeGenerator.Stub.Template
         /// </summary>
         public override string TransformText()
         {
-            this.Write("/*\r\n *\t");
             
-            #line 8 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TargetFunction.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" stub source file.\r\n */\r\n");
-            
-            #line 10 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
+            #line 7 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
 	foreach (var headerFile in Config.StandardHeaderFiles) {	
             
             #line default
             #line hidden
             this.Write("#include <");
             
-            #line 11 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
+            #line 8 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(headerFile));
             
             #line default
             #line hidden
             this.Write(">\r\n");
             
-            #line 12 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
+            #line 9 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
 	}	
             
             #line default
             #line hidden
             
-            #line 13 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
+            #line 10 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
 	foreach (var headerFile in Config.UserHeaderFiles) {	
             
             #line default
             #line hidden
             this.Write("#include \"");
             
-            #line 14 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
+            #line 11 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(headerFile));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 15 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
+            #line 12 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
 	}	
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 17 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
-	foreach (var subFunction in this.TargetFunction.SubFunctions) {	
+            #line 14 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
+	foreach (var subFunction in this.ParentFunction.SubFunctions) {	
             
             #line default
             #line hidden
             
-            #line 18 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
+            #line 15 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateStubBody(subFunction)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 19 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
+            #line 16 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
 	}	
             
             #line default

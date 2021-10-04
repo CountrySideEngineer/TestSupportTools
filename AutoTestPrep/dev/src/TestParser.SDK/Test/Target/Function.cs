@@ -13,8 +13,8 @@ namespace TestParser.Target
 		/// </summary>
 		public Function() : base()
 		{
-			this.Arguments = null;
-			this.SubFunctions = null;
+			this.Arguments = new List<Parameter>(0);
+			this.SubFunctions = new List<Function>(0);
 		}
 
 		/// <summary>

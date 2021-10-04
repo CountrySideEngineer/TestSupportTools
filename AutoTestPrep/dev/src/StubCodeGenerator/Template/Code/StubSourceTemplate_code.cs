@@ -27,7 +27,7 @@ namespace CodeGenerator.Stub.Template
 
 		protected string CreateStubBody(Function target)
 		{
-			var template = new StubHeaderBodyTemplate()
+			var template = new StubSourceBodyTemplate()
 			{
 				ParentFunction = this.ParentFunction,
 				TargetFunction = target,

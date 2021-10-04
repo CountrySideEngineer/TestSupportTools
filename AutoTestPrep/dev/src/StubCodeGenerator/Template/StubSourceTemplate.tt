@@ -4,9 +4,6 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-/*
- *	<#= TargetFunction.Name #> stub source file.
- */
 <#	foreach (var headerFile in Config.StandardHeaderFiles) {	#>
 #include <<#= headerFile #>>
 <#	}	#>
@@ -14,6 +11,6 @@
 #include "<#= headerFile #>
 <#	}	#>
 
-<#	foreach (var subFunction in this.TargetFunction.SubFunctions) {	#>
+<#	foreach (var subFunction in this.ParentFunction.SubFunctions) {	#>
 <#=	this.CreateStubBody(subFunction)	#>
 <#	}	#>
