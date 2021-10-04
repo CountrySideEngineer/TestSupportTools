@@ -78,10 +78,22 @@ namespace CodeGenerator.Stub.Template
 		/// <param name="function">Function the argument has.</param>
 		/// <param name="argument">Argument data.</param>
 		/// <returns>Code declare buffer to store argument value.</returns>
+		/// <exception cref="ArgumentException">
+		/// -The data type of <para>argument</para> is void and not pointer.
+		/// -The data type of <para>argument</para> is empty or white space.
+		/// </exception>
 		protected virtual string CreateArgumentBufferDeclare(Function function, Parameter argument)
 		{
-			string bufferDeclare = $"{argument.ActualDataType()} {CreateArgumentBufferName(function, argument)}";
-			return bufferDeclare;
+			if ((("void".Equals(argument.DataType.ToLower())) && (argument.PointerNum <= 0)) ||
+				((string.IsNullOrWhiteSpace(argument.DataType)) || (string.IsNullOrEmpty(argument.DataType))))
+			{
+				throw new ArgumentException();
+			}
+			else
+			{
+				string bufferDeclare = $"{argument.ActualDataType()} {CreateArgumentBufferName(function, argument)}";
+				return bufferDeclare;
+			}
 		}
 
 		/// <summary>

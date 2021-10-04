@@ -167,37 +167,16 @@ namespace CodeGenerator.Stub.Template
             
             #line default
             #line hidden
-            this.Write("\r\n\tfor (int index = 0; index < STUB_BUFFER_SIZE_2; index++) {\r\n");
+            this.Write("\r\n\t//Increment called count;\r\n\t");
             
             #line 45 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceBodyTemplate.tt"
-	foreach (var argItem in this.TargetFunction.Arguments) {	
-            
-            #line default
-            #line hidden
-            this.Write("\t\t");
-            
-            #line 46 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceBodyTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(CreateSetOutputBufferToArgument(this.TargetFunction, argItem)));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n");
-            
-            #line 47 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceBodyTemplate.tt"
-	}	
-            
-            #line default
-            #line hidden
-            this.Write("\t}\r\n\r\n\t//Increment called count;\r\n\t");
-            
-            #line 51 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceBodyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctionCalledBufferName(this.TargetFunction)));
             
             #line default
             #line hidden
             this.Write("++;\r\n\r\n\t");
             
-            #line 53 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceBodyTemplate.tt"
+            #line 47 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceBodyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateReturnLatchedValueCode(this.TargetFunction)));
             
             #line default

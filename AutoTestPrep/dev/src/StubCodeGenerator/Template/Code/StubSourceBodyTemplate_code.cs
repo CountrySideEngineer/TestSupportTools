@@ -49,9 +49,16 @@ namespace CodeGenerator.Stub.Template
 		/// <returns>Code declare buffer to store argument value.</returns>
 		protected override string CreateArgumentBufferDeclare(Function function, Parameter argument)
 		{
-			string bufferDeclare = base.CreateArgumentBufferDeclare(function, argument);
-			bufferDeclare = $"{bufferDeclare}[STUB_BUFFER_SIZE_1]";
-			return bufferDeclare;
+			try
+			{
+				string bufferDeclare = base.CreateArgumentBufferDeclare(function, argument);
+				bufferDeclare = $"{bufferDeclare}[STUB_BUFFER_SIZE_1]";
+				return bufferDeclare;
+			}
+			catch (ArgumentException)
+			{
+				throw;
+			}
 		}
 
 		/// <summary>
@@ -103,7 +110,7 @@ namespace CodeGenerator.Stub.Template
 				((Parameter.AccessMode.Out == argument.Mode) ||
 				(Parameter.AccessMode.Both == argument.Mode)))  //Condition2.Check whether the argument is output or not.
 			{
-				outputArgInit = $"{this.CreateOutputBufferName(function, argument)}[index1][index2]";
+				outputArgInit = $"{this.CreateOutputBufferName(function, argument)}[index][index2]";
 			}
 			else
 			{
