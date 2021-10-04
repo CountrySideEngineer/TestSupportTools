@@ -52,6 +52,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeGenerator\GoogleTestCodeGenerator.cs" />
+    <Compile Include="CodeGenerator\GoogleTestHeaderCodeGenerator.cs" />
+    <Compile Include="CodeGenerator\GoogleTestSourceCodeGenerator.cs" />
     <Compile Include="Template\Code\GoogleTestHeaderTemplate_code.cs" />
     <Compile Include="Template\Code\GoogleTestSourceSetUpTemplate_code.cs" />
     <Compile Include="Template\Code\GoogleTestSourceTemplate_code.cs" />
