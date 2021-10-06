@@ -8,7 +8,7 @@
 #include <<#= headerFile #>>
 <#	}	#>
 <#	foreach (var headerFile in Config.UserHeaderFiles) {	#>
-#include "<#= headerFile #>
+#include "<#= headerFile #>"
 <#	}	#>
 
 <#	foreach (var subFunction in this.ParentFunction.SubFunctions) {	#>

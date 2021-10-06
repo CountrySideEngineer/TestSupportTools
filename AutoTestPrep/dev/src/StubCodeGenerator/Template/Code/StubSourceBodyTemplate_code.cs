@@ -110,7 +110,7 @@ namespace CodeGenerator.Stub.Template
 				((Parameter.AccessMode.Out == argument.Mode) ||
 				(Parameter.AccessMode.Both == argument.Mode)))  //Condition2.Check whether the argument is output or not.
 			{
-				outputArgInit = $"{this.CreateOutputBufferName(function, argument)}[index][index2]";
+				outputArgInit = $"{this.CreateOutputBufferName(function, argument)}[index][index2] = 0;";
 			}
 			else
 			{
@@ -191,6 +191,36 @@ namespace CodeGenerator.Stub.Template
 				buffCode = $"//{argument.Name} is not output.";
 			}
 			return buffCode;
+		}
+
+		protected virtual string CreateCalledCountInitialize(Function function)
+		{
+			string initializeCode = string.Empty;
+			string calledCountBuffName = this.CreateFunctionCalledBufferName(function);
+			initializeCode = $"{calledCountBuffName} = 0;";
+			return initializeCode;
+		}
+
+		protected virtual string CreateFunctionReturnBufferInitialize(Function function)
+		{
+			string bufferDeclare = string.Empty;
+			if (function.HasReturn())
+			{
+				bufferDeclare = base.CreateFunctionReturnBufferName(function);
+				bufferDeclare = $"{bufferDeclare}[index] = 0;";
+			}
+			else
+			{
+				bufferDeclare = $"{function.Name} does not return value.";
+			}
+			return bufferDeclare;
+		}
+
+		protected virtual string CreateArgumentBufferInitialize(Function function, Parameter argument)
+		{
+			string bufferInitialize = string.Empty;
+			bufferInitialize = $"{CreateArgumentBufferName(function, argument)}[index] = 0;";
+			return bufferInitialize;
 		}
 	}
 }

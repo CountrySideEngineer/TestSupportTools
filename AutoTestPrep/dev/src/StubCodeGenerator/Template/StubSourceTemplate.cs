@@ -61,7 +61,7 @@ namespace CodeGenerator.Stub.Template
             
             #line default
             #line hidden
-            this.Write("\r\n");
+            this.Write("\"\r\n");
             
             #line 12 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceTemplate.tt"
 	}	
