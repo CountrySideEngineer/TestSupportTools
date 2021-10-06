@@ -8,7 +8,8 @@
 #include <<#= headerFile #>>
 <#	}	#>
 <#	foreach (var headerFile in Config.UserHeaderFiles) { #>
-#include "<#= headerFile #>
+#include "<#= headerFile #>"
 <#	}	#>
 
 <#= CreateSetUpCode(this.TargetFunction) #>
+<#= CreateTestCaseCode(this.TargetFunction, this.Test) #>

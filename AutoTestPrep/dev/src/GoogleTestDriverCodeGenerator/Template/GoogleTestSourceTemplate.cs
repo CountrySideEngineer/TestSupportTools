@@ -61,7 +61,7 @@ namespace CodeGenerator.TestDriver.Template
             
             #line default
             #line hidden
-            this.Write("\r\n");
+            this.Write("\"\r\n");
             
             #line 12 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTemplate.tt"
 	}	
@@ -72,6 +72,13 @@ namespace CodeGenerator.TestDriver.Template
             
             #line 14 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateSetUpCode(this.TargetFunction)));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
+            
+            #line 15 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CreateTestCaseCode(this.TargetFunction, this.Test)));
             
             #line default
             #line hidden

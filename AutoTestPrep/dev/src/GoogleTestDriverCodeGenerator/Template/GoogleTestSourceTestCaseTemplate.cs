@@ -38,7 +38,7 @@ namespace CodeGenerator.TestDriver.Template
             this.Write(", ");
             
             #line 8 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TestCaseMethodName(this.TestCaseNumber, this.TargetFunction)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(TestCaseMethodName(this.TargetFunction, this.TestCase)));
             
             #line default
             #line hidden
@@ -56,7 +56,7 @@ namespace CodeGenerator.TestDriver.Template
             
             #line default
             #line hidden
-            this.Write("\t");
+            this.Write(" ");
             
             #line 12 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(argument.Name));
