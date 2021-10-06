@@ -35,7 +35,7 @@ namespace CodeGenerator.Stub.Template
             
             #line default
             #line hidden
-            this.Write("().\r\n */\r\n//Declare buffers to store a value passed and pass.\r\n");
+            this.Write(".\r\n */\r\n//Declare buffers to store a value passed and pass.\r\n");
             
             #line 11 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceBodyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateFunctoinCalledCountBufferDeclare(this.TargetFunction)));

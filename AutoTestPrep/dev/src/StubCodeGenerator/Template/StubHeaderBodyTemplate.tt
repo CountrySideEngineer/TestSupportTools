@@ -8,6 +8,8 @@
  *	Buffer for stub of <#= TargetFunction.Name #>.
  */
 <#= this.CreateFunctoinCalledCountBufferDeclare(this.TargetFunction) #>
+
+//External declaration of the buffer to store value the method should return.
 <#= this.CreateFunctionReturnBufferDeclare(this.TargetFunction) #>
 
 //External declaration of the buffers which store the value of arguments. 

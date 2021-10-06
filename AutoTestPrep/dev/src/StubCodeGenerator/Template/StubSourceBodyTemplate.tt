@@ -5,7 +5,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 /*
- *	Stub of <#= TargetFunction.Name #>().
+ *	Stub of <#= TargetFunction.Name #>.
  */
 //Declare buffers to store a value passed and pass.
 <#= CreateFunctoinCalledCountBufferDeclare(this.TargetFunction) #>;

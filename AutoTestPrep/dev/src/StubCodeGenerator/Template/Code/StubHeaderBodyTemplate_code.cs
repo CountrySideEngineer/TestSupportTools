@@ -77,12 +77,17 @@ namespace CodeGenerator.Stub.Template
 		/// <returns>External code declaring buffer to store a method should return.</returns>
 		protected override string CreateFunctionReturnBufferDeclare(Function function)
 		{
-			string bufferDecalre = string.Empty;
+			string bufferDeclare = string.Empty;
 			if (function.HasReturn())
 			{
-				bufferDecalre = $"extern {base.CreateFunctionReturnBufferDeclare(function)}[];";
+				bufferDeclare = $"extern {base.CreateFunctionReturnBufferDeclare(function)}[];";
 			}
-			return bufferDecalre;
+			else
+			{
+				bufferDeclare = $"{function.Name} does not return value.";
+			}
+
+			return bufferDeclare;
 		}
 
 		/// <summary>
