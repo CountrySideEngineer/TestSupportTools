@@ -45,7 +45,28 @@ namespace CodeGenerator.Stub.Template
 		protected override string CreateArgumentBufferDeclare(Function function, Parameter argument)
 		{
 			string bufferDeclare = base.CreateArgumentBufferDeclare(function, argument);
-			bufferDeclare = $"extern {bufferDeclare}[];";
+			bufferDeclare = $"extern {bufferDeclare}[]";
+			return bufferDeclare;
+		}
+
+		/// <summary>
+		/// Create buffer code for external declaration of buffer to store values to 
+		/// </summary>
+		/// <param name="function">Function data.</param>
+		/// <param name="argument">Argument data.</param>
+		/// <returns>Code to declare buffer externaly to store value the method should return via pointer arguments.</returns>
+		protected override string CreateOutputBufferDeclare(Function function, Parameter argument)
+		{
+			string bufferDeclare = string.Empty;
+			bufferDeclare = base.CreateOutputBufferDeclare(function, argument);
+			if ((string.IsNullOrEmpty(bufferDeclare)) || (string.IsNullOrWhiteSpace(bufferDeclare)))
+			{
+				bufferDeclare = $"//{argument.Name} is not output.";
+			}
+			else
+			{
+				bufferDeclare = $"extern {bufferDeclare}[][STUB_BUFFER_SIZE_2];";
+			}
 			return bufferDeclare;
 		}
 

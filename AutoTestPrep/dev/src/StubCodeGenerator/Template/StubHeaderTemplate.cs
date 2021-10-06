@@ -28,44 +28,37 @@ namespace CodeGenerator.Stub.Template
         /// </summary>
         public override string TransformText()
         {
-            this.Write("/*\r\n *\t");
+            this.Write("#pragma once\r\n//Buffer size macro\r\n#ifndef\tSTUB_BUFFER_SIZE_1\r\n#define\tSTUB_BUFFE" +
+                    "R_SIZE_1\t\t\t(");
             
-            #line 8 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TargetFunction.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" stub header file.\r\n */\r\n#pragma once\r\n//Buffer size macro\r\n#ifndef\tSTUB_BUFFER_S" +
-                    "IZE_1\r\n#define\tSTUB_BUFFER_SIZE_1\t\t\t(");
-            
-            #line 13 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderTemplate.tt"
+            #line 10 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.Config.BufferSize1));
             
             #line default
             #line hidden
             this.Write(")\r\n#endif\r\n#ifndef\tSTUB_BUFFER_SIZE_2\r\n#define\tSTUB_BUFFER_SIZE_2\t\t\t(");
             
-            #line 16 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderTemplate.tt"
+            #line 13 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.Config.BufferSize2));
             
             #line default
             #line hidden
             this.Write(")\r\n#endif\r\n\r\n");
             
-            #line 19 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderTemplate.tt"
-	foreach (var subFunction in this.TargetFunction.SubFunctions) {	
+            #line 16 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderTemplate.tt"
+	foreach (var subFunction in this.ParentFunction.SubFunctions) {	
             
             #line default
             #line hidden
             
-            #line 20 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderTemplate.tt"
+            #line 17 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateStubBody(this.ParentFunction, subFunction)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 21 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderTemplate.tt"
+            #line 18 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderTemplate.tt"
 	}	
             
             #line default

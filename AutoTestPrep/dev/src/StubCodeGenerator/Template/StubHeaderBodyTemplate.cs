@@ -49,7 +49,7 @@ namespace CodeGenerator.Stub.Template
             
             #line default
             #line hidden
-            this.Write("\r\n\r\n//Argument buffer\r\n");
+            this.Write("\r\n\r\n//External declaration of the buffers which store the value of arguments. \r\n");
             
             #line 14 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
  foreach (var argItem in this.TargetFunction.Arguments) {
@@ -69,9 +69,30 @@ namespace CodeGenerator.Stub.Template
             
             #line default
             #line hidden
-            this.Write("\r\n//Function to initialize buffers.\r\n");
+            this.Write("\r\n//External declaration of the buffers that store the values the method should r" +
+                    "eturn via a pointer argument.\r\n");
             
             #line 19 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+ foreach (var argItem in this.TargetFunction.Arguments) {
+            
+            #line default
+            #line hidden
+            
+            #line 20 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateOutputBufferDeclare(this.TargetFunction, argItem)));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
+            
+            #line 21 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("\r\n//Function to initialize buffers.\r\n");
+            
+            #line 24 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateInitializeFunctionDeclare(this.TargetFunction)));
             
             #line default
