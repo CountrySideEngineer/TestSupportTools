@@ -6,14 +6,12 @@
         xmlns:local="clr-namespace:AutoTestPrep"
         xmlns:vm="clr-namespace:AutoTestPrep.ViewModel"
         xmlns:uc="clr-namespace:AutoTestPrep.View"
-        xmlns:conv="clr-namespace:AutoTestPrep.Command.Converter"
         mc:Ignorable="d"
         Title="{Binding Path=CurrentTitle}" Height="450" Width="800"
         DataContextChanged="MainWindow_DataContextChanged">
     <Window.Resources>
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BoolVisibilityConverter"/>
-            <conv:TestFrameworkConverter x:Key="TestFrameworkConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="./Resource/Style.xaml"/>
             </ResourceDictionary.MergedDictionaries>

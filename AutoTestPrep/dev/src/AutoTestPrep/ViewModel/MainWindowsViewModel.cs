@@ -156,9 +156,9 @@ namespace AutoTestPrep.ViewModel
 			this.BaseTestDataInfo = new TestDataInfo();
 			this.SetupTestInformationReq(ref this.BaseTestDataInfo);
 
-			var framework = TestFramework.Framework.google_test;
-			string frameworkName = framework.ToString();
-			int frameworkValue = ((int)framework);
+			//var framework = TestFramework.Framework.google_test;
+			//string frameworkName = framework.ToString();
+			//int frameworkValue = ((int)framework);
 		}
 
 		public string CurrentTitle
