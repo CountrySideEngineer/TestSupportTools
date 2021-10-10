@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{00952EF0-0356-4FCC-94CA-A5A79D760E64}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CodeGenerator.TestDriver.MinUnit</RootNamespace>
+    <AssemblyName>MinUnitDriverCodeGenerator</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CodeGenerator.SDK">
+      <HintPath>..\..\bin\sdk\CodeGenerator.SDK.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TestParser.SDK">
+      <HintPath>..\..\bin\TestParser.SDK.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CodeGenerator\MinUnitCodeGenerator.cs" />
+    <Compile Include="CodeGenerator\MinUnitMainSourceCodeGenerator.cs" />
+    <Compile Include="CodeGenerator\MinUnitSourceCodeGenerator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Template\Code\MinUnitSourceCallTestCaseTemplate_code.cs" />
+    <Compile Include="Template\Code\MinUnitSourceMainTemplate_code.cs" />
+    <Compile Include="Template\Code\MinUnitSourceSetUpTemplate_code.cs" />
+    <Compile Include="Template\Code\MinUnitSourceTemplate_code.cs" />
+    <Compile Include="Template\Code\MinUnitSourceTestCaseTemplate_code.cs" />
+    <Compile Include="Template\Code\MinUnitTemplate_code.cs" />
+    <Compile Include="Template\MinUnitSourceCallTestCaseTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MinUnitSourceCallTestCaseTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Template\MinUnitSourceMainTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MinUnitSourceMainTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Template\MinUnitSourceSetUpTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MinUnitSourceSetUpTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Template\MinUnitSourceTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MinUnitSourceTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Template\MinUnitSourceTestCaseTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MinUnitSourceTestCaseTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Template\MinUnitTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MinUnitTemplate.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Template\MinUnitSourceCallTestCaseTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MinUnitSourceCallTestCaseTemplate.cs</LastGenOutput>
+      <CustomToolNamespace>CodeGenerator.TestDriver.Template</CustomToolNamespace>
+    </Content>
+    <Content Include="Template\MinUnitSourceMainTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MinUnitSourceMainTemplate.cs</LastGenOutput>
+      <CustomToolNamespace>CodeGenerator.TestDriver.Template</CustomToolNamespace>
+    </Content>
+    <Content Include="Template\MinUnitSourceSetUpTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MinUnitSourceSetUpTemplate.cs</LastGenOutput>
+      <CustomToolNamespace>CodeGenerator.TestDriver.Template</CustomToolNamespace>
+    </Content>
+    <Content Include="Template\MinUnitSourceTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MinUnitSourceTemplate.cs</LastGenOutput>
+      <CustomToolNamespace>CodeGenerator.TestDriver.Template</CustomToolNamespace>
+    </Content>
+    <Content Include="Template\MinUnitSourceTestCaseTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MinUnitSourceTestCaseTemplate.cs</LastGenOutput>
+      <CustomToolNamespace>CodeGenerator.TestDriver.Template</CustomToolNamespace>
+    </Content>
+    <Content Include="Template\MinUnitTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MinUnitTemplate.cs</LastGenOutput>
+      <CustomToolNamespace>CodeGenerator.TestDriver.Template</CustomToolNamespace>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

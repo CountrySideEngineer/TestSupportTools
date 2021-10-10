@@ -16,6 +16,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTestDriverCodeGenerator", 
 		{11065085-6BC4-42E5-B716-F77EC325154A} = {11065085-6BC4-42E5-B716-F77EC325154A}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinUnitDriverCodeGenerator", "MinUnitDriverCodeGenerator\MinUnitDriverCodeGenerator.csproj", "{00952EF0-0356-4FCC-94CA-A5A79D760E64}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A9313C3B-7BFB-4F4B-8D0E-9B133952144B} = {A9313C3B-7BFB-4F4B-8D0E-9B133952144B}
+		{11065085-6BC4-42E5-B716-F77EC325154A} = {11065085-6BC4-42E5-B716-F77EC325154A}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E98CCA94-12CD-41E1-A616-59B876B3C16E}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +45,10 @@ Global
 		{6EED3803-E1AF-40D7-AC7A-48F054437821}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EED3803-E1AF-40D7-AC7A-48F054437821}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6EED3803-E1AF-40D7-AC7A-48F054437821}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00952EF0-0356-4FCC-94CA-A5A79D760E64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00952EF0-0356-4FCC-94CA-A5A79D760E64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00952EF0-0356-4FCC-94CA-A5A79D760E64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00952EF0-0356-4FCC-94CA-A5A79D760E64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
