@@ -12,11 +12,6 @@ namespace CodeGenerator.Data
 	public class CodeConfiguration
 	{
 		/// <summary>
-		/// Path to directory to output code.
-		/// </summary>
-		public string OutputDirPath { get; set; }
-
-		/// <summary>
 		/// Buffer size for stub.
 		/// </summary>
 		public int BufferSize1 { get; set; }
@@ -41,7 +36,6 @@ namespace CodeGenerator.Data
 		/// </summary>
 		public CodeConfiguration()
 		{
-			OutputDirPath = @"C:\";
 			this.BufferSize1 = 100;
 			this.BufferSize2 = 100;
 
@@ -58,7 +52,6 @@ namespace CodeGenerator.Data
 		{
 			try
 			{
-				this.OutputDirPath = src.OutputDirPath;
 				this.BufferSize1 = src.BufferSize1;
 				this.BufferSize2 = src.BufferSize2;
 				this.StandardHeaderFiles = new List<string>(src.StandardHeaderFiles);
