@@ -38,7 +38,13 @@ namespace StubDriverPlugin.GTestStubDriver
 			return output;
 		}
 
-		public void CreateCode(Test test, DirectoryInfo rootDirInfo, CodeConfiguration config)
+		/// <summary>
+		/// Create code.
+		/// </summary>
+		/// <param name="test">Test data for the code.</param>
+		/// <param name="rootDirInfo">Directory information for output.</param>
+		/// <param name="config"><para>CodeConfiguration</para> object.</param>
+		protected void CreateCode(Test test, DirectoryInfo rootDirInfo, CodeConfiguration config)
 		{
 			var writeData = new WriteData()
 			{
@@ -100,6 +106,12 @@ namespace StubDriverPlugin.GTestStubDriver
 			return tests;
 		}
 
+		/// <summary>
+		/// Parse and create test datas.
+		/// </summary>
+		/// <param name="parser">Parser inherits <para>IParser</para> interface.</param>
+		/// <param name="input">Input data for the plugin.</param>
+		/// <returns>Collection of <para>Test</para> object.</returns>
 		protected IEnumerable<Test> ParseExecute(TestParser.IParser parser, PluginInput input)
 		{
 			string path = input.InputFilePath;
@@ -107,6 +119,12 @@ namespace StubDriverPlugin.GTestStubDriver
 			return tests;
 		}
 
+		/// <summary>
+		/// Create <para>WriteData</para> object from plugin input data.
+		/// </summary>
+		/// <param name="test">Test data</param>
+		/// <param name="input">Input data for the plugin.</param>
+		/// <returns>Write data as <para>WriteData</para> object.</returns>
 		protected WriteData CreateWriteDataForStub(Test test, PluginInput input)
 		{
 			CodeConfiguration config = this.Input2CodeConfigForStub(input);
