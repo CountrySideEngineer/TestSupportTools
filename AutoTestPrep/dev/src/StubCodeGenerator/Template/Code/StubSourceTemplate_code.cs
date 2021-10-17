@@ -25,6 +25,21 @@ namespace CodeGenerator.Stub.Template
 		/// </summary>
 		public CodeConfiguration Config { get; set; }
 
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public StubSourceTemplate()
+		{
+			this.ParentFunction = new Function();
+			this.TargetFunction = new Function();
+			this.Config = new CodeConfiguration();
+		}
+
+		/// <summary>
+		/// Create stub source body.
+		/// </summary>
+		/// <param name="target">Target function.</param>
+		/// <returns>Stub source body code.</returns>
 		protected string CreateStubBody(Function target)
 		{
 			var template = new StubSourceBodyTemplate()

@@ -125,7 +125,7 @@ namespace CodeGenerator.Stub.Template
             
             #line default
             #line hidden
-            this.Write("[index] = 0;\r\n");
+            this.Write("\r\n");
             
             #line 35 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceBodyTemplate.tt"
 	}	
@@ -146,7 +146,7 @@ namespace CodeGenerator.Stub.Template
             
             #line default
             #line hidden
-            this.Write(" = 0;\r\n");
+            this.Write("\r\n");
             
             #line 40 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceBodyTemplate.tt"
 	}	

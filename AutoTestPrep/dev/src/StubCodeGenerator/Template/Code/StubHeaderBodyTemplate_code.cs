@@ -26,6 +26,16 @@ namespace CodeGenerator.Stub.Template
 		public CodeConfiguration Config { get; set; }
 
 		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public StubHeaderBodyTemplate()
+		{
+			this.ParentFunction = new Function();
+			this.TargetFunction = new Function();
+			this.Config = new CodeConfiguration();
+		}
+
+		/// <summary>
 		/// Create code to declare external variable to store the count a method is called.
 		/// </summary>
 		/// <param name="function">Target function information.</param>

@@ -46,20 +46,26 @@ namespace CodeGenerator.Stub.Template
             this.Write(")\r\n#endif\r\n\r\n");
             
             #line 16 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderTemplate.tt"
-	foreach (var subFunction in this.ParentFunction.SubFunctions) {	
+
+	if (null !=this.ParentFunction.SubFunctions) {
+		foreach (var subFunction in this.ParentFunction.SubFunctions) {
+
             
             #line default
             #line hidden
             
-            #line 17 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderTemplate.tt"
+            #line 20 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateStubBody(this.ParentFunction, subFunction)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 18 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderTemplate.tt"
-	}	
+            #line 21 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderTemplate.tt"
+	
+		}
+	}
+
             
             #line default
             #line hidden

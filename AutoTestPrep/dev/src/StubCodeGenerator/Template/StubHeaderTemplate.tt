@@ -13,6 +13,12 @@
 #define	STUB_BUFFER_SIZE_2			(<#= this.Config.BufferSize2 #>)
 #endif
 
-<#	foreach (var subFunction in this.ParentFunction.SubFunctions) {	#>
+<#
+	if (null !=this.ParentFunction.SubFunctions) {
+		foreach (var subFunction in this.ParentFunction.SubFunctions) {
+#>
 <#=	this.CreateStubBody(this.ParentFunction, subFunction)	#>
-<#	}	#>
+<#	
+		}
+	}
+#>

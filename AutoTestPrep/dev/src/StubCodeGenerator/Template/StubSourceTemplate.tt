@@ -10,7 +10,12 @@
 <#	foreach (var headerFile in Config.UserHeaderFiles) {	#>
 #include "<#= headerFile #>"
 <#	}	#>
-
-<#	foreach (var subFunction in this.ParentFunction.SubFunctions) {	#>
-<#=	this.CreateStubBody(subFunction)	#>
-<#	}	#>
+<#
+	if (null != this.ParentFunction.SubFunctions) {
+		foreach (var subFunction in this.ParentFunction.SubFunctions) {
+#>
+<#=	this.CreateStubBody(subFunction) #>
+<#	
+		}
+	}
+#>

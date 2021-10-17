@@ -9,6 +9,16 @@ namespace TestParser.Parser
 	public class TestParser : ATestParser
 	{
 		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public TestParser()
+		{
+			this.FunctionListParser = new FunctionListParser();
+			this.FunctionParser = new FunctionParser();
+			this.TestCaseParser = new TestCaseParser();
+		}
+
+		/// <summary>
 		/// Returns the test data, test case data, input and expect value, 
 		/// </summary>
 		/// <param name="srcPath">Input src file path.</param>

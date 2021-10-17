@@ -11,7 +11,7 @@ namespace StubDriverPlugin.Data
 		/// <summary>
 		/// Message about plugin
 		/// </summary>
-		string Message { get; set; }
+		public string Message { get; set; }
 
 		/// <summary>
 		/// Default constructor.

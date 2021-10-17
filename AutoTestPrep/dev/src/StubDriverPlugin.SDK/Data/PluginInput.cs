@@ -26,7 +26,7 @@ namespace StubDriverPlugin.Data
 		/// <summary>
 		/// Buffer size for stub.
 		/// </summary>
-		public ulong StubBuferSize2 { get; set; }
+		public ulong StubBufferSize2 { get; set; }
 
 		/// <summary>
 		/// Collection of standard header file names a stub file should include.

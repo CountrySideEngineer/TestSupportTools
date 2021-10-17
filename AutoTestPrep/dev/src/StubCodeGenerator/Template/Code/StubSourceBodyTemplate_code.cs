@@ -26,6 +26,16 @@ namespace CodeGenerator.Stub.Template
 		public CodeConfiguration Config { get; set; }
 
 		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public StubSourceBodyTemplate()
+		{
+			this.ParentFunction = new Function();
+			this.TargetFunction = new Function();
+			this.Config = new CodeConfiguration();
+		}
+
+		/// <summary>
 		/// Create code declaring variable to store a value a method(stub) should return.
 		/// </summary>
 		/// <param name="function">Function data.</param>
