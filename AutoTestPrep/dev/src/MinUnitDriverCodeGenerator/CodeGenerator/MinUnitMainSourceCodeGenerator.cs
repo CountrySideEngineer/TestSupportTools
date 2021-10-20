@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestParser.Target;
 
-namespace CodeGenerator.TestDriver.MinUnit.CodeGenerator
+namespace CodeGenerator.TestDriver.MinUnit
 {
 	public class MinUnitMainSourceCodeGenerator : MinUnitCodeGenerator
 	{

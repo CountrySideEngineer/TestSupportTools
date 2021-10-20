@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B72B650F-14C6-4444-B844-E77B6CFDCB87}</ProjectGuid>
+    <ProjectGuid>{C9DA1087-F4CF-4A6D-A58F-647911C62805}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StubDriverPlugin</RootNamespace>
-    <AssemblyName>GTestStubDriverPlugin</AssemblyName>
+    <RootNamespace>MinUnitStubDriver</RootNamespace>
+    <AssemblyName>MinUnitStubDriverPlugin</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -32,16 +32,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CodeGenerator.SDK">
-      <HintPath>..\..\bin\sdk\CodeGenerator.SDK.dll</HintPath>
+      <HintPath>..\..\bin\CodeGenerator.SDK.dll</HintPath>
     </Reference>
-    <Reference Include="GTestCodeGenerator">
-      <HintPath>..\..\bin\GTestCodeGenerator.dll</HintPath>
+    <Reference Include="MinUnitDriverCodeGenerator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\MinUnitDriverCodeGenerator.dll</HintPath>
     </Reference>
     <Reference Include="StubCodeGenerator">
       <HintPath>..\..\bin\StubCodeGenerator.dll</HintPath>
     </Reference>
     <Reference Include="StubDriverPlugin.SDK">
-      <HintPath>..\..\bin\sdk\StubDriverPlugin.SDK.dll</HintPath>
+      <HintPath>..\..\bin\StubDriverPlugin.SDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -59,9 +60,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GTestStubDriver\GTestStubDriver.cs" />
+    <Compile Include="MinUnitStubDriver\MinUnitStubDriver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
