@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeGenerator.TestDriver.GoogleTest.CodeGenerator
+namespace CodeGenerator.TestDriver.GoogleTest
 {
 	public class GoogleTestSourceCodeGenerator : GoogleTestCodeGenerator
 	{

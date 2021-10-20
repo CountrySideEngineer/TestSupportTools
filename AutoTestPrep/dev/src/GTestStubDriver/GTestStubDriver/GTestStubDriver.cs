@@ -10,6 +10,7 @@ using CodeGenerator.Data;
 using CodeGenerator.Stub;
 using System.IO;
 using CodeGenerator;
+using CodeGenerator.TestDriver.GoogleTest;
 
 namespace StubDriverPlugin.GTestStubDriver
 {
@@ -62,20 +63,45 @@ namespace StubDriverPlugin.GTestStubDriver
 		protected void CreateStubCode(DirectoryInfo outputRootDirInfo, WriteData data)
 		{
 			//Create output directory.
-			DirectoryInfo dirOutputInfo = new DirectoryInfo(outputRootDirInfo.FullName + @"\Stub");
-			Directory.CreateDirectory(dirOutputInfo.FullName);
+			DirectoryInfo parentDirInfo = this.CreateOutputDirInfo(outputRootDirInfo, data);
+			DirectoryInfo outputDirInfo = new DirectoryInfo($@"{parentDirInfo.FullName}\stub");
+			Directory.CreateDirectory(outputDirInfo.FullName);
 
 			//Create stub source file.
 			ICodeGenerator codeGenerator = new StubSourceGenerator();
-			string outputName = dirOutputInfo.FullName + $@"\{data.Test.Target.Name}_stub.c";
+			string outputName = outputDirInfo.FullName + $@"\{data.Test.Target.Name}_stub.cpp";
 			FileInfo outputFileInfo = new FileInfo(outputName);
 			this.CreateCode(data, codeGenerator, outputFileInfo);
 
 			//Create stub header file.
 			codeGenerator = new StubHeaderGenerator();
-			outputName = dirOutputInfo.FullName + $@"\{data.Test.Target.Name}_stub.h";
+			outputName = outputDirInfo.FullName + $@"\{data.Test.Target.Name}_stub.h";
 			outputFileInfo = new FileInfo(outputName);
 			this.CreateCode(data, codeGenerator, outputFileInfo);
+		}
+
+		/// <summary>
+		/// Create test driver code.
+		/// </summary>
+		/// <param name="outputRootDirInfo">Directory information for output.</param>
+		/// <param name="data">Write data.</param>
+		protected void CreateDriverCode(DirectoryInfo outputRootDirInfo, WriteData data)
+		{
+			DirectoryInfo parentDirInfo = this.CreateOutputDirInfo(outputRootDirInfo, data);
+			DirectoryInfo outputDirInfo = new DirectoryInfo($@"{parentDirInfo.FullName}\driver");
+			Directory.CreateDirectory(outputDirInfo.FullName);
+
+			//Create test driver source file.
+			ICodeGenerator codeGenerator = new GoogleTestSourceCodeGenerator();
+			string outputFilePath = outputDirInfo.FullName + $@"{data.Test.Name}_test.cpp";
+			FileInfo sourceFileInfo = new FileInfo(outputFilePath);
+			this.CreateCode(data, codeGenerator, sourceFileInfo);
+
+			//Create test driver header file.
+			codeGenerator = new GoogleTestHeaderCodeGenerator();
+			outputFilePath = outputDirInfo.FullName + $@"{data.Test.Name}_test.h";
+			FileInfo headerFileInfo = new FileInfo(outputFilePath);
+			this.CreateCode(data, codeGenerator, headerFileInfo);
 		}
 
 		/// <summary>
@@ -151,6 +177,19 @@ namespace StubDriverPlugin.GTestStubDriver
 				UserHeaderFiles = new List<string>(input.StubIncludeUserHeaderFiles)
 			};
 			return config;
+		}
+
+		/// <summary>
+		/// Create information about directory to output data.
+		/// </summary>
+		/// <param name="rootDir">Root directory information of output root.</param>
+		/// <param name="data">Write data</param>
+		/// <returns><para>DirectoryInfo</para> object about output.</returns>
+		protected virtual DirectoryInfo CreateOutputDirInfo(DirectoryInfo rootDir, WriteData data)
+		{
+			string outputDirPath = $@"{rootDir.FullName}\{data.Test.Target.Name}_test";
+			var outputDirInfo = new DirectoryInfo(outputDirPath);
+			return outputDirInfo;
 		}
 	}
 }
