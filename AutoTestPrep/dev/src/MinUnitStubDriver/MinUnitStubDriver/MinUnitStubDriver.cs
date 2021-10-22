@@ -87,13 +87,13 @@ namespace StubDriverPlugin.MinUnitStubDriver
 
 			//Create test driver source file.
 			ICodeGenerator codeGenerator = new MinUnitSourceCodeGenerator();
-			string outputFilePath = outputDirInfo.FullName + $@"{data.Test.Name}_test.cpp";
+			string outputFilePath = outputDirInfo.FullName + $@"\{data.Test.Name}_test.cpp";
 			FileInfo sourceFileInfo = new FileInfo(outputFilePath);
 			this.CreateCode(data, codeGenerator, sourceFileInfo);
 
 			//Create test driver header file.
 			codeGenerator = new MinUnitMainSourceCodeGenerator();
-			outputFilePath = outputDirInfo.FullName + $@"{data.Test.Name}_test_main.cpp";
+			outputFilePath = outputDirInfo.FullName + $@"\{data.Test.Name}_test_main.cpp";
 			FileInfo headerFileInfo = new FileInfo(outputFilePath);
 			this.CreateCode(data, codeGenerator, headerFileInfo);
 		}

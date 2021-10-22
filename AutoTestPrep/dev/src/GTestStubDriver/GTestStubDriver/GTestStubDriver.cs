@@ -53,6 +53,7 @@ namespace StubDriverPlugin.GTestStubDriver
 				CodeConfig = config
 			};
 			this.CreateStubCode(rootDirInfo, writeData);
+			this.CreateDriverCode(rootDirInfo, writeData);
 		}
 
 		/// <summary>
@@ -93,13 +94,13 @@ namespace StubDriverPlugin.GTestStubDriver
 
 			//Create test driver source file.
 			ICodeGenerator codeGenerator = new GoogleTestSourceCodeGenerator();
-			string outputFilePath = outputDirInfo.FullName + $@"{data.Test.Name}_test.cpp";
+			string outputFilePath = outputDirInfo.FullName + $@"\{data.Test.Name}_test.cpp";
 			FileInfo sourceFileInfo = new FileInfo(outputFilePath);
 			this.CreateCode(data, codeGenerator, sourceFileInfo);
 
 			//Create test driver header file.
 			codeGenerator = new GoogleTestHeaderCodeGenerator();
-			outputFilePath = outputDirInfo.FullName + $@"{data.Test.Name}_test.h";
+			outputFilePath = outputDirInfo.FullName + $@"\{data.Test.Name}_test.h";
 			FileInfo headerFileInfo = new FileInfo(outputFilePath);
 			this.CreateCode(data, codeGenerator, headerFileInfo);
 		}

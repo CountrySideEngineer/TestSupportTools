@@ -41,8 +41,9 @@
     <Reference Include="StubCodeGenerator">
       <HintPath>..\..\bin\StubCodeGenerator.dll</HintPath>
     </Reference>
-    <Reference Include="StubDriverPlugin.SDK">
-      <HintPath>..\..\bin\StubDriverPlugin.SDK.dll</HintPath>
+    <Reference Include="StubDriverPlugin.SDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\sdk\StubDriverPlugin.SDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
