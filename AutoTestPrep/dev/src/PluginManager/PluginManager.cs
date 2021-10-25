@@ -2,12 +2,13 @@
 using StubDriverPlugin;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Plugin
+namespace Plugin.TestStubDriver
 {
     public class PluginManager
     {
@@ -108,14 +109,15 @@ namespace Plugin
         /// </summary>
         /// <param name="index">Index of plugin.</param>
         /// <returns>Plugin object.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Argument <para>index</para> is out of range of plugin database.</exception>
+        /// <exception cref="FileNotFoundException">DLL file registered in database can not be found.</exception>
         public virtual IStubDriverPlugin Load(int index)
 		{
             try
 			{
                 IEnumerable<PluginInfo> pluginInfos = this.GetList();
                 PluginInfo pluginInfo = pluginInfos.ElementAt(index);
-                string pluginPath = $@"./plugin/{pluginInfo.FileName}";
-                var assembly = Assembly.LoadFrom(pluginPath);
+                var assembly = Assembly.LoadFrom(pluginInfo.FileName);
                 var ifType = assembly.GetTypes()
                     .Where(t => t.IsClass && t.IsPublic && !t.IsAbstract && (t.GetInterface(nameof(IStubDriverPlugin)) != null))
                     .FirstOrDefault();
@@ -130,7 +132,7 @@ namespace Plugin
 			{
                 throw;
 			}
-            catch (NullReferenceException)
+            catch (FileNotFoundException)
 			{
                 throw;
 			}
@@ -163,8 +165,8 @@ namespace Plugin
 		{
             using (var db = new LiteDatabase(this.FilePath))
 			{
-                var col = db.GetCollection<PluginInfo>("plugin");
-                var query = col.Query().ToEnumerable();
+                var col = db.GetCollection<PluginInfo>(this.TableName);
+                var query = col.Query().ToEnumerable().ToList();
                 return query;
 			}
 		}
