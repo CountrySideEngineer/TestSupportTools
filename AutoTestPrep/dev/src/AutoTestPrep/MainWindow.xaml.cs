@@ -45,7 +45,6 @@ namespace AutoTestPrep
 			try
 			{
 				((MainWindowsViewModel)viewModel).ShowAboutReq += this.ShowAboutEventHandler;
-
 			}
 			catch (InvalidCastException)
 			{
@@ -85,7 +84,10 @@ namespace AutoTestPrep
 				Owner = this
 			};
 			about.ShowDialog();
+		}
 
+		protected void NotifyRunMenuUserItems(object sender, EventArgs eventArgs)
+		{
 
 		}
 	}

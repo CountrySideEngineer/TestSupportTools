@@ -56,6 +56,9 @@
     <Reference Include="ClosedXML, Version=0.95.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ClosedXML.0.95.4\lib\net46\ClosedXML.dll</HintPath>
     </Reference>
+    <Reference Include="CodeGenerator.SDK">
+      <HintPath>..\..\bin\sdk\CodeGenerator.SDK.dll</HintPath>
+    </Reference>
     <Reference Include="CSEngineer.TestSupport.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\CSEngineer.TestSupport.Utility\CSEngineer.TestSupport.Utility.dll</HintPath>
@@ -66,9 +69,30 @@
     <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
+    <Reference Include="GTestCodeGenerator">
+      <HintPath>..\..\bin\GTestCodeGenerator.dll</HintPath>
+    </Reference>
+    <Reference Include="GTestStubDriverPlugin">
+      <HintPath>..\..\bin\GTestStubDriverPlugin.dll</HintPath>
+    </Reference>
     <Reference Include="Logger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Logger.1.0.0\Logger.dll</HintPath>
+    </Reference>
+    <Reference Include="MinUnitDriverCodeGenerator">
+      <HintPath>..\..\bin\MinUnitDriverCodeGenerator.dll</HintPath>
+    </Reference>
+    <Reference Include="MinUnitStubDriverPlugin">
+      <HintPath>..\..\bin\MinUnitStubDriverPlugin.dll</HintPath>
+    </Reference>
+    <Reference Include="PluginManager">
+      <HintPath>..\..\bin\PluginManager.dll</HintPath>
+    </Reference>
+    <Reference Include="StubCodeGenerator">
+      <HintPath>..\..\bin\StubCodeGenerator.dll</HintPath>
+    </Reference>
+    <Reference Include="StubDriverPlugin.SDK">
+      <HintPath>..\..\bin\sdk\StubDriverPlugin.SDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -91,7 +115,8 @@
     <Reference Include="TestParse">
       <HintPath>..\..\bin\TestParse.dll</HintPath>
     </Reference>
-    <Reference Include="TestParser.SDK">
+    <Reference Include="TestParser.SDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\sdk\TestParser.SDK.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />

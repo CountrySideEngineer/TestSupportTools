@@ -55,9 +55,34 @@
                               Command="{Binding Path=ShutdownCommand}"
                               />
                 </MenuItem>
-                <MenuItem Header="実行"
+                <MenuItem Header="生成"
+                          x:Name="RunMenuRoot"
                           Style="{StaticResource MenuItem_MenuBar}"
-                          Command="{Binding Path=RunCommand}"/>
+                          >
+                    <MenuItem Header="スタブ・ドライバ">
+                        <MenuItem Header="Google Test"
+                                  Style="{StaticResource MenuItem_MenuItem}"
+                                  />
+                        <MenuItem Header="min_unit"
+                                  Style="{StaticResource MenuItem_MenuItem}"
+                                  />
+                    </MenuItem>
+                    <MenuItem Header="ドライバ"
+                              Style="{StaticResource MenuItem_MenuItem}"
+                              />
+                    <MenuItem Header="スタブ"
+                              Style="{StaticResource MenuItem_MenuItem}"
+                              />
+                    <Separator/>
+                    <MenuItem Header="カスタム"
+                              x:Name="CustomMenuRoot"
+                              Style="{StaticResource MenuItem_MenuItem}"
+                              />
+                    <Separator/>
+                    <MenuItem Header="カスタムマネージャ"
+                              Style="{StaticResource MenuItem_MenuItem}"
+                              />
+                </MenuItem>
                 <MenuItem Header="ヘルプ"
                           Style="{StaticResource MenuItem_MenuBar}"
                           Command="{Binding Path=RunCommand}"
