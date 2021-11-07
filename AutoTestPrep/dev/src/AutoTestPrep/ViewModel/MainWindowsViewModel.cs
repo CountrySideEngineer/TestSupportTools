@@ -2,20 +2,14 @@
 using AutoTestPrep.Command.Argument;
 using AutoTestPrep.Model.EventArgs;
 using AutoTestPrep.Model.InputInfos;
-using CSEngineer.ViewModel;
 using CStubMKGui.Command;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutoTestPrep.ViewModel
 {
-	using AutoTestPrep.Model;
+	using Plugin;
 
 	public class MainWindowsViewModel : NotificationViewModelBase
 	{
@@ -25,6 +19,10 @@ namespace AutoTestPrep.ViewModel
 
 		protected ObservableCollection<string> _testConfigurationItems;
 		protected int _selectedConfigurationItemIndex;
+
+		protected ObservableCollection<PluginInfo> _defaultPlugins;
+
+		protected ObservableCollection<PluginInfo> _customPlugins;
 
 		/// <summary>
 		/// View model of test inforamtion input view.
@@ -53,6 +51,8 @@ namespace AutoTestPrep.ViewModel
 
 		protected TestFrameworkSelectViewModel _FrameworkSelectVM;
 
+		protected bool _CustomPluginEnable;
+
 		/// <summary>
 		/// View model field of input define macro information.
 		/// </summary>
@@ -71,6 +71,10 @@ namespace AutoTestPrep.ViewModel
 		protected DelegateCommand _ShutdownCommand;
 
 		protected DelegateCommand _AboutCommand;
+
+		protected DelegateCommand<int> _DefaultPluginCommand;
+
+		protected DelegateCommand<int> _CustomPluginCommand;
 
 		protected TestDataInfo BaseTestDataInfo;
 
@@ -156,9 +160,7 @@ namespace AutoTestPrep.ViewModel
 			this.BaseTestDataInfo = new TestDataInfo();
 			this.SetupTestInformationReq(ref this.BaseTestDataInfo);
 
-			//var framework = TestFramework.Framework.google_test;
-			//string frameworkName = framework.ToString();
-			//int frameworkValue = ((int)framework);
+			this.LoadPlugins();
 		}
 
 		public string CurrentTitle
@@ -196,6 +198,26 @@ namespace AutoTestPrep.ViewModel
 			{
 				this._testConfigurationItems = value;
 				this.RaisePropertyChanged(nameof(TestConfigurationItems));
+			}
+		}
+
+		public ObservableCollection<PluginInfo> DefaultPlugins
+		{
+			get => this._defaultPlugins;
+			protected set
+			{
+				this._defaultPlugins = value;
+				this.RaisePropertyChanged(nameof(DefaultPlugins));
+			}
+		}
+
+		public ObservableCollection<PluginInfo> CustomPlugins
+		{
+			get => this._customPlugins;
+			set
+			{
+				this._customPlugins = value;
+				this.RaisePropertyChanged(nameof(CustomPlugins));
 			}
 		}
 
@@ -304,6 +326,7 @@ namespace AutoTestPrep.ViewModel
 			}
 		}
 
+
 		public DelegateCommand RunCommand
 		{
 			get
@@ -313,6 +336,16 @@ namespace AutoTestPrep.ViewModel
 					this._RunCommand = new DelegateCommand(this.RunCommandExecute, this.CanRunCommandExecute);
 				}
 				return this._RunCommand;
+			}
+		}
+
+		public bool CustomPluginEnable
+		{
+			get => this._CustomPluginEnable;
+			set
+			{
+				this._CustomPluginEnable = value;
+				this.RaisePropertyChanged(nameof(CustomPluginEnable));
 			}
 		}
 
@@ -548,9 +581,55 @@ namespace AutoTestPrep.ViewModel
 			return true;
 		}
 
-		protected void RunCommandWithFramework()
+		protected void LoadPlugins()
 		{
+			LoadPluginCommand loadDefaultCommand = new LoadDefaultPluginCommand();
+			this.DefaultPlugins = this.LoadPlugins(loadDefaultCommand);
+			LoadPluginCommand loadCustomPluginCommand = new LoadCustomPluginCommand();
+			this.CustomPlugins = this.LoadPlugins(loadCustomPluginCommand);
+		}
 
+		protected ObservableCollection<PluginInfo> LoadPlugins(IPluginCommand loadPluginCommnad)
+		{
+			var pluginInfos = new ObservableCollection<PluginInfo>();
+			loadPluginCommnad.Execute(pluginInfos);
+
+			return pluginInfos;
+		}
+
+		public DelegateCommand<int> DefaultPluginCommand
+		{
+			get
+			{
+				if (null == this._DefaultPluginCommand)
+				{
+					this._DefaultPluginCommand = new DelegateCommand<int>(this.DefaultPluginCommandExecute, this.CanDefaultPluginCommandExecute);
+				}
+				return this._DefaultPluginCommand;
+			}
+		}
+
+		public void DefaultPluginCommandExecute(int index)
+		{
+			Console.Write($"index = {index}");
+		}
+
+		public bool CanDefaultPluginCommandExecute(object data)
+		{
+			return true;
+		}
+
+		public bool CanCustomPluginCommandExecute(object data)
+		{
+			bool isEnable = false;
+			if (0 < this.CustomPlugins.Count)
+			{
+				isEnable = true;
+			}
+
+			this.CustomPluginEnable = isEnable;
+
+			return isEnable;
 		}
 	}
 }

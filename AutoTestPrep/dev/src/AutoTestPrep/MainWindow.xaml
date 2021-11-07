@@ -58,14 +58,18 @@
                 <MenuItem Header="生成"
                           x:Name="RunMenuRoot"
                           Style="{StaticResource MenuItem_MenuBar}"
-                          >
-                    <MenuItem Header="スタブ・ドライバ">
-                        <MenuItem Header="Google Test"
-                                  Style="{StaticResource MenuItem_MenuItem}"
-                                  />
-                        <MenuItem Header="min_unit"
-                                  Style="{StaticResource MenuItem_MenuItem}"
-                                  />
+                    >
+                    <MenuItem Header="スタブ・ドライバ"
+                              IsTabStop="True"
+                              ItemsSource="{Binding DefaultPlugins}"
+                              >
+                        <MenuItem.ItemContainerStyle>
+                            <Style TargetType="MenuItem">
+                                <Setter Property="Header" Value="{Binding Path=Name}"/>
+                                <Setter Property="Command" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=MenuItem}, Path=DataContext.DefaultPluginCommand}"/>
+                                <Setter Property="CommandParameter" Value="{Binding Path=Id}"/>
+                            </Style>
+                        </MenuItem.ItemContainerStyle>
                     </MenuItem>
                     <MenuItem Header="ドライバ"
                               Style="{StaticResource MenuItem_MenuItem}"
@@ -77,6 +81,7 @@
                     <MenuItem Header="カスタム"
                               x:Name="CustomMenuRoot"
                               Style="{StaticResource MenuItem_MenuItem}"
+                              IsEnabled="{Binding Path=CustomPluginEnable}"
                               />
                     <Separator/>
                     <MenuItem Header="カスタムマネージャ"
