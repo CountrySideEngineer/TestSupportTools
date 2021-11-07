@@ -9,6 +9,11 @@ namespace Plugin
 	public class PluginInfo
 	{
 		/// <summary>
+		/// Id of plugin in number.
+		/// </summary>
+		public int Id { get; set; }
+
+		/// <summary>
 		/// Name of plugin.
 		/// </summary>
 		public string Name { get; set; }
