@@ -67,7 +67,7 @@
                             <Style TargetType="MenuItem">
                                 <Setter Property="Header" Value="{Binding Path=Name}"/>
                                 <Setter Property="Command" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=MenuItem}, Path=DataContext.DefaultPluginCommand}"/>
-                                <Setter Property="CommandParameter" Value="{Binding Path=Id}"/>
+                                <Setter Property="CommandParameter" Value="{Binding}"/>
                             </Style>
                         </MenuItem.ItemContainerStyle>
                     </MenuItem>

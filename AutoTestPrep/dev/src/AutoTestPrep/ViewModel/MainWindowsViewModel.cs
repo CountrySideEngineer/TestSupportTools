@@ -72,9 +72,9 @@ namespace AutoTestPrep.ViewModel
 
 		protected DelegateCommand _AboutCommand;
 
-		protected DelegateCommand<int> _DefaultPluginCommand;
+		protected DelegateCommand<PluginInfo> _DefaultPluginCommand;
 
-		protected DelegateCommand<int> _CustomPluginCommand;
+		protected DelegateCommand<PluginInfo> _CustomPluginCommand;
 
 		protected TestDataInfo BaseTestDataInfo;
 
@@ -597,21 +597,22 @@ namespace AutoTestPrep.ViewModel
 			return pluginInfos;
 		}
 
-		public DelegateCommand<int> DefaultPluginCommand
+		public DelegateCommand<PluginInfo> DefaultPluginCommand
 		{
 			get
 			{
 				if (null == this._DefaultPluginCommand)
 				{
-					this._DefaultPluginCommand = new DelegateCommand<int>(this.DefaultPluginCommandExecute, this.CanDefaultPluginCommandExecute);
+					this._DefaultPluginCommand = new DelegateCommand<PluginInfo>(this.DefaultPluginCommandExecute, this.CanDefaultPluginCommandExecute);
 				}
 				return this._DefaultPluginCommand;
 			}
 		}
 
-		public void DefaultPluginCommandExecute(int index)
+		public void DefaultPluginCommandExecute(PluginInfo pluginInfo)
 		{
-			Console.Write($"index = {index}");
+			Console.Write($"index = {pluginInfo.Id}");
+			Debug.WriteLine($"index = {pluginInfo.Id}");
 		}
 
 		public bool CanDefaultPluginCommandExecute(object data)
