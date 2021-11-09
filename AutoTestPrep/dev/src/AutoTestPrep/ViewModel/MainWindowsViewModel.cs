@@ -581,6 +581,9 @@ namespace AutoTestPrep.ViewModel
 			return true;
 		}
 
+		/// <summary>
+		/// Load default and user custom plugin information.
+		/// </summary>
 		protected void LoadPlugins()
 		{
 			LoadPluginCommand loadDefaultCommand = new LoadDefaultPluginCommand();
@@ -589,6 +592,11 @@ namespace AutoTestPrep.ViewModel
 			this.CustomPlugins = this.LoadPlugins(loadCustomPluginCommand);
 		}
 
+		/// <summary>
+		/// Load plugin using IPluginCommand, and its concrete object.
+		/// </summary>
+		/// <param name="loadPluginCommnad">Command to load plugin information.</param>
+		/// <returns>Collection of plugin information.</returns>
 		protected ObservableCollection<PluginInfo> LoadPlugins(IPluginCommand loadPluginCommnad)
 		{
 			var pluginInfos = new ObservableCollection<PluginInfo>();
@@ -597,6 +605,9 @@ namespace AutoTestPrep.ViewModel
 			return pluginInfos;
 		}
 
+		/// <summary>
+		/// Delegate command property to execute plugin command.
+		/// </summary>
 		public DelegateCommand<PluginInfo> DefaultPluginCommand
 		{
 			get
@@ -609,17 +620,31 @@ namespace AutoTestPrep.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Body of command to execute command about menu item selected.
+		/// </summary>
+		/// <param name="pluginInfo">Plugin information selected.</param>
 		public void DefaultPluginCommandExecute(PluginInfo pluginInfo)
 		{
 			Console.Write($"index = {pluginInfo.Id}");
 			Debug.WriteLine($"index = {pluginInfo.Id}");
 		}
 
+		/// <summary>
+		/// Returns whether the command of menu item can execute or not.
+		/// </summary>
+		/// <param name="data">Command data.</param>
+		/// <returns>Returns true if the command can execute, otherwise false.</returns>
 		public bool CanDefaultPluginCommandExecute(object data)
 		{
 			return true;
 		}
 
+		/// <summary>
+		/// Return whether the command of menu item about user custom plugin can execute or not.
+		/// </summary>
+		/// <param name="data">Command data</param>
+		/// <returns>Returns ture if the command can execute, otherwise returns false.</returns>
 		public bool CanCustomPluginCommandExecute(object data)
 		{
 			bool isEnable = false;
