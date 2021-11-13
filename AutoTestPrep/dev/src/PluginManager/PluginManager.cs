@@ -70,6 +70,7 @@ namespace Plugin.TestStubDriver
             IEnumerable<PluginInfo> matchPluginInfos = pluginInfos.Where(item => 
                 item.Name.Equals(pluginInfo.Name) && item.FileName.Equals(pluginInfo.FileName));
             bool isRegistered = false;
+            var temp = matchPluginInfos.FirstOrDefault();
             if (0 < matchPluginInfos.Count())
 			{
                 isRegistered = true;
@@ -117,15 +118,7 @@ namespace Plugin.TestStubDriver
 			{
                 IEnumerable<PluginInfo> pluginInfos = this.GetList();
                 PluginInfo pluginInfo = pluginInfos.ElementAt(index);
-                var assembly = Assembly.LoadFrom(pluginInfo.FileName);
-                var ifType = assembly.GetTypes()
-                    .Where(t => t.IsClass && t.IsPublic && !t.IsAbstract && (t.GetInterface(nameof(IStubDriverPlugin)) != null))
-                    .FirstOrDefault();
-                if (null == ifType)
-                {
-                    throw new NullReferenceException();
-                }
-                IStubDriverPlugin plugin = (IStubDriverPlugin)Activator.CreateInstance(ifType);
+                IStubDriverPlugin plugin = this.Load(pluginInfo);
                 return plugin;
             }
             catch (ArgumentOutOfRangeException)
@@ -136,6 +129,37 @@ namespace Plugin.TestStubDriver
 			{
                 throw;
 			}
+        }
+
+        /// <summary>
+        /// Load plugin object specified by argument PluginInfo object.
+        /// </summary>
+        /// <param name="pluginInfo">Pluin information.</param>
+        /// <returns>Plugin object</returns>
+        public virtual IStubDriverPlugin Load(PluginInfo pluginInfo)
+		{
+            try
+			{
+                var assembly = Assembly.LoadFrom(pluginInfo.FileName);
+                var ifType = assembly.GetTypes()
+                    .Where(typeItem => typeItem.IsClass && !typeItem.IsAbstract && (typeItem.GetInterface(nameof(IStubDriverPlugin)) != null))
+                    .FirstOrDefault();
+                if (null == ifType)
+                {
+                    throw new NullReferenceException();
+                }
+                IStubDriverPlugin plugin = (IStubDriverPlugin)Activator.CreateInstance(ifType);
+                return plugin;
+            }
+            catch (FileNotFoundException)
+			{
+                throw;
+			}
+            catch (ArgumentNullException)
+			{
+                throw;
+			}
+
         }
 
         /// <summary>
