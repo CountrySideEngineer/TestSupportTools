@@ -10,6 +10,7 @@ using System.Diagnostics;
 namespace AutoTestPrep.ViewModel
 {
 	using Plugin;
+	using StubDriverPlugin.Data;
 
 	public class MainWindowsViewModel : NotificationViewModelBase
 	{
@@ -626,6 +627,13 @@ namespace AutoTestPrep.ViewModel
 		/// <param name="pluginInfo">Plugin information selected.</param>
 		public void DefaultPluginCommandExecute(PluginInfo pluginInfo)
 		{
+			var pluginInput = new PluginInput();
+			var command = new ExecPluginCommand();
+			var commandArg = new PluginCommandArgument(pluginInfo, pluginInput);
+			command.Execute(commandArg);
+
+
+
 			Console.Write($"index = {pluginInfo.Id}");
 			Debug.WriteLine($"index = {pluginInfo.Id}");
 		}

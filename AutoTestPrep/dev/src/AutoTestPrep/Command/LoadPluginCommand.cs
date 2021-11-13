@@ -9,18 +9,8 @@ using System.Threading.Tasks;
 
 namespace AutoTestPrep.Command
 {
-	public class LoadPluginCommand : IPluginCommand
+	public class LoadPluginCommand : ACommonPluginCommand
 	{
-		/// <summary>
-		/// Path of database file.
-		/// </summary>
-		public string DbPath { get; protected set; }
-
-		/// <summary>
-		/// Name of table to access.
-		/// </summary>
-		public string DbTableName { get; protected set; }
-
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
@@ -45,7 +35,7 @@ namespace AutoTestPrep.Command
 		/// </summary>
 		/// <param name="commandArg">Reference to set loaded plugin infos.</param>
 		/// <exception cref="ArgumentException">Argument is invalid.</exception>
-		public virtual void Execute(object commandArg)
+		public override void Execute(object commandArg)
 		{
 			try
 			{
