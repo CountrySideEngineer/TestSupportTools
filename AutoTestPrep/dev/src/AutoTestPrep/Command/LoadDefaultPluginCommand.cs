@@ -52,13 +52,13 @@ namespace AutoTestPrep.Command
 			var googleTestPluginInfo = new PluginInfo
 			{
 				Name = "Google test",
-				FileName = "GoogleTestPlugin.dll"
+				FileName = "GTestStubDriverPlugin.dll"
 			};
 			this.RegistDefaultPluginIfNotExist(manager, googleTestPluginInfo);
 			var minUnitPluginUnfo = new PluginInfo
 			{
 				Name = "Min unit",
-				FileName = "MinUnitPlugin.dll"
+				FileName = "MinUnitStubDriverPlugin.dll"
 			};
 			this.RegistDefaultPluginIfNotExist(manager, minUnitPluginUnfo);
 		}
