@@ -1,5 +1,4 @@
 ﻿using AutoTestPrep.Model.InputInfos;
-using AutoTestPrep.Model.Parser;
 using AutoTestPrep.Model.Writer;
 using System;
 using System.Collections.Generic;

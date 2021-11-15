@@ -1,0 +1,12 @@
+﻿<#@ template language="C#"
+	inherits="GoogleTestTemplate" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+void <#= TestClassName(this.TargetFunction) #>::SetUp()
+{
+<# foreach (var subFunction in this.TargetFunction.SubFunctions) {	#>
+	<#= this.CreateStubInitializeMethodName(subFunction)	#>();
+<#	}	#>
+}

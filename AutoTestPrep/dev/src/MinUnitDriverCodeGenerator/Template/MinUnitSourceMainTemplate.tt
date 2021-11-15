@@ -1,0 +1,19 @@
+﻿<#@ template language="C#" 
+	inherits="MinUnitTemplate" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+#include <stdio.h>
+#include "min_unit.h"
+
+int test_run = 0;
+
+char* <#= this.TargetFunction.Name #>_utest_run_all();
+
+int main()
+{
+	mu_run_all_test("<#= this.TargetFunction.Name #>_utest_run_all", <#= this.TargetFunction.Name #>_utest_run_all);
+
+	return 0;
+}

@@ -1,0 +1,14 @@
+﻿<#@ template language="C#" 
+	inherits="MinUnitTemplate" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+char* <#= this.TargetFunction.Name #>_utest_run_all()
+{
+<# foreach (var testCaseItem in this.Test.TestCases) { #>
+	mu_run_test("<#= CreateTestCaseMethodName(this.TargetFunction, testCaseItem) #>", <#= CreateTestCaseMethodName(this.TargetFunction, testCaseItem) #>);
+<#	} #>
+
+	return 0;
+}
