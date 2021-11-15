@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31727.386
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginManagerSample", "PluginManagerSample\PluginManagerSample.csproj", "{312F2DCF-EF62-4DAC-836A-1BEABDED1006}"
+	ProjectSection(ProjectDependencies) = postProject
+		{57F16847-F2C0-47FD-8DAD-B24A2E10A3BA} = {57F16847-F2C0-47FD-8DAD-B24A2E10A3BA}
+		{5C91C0ED-0E8C-402A-8B04-850C8D63E57B} = {5C91C0ED-0E8C-402A-8B04-850C8D63E57B}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginSampleA", "PluginSampleA\PluginSampleA.csproj", "{57F16847-F2C0-47FD-8DAD-B24A2E10A3BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginSampleB", "PluginSampleB\PluginSampleB.csproj", "{5C91C0ED-0E8C-402A-8B04-850C8D63E57B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{312F2DCF-EF62-4DAC-836A-1BEABDED1006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{312F2DCF-EF62-4DAC-836A-1BEABDED1006}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{312F2DCF-EF62-4DAC-836A-1BEABDED1006}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{312F2DCF-EF62-4DAC-836A-1BEABDED1006}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57F16847-F2C0-47FD-8DAD-B24A2E10A3BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57F16847-F2C0-47FD-8DAD-B24A2E10A3BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57F16847-F2C0-47FD-8DAD-B24A2E10A3BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57F16847-F2C0-47FD-8DAD-B24A2E10A3BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C91C0ED-0E8C-402A-8B04-850C8D63E57B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C91C0ED-0E8C-402A-8B04-850C8D63E57B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C91C0ED-0E8C-402A-8B04-850C8D63E57B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C91C0ED-0E8C-402A-8B04-850C8D63E57B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {29D99FC4-B250-4B28-9F99-C9AF7CFB64C6}
+	EndGlobalSection
+EndGlobal

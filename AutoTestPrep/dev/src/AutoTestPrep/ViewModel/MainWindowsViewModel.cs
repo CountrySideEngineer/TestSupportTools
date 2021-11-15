@@ -2,20 +2,16 @@
 using AutoTestPrep.Command.Argument;
 using AutoTestPrep.Model.EventArgs;
 using AutoTestPrep.Model.InputInfos;
-using CSEngineer.ViewModel;
 using CStubMKGui.Command;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutoTestPrep.ViewModel
 {
-	using AutoTestPrep.Model;
+	using AutoTestPrep.Model.Converter;
+	using Plugin;
+	using StubDriverPlugin.Data;
 
 	public class MainWindowsViewModel : NotificationViewModelBase
 	{
@@ -25,6 +21,10 @@ namespace AutoTestPrep.ViewModel
 
 		protected ObservableCollection<string> _testConfigurationItems;
 		protected int _selectedConfigurationItemIndex;
+
+		protected ObservableCollection<PluginInfo> _defaultPlugins;
+
+		protected ObservableCollection<PluginInfo> _customPlugins;
 
 		/// <summary>
 		/// View model of test inforamtion input view.
@@ -53,6 +53,8 @@ namespace AutoTestPrep.ViewModel
 
 		protected TestFrameworkSelectViewModel _FrameworkSelectVM;
 
+		protected bool _CustomPluginEnable;
+
 		/// <summary>
 		/// View model field of input define macro information.
 		/// </summary>
@@ -71,6 +73,10 @@ namespace AutoTestPrep.ViewModel
 		protected DelegateCommand _ShutdownCommand;
 
 		protected DelegateCommand _AboutCommand;
+
+		protected DelegateCommand<PluginInfo> _DefaultPluginCommand;
+
+		protected DelegateCommand<PluginInfo> _CustomPluginCommand;
 
 		protected TestDataInfo BaseTestDataInfo;
 
@@ -156,9 +162,7 @@ namespace AutoTestPrep.ViewModel
 			this.BaseTestDataInfo = new TestDataInfo();
 			this.SetupTestInformationReq(ref this.BaseTestDataInfo);
 
-			var framework = TestFramework.Framework.google_test;
-			string frameworkName = framework.ToString();
-			int frameworkValue = ((int)framework);
+			this.LoadPlugins();
 		}
 
 		public string CurrentTitle
@@ -196,6 +200,26 @@ namespace AutoTestPrep.ViewModel
 			{
 				this._testConfigurationItems = value;
 				this.RaisePropertyChanged(nameof(TestConfigurationItems));
+			}
+		}
+
+		public ObservableCollection<PluginInfo> DefaultPlugins
+		{
+			get => this._defaultPlugins;
+			protected set
+			{
+				this._defaultPlugins = value;
+				this.RaisePropertyChanged(nameof(DefaultPlugins));
+			}
+		}
+
+		public ObservableCollection<PluginInfo> CustomPlugins
+		{
+			get => this._customPlugins;
+			set
+			{
+				this._customPlugins = value;
+				this.RaisePropertyChanged(nameof(CustomPlugins));
 			}
 		}
 
@@ -304,6 +328,7 @@ namespace AutoTestPrep.ViewModel
 			}
 		}
 
+
 		public DelegateCommand RunCommand
 		{
 			get
@@ -313,6 +338,16 @@ namespace AutoTestPrep.ViewModel
 					this._RunCommand = new DelegateCommand(this.RunCommandExecute, this.CanRunCommandExecute);
 				}
 				return this._RunCommand;
+			}
+		}
+
+		public bool CustomPluginEnable
+		{
+			get => this._CustomPluginEnable;
+			set
+			{
+				this._CustomPluginEnable = value;
+				this.RaisePropertyChanged(nameof(CustomPluginEnable));
 			}
 		}
 
@@ -548,9 +583,88 @@ namespace AutoTestPrep.ViewModel
 			return true;
 		}
 
-		protected void RunCommandWithFramework()
+		/// <summary>
+		/// Load default and user custom plugin information.
+		/// </summary>
+		protected void LoadPlugins()
 		{
+			LoadPluginCommand loadDefaultCommand = new LoadDefaultPluginCommand();
+			this.DefaultPlugins = this.LoadPlugins(loadDefaultCommand);
+			LoadPluginCommand loadCustomPluginCommand = new LoadCustomPluginCommand();
+			this.CustomPlugins = this.LoadPlugins(loadCustomPluginCommand);
+		}
 
+		/// <summary>
+		/// Load plugin using IPluginCommand, and its concrete object.
+		/// </summary>
+		/// <param name="loadPluginCommnad">Command to load plugin information.</param>
+		/// <returns>Collection of plugin information.</returns>
+		protected ObservableCollection<PluginInfo> LoadPlugins(IPluginCommand loadPluginCommnad)
+		{
+			var pluginInfos = new ObservableCollection<PluginInfo>();
+			loadPluginCommnad.Execute(pluginInfos);
+
+			return pluginInfos;
+		}
+
+		/// <summary>
+		/// Delegate command property to execute plugin command.
+		/// </summary>
+		public DelegateCommand<PluginInfo> DefaultPluginCommand
+		{
+			get
+			{
+				if (null == this._DefaultPluginCommand)
+				{
+					this._DefaultPluginCommand = new DelegateCommand<PluginInfo>(this.DefaultPluginCommandExecute, this.CanDefaultPluginCommandExecute);
+				}
+				return this._DefaultPluginCommand;
+			}
+		}
+
+		/// <summary>
+		/// Body of command to execute command about menu item selected.
+		/// </summary>
+		/// <param name="pluginInfo">Plugin information selected.</param>
+		public void DefaultPluginCommandExecute(PluginInfo pluginInfo)
+		{
+			var testDataInfo = new TestDataInfo();
+			this.SetupTestInformationReq?.Invoke(ref testDataInfo);
+
+			var converter = new TestDataInfoConverter();
+			PluginInput pluginInput = converter.ToPluginInput(testDataInfo);
+
+			var command = new ExecPluginCommand();
+			var commandArg = new PluginCommandArgument(pluginInfo, pluginInput);
+			command.Execute(commandArg);
+		}
+
+		/// <summary>
+		/// Returns whether the command of menu item can execute or not.
+		/// </summary>
+		/// <param name="data">Command data.</param>
+		/// <returns>Returns true if the command can execute, otherwise false.</returns>
+		public bool CanDefaultPluginCommandExecute(object data)
+		{
+			return true;
+		}
+
+		/// <summary>
+		/// Return whether the command of menu item about user custom plugin can execute or not.
+		/// </summary>
+		/// <param name="data">Command data</param>
+		/// <returns>Returns ture if the command can execute, otherwise returns false.</returns>
+		public bool CanCustomPluginCommandExecute(object data)
+		{
+			bool isEnable = false;
+			if (0 < this.CustomPlugins.Count)
+			{
+				isEnable = true;
+			}
+
+			this.CustomPluginEnable = isEnable;
+
+			return isEnable;
 		}
 	}
 }

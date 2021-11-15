@@ -77,21 +77,22 @@ namespace AutoTestPrep.ViewModel
 
 		public override void RestoreTestInforamtion(TestDataInfo testDataInfo)
 		{
-			int frameworkIndex = ((int)testDataInfo.FrameworkTye);
-			this.SelectedItemIndex = frameworkIndex;
+			//int frameworkIndex = ((int)testDataInfo.FrameworkTye);
+			//this.SelectedItemIndex = frameworkIndex;
 		}
 
 		public override void SetupTestInfomation(ref TestDataInfo testDataInfo)
 		{
-			TestFramework.Framework framework = TestFramework.ToFramework(this.SelectedItemIndex);
-			testDataInfo.FrameworkTye = framework;
+			//TestFramework.Framework framework = TestFramework.ToFramework(this.SelectedItemIndex);
+			//testDataInfo.FrameworkTye = framework;
 		}
 
 		public override string ToString()
 		{
-			string frameworkName = "Framework:";
-			frameworkName += TestFramework.ToFramework(this.SelectedItemIndex).ToString();
-			return frameworkName;
+			//string frameworkName = "Framework:";
+			//frameworkName += TestFramework.ToFramework(this.SelectedItemIndex).ToString();
+			//return frameworkName;
+			return string.Empty;
 		}
 	}
 }
