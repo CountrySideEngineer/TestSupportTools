@@ -1,6 +1,7 @@
 ﻿using CodeGenerator.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,11 +32,21 @@ namespace CodeGenerator.TestDriver.Template
 		/// </summary>
 		/// <param name="targetFunction">Test target function data.</param>
 		/// <returns>SetUp method code.</returns>
+		/// <exception cref="NullReferenceException">Target function or sub functions are NULL.</exception>
 		public virtual string CreateSetUpCode(Function targetFunction)
 		{
 			var template = new GoogleTestSourceSetUpTemplate(targetFunction);
-			var setupCode = template.TransformText();
-			return setupCode;
+			try
+			{
+				var setupCode = template.TransformText();
+				return setupCode;
+			}
+			catch (NullReferenceException ex)
+			{
+				Debug.WriteLine(ex.Message);
+
+				throw;
+			}
 		}
 
 		/// <summary>

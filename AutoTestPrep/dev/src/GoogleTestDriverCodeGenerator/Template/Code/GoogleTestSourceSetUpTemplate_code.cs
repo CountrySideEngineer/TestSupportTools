@@ -1,6 +1,7 @@
 ﻿using CodeGenerator.Stub.Template;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,11 +38,21 @@ namespace CodeGenerator.TestDriver.Template
 		/// </summary>
 		/// <param name="stubFunction">Stub function data.</param>
 		/// <returns>Method name to initialize stub parameter.</returns>
+		/// <exception cref="NullReferenceException"></exception>
 		public virtual string CreateStubInitializeMethodName(Function stubFunction)
 		{
-			var template = new StubTemplate();
-			string stubInitializeCode = template.CreateInitializeFunctionName(stubFunction);
-			return stubInitializeCode;
+			try
+			{
+				var template = new StubTemplate();
+				string stubInitializeCode = template.CreateInitializeFunctionName(stubFunction);
+				return stubInitializeCode;
+			}
+			catch (NullReferenceException ex)
+			{
+				Debug.WriteLine(ex.Message);
+
+				throw;
+			}
 		}
 
 

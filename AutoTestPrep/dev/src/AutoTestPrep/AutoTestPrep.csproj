@@ -150,6 +150,7 @@
     <Compile Include="Command\RunToolCommand.cs" />
     <Compile Include="Command\SaveProjectCommand.cs" />
     <Compile Include="Command\ShutdownCommand.cs" />
+    <Compile Include="Model\Converter\TestDataInfoConverter.cs" />
     <Compile Include="Model\DirectoryCreator.cs" />
     <Compile Include="Model\EventArgs\NotificationEventArgs.cs" />
     <Compile Include="Model\EventArgs\SelectedStateChangedEventArgs.cs" />

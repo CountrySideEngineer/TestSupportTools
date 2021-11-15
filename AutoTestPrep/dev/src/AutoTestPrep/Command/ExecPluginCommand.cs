@@ -1,6 +1,7 @@
 ﻿using AutoTestPrep.Command.Argument;
 using Plugin;
 using Plugin.TestStubDriver;
+using StubDriverPlugin;
 using StubDriverPlugin.Data;
 using System;
 using System.Collections.Generic;
@@ -48,7 +49,7 @@ namespace AutoTestPrep.Command
 		protected PluginOutput ExecutePlugin(PluginInfo pluginInfo, PluginInput pluginInput)
 		{
 			var manager = new PluginManager(this.DbPath, this.DbTableName);
-			var plugin = manager.Load(pluginInfo);
+			IStubDriverPlugin plugin = manager.Load(pluginInfo);
 			PluginOutput pluginOutput = plugin.Execute(pluginInput);
 			return pluginOutput;
 		}

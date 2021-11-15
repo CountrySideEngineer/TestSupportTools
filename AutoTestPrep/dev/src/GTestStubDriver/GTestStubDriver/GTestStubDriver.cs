@@ -113,7 +113,15 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// <param name="fileInfo">Output file information.</param>
 		protected void CreateCode(WriteData writeData, ICodeGenerator codeGenerator, FileInfo fileInfo)
 		{
-			string content = codeGenerator.Generate(writeData);
+			string content = string.Empty;
+			try
+			{
+				content = codeGenerator.Generate(writeData);
+			}
+			catch (NullReferenceException)
+			{
+				throw;
+			}
 			using (var stream = File.CreateText(fileInfo.FullName))
 			{
 				stream.Write(content);

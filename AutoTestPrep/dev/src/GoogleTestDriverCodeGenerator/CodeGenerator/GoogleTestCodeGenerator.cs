@@ -2,6 +2,7 @@
 using CodeGenerator.TestDriver.Template;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +16,20 @@ namespace CodeGenerator.TestDriver.GoogleTest
 		/// </summary>
 		/// <param name="data">Data for code.</param>
 		/// <returns>Generated stub code.</returns>
+		/// <exception cref="NullReferenceException">One of object refered in a template is NULL.</exception>
 		public string Generate(WriteData data)
 		{
-			var template = this.CreateTemplate(data);
-			return template.TransformText();
+			try
+			{
+				var template = this.CreateTemplate(data);
+				return template.TransformText();
+			}
+			catch (NullReferenceException ex)
+			{
+				Debug.WriteLine(ex.Message);
+				throw;
+			}
+
 		}
 
 		/// <summary>

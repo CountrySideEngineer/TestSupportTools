@@ -9,6 +9,7 @@ using System.Diagnostics;
 
 namespace AutoTestPrep.ViewModel
 {
+	using AutoTestPrep.Model.Converter;
 	using Plugin;
 	using StubDriverPlugin.Data;
 
@@ -627,15 +628,15 @@ namespace AutoTestPrep.ViewModel
 		/// <param name="pluginInfo">Plugin information selected.</param>
 		public void DefaultPluginCommandExecute(PluginInfo pluginInfo)
 		{
-			var pluginInput = new PluginInput();
+			var testDataInfo = new TestDataInfo();
+			this.SetupTestInformationReq?.Invoke(ref testDataInfo);
+
+			var converter = new TestDataInfoConverter();
+			PluginInput pluginInput = converter.ToPluginInput(testDataInfo);
+
 			var command = new ExecPluginCommand();
 			var commandArg = new PluginCommandArgument(pluginInfo, pluginInput);
 			command.Execute(commandArg);
-
-
-
-			Console.Write($"index = {pluginInfo.Id}");
-			Debug.WriteLine($"index = {pluginInfo.Id}");
 		}
 
 		/// <summary>
