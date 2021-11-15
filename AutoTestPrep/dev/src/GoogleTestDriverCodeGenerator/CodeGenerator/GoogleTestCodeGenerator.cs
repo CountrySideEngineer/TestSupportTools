@@ -19,17 +19,18 @@ namespace CodeGenerator.TestDriver.GoogleTest
 		/// <exception cref="NullReferenceException">One of object refered in a template is NULL.</exception>
 		public string Generate(WriteData data)
 		{
+			Debug.Assert(null != data, $"{nameof(GoogleTestCodeGenerator)}.{nameof(Generate)}");
+
 			try
 			{
 				var template = this.CreateTemplate(data);
 				return template.TransformText();
 			}
-			catch (NullReferenceException ex)
+			catch (Exception ex)
+			when ((ex is ArgumentNullException) || (ex is NullReferenceException))
 			{
-				Debug.WriteLine(ex.Message);
 				throw;
 			}
-
 		}
 
 		/// <summary>
