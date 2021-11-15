@@ -3,6 +3,7 @@ using CodeGenerator.Data;
 using CodeGenerator.Stub.Template;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,8 @@ namespace CodeGenerator.Stub
 		/// <returns>Generated stub code.</returns>
 		public string Generate(WriteData data)
 		{
+			Debug.Assert(null != data, $"{nameof(StubCodeGenerator)}.{nameof(Generate)}.data");
+
 			var template = this.CreateTemplate(data);
 			return template.TransformText();
 		}
