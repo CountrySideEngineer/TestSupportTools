@@ -1,7 +1,5 @@
 ﻿using AutoTestPrep.Model;
 using AutoTestPrep.Model.InputInfos;
-using AutoTestPrep.Model.Parser;
-using AutoTestPrep.Model.Writer;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CSEngineer;
-using AutoTestPrep.Model.DriverStubCreator;
 
 namespace AutoTestPrep.Command
 {
@@ -43,24 +40,24 @@ namespace AutoTestPrep.Command
 		/// <param name="data">Parameters used when run command.</param>
 		protected void _Run(object data)
 		{
-			try
-			{
-				var inputInfos = data as TestDataInfo;
-				IDriverStubCreator driveStubCreator = SequenceFactory.Create(inputInfos);
-				driveStubCreator.Create(inputInfos);
-			}
-			catch (System.Exception ex)
-			when ((ex is InvalidCastException) ||
-				(ex is IOException))
-			{
-				Logger.FATAL("Input data type error!");
+			//try
+			//{
+			//	var inputInfos = data as TestDataInfo;
+			//	IDriverStubCreator driveStubCreator = SequenceFactory.Create(inputInfos);
+			//	driveStubCreator.Create(inputInfos);
+			//}
+			//catch (System.Exception ex)
+			//when ((ex is InvalidCastException) ||
+			//	(ex is IOException))
+			//{
+			//	Logger.FATAL("Input data type error!");
 
-				throw;
-			}
-			catch (System.Exception ex)
-			{
-				Logger.ERROR(ex.Message);
-			}
+			//	throw;
+			//}
+			//catch (System.Exception ex)
+			//{
+			//	Logger.ERROR(ex.Message);
+			//}
 		}
 	}
 }
