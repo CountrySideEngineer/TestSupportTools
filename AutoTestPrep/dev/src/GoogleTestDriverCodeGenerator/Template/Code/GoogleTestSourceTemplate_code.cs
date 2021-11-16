@@ -55,14 +55,24 @@ namespace CodeGenerator.TestDriver.Template
 		/// <param name="targetFunction">Test target fucntion data.</param>
 		/// <param name="test">Test data</param>
 		/// <returns>Code for unit tests.</returns>
+		/// <exception cref="NullReferenceException"></exception>
 		public virtual string CreateTestCaseCode(Function targetFunction, Test test)
 		{
-			string testCaseCode = string.Empty;
-			foreach (var testCase in test.TestCases)
+			try
 			{
-				testCaseCode += this.CreateTestCaseCode(targetFunction, testCase);
+				string testCaseCode = string.Empty;
+				foreach (var testCase in test.TestCases)
+				{
+					testCaseCode += this.CreateTestCaseCode(targetFunction, testCase);
+				}
+				return testCaseCode;
 			}
-			return testCaseCode;
+			catch (NullReferenceException ex)
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
 		}
 
 		/// <summary>
@@ -71,11 +81,21 @@ namespace CodeGenerator.TestDriver.Template
 		/// <param name="targetFunction">Test target function.</param>
 		/// <param name="testCase">Test case data.</param>
 		/// <returns>Code for a unit test.</returns>
+		/// <exception cref="NullReferenceException">Target function has </exception>
 		public virtual string CreateTestCaseCode(Function targetFunction, TestCase testCase)
 		{
-			var template = new GoogleTestSourceTestCaseTemplate(targetFunction, testCase);
-			var testCaseCode = template.TransformText();
-			return testCaseCode;
+			try
+			{
+				var template = new GoogleTestSourceTestCaseTemplate(targetFunction, testCase);
+				var testCaseCode = template.TransformText();
+				return testCaseCode;
+			}
+			catch (NullReferenceException ex)
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
 		}
 	}
 }
