@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestParser.Target;
 using CodeGenerator.Data;
+using System.Diagnostics;
 
 namespace CodeGenerator.Stub.Template
 {
@@ -40,16 +41,28 @@ namespace CodeGenerator.Stub.Template
 		/// </summary>
 		/// <param name="target">Target function.</param>
 		/// <returns>Stub source body code.</returns>
+		/// <exception cref="ArgumentNullException"></exception>
+		/// <exception cref="ArgumentException"></exception>
 		protected string CreateStubBody(Function target)
 		{
-			var template = new StubSourceBodyTemplate()
+			try
 			{
-				ParentFunction = this.ParentFunction,
-				TargetFunction = target,
-				Config = this.Config
-			};
-			var code = template.TransformText();
-			return code;
+				var template = new StubSourceBodyTemplate()
+				{
+					ParentFunction = this.ParentFunction,
+					TargetFunction = target,
+					Config = this.Config
+				};
+				var code = template.TransformText();
+				return code;
+			}
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
 		}
 	}
 }

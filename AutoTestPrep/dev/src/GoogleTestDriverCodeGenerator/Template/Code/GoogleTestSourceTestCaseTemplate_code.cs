@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,41 +62,79 @@ namespace CodeGenerator.TestDriver.Template
 		/// </summary>
 		/// <param name="testData"></param>
 		/// <returns></returns>
+		/// <exception cref="ArgumentNullException"></exception>
+		/// <exception cref="ArgumentException"></exception>
 		protected virtual string CreateInput(TestData testData)
 		{
-			string inputCode = string.Empty;
+			try
+			{
+				string inputCode = string.Empty;
 
-			inputCode = $"{testData.Name} = {testData.Value}";
-			return inputCode;
+				if (((string.IsNullOrEmpty(testData.Name)) || (string.IsNullOrWhiteSpace(testData.Name)))
+					|| ((string.IsNullOrEmpty(testData.Value)) || (string.IsNullOrWhiteSpace(testData.Value))))
+				{
+					throw new ArgumentException();
+				}
+
+				inputCode = $"{testData.Name} = {testData.Value}";
+				return inputCode;
+			}
+			catch (NullReferenceException ex)
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw new ArgumentNullException();
+			}
+			catch (ArgumentException ex)
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
 		}
 
 		/// <summary>
 		/// Create code to call target function.
 		/// </summary>
-		/// <param name="targetFunctoin">Target functoin data.</param>
+		/// <param name="targetFunction">Target functoin data.</param>
 		/// <returns>Code to call target function.</returns>
-		protected virtual string CreateTargetFunctionCall(Function targetFunctoin)
+		protected virtual string CreateTargetFunctionCall(Function targetFunction)
 		{
-			string targetFunctionCall = string.Empty;
-
-			if (!("void".Equals(targetFunctoin.DataType.ToLower())))
+			try
 			{
-				targetFunctionCall = $"{targetFunctoin.ActualDataType()} returnValue = ";
-			}
-			targetFunctionCall += $"{targetFunctoin.Name}(";
-			bool isTop = true;
-			foreach (var argument in targetFunctoin.Arguments)
-			{
-				if (!isTop)
+				if ((string.IsNullOrEmpty(targetFunction.Name)) || (string.IsNullOrWhiteSpace(targetFunction.Name)))
 				{
-					targetFunctionCall += ", ";
+					throw new ArgumentException();
 				}
-				targetFunctionCall += $"{argument.Name}";
-				isTop = false;
-			}
-			targetFunctionCall += ")";
 
-			return targetFunctionCall;
+				string targetFunctionCall = string.Empty;
+
+				if (!("void".Equals(targetFunction.DataType.ToLower())))
+				{
+					targetFunctionCall = $"{targetFunction.ActualDataType()} returnValue = ";
+				}
+				targetFunctionCall += $"{targetFunction.Name}(";
+				bool isTop = true;
+				foreach (var argument in targetFunction.Arguments)
+				{
+					if (!isTop)
+					{
+						targetFunctionCall += ", ";
+					}
+					targetFunctionCall += $"{argument.Name}";
+					isTop = false;
+				}
+				targetFunctionCall += ")";
+
+				return targetFunctionCall;
+			}
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is NullReferenceException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
 		}
 	}
 }

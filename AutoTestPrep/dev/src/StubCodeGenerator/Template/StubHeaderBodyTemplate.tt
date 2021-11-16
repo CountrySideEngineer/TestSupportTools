@@ -12,15 +12,17 @@
 //External declaration of the buffer to store value the method should return.
 <#= this.CreateFunctionReturnBufferDeclare(this.TargetFunction) #>
 
+<#	if (null != this.TargetFunction.Arguments) {	#>
 //External declaration of the buffers which store the value of arguments. 
-<# foreach (var argItem in this.TargetFunction.Arguments) {#>
-<#= this.CreateArgumentBufferDeclare(this.TargetFunction, argItem) #>
-<# } #>
+<#		foreach (var argItem in this.TargetFunction.Arguments) {	#>
+<#= this.CreateArgumentBufferDeclare(this.TargetFunction, argItem)	#>
+<#		}	#>
 
 //External declaration of the buffers that store the values the method should return via a pointer argument.
-<# foreach (var argItem in this.TargetFunction.Arguments) {#>
-<#= this.CreateOutputBufferDeclare(this.TargetFunction, argItem) #>
-<# } #>
+<#		foreach (var argItem in this.TargetFunction.Arguments) {	#>
+<#= this.CreateOutputBufferDeclare(this.TargetFunction, argItem)	#>
+<#		} #>
+<#	}	#>
 
 //Function to initialize buffers.
 <#= this.CreateInitializeFunctionDeclare(this.TargetFunction) #>

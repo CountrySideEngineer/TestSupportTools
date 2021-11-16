@@ -41,20 +41,21 @@ namespace CodeGenerator.TestDriver.Template
 		/// <exception cref="NullReferenceException"></exception>
 		public virtual string CreateStubInitializeMethodName(Function stubFunction)
 		{
+			Debug.Assert(null != stubFunction, $"{nameof(GoogleTestSourceSetUpTemplate)}.{nameof(CreateStubInitializeMethodName)}");
+
 			try
 			{
 				var template = new StubTemplate();
 				string stubInitializeCode = template.CreateInitializeFunctionName(stubFunction);
 				return stubInitializeCode;
 			}
-			catch (NullReferenceException ex)
+			catch (Exception ex)
+			when ((ex is ArgumentNullException) || (ex is ArgumentException))
 			{
 				Debug.WriteLine(ex.Message);
 
 				throw;
 			}
 		}
-
-
 	}
 }
