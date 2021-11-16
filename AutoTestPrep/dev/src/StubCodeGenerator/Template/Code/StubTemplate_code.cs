@@ -57,8 +57,10 @@ namespace CodeGenerator.Stub.Template
 				string bufferName = $"{function.Name}_{argument.Name}";
 				return bufferName;
 			}
-			catch (NullReferenceException)
+			catch (NullReferenceException ex)
 			{
+				Debug.WriteLine(ex.StackTrace);
+
 				throw new ArgumentNullException();
 			}
 		}
@@ -68,13 +70,13 @@ namespace CodeGenerator.Stub.Template
 		/// </summary>
 		/// <param name="function">Target function.</param>
 		/// <returns>Buffer name to store value to return.</returns>
-		/// <exception cref="ArgumentException">"DataType" property of function is empty or whitespace.</exception>
+		/// <exception cref="ArgumentException">"Name" property of function is empty or whitespace.</exception>
 		/// <exception cref="ArgumentNullException">Argument function is null.</exception>
 		public virtual string CreateFunctionReturnBufferName(Function function)
 		{
 			try
 			{
-				if ((string.IsNullOrEmpty(function.DataType)) || (string.IsNullOrWhiteSpace(function.DataType)))
+				if ((string.IsNullOrEmpty(function.Name)) || (string.IsNullOrWhiteSpace(function.Name)))
 				{
 					throw new ArgumentException();
 				}
@@ -85,8 +87,16 @@ namespace CodeGenerator.Stub.Template
 				}
 				return bufferName;
 			}
-			catch (NullReferenceException)
+			catch (ArgumentException ex)
 			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
+			catch (NullReferenceException ex)
+			{
+				Debug.WriteLine(ex.StackTrace);
+
 				throw new ArgumentNullException();
 			}
 		}
@@ -111,7 +121,7 @@ namespace CodeGenerator.Stub.Template
 			catch (Exception ex)
 			when ((ex is ArgumentNullException) || (ex is ArgumentException))
 			{
-				Debug.WriteLine(ex.ToString());
+				Debug.WriteLine(ex.StackTrace);
 
 				throw ex;
 			}
@@ -144,13 +154,13 @@ namespace CodeGenerator.Stub.Template
 			catch (Exception ex)
 			when ((ex is ArgumentNullException) || (ex is ArgumentException))
 			{
-				Debug.WriteLine(ex.ToString());
+				Debug.WriteLine(ex.StackTrace);
 
 				throw ex;
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine(ex.ToString());
+				Debug.WriteLine(ex.StackTrace);
 
 				throw ex;
 			}
@@ -162,6 +172,7 @@ namespace CodeGenerator.Stub.Template
 		/// <param name="function">Function the argument has.</param>
 		/// <param name="argument">Argument data.</param>
 		/// <returns>Code declare buffer to store argument value.</returns>
+		/// <exception cref="ArgumentNullException"></exception>
 		/// <exception cref="ArgumentException">
 		/// -The data type of <para>argument</para> is void and not pointer.
 		/// -The data type of <para>argument</para> is empty or white space.
@@ -181,9 +192,18 @@ namespace CodeGenerator.Stub.Template
 					return bufferDeclare;
 				}
 			}
-			catch (ArgumentException)
+			catch (Exception ex)
+			when ((ex is ArgumentNullException) || (ex is ArgumentException))
 			{
+				Debug.WriteLine(ex.StackTrace);
+
 				throw;
+			}
+			catch (NullReferenceException ex)
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw new ArgumentNullException();
 			}
 		}
 
@@ -192,14 +212,32 @@ namespace CodeGenerator.Stub.Template
 		/// </summary>
 		/// <param name="function">Function data.</param>
 		/// <returns>Code declaring buffer to store a method returns.</returns>
+		/// <exception cref="ArgumentException"></exception>
+		/// <exception cref="ArgumentNullException"></exception>
 		protected virtual string CreateFunctionReturnBufferDeclare(Function function)
 		{
-			string bufferDeclare = string.Empty;
-			if (function.HasReturn())
+			try
 			{
-				bufferDeclare = $"{function.ActualDataType()} {this.CreateFunctionReturnBufferName(function)}";
+				string bufferDeclare = string.Empty;
+				if (function.HasReturn())
+				{
+					bufferDeclare = $"{function.ActualDataType()} {this.CreateFunctionReturnBufferName(function)}";
+				}
+				return bufferDeclare;
 			}
-			return bufferDeclare;
+			catch (Exception ex)
+			when ((ex is ArgumentNullException) || (ex is ArgumentException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
+			catch (NullReferenceException ex)
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw new ArgumentNullException();
+			}
 		}
 
 		/// <summary>
@@ -208,6 +246,7 @@ namespace CodeGenerator.Stub.Template
 		/// <param name="function">Function data.</param>
 		/// <param name="argument">Argument data.</param>
 		/// <returns>Buffer name to store value a functoin return via pointer.</returns>
+		/// <exception cref="ArgumentNullException"></exception>
 		protected virtual string CreateOutputBufferDeclare(Function function, Parameter argument)
 		{
 			try
@@ -225,8 +264,17 @@ namespace CodeGenerator.Stub.Template
 				}
 				return bufferDeclare;
 			}
-			catch (NullReferenceException)
+			catch (Exception ex)
+			when ((ex is ArgumentNullException) || (ex is ArgumentException))
 			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
+			catch (NullReferenceException ex)
+			{
+				Debug.WriteLine(ex.StackTrace);
+
 				throw new ArgumentNullException();
 			}
 		}
@@ -237,6 +285,7 @@ namespace CodeGenerator.Stub.Template
 		/// <param name="function">Function to initialize</param>
 		/// <returns>Initialize function name.</returns>
 		/// <exception cref="ArgumentException">The name of function is invalid, or NULL.</exception>
+		/// <exception cref="ArgumentNullException"></exception>
 		public virtual string CreateInitializeFunctionName(Function function)
 		{
 			try
@@ -251,13 +300,18 @@ namespace CodeGenerator.Stub.Template
 				functionName = $"{function.Name}_init";
 				return functionName;
 			}
-			catch (NullReferenceException)
+			catch (Exception ex)
+			when ((ex is ArgumentNullException) || (ex is ArgumentException))
 			{
-				throw new ArgumentException();
-			}
-			catch (ArgumentException)
-			{
+				Debug.WriteLine(ex.StackTrace);
+
 				throw;
+			}
+			catch (NullReferenceException ex)
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw new ArgumentNullException();
 			}
 		}
 
@@ -267,6 +321,7 @@ namespace CodeGenerator.Stub.Template
 		/// <param name="function">Function to initialize</param>
 		/// <returns>Code to declare initialize method.</returns>
 		/// <exception cref="ArgumentException">Argument function is invalid.</exception>
+		/// <exception cref="ArgumentNullException">Argument "function" is NULL.</exception>
 		protected virtual string CreateInitializeFunctionDeclare(Function function)
 		{
 			try
@@ -275,9 +330,10 @@ namespace CodeGenerator.Stub.Template
 				entryPoint = $"void {this.CreateInitializeFunctionName(function)}";
 				return entryPoint;
 			}
-			catch (ArgumentException ex)
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
-				Debug.WriteLine(ex.Message);
+				Debug.WriteLine(ex.StackTrace);
 
 				throw;
 			}

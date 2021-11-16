@@ -1,6 +1,7 @@
 ﻿using CodeGenerator.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,13 +43,22 @@ namespace CodeGenerator.Stub.Template
 		/// <returns>Code declaring buffer to store a method returns.</returns>
 		protected override string CreateFunctionReturnBufferDeclare(Function function)
 		{
-			string bufferDeclare = string.Empty;
-			if (function.HasReturn())
+			try
 			{
-				bufferDeclare = base.CreateFunctionReturnBufferDeclare(function);
-				bufferDeclare = $"{bufferDeclare}[STUB_BUFFER_SIZE_1]";
+				string bufferDeclare = string.Empty;
+				if (function.HasReturn())
+				{
+					bufferDeclare = base.CreateFunctionReturnBufferDeclare(function);
+					bufferDeclare = $"{bufferDeclare}[STUB_BUFFER_SIZE_1]";
+				}
+				return bufferDeclare;
 			}
-			return bufferDeclare;
+			catch (NullReferenceException ex)
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw new ArgumentNullException();
+			}
 		}
 
 		/// <summary>
@@ -65,8 +75,10 @@ namespace CodeGenerator.Stub.Template
 				bufferDeclare = $"{bufferDeclare}[STUB_BUFFER_SIZE_1];";
 				return bufferDeclare;
 			}
-			catch (ArgumentException)
+			catch (ArgumentException ex)
 			{
+				Debug.WriteLine(ex.StackTrace);
+
 				throw;
 			}
 		}
@@ -79,17 +91,33 @@ namespace CodeGenerator.Stub.Template
 		/// <returns>Buffer name to store value a functoin return via pointer.</returns>
 		protected override string CreateOutputBufferDeclare(Function function, Parameter argument)
 		{
-			string bufferDeclare = string.Empty;
-			bufferDeclare = base.CreateOutputBufferDeclare(function, argument);
-			if ((string.IsNullOrEmpty(bufferDeclare)) || (string.IsNullOrWhiteSpace(bufferDeclare)))
+			try
 			{
-				bufferDeclare = $"//{argument.Name} is not output.";
+				string bufferDeclare = string.Empty;
+				bufferDeclare = base.CreateOutputBufferDeclare(function, argument);
+				if ((string.IsNullOrEmpty(bufferDeclare)) || (string.IsNullOrWhiteSpace(bufferDeclare)))
+				{
+					bufferDeclare = $"//{argument.Name} is not output.";
+				}
+				else
+				{
+					bufferDeclare = $"{bufferDeclare}[STUB_BUFFER_SIZE_1][STUB_BUFFER_SIZE_2];";
+				}
+				return bufferDeclare;
 			}
-			else
+			catch (Exception ex)
+			when (ex is ArgumentNullException)
 			{
-				bufferDeclare = $"{bufferDeclare}[STUB_BUFFER_SIZE_1][STUB_BUFFER_SIZE_2];";
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
 			}
-			return bufferDeclare;
+			catch (NullReferenceException ex)
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw new ArgumentNullException();
+			}
 		}
 
 		/// <summary>
@@ -113,20 +141,29 @@ namespace CodeGenerator.Stub.Template
 		/// <remarks>If the argument is not return, this method will return comment.</remarks>
 		protected virtual string CreateOutputArgumentInitialize(Function function, Parameter argument)
 		{
-			string outputArgInit = string.Empty;
+			try
+			{
+				string outputArgInit = string.Empty;
 
-			if (((1 == argument.PointerNum) ||
-				(2 == argument.PointerNum)) &&                  //Condition1.Check whether the argument is pointer or not.
-				((Parameter.AccessMode.Out == argument.Mode) ||
-				(Parameter.AccessMode.Both == argument.Mode)))  //Condition2.Check whether the argument is output or not.
-			{
-				outputArgInit = $"{this.CreateOutputBufferName(function, argument)}[index][index2] = 0;";
+				if (((1 == argument.PointerNum) ||
+					(2 == argument.PointerNum)) &&                  //Condition1.Check whether the argument is pointer or not.
+					((Parameter.AccessMode.Out == argument.Mode) ||
+					(Parameter.AccessMode.Both == argument.Mode)))  //Condition2.Check whether the argument is output or not.
+				{
+					outputArgInit = $"{this.CreateOutputBufferName(function, argument)}[index][index2] = 0;";
+				}
+				else
+				{
+					outputArgInit = $"//{argument.Name} is not output.";
+				}
+				return outputArgInit;
 			}
-			else
+			catch (NullReferenceException ex)
 			{
-				outputArgInit = $"//{argument.Name} is not output.";
+				Debug.WriteLine(ex.StackTrace);
+
+				throw new ArgumentNullException();
 			}
-			return outputArgInit;
 		}
 
 		/// <summary>
@@ -137,19 +174,28 @@ namespace CodeGenerator.Stub.Template
 		/// <remarks>If the function does not return any value, this method will return a comment.</remarks>
 		protected virtual string CreateLatchReturnValueCode(Function function)
 		{
-			string returnLatchCode = string.Empty;
-			if (function.HasReturn())
+			try
 			{
-				returnLatchCode = $"{function.ActualDataType()} " +
-					$"latchReturn = " +
-					$"{CreateFunctionReturnBufferName(function)}[{CreateFunctionCalledBufferName(function)}]";
-			}
-			else
-			{
-				returnLatchCode = $"//{function.Name} does not return value.";
-			}
+				string returnLatchCode = string.Empty;
+				if (function.HasReturn())
+				{
+					returnLatchCode = $"{function.ActualDataType()} " +
+						$"latchReturn = " +
+						$"{CreateFunctionReturnBufferName(function)}[{CreateFunctionCalledBufferName(function)}]";
+				}
+				else
+				{
+					returnLatchCode = $"//{function.Name} does not return value.";
+				}
 
-			return returnLatchCode;
+				return returnLatchCode;
+			}
+			catch (NullReferenceException ex)
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw new ArgumentNullException();
+			}
 		}
 
 		/// <summary>
@@ -160,17 +206,26 @@ namespace CodeGenerator.Stub.Template
 		/// <remarks>If the function does not return any value, this method will return a comment.</remarks>
 		protected virtual string CreateReturnLatchedValueCode(Function function)
 		{
-			string returnLatchCode = string.Empty;
-			if (function.HasReturn())
+			try
 			{
-				returnLatchCode = $"return latchReturn";
-			}
-			else
-			{
-				returnLatchCode = $"//{function.Name} does not return value.";
-			}
+				string returnLatchCode = string.Empty;
+				if (function.HasReturn())
+				{
+					returnLatchCode = $"return latchReturn";
+				}
+				else
+				{
+					returnLatchCode = $"//{function.Name} does not return value.";
+				}
 
-			return returnLatchCode;
+				return returnLatchCode;
+			}
+			catch (NullReferenceException ex)
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw new ArgumentNullException();
+			}
 		}
 
 		/// <summary>
@@ -205,12 +260,26 @@ namespace CodeGenerator.Stub.Template
 
 		protected virtual string CreateCalledCountInitialize(Function function)
 		{
-			string initializeCode = string.Empty;
-			string calledCountBuffName = this.CreateFunctionCalledBufferName(function);
-			initializeCode = $"{calledCountBuffName} = 0;";
-			return initializeCode;
+			try
+			{
+				string calledCountBuffName = this.CreateFunctionCalledBufferName(function);
+				string initializeCode = $"{calledCountBuffName} = 0;";
+				return initializeCode;
+			}
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
 		}
 
+		/// <summary>
+		/// Create code to initialize buffer to store return value the stub method should return.
+		/// </summary>
+		/// <param name="function"></param>
+		/// <returns></returns>
 		protected virtual string CreateFunctionReturnBufferInitialize(Function function)
 		{
 			string bufferDeclare = string.Empty;

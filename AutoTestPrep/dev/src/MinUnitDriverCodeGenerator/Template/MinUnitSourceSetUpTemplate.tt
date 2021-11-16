@@ -7,7 +7,9 @@
 //Initialize test stub buffers.
 void <#= CreateStubInitMethodName(this.TargetFunction) #>()
 {
-<# foreach (var subFunction in this.TargetFunction.SubFunctions) {	#>
+<#	if (null != this.TargetFunction.SubFunctions) {	#>
+<#		foreach (var subFunction in this.TargetFunction.SubFunctions) {	#>
 	<#= this.CreateStubInitializeMethodName(subFunction)	#>();
+<#		}	#>
 <#	}	#>
 }

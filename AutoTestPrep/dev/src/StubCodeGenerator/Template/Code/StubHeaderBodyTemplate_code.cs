@@ -1,6 +1,7 @@
 ﻿using CodeGenerator.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,10 +41,22 @@ namespace CodeGenerator.Stub.Template
 		/// </summary>
 		/// <param name="function">Target function information.</param>
 		/// <returns>External buffer declare</returns>
+		/// <exception cref="ArgumentNullException"/>
+		/// <exception cref="ArgumentException"/>
 		protected override string CreateFunctoinCalledCountBufferDeclare(Function function)
 		{
-			string bufferDeclare = $"extern {base.CreateFunctoinCalledCountBufferDeclare(function)};";
-			return bufferDeclare;
+			try
+			{
+				string bufferDeclare = $"extern {base.CreateFunctoinCalledCountBufferDeclare(function)};";
+				return bufferDeclare;
+			}
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
 		}
 
 		/// <summary>
@@ -52,11 +65,23 @@ namespace CodeGenerator.Stub.Template
 		/// <param name="function">Function the argument has.</param>
 		/// <param name="argument">Argument data.</param>
 		/// <returns>Code declare buffer to store argument value.</returns>
+		/// <exception cref="ArgumentNullException"/>
+		/// <exception cref="ArgumentException"/>
 		protected override string CreateArgumentBufferDeclare(Function function, Parameter argument)
 		{
-			string bufferDeclare = base.CreateArgumentBufferDeclare(function, argument);
-			bufferDeclare = $"extern {bufferDeclare}[]";
-			return bufferDeclare;
+			try
+			{
+				string bufferDeclare = base.CreateArgumentBufferDeclare(function, argument);
+				bufferDeclare = $"extern {bufferDeclare}[]";
+				return bufferDeclare;
+			}
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
 		}
 
 		/// <summary>
@@ -67,17 +92,26 @@ namespace CodeGenerator.Stub.Template
 		/// <returns>Code to declare buffer externaly to store value the method should return via pointer arguments.</returns>
 		protected override string CreateOutputBufferDeclare(Function function, Parameter argument)
 		{
-			string bufferDeclare = string.Empty;
-			bufferDeclare = base.CreateOutputBufferDeclare(function, argument);
-			if ((string.IsNullOrEmpty(bufferDeclare)) || (string.IsNullOrWhiteSpace(bufferDeclare)))
+			try
 			{
-				bufferDeclare = $"//{argument.Name} is not output.";
+				string bufferDeclare = string.Empty;
+				bufferDeclare = base.CreateOutputBufferDeclare(function, argument);
+				if ((string.IsNullOrEmpty(bufferDeclare)) || (string.IsNullOrWhiteSpace(bufferDeclare)))
+				{
+					bufferDeclare = $"//{argument.Name} is not output.";
+				}
+				else
+				{
+					bufferDeclare = $"extern {bufferDeclare}[][STUB_BUFFER_SIZE_2];";
+				}
+				return bufferDeclare;
 			}
-			else
+			catch (ArgumentNullException ex)
 			{
-				bufferDeclare = $"extern {bufferDeclare}[][STUB_BUFFER_SIZE_2];";
+				Debug.WriteLine(ex.StackTrace);
+
+				throw ex;
 			}
-			return bufferDeclare;
 		}
 
 		/// <summary>
@@ -85,19 +119,31 @@ namespace CodeGenerator.Stub.Template
 		/// </summary>
 		/// <param name="function">Function data.</param>
 		/// <returns>External code declaring buffer to store a method should return.</returns>
+		/// <exception cref="ArgumentException"></exception>
+		/// <exception cref="ArgumentNullException"></exception>
 		protected override string CreateFunctionReturnBufferDeclare(Function function)
 		{
-			string bufferDeclare = string.Empty;
-			if (function.HasReturn())
+			try
 			{
-				bufferDeclare = $"extern {base.CreateFunctionReturnBufferDeclare(function)}[];";
-			}
-			else
-			{
-				bufferDeclare = $"{function.Name} does not return value.";
-			}
+				string bufferDeclare = string.Empty;
+				if (function.HasReturn())
+				{
+					bufferDeclare = $"extern {base.CreateFunctionReturnBufferDeclare(function)}[];";
+				}
+				else
+				{
+					bufferDeclare = $"{function.Name} does not return value.";
+				}
 
-			return bufferDeclare;
+				return bufferDeclare;
+			}
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
 		}
 
 		/// <summary>
@@ -105,11 +151,23 @@ namespace CodeGenerator.Stub.Template
 		/// </summary>
 		/// <param name="function">Function to initialize</param>
 		/// <returns>Code to declare initialize method.</returns>
+		/// <exception cref="ArgumentException"></exception>
+		/// <exception cref="ArgumentNullException"></exception>
 		protected override string CreateInitializeFunctionDeclare(Function function)
 		{
-			string entryPoint = base.CreateInitializeFunctionDeclare(function);
-			entryPoint = $"{entryPoint}();";
-			return entryPoint;
+			try
+			{
+				string entryPoint = base.CreateInitializeFunctionDeclare(function);
+				entryPoint = $"{entryPoint}();";
+				return entryPoint;
+			}
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
 		}
 	}
 }
