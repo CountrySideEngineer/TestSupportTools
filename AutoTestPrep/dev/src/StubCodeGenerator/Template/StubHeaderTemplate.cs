@@ -47,7 +47,7 @@ namespace CodeGenerator.Stub.Template
             
             #line 16 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderTemplate.tt"
 
-	if (null !=this.ParentFunction.SubFunctions) {
+	if (null != this.ParentFunction.SubFunctions) {
 		foreach (var subFunction in this.ParentFunction.SubFunctions) {
 
             

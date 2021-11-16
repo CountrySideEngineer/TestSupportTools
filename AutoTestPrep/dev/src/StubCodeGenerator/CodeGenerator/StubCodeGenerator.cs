@@ -18,12 +18,24 @@ namespace CodeGenerator.Stub
 		/// </summary>
 		/// <param name="data">Data for code.</param>
 		/// <returns>Generated stub code.</returns>
+		/// <exception cref="ArgumentException"></exception>
+		/// <exception cref="ArgumentNullException"></exception>
 		public string Generate(WriteData data)
 		{
 			Debug.Assert(null != data, $"{nameof(StubCodeGenerator)}.{nameof(Generate)}.data");
 
-			var template = this.CreateTemplate(data);
-			return template.TransformText();
+			try
+			{
+				var template = this.CreateTemplate(data);
+				return template.TransformText();
+			}
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
 		}
 
 		/// <summary>
