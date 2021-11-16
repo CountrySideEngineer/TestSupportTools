@@ -50,50 +50,63 @@ namespace CodeGenerator.Stub.Template
             
             #line default
             #line hidden
-            this.Write("\r\n\r\n//External declaration of the buffers which store the value of arguments. \r\n");
+            this.Write("\r\n\r\n");
             
-            #line 16 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
- foreach (var argItem in this.TargetFunction.Arguments) {
+            #line 15 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+	if (null != this.TargetFunction.Arguments) {	
+            
+            #line default
+            #line hidden
+            this.Write("//External declaration of the buffers which store the value of arguments. \r\n");
+            
+            #line 17 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+		foreach (var argItem in this.TargetFunction.Arguments) {	
             
             #line default
             #line hidden
             
-            #line 17 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+            #line 18 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateArgumentBufferDeclare(this.TargetFunction, argItem)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 18 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
- } 
+            #line 19 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+		}	
             
             #line default
             #line hidden
             this.Write("\r\n//External declaration of the buffers that store the values the method should r" +
                     "eturn via a pointer argument.\r\n");
             
-            #line 21 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
- foreach (var argItem in this.TargetFunction.Arguments) {
+            #line 22 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+		foreach (var argItem in this.TargetFunction.Arguments) {	
             
             #line default
             #line hidden
             
-            #line 22 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+            #line 23 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateOutputBufferDeclare(this.TargetFunction, argItem)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 23 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
- } 
+            #line 24 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+		} 
+            
+            #line default
+            #line hidden
+            
+            #line 25 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+	}	
             
             #line default
             #line hidden
             this.Write("\r\n//Function to initialize buffers.\r\n");
             
-            #line 26 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+            #line 28 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateInitializeFunctionDeclare(this.TargetFunction)));
             
             #line default

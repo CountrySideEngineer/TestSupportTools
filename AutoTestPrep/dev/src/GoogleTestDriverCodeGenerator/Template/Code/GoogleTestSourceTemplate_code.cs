@@ -43,7 +43,7 @@ namespace CodeGenerator.TestDriver.Template
 			}
 			catch (NullReferenceException ex)
 			{
-				Debug.WriteLine(ex.Message);
+				Debug.WriteLine(ex.StackTrace);
 
 				throw;
 			}

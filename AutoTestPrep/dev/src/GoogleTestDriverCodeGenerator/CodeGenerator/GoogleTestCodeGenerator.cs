@@ -29,6 +29,7 @@ namespace CodeGenerator.TestDriver.GoogleTest
 			catch (Exception ex)
 			when ((ex is ArgumentNullException) || (ex is NullReferenceException))
 			{
+				Debug.WriteLine(ex.StackTrace);
 				throw;
 			}
 		}
