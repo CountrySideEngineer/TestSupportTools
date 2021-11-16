@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeGenerator\ICodeGenerator.cs" />
+    <Compile Include="Exception\CodeGeneratorException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\CodeConfiguration.cs" />
     <Compile Include="Data\WriteData.cs" />
