@@ -38,20 +38,32 @@ namespace CodeGenerator.TestDriver.Template
             this.Write("()\r\n{\r\n");
             
             #line 10 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceSetUpTemplate.tt"
- foreach (var subFunction in this.TargetFunction.SubFunctions) {	
+	if (null != this.TargetFunction.SubFunctions) {	
+            
+            #line default
+            #line hidden
+            
+            #line 11 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceSetUpTemplate.tt"
+		foreach (var subFunction in this.TargetFunction.SubFunctions) {	
             
             #line default
             #line hidden
             this.Write("\t");
             
-            #line 11 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceSetUpTemplate.tt"
+            #line 12 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceSetUpTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateStubInitializeMethodName(subFunction)));
             
             #line default
             #line hidden
             this.Write("();\r\n");
             
-            #line 12 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceSetUpTemplate.tt"
+            #line 13 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceSetUpTemplate.tt"
+		}	
+            
+            #line default
+            #line hidden
+            
+            #line 14 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceSetUpTemplate.tt"
 	}	
             
             #line default

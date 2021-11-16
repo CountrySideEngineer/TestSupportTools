@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,13 +16,36 @@ namespace CodeGenerator.TestDriver.Template
         /// </summary>
         /// <param name="function">Target function data</param>
         /// <returns>Unite test class name.</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         protected virtual string TestClassName(Function function)
 		{
-            string testClassName = string.Empty;
-            testClassName = $"{function.Name}_utest";
+            Debug.Assert(null != function, $"{nameof(GoogleTestTemplate)}.{nameof(TestClassName)}");
 
-            return testClassName;
-		}
+            try
+			{
+                if ((string.IsNullOrEmpty(function.Name)) || (string.IsNullOrWhiteSpace(function.Name)))
+                {
+                    throw new ArgumentException();
+                }
+                string testClassName = string.Empty;
+                testClassName = $"{function.Name}_utest";
+
+                return testClassName;
+            }
+            catch (NullReferenceException ex)
+			{
+                Debug.WriteLine(ex.StackTrace);
+
+                throw;
+			}
+            catch (ArgumentException ex)
+			{
+                Debug.WriteLine(ex.StackTrace);
+
+                throw;
+			}
+        }
 
         /// <summary>
         /// Create test function name for unit test.
@@ -34,7 +58,7 @@ namespace CodeGenerator.TestDriver.Template
             string testCaseMethodName = string.Empty;
             testCaseMethodName = $"{function.Name}_utest_{caseNumber.ToString("D3")}";
             return testCaseMethodName;
-		}
+        }
 
         /// <summary>
         /// Create test function name for unit test.

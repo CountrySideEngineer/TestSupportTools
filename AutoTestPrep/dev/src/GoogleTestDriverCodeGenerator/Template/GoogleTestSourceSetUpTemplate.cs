@@ -38,21 +38,27 @@ namespace CodeGenerator.TestDriver.Template
             this.Write("::SetUp()\r\n{\r\n");
             
             #line 9 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceSetUpTemplate.tt"
- foreach (var subFunction in this.TargetFunction.SubFunctions) {	
+ 
+	if (null != this.TargetFunction.SubFunctions) {
+		foreach (var subFunction in this.TargetFunction.SubFunctions) {	
+
             
             #line default
             #line hidden
             this.Write("\t");
             
-            #line 10 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceSetUpTemplate.tt"
+            #line 13 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceSetUpTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateStubInitializeMethodName(subFunction)));
             
             #line default
             #line hidden
             this.Write("();\r\n");
             
-            #line 11 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceSetUpTemplate.tt"
-	}	
+            #line 14 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceSetUpTemplate.tt"
+
+		}
+	}
+
             
             #line default
             #line hidden

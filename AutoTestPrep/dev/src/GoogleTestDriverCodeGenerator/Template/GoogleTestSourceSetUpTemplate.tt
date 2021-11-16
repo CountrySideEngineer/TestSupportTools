@@ -6,7 +6,13 @@
 <#@ import namespace="System.Collections.Generic" #>
 void <#= TestClassName(this.TargetFunction) #>::SetUp()
 {
-<# foreach (var subFunction in this.TargetFunction.SubFunctions) {	#>
+<# 
+	if (null != this.TargetFunction.SubFunctions) {
+		foreach (var subFunction in this.TargetFunction.SubFunctions) {	
+#>
 	<#= this.CreateStubInitializeMethodName(subFunction)	#>();
-<#	}	#>
+<#
+		}
+	}
+#>
 }

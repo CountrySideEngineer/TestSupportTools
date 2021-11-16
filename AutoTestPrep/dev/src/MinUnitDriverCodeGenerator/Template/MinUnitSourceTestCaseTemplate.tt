@@ -8,9 +8,16 @@
 static char* <#= CreateTestCaseMethodName(this.TargetFunction, this.TestCase) #>()
 {
 	//Declare argument for target
-<# foreach (var argument in TargetFunction.Arguments) {	#>
+<#	
+	if (null != this.TargetFunction.Arguments) {
+		foreach (var argument in TargetFunction.Arguments) {
+#>
 	<#= argument.ActualDataType() #> <#= argument.Name	#>;
-<#	}	#>
+<#		
+		}
+	}
+#>
+}
 
 	//Declare return value buffer.
 	<#= CreateReturnValueBufferDeclare(this.TargetFunction) #>;
