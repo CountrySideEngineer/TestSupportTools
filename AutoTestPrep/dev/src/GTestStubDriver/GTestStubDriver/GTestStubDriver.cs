@@ -11,6 +11,7 @@ using CodeGenerator.Stub;
 using System.IO;
 using CodeGenerator;
 using CodeGenerator.TestDriver.GoogleTest;
+using System.Diagnostics;
 
 namespace StubDriverPlugin.GTestStubDriver
 {
@@ -23,20 +24,36 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// <returns>Result of plugin.</returns>
 		public PluginOutput Execute(PluginInput data)
 		{
+			Debug.Assert(null != data, $"{nameof(GTestStubDriver)}.{nameof(Execute)}, {nameof(data)}");
+
 			IEnumerable<Test> tests = this.ParseExecute(data);
 			DirectoryInfo rootDirInfo = new DirectoryInfo(data.OutputDirPath);
 			CodeConfiguration config = this.Input2CodeConfigForStub(data);
 
-			foreach (var testItem in tests)
+			PluginOutput pluginOutput = null;
+			try
 			{
-				this.CreateCode(testItem, rootDirInfo, config);
-			}
+				foreach (var testItem in tests)
+				{
+					this.CreateCode(testItem, rootDirInfo, config);
+				}
 
-			var output = new PluginOutput()
+				pluginOutput = new PluginOutput()
+				{
+					Message = "OK"
+				};
+			}
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
-				Message = "OK"
-			};
-			return output;
+				Debug.WriteLine(ex.StackTrace);
+
+				pluginOutput = new PluginOutput()
+				{
+					Message = "An trouble found while generating codes."
+				};
+			}
+			return pluginOutput;
 		}
 
 		/// <summary>
@@ -47,13 +64,21 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// <param name="config"><para>CodeConfiguration</para> object.</param>
 		protected void CreateCode(Test test, DirectoryInfo rootDirInfo, CodeConfiguration config)
 		{
-			var writeData = new WriteData()
+			try
 			{
-				Test = test,
-				CodeConfig = config
-			};
-			this.CreateStubCode(rootDirInfo, writeData);
-			this.CreateDriverCode(rootDirInfo, writeData);
+				var writeData = new WriteData()
+				{
+					Test = test,
+					CodeConfig = config
+				};
+				this.CreateStubCode(rootDirInfo, writeData);
+				this.CreateDriverCode(rootDirInfo, writeData);
+			}
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
+			{
+				throw;
+			}
 		}
 
 		/// <summary>
@@ -61,24 +86,36 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// </summary>
 		/// <param name="outputRootDirInfo">Directory information for output.</param>
 		/// <param name="data">Write data.</param>
+		/// <exception cref="ArgumentException"></exception>
+		/// <exception cref="ArgumentNullException"></exception>
 		protected void CreateStubCode(DirectoryInfo outputRootDirInfo, WriteData data)
 		{
-			//Create output directory.
-			DirectoryInfo parentDirInfo = this.CreateOutputDirInfo(outputRootDirInfo, data);
-			DirectoryInfo outputDirInfo = new DirectoryInfo($@"{parentDirInfo.FullName}\stub");
-			Directory.CreateDirectory(outputDirInfo.FullName);
+			try
+			{
+				//Create output directory.
+				DirectoryInfo parentDirInfo = this.CreateOutputDirInfo(outputRootDirInfo, data);
+				DirectoryInfo outputDirInfo = new DirectoryInfo($@"{parentDirInfo.FullName}\stub");
+				Directory.CreateDirectory(outputDirInfo.FullName);
 
-			//Create stub source file.
-			ICodeGenerator codeGenerator = new StubSourceGenerator();
-			string outputName = outputDirInfo.FullName + $@"\{data.Test.Target.Name}_stub.cpp";
-			FileInfo outputFileInfo = new FileInfo(outputName);
-			this.CreateCode(data, codeGenerator, outputFileInfo);
+				//Create stub source file.
+				ICodeGenerator codeGenerator = new StubSourceGenerator();
+				string outputName = outputDirInfo.FullName + $@"\{data.Test.Target.Name}_stub.cpp";
+				FileInfo outputFileInfo = new FileInfo(outputName);
+				this.CreateCode(data, codeGenerator, outputFileInfo);
 
-			//Create stub header file.
-			codeGenerator = new StubHeaderGenerator();
-			outputName = outputDirInfo.FullName + $@"\{data.Test.Target.Name}_stub.h";
-			outputFileInfo = new FileInfo(outputName);
-			this.CreateCode(data, codeGenerator, outputFileInfo);
+				//Create stub header file.
+				codeGenerator = new StubHeaderGenerator();
+				outputName = outputDirInfo.FullName + $@"\{data.Test.Target.Name}_stub.h";
+				outputFileInfo = new FileInfo(outputName);
+				this.CreateCode(data, codeGenerator, outputFileInfo);
+			}
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
 		}
 
 		/// <summary>
@@ -86,23 +123,35 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// </summary>
 		/// <param name="outputRootDirInfo">Directory information for output.</param>
 		/// <param name="data">Write data.</param>
+		/// <exception cref="ArgumentException"></exception>
+		/// <exception cref="ArgumentNullException"></exception>
 		protected void CreateDriverCode(DirectoryInfo outputRootDirInfo, WriteData data)
 		{
-			DirectoryInfo parentDirInfo = this.CreateOutputDirInfo(outputRootDirInfo, data);
-			DirectoryInfo outputDirInfo = new DirectoryInfo($@"{parentDirInfo.FullName}\driver");
-			Directory.CreateDirectory(outputDirInfo.FullName);
+			try
+			{
+				DirectoryInfo parentDirInfo = this.CreateOutputDirInfo(outputRootDirInfo, data);
+				DirectoryInfo outputDirInfo = new DirectoryInfo($@"{parentDirInfo.FullName}\driver");
+				Directory.CreateDirectory(outputDirInfo.FullName);
 
-			//Create test driver source file.
-			ICodeGenerator codeGenerator = new GoogleTestSourceCodeGenerator();
-			string outputFilePath = outputDirInfo.FullName + $@"\{data.Test.Name}_test.cpp";
-			FileInfo sourceFileInfo = new FileInfo(outputFilePath);
-			this.CreateCode(data, codeGenerator, sourceFileInfo);
+				//Create test driver source file.
+				ICodeGenerator codeGenerator = new GoogleTestSourceCodeGenerator();
+				string outputFilePath = outputDirInfo.FullName + $@"\{data.Test.Name}_test.cpp";
+				FileInfo sourceFileInfo = new FileInfo(outputFilePath);
+				this.CreateCode(data, codeGenerator, sourceFileInfo);
 
-			//Create test driver header file.
-			codeGenerator = new GoogleTestHeaderCodeGenerator();
-			outputFilePath = outputDirInfo.FullName + $@"\{data.Test.Name}_test.h";
-			FileInfo headerFileInfo = new FileInfo(outputFilePath);
-			this.CreateCode(data, codeGenerator, headerFileInfo);
+				//Create test driver header file.
+				codeGenerator = new GoogleTestHeaderCodeGenerator();
+				outputFilePath = outputDirInfo.FullName + $@"\{data.Test.Name}_test.h";
+				FileInfo headerFileInfo = new FileInfo(outputFilePath);
+				this.CreateCode(data, codeGenerator, headerFileInfo);
+			}
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
 		}
 
 		/// <summary>
@@ -111,6 +160,8 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// <param name="writeData">Write date</param>
 		/// <param name="codeGenerator">Object to generate code.</param>
 		/// <param name="fileInfo">Output file information.</param>
+		/// <exception cref="ArgumentException"></exception>
+		/// <exception cref="ArgumentNullException"></exception>
 		protected void CreateCode(WriteData writeData, ICodeGenerator codeGenerator, FileInfo fileInfo)
 		{
 			string content = string.Empty;
@@ -118,8 +169,11 @@ namespace StubDriverPlugin.GTestStubDriver
 			{
 				content = codeGenerator.Generate(writeData);
 			}
-			catch (NullReferenceException)
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
+				Debug.Write(ex.StackTrace);
+
 				throw;
 			}
 			using (var stream = File.CreateText(fileInfo.FullName))
