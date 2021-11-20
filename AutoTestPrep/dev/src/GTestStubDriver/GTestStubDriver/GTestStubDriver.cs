@@ -38,14 +38,14 @@ namespace StubDriverPlugin.GTestStubDriver
 					this.CreateCode(testItem, rootDirInfo, config);
 				}
 
-				pluginOutput = new PluginOutput(nameof(GTestStubDriver), "OK");
+				pluginOutput = new PluginOutput(nameof(GTestStubDriver), "コードの生成が完了しました。");
 			}
 			catch (Exception ex)
 			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
 				Debug.WriteLine(ex.StackTrace);
 
-				pluginOutput = new PluginOutput(nameof(GTestStubDriver), "An trouble found while generating codes.");
+				pluginOutput = new PluginOutput(nameof(GTestStubDriver), "コードの生成中にエラーが発生しました。");
 			}
 			return pluginOutput;
 		}
