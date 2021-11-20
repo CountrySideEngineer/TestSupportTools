@@ -9,15 +9,21 @@ namespace StubDriverPlugin.Data
 	public class PluginOutput
 	{
 		/// <summary>
+		/// About, summary of output.
+		/// </summary>
+		public string About { get; protected set; }
+
+		/// <summary>
 		/// Message about plugin
 		/// </summary>
-		public string Message { get; set; }
+		public string Message { get; protected set; }
 
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		public PluginOutput()
 		{
+			this.About = string.Empty;
 			this.Message = string.Empty;
 		}
 
@@ -27,7 +33,19 @@ namespace StubDriverPlugin.Data
 		/// <param name="message">Message about result of plugin.</param>
 		public PluginOutput(string message)
 		{
+			this.About = string.Empty;
 			this.Message = message;
+		}
+
+		/// <summary>
+		/// Constructor with argument.
+		/// </summary>
+		/// <param name="about">About plugin.</param>
+		/// <param name="message">Message about result of plugin.</param>
+		public PluginOutput(string about, string messgae)
+		{
+			this.About = about;
+			this.Message = messgae;
 		}
 
 		/// <summary>
