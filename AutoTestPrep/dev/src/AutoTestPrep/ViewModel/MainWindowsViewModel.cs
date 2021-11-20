@@ -97,6 +97,7 @@ namespace AutoTestPrep.ViewModel
 		public delegate void RequestAboutDialogShowRequestEventHandler(object sender, EventArgs e);
 		public event RequestAboutDialogShowRequestEventHandler ShowAboutReq;
 
+
 		/// <summary>
 		/// Default consttuctor
 		/// </summary>
@@ -363,7 +364,7 @@ namespace AutoTestPrep.ViewModel
 
 				var eventArg = new NotificationEventArgs()
 				{
-					Tilte = "完了",
+					Title = "完了",
 					Message = "テストデータの解析とコード生成が完了しました。"
 				};
 				this.NotifyOkInformation?.Invoke(this, eventArg);
@@ -372,7 +373,7 @@ namespace AutoTestPrep.ViewModel
 			{
 				var errArg = new NotificationEventArgs()
 				{
-					Tilte = "完了(エラーあり)",
+					Title = "完了(エラーあり)",
 					Message = "エラー発生\n" +
 						"詳細はログを確認してください。"
 				};
@@ -628,15 +629,37 @@ namespace AutoTestPrep.ViewModel
 		/// <param name="pluginInfo">Plugin information selected.</param>
 		public void DefaultPluginCommandExecute(PluginInfo pluginInfo)
 		{
-			var testDataInfo = new TestDataInfo();
-			this.SetupTestInformationReq?.Invoke(ref testDataInfo);
+			try
+			{
+				var testDataInfo = new TestDataInfo();
+				this.SetupTestInformationReq?.Invoke(ref testDataInfo);
 
-			var converter = new TestDataInfoConverter();
-			PluginInput pluginInput = converter.ToPluginInput(testDataInfo);
+				var converter = new TestDataInfoConverter();
+				PluginInput pluginInput = converter.ToPluginInput(testDataInfo);
 
-			var command = new ExecPluginCommand();
-			var commandArg = new PluginCommandArgument(pluginInfo, pluginInput);
-			command.Execute(commandArg);
+				var command = new ExecPluginCommand();
+				var commandArg = new PluginCommandArgument(pluginInfo, pluginInput);
+				command.Execute(commandArg);
+
+				var message = new NotificationEventArgs()
+				{
+					Title = "プラグイン実行結果",
+					Message = commandArg.PluginOutput.Message
+				};
+				this.NotifyOkInformation?.Invoke(this, message);
+			}
+			catch (System.Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException) || (ex is NullReferenceException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				var message = new NotificationEventArgs()
+				{
+					Title = "エラー",
+					Message = "コマンド実行エラー"
+				};
+				this.NotifyErrorInformation.Invoke(this, message);
+			}
 		}
 
 		/// <summary>

@@ -11,7 +11,7 @@ namespace AutoTestPrep.Model.EventArgs
 		/// <summary>
 		/// Tilte of notification.
 		/// </summary>
-		public string Tilte { get; set; }
+		public string Title { get; set; }
 
 		/// <summary>
 		/// Message of notification.
@@ -23,7 +23,7 @@ namespace AutoTestPrep.Model.EventArgs
 		/// </summary>
 		public NotificationEventArgs()
 		{
-			this.Tilte = string.Empty;
+			this.Title = string.Empty;
 			this.Message = string.Empty;
 		}
 
@@ -34,7 +34,7 @@ namespace AutoTestPrep.Model.EventArgs
 		/// <param name="message">Message of notification.</param>
 		public NotificationEventArgs(string tilte, string message)
 		{
-			this.Tilte = tilte;
+			this.Title = tilte;
 			this.Message = message;
 		}
 	}
