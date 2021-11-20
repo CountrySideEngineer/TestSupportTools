@@ -70,6 +70,14 @@ namespace StubDriverPlugin.MinUnitStubDriver
 		/// <param name="data">Write data.</param>
 		protected void CreateStubCode(DirectoryInfo outputRootDirInfo, WriteData data)
 		{
+			if ((null == data.Test.Target.SubFunctions) || (data.Test.Target.SubFunctions.Count() < 1))
+			{
+				/*
+				 * In a case that a target function has no sub function, stub codes are not needed.
+				 * So, prevent the codes from creating, skip operations below.
+				 */
+				return;
+			}
 			//Create output directory.
 			DirectoryInfo parentDirInfo = this.CreateOutputDirInfo(outputRootDirInfo, data);
 			DirectoryInfo outputDirInfo = new DirectoryInfo($@"{parentDirInfo.FullName}\stub");
