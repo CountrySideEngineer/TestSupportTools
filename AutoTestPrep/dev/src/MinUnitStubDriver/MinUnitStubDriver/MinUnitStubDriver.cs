@@ -5,6 +5,7 @@ using CodeGenerator.TestDriver.MinUnit;
 using StubDriverPlugin.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,21 +16,34 @@ namespace StubDriverPlugin.MinUnitStubDriver
 {
 	public class MinUnitStubDriver : IStubDriverPlugin
 	{
+		/// <summary>
+		/// Execute plugin to create stub and driver code for test.
+		/// </summary>
+		/// <param name="data">Plugin input data.</param>
+		/// <returns>Result of plugin.</returns>
 		public PluginOutput Execute(PluginInput data)
 		{
 			IEnumerable<Test> tests = this.ParseExecute(data);
 			DirectoryInfo rootDirInfo = new DirectoryInfo(data.OutputDirPath);
 			CodeConfiguration config = this.Input2CodeConfigForStub(data);
 
-			foreach (var testItem in tests)
+			PluginOutput output = null;
+			try
 			{
-				this.CreateCode(testItem, rootDirInfo, config);
-			}
+				foreach (var testItem in tests)
+				{
+					this.CreateCode(testItem, rootDirInfo, config);
+				}
 
-			var output = new PluginOutput()
+				output = new PluginOutput(nameof(MinUnitStubDriver), "OK");
+			}
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
-				Message = "OK"
-			};
+				Debug.WriteLine(ex.StackTrace);
+
+				output = new PluginOutput(nameof(MinUnitStubDriver), "An trouble found while generating codes.");
+			}
 			return output;
 		}
 

@@ -4,8 +4,8 @@ using AutoTestPrep.Model.EventArgs;
 using AutoTestPrep.Model.InputInfos;
 using CStubMKGui.Command;
 using System;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace AutoTestPrep.ViewModel
 {
