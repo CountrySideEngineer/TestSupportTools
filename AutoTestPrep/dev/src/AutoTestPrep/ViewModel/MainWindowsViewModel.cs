@@ -328,19 +328,6 @@ namespace AutoTestPrep.ViewModel
 			}
 		}
 
-
-		public DelegateCommand RunCommand
-		{
-			get
-			{
-				if (null == this._RunCommand)
-				{
-					this._RunCommand = new DelegateCommand(this.RunCommandExecute, this.CanRunCommandExecute);
-				}
-				return this._RunCommand;
-			}
-		}
-
 		public bool CustomPluginEnable
 		{
 			get => this._CustomPluginEnable;
@@ -349,40 +336,6 @@ namespace AutoTestPrep.ViewModel
 				this._CustomPluginEnable = value;
 				this.RaisePropertyChanged(nameof(CustomPluginEnable));
 			}
-		}
-
-		public void RunCommandExecute()
-		{
-			try
-			{
-				var testDataInfo = new TestDataInfo();
-				this.SetupTestInformationReq?.Invoke(ref testDataInfo);
-				Debug.WriteLine("RunCommandExecute()");
-				var command = new RunToolCommand();
-				command.Execute(testDataInfo);
-
-				var eventArg = new NotificationEventArgs()
-				{
-					Title = "完了",
-					Message = "テストデータの解析とコード生成が完了しました。"
-				};
-				this.NotifyOkInformation?.Invoke(this, eventArg);
-			}
-			catch (Exception)
-			{
-				var errArg = new NotificationEventArgs()
-				{
-					Title = "完了(エラーあり)",
-					Message = "エラー発生\n" +
-						"詳細はログを確認してください。"
-				};
-				this.NotifyErrorInformation?.Invoke(this, errArg);
-			}
-		}
-
-		public bool CanRunCommandExecute()
-		{
-			return true;
 		}
 
 		public DelegateCommand NewProjectCommand

@@ -147,7 +147,6 @@
     <Compile Include="Command\LoadProjectCommand.cs" />
     <Compile Include="Command\NewProjectCommand.cs" />
     <Compile Include="Command\OverWriteProjectCommand.cs" />
-    <Compile Include="Command\RunToolCommand.cs" />
     <Compile Include="Command\SaveProjectCommand.cs" />
     <Compile Include="Command\ShutdownCommand.cs" />
     <Compile Include="Model\Converter\TestDataInfoConverter.cs" />
