@@ -111,7 +111,6 @@ namespace AutoTestPrep.ViewModel
 				"ヘッダ情報(スタブ)",
 				"ライブラリ情報",
 				"マクロ情報",
-				"フレーワーク設定",
 			};
 			this.CurrentFilePath = string.Empty;
 			this.CurrentTitle = "AutoTestPrep";

@@ -149,11 +149,6 @@
                                      DataContext="{Binding Path=DefineMacroVM}"
                                      Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolVisibilityConverter}}"
                                      />
-            <uc:TestFrameworkSelectView Grid.Column="1"
-                                     HorizontalAlignment="Stretch"
-                                     DataContext="{Binding Path=FrameworkSelectVM}"
-                                     Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolVisibilityConverter}}"
-                                     />
         </Grid>
     </Grid>
 </Window>
