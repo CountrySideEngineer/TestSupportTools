@@ -2,6 +2,7 @@
 using CodeGenerator.TestDriver.Template;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,9 @@ namespace CodeGenerator.TestDriver.MinUnit
 		/// <returns>Template for test driver source code using min_unit test framework.</returns>
 		protected override MinUnitTemplate CreateTemplate(WriteData writeData)
 		{
+			Debug.Assert(null != writeData.Test, $"{nameof(MinUnitMainSourceCodeGenerator)}.{nameof(CreateTemplate)}.{nameof(writeData)}");
+			Debug.Assert(null != writeData.Test.Target, $"{nameof(MinUnitMainSourceCodeGenerator)}.{nameof(CreateTemplate)}.{nameof(writeData)}.{nameof(writeData.Test)}");
+
 			MinUnitTemplate template = new MinUnitSourceTemplate()
 			{
 				TargetFunction = writeData.Test.Target,

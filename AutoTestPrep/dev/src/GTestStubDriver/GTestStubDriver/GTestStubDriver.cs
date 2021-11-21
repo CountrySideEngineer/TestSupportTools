@@ -38,20 +38,14 @@ namespace StubDriverPlugin.GTestStubDriver
 					this.CreateCode(testItem, rootDirInfo, config);
 				}
 
-				pluginOutput = new PluginOutput()
-				{
-					Message = "OK"
-				};
+				pluginOutput = new PluginOutput(nameof(GTestStubDriver), "コードの生成が完了しました。");
 			}
 			catch (Exception ex)
 			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
 				Debug.WriteLine(ex.StackTrace);
 
-				pluginOutput = new PluginOutput()
-				{
-					Message = "An trouble found while generating codes."
-				};
+				pluginOutput = new PluginOutput(nameof(GTestStubDriver), "コードの生成中にエラーが発生しました。");
 			}
 			return pluginOutput;
 		}
@@ -77,6 +71,8 @@ namespace StubDriverPlugin.GTestStubDriver
 			catch (Exception ex)
 			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
+				Debug.WriteLine(ex.StackTrace);
+
 				throw;
 			}
 		}
@@ -92,6 +88,14 @@ namespace StubDriverPlugin.GTestStubDriver
 		{
 			try
 			{
+				if ((null == data.Test.Target.SubFunctions) || (data.Test.Target.SubFunctions.Count() < 1))
+				{
+					/*
+					 * In a case that a target function has no sub function, stub codes are not needed.
+					 * So, prevent the codes from creating, skip operations below.
+					 */
+					return;
+				}
 				//Create output directory.
 				DirectoryInfo parentDirInfo = this.CreateOutputDirInfo(outputRootDirInfo, data);
 				DirectoryInfo outputDirInfo = new DirectoryInfo($@"{parentDirInfo.FullName}\stub");

@@ -5,6 +5,7 @@ using StubDriverPlugin;
 using StubDriverPlugin.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -27,17 +28,30 @@ namespace AutoTestPrep.Command
 		/// Execute plugin.
 		/// </summary>
 		/// <param name="commandArg">Argument data for plugin.</param>
+		/// <exception cref="ArgumentException"></exception>
+		/// <exception cref="ArgumentNullException"></exception>
+		/// <exception cref="NullReferenceException"></exception>
 		public override void Execute(object commandArg)
 		{
-			if (!(commandArg is PluginCommandArgument))
+			try
 			{
-				throw new ArgumentException();
+				if (!(commandArg is PluginCommandArgument))
+				{
+					throw new ArgumentException();
+				}
+				PluginCommandArgument pluginCommandArg = commandArg as PluginCommandArgument;
+				PluginInfo pluginInfo = pluginCommandArg.PluginInfo;
+				PluginInput pluginInput = pluginCommandArg.PluginInput;
+				PluginOutput pluginOutput = this.ExecutePlugin(pluginInfo, pluginInput);
+				pluginCommandArg.PluginOutput = pluginOutput;
 			}
-			PluginCommandArgument pluginCommandArg = commandArg as PluginCommandArgument;
-			PluginInfo pluginInfo = pluginCommandArg.PluginInfo;
-			PluginInput pluginInput = pluginCommandArg.PluginInput;
-			PluginOutput pluginOutput = this.ExecutePlugin(pluginInfo, pluginInput);
-			pluginCommandArg.PluginOutput = pluginOutput;
+			catch (System.Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException) || (ex is NullReferenceException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
 		}
 
 		/// <summary>
