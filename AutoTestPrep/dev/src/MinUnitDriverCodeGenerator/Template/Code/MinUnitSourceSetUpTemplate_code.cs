@@ -27,6 +27,23 @@ namespace CodeGenerator.TestDriver.Template
 		public CodeConfiguration Config { get; set; }
 
 		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		protected MinUnitSourceSetUpTemplate()
+		{
+			this.TargetFunction = new Function();
+		}
+
+		/// <summary>
+		/// Constructor with argument.
+		/// </summary>
+		/// <param name="targetFunction">Test target function data.</param>
+		public MinUnitSourceSetUpTemplate(Function targetFunction)
+		{
+			this.TargetFunction = targetFunction;
+		}
+
+		/// <summary>
 		/// Create method name to initialize stub.
 		/// </summary>
 		/// <param name="function">Stub function data.</param>

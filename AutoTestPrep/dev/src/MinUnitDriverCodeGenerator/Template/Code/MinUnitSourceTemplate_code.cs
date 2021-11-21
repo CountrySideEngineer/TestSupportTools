@@ -1,6 +1,7 @@
 ﻿using CodeGenerator.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,7 +34,19 @@ namespace CodeGenerator.TestDriver.Template
 		/// <returns>Setup test code.</returns>
 		public virtual string CreateSetUpCode(Function function)
 		{
-			return string.Empty;
+			var template = new MinUnitSourceSetUpTemplate(function);
+
+			try
+			{
+				var setupCode = template.TransformText();
+				return setupCode;
+			}
+			catch (NullReferenceException ex)
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
 		}
 
 		/// <summary>
@@ -44,7 +57,25 @@ namespace CodeGenerator.TestDriver.Template
 		/// <returns>Test case code.</returns>
 		public virtual string CreateTestCaseCode(Function function, Test test)
 		{
-			return string.Empty;
+			string testCaseCode = string.Empty;
+			foreach (var testCase in test.TestCases)
+			{
+				testCaseCode += this.CreateTestCaseCode(function, testCase);
+			}
+			return testCaseCode;
+		}
+
+		/// <summary>
+		/// Create code of the test case code.
+		/// </summary>
+		/// <param name="function">Test target function.</param>
+		/// <param name="testCase">Test case.</param>
+		/// <returns></returns>
+		public virtual string CreateTestCaseCode(Function function, TestCase testCase)
+		{
+			var template = new MinUnitSourceTestCaseTemplate(function, testCase);
+			var testCode = template.TransformText();
+			return testCode;
 		}
 
 		/// <summary>
@@ -55,7 +86,9 @@ namespace CodeGenerator.TestDriver.Template
 		/// <returns>Code to run all test case method.</returns>
 		public virtual string CreateCallTestCaseCode(Function function, Test test)
 		{
-			return string.Empty;
+			var template = new MinUnitSourceCallTestCaseTemplate(function, test);
+			var testCode = template.TransformText();
+			return testCode;
 		}
 	}
 }
