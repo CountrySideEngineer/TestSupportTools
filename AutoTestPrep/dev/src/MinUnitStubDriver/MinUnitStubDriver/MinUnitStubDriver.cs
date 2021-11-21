@@ -5,6 +5,7 @@ using CodeGenerator.TestDriver.MinUnit;
 using StubDriverPlugin.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,21 +16,34 @@ namespace StubDriverPlugin.MinUnitStubDriver
 {
 	public class MinUnitStubDriver : IStubDriverPlugin
 	{
+		/// <summary>
+		/// Execute plugin to create stub and driver code for test.
+		/// </summary>
+		/// <param name="data">Plugin input data.</param>
+		/// <returns>Result of plugin.</returns>
 		public PluginOutput Execute(PluginInput data)
 		{
 			IEnumerable<Test> tests = this.ParseExecute(data);
 			DirectoryInfo rootDirInfo = new DirectoryInfo(data.OutputDirPath);
 			CodeConfiguration config = this.Input2CodeConfigForStub(data);
 
-			foreach (var testItem in tests)
+			PluginOutput output = null;
+			try
 			{
-				this.CreateCode(testItem, rootDirInfo, config);
-			}
+				foreach (var testItem in tests)
+				{
+					this.CreateCode(testItem, rootDirInfo, config);
+				}
 
-			var output = new PluginOutput()
+				output = new PluginOutput(nameof(MinUnitStubDriver), "コードの生成が完了しました。");
+			}
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
-				Message = "OK"
-			};
+				Debug.WriteLine(ex.StackTrace);
+
+				output = new PluginOutput(nameof(MinUnitStubDriver), "コードの生成中にエラーが発生しました。");
+			}
 			return output;
 		}
 
@@ -39,14 +53,27 @@ namespace StubDriverPlugin.MinUnitStubDriver
 		/// <param name="test">Test data for the code.</param>
 		/// <param name="rootDirInfo">Directory information for output.</param>
 		/// <param name="config"><para>CodeConfiguration</para> object.</param>
+		/// <exception cref="ArgumentException"></exception>
+		/// <exception cref="ArgumentNullException"></exception>
 		protected void CreateCode(Test test, DirectoryInfo rootDirInfo, CodeConfiguration config)
 		{
-			var writeData = new WriteData()
+			try
 			{
-				Test = test,
-				CodeConfig = config
-			};
-			this.CreateStubCode(rootDirInfo, writeData);
+				var writeData = new WriteData()
+				{
+					Test = test,
+					CodeConfig = config
+				};
+				this.CreateStubCode(rootDirInfo, writeData);
+				this.CreateDriverCode(rootDirInfo, writeData);
+			}
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
 		}
 
 		/// <summary>
@@ -56,6 +83,14 @@ namespace StubDriverPlugin.MinUnitStubDriver
 		/// <param name="data">Write data.</param>
 		protected void CreateStubCode(DirectoryInfo outputRootDirInfo, WriteData data)
 		{
+			if ((null == data.Test.Target.SubFunctions) || (data.Test.Target.SubFunctions.Count() < 1))
+			{
+				/*
+				 * In a case that a target function has no sub function, stub codes are not needed.
+				 * So, prevent the codes from creating, skip operations below.
+				 */
+				return;
+			}
 			//Create output directory.
 			DirectoryInfo parentDirInfo = this.CreateOutputDirInfo(outputRootDirInfo, data);
 			DirectoryInfo outputDirInfo = new DirectoryInfo($@"{parentDirInfo.FullName}\stub");

@@ -59,7 +59,7 @@ namespace AutoTestPrep
 		/// <param name="args">Event argument</param>
 		protected void NotifyOkInformation(object sender, NotificationEventArgs args)
 		{
-			MessageBox.Show(args.Message, args.Tilte, MessageBoxButton.OK, MessageBoxImage.None);
+			MessageBox.Show(args.Message, args.Title, MessageBoxButton.OK, MessageBoxImage.None);
 		}
 
 		/// <summary>
@@ -69,7 +69,7 @@ namespace AutoTestPrep
 		/// <param name="args">Event argument</param>
 		protected void NotifyErrorInformation(object sender, NotificationEventArgs args)
 		{
-			MessageBox.Show(args.Message, args.Tilte, MessageBoxButton.OK, MessageBoxImage.Error);
+			MessageBox.Show(args.Message, args.Title, MessageBoxButton.OK, MessageBoxImage.Error);
 		}
 
 		/// <summary>
