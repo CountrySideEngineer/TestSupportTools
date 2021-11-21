@@ -71,6 +71,8 @@ namespace StubDriverPlugin.GTestStubDriver
 			catch (Exception ex)
 			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
+				Debug.WriteLine(ex.StackTrace);
+
 				throw;
 			}
 		}
