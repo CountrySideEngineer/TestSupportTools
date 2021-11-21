@@ -2,6 +2,7 @@
 using StubDriverPlugin;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -65,18 +66,28 @@ namespace Plugin.TestStubDriver
         /// <returns>Returns true if the plugin has been registered, otherwise returns false.</returns>
         protected virtual bool IsRegistered(LiteDatabase database, PluginInfo pluginInfo)
 		{
-            var col = database.GetCollection<PluginInfo>(this.TableName);
-            IEnumerable<PluginInfo> pluginInfos = col.Query().ToEnumerable();
-            IEnumerable<PluginInfo> matchPluginInfos = pluginInfos.Where(item => 
-                item.Name.Equals(pluginInfo.Name) && item.FileName.Equals(pluginInfo.FileName));
             bool isRegistered = false;
-            var temp = matchPluginInfos.FirstOrDefault();
-            if (0 < matchPluginInfos.Count())
+            try
+            {
+                var col = database.GetCollection<PluginInfo>(this.TableName);
+                IEnumerable<PluginInfo> pluginInfos = col.Query().ToEnumerable();
+                IEnumerable<PluginInfo> matchPluginInfos = pluginInfos.Where(item =>
+                    item.Name.Equals(pluginInfo.Name) && item.FileName.Equals(pluginInfo.FileName));
+                var temp = matchPluginInfos.FirstOrDefault();
+                if (0 < matchPluginInfos.Count())
+                {
+                    isRegistered = true;
+                }
+            }
+            catch (Exception ex)
+            when ((ex is ArgumentNullException) || (ex is OverflowException))
 			{
-                isRegistered = true;
+                Debug.WriteLine(ex.StackTrace);
+
+                isRegistered = false;
 			}
             return isRegistered;
-		}
+        }
 
         /// <summary>
         /// Regist plugin data to database.
@@ -121,12 +132,16 @@ namespace Plugin.TestStubDriver
                 IStubDriverPlugin plugin = this.Load(pluginInfo);
                 return plugin;
             }
-            catch (ArgumentOutOfRangeException)
+            catch (ArgumentOutOfRangeException ex)
 			{
+                Debug.WriteLine(ex.StackTrace);
+
                 throw;
 			}
-            catch (FileNotFoundException)
+            catch (FileNotFoundException ex)
 			{
+                Debug.WriteLine(ex.StackTrace);
+
                 throw;
 			}
         }
@@ -151,15 +166,13 @@ namespace Plugin.TestStubDriver
                 IStubDriverPlugin plugin = (IStubDriverPlugin)Activator.CreateInstance(ifType);
                 return plugin;
             }
-            catch (FileNotFoundException)
+            catch (Exception ex)
+            when ((ex is FileNotFoundException) || (ex is ArgumentNullException))
 			{
-                throw;
-			}
-            catch (ArgumentNullException)
-			{
-                throw;
-			}
+                Debug.WriteLine(ex.StackTrace);
 
+                throw;
+            }
         }
 
         /// <summary>
@@ -169,30 +182,49 @@ namespace Plugin.TestStubDriver
         /// <returns>Returns true if the plugin has been registered, otherwise returns false.</returns>
         public virtual bool Check(int index)
 		{
-            IEnumerable<PluginInfo> pluginInfos = this.GetList();
-            int count = pluginInfos.Count();
-            if (index < count)
+            try
 			{
-                return true;
-			}
-			else
+                IEnumerable<PluginInfo> pluginInfos = this.GetList();
+                int count = pluginInfos.Count();
+                if (index < count)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (ArgumentNullException ex)
 			{
+                Debug.WriteLine(ex.StackTrace);
+
                 return false;
 			}
-		}
+        }
 
         /// <summary>
         /// Get collection of plugin information registered in database.
         /// </summary>
         /// <returns>Collection of plugin information.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public virtual IEnumerable<PluginInfo> GetList()
 		{
             using (var db = new LiteDatabase(this.FilePath))
 			{
-                var col = db.GetCollection<PluginInfo>(this.TableName);
-                var query = col.Query().ToEnumerable().ToList();
-                return query;
-			}
+                try
+				{
+                    var col = db.GetCollection<PluginInfo>(this.TableName);
+                    var query = col.Query().ToEnumerable().ToList();
+                    return query;
+                }
+                catch (ArgumentNullException ex)
+				{
+                    Debug.WriteLine(ex.StackTrace);
+
+                    throw;
+				}
+            }
 		}
     }
 }
