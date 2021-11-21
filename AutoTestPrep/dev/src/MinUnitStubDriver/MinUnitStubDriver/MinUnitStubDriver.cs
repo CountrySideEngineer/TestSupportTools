@@ -53,14 +53,27 @@ namespace StubDriverPlugin.MinUnitStubDriver
 		/// <param name="test">Test data for the code.</param>
 		/// <param name="rootDirInfo">Directory information for output.</param>
 		/// <param name="config"><para>CodeConfiguration</para> object.</param>
+		/// <exception cref="ArgumentException"></exception>
+		/// <exception cref="ArgumentNullException"></exception>
 		protected void CreateCode(Test test, DirectoryInfo rootDirInfo, CodeConfiguration config)
 		{
-			var writeData = new WriteData()
+			try
 			{
-				Test = test,
-				CodeConfig = config
-			};
-			this.CreateStubCode(rootDirInfo, writeData);
+				var writeData = new WriteData()
+				{
+					Test = test,
+					CodeConfig = config
+				};
+				this.CreateStubCode(rootDirInfo, writeData);
+				this.CreateDriverCode(rootDirInfo, writeData);
+			}
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
 		}
 
 		/// <summary>
