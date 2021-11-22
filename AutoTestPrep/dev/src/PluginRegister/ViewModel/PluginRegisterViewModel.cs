@@ -1,7 +1,11 @@
-﻿using AutoTestPrep.ViewModel;
+﻿using AutoTestPrep.Command.Argument;
+using AutoTestPrep.ViewModel;
 using CStubMKGui.Command;
+using Plugin;
+using PluginRegister.Command;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -143,7 +147,9 @@ namespace PluginRegister.ViewModel
 			{
 				if (null == this._registPluginCommand)
 				{
-					this._registPluginCommand = new DelegateCommand(this.RegistPluginCommandExecute);
+					this._registPluginCommand = new DelegateCommand(
+						this.RegistPluginCommandExecute, 
+						this.CanRegistPluginCommandExecute);
 				}
 				return this._registPluginCommand;
 			}
@@ -163,7 +169,25 @@ namespace PluginRegister.ViewModel
 		/// </summary>
 		public void RegistPluginCommandExecute()
 		{
-			this.NotifyOkInformation?.Invoke(this, null);
+			try
+			{
+				var pluginInfo = new PluginInfo()
+				{
+					Name = this.PluginName,
+					FileName = this.PluginPath
+				};
+				var commandArg = new PluginCommandArgument(pluginInfo, null);
+				var command = new RegistPluginCommand();
+				command.Execute(commandArg);
+
+				this.NotifyOkInformation?.Invoke(this, null);
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
 		}
 	}
 }

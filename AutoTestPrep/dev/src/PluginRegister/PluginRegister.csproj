@@ -32,6 +32,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PluginManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\PluginManager.dll</HintPath>
+    </Reference>
+    <Reference Include="PluginSdk">
+      <HintPath>..\..\..\..\..\VisualStudioSample\CsMySamples\PluginSample\bin\Debug\PluginSdk.dll</HintPath>
+    </Reference>
+    <Reference Include="StubDriverPlugin.SDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\sdk\StubDriverPlugin.SDK.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -58,7 +69,19 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command\DelegateCommand.cs" />
+    <Compile Include="..\AutoTestPrep\Command\ACommonPluginCommand.cs">
+      <Link>Command\ACommonPluginCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\AutoTestPrep\Command\Argument\PluginCommandArgument.cs">
+      <Link>Command\Argument\PluginCommandArgument.cs</Link>
+    </Compile>
+    <Compile Include="..\AutoTestPrep\Command\DelegateCommand.cs">
+      <Link>Command\DelegateCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\AutoTestPrep\Command\IPluginCommand.cs">
+      <Link>Command\IPluginCommand.cs</Link>
+    </Compile>
+    <Compile Include="Command\RegistPluginCommand.cs" />
     <Compile Include="Model\EventArgs\NotificationEventArgs.cs" />
     <Compile Include="PluginRegisterUserControl.xaml.cs">
       <DependentUpon>PluginRegisterUserControl.xaml</DependentUpon>
