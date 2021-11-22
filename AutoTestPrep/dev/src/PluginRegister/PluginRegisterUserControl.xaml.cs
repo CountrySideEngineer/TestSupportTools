@@ -18,9 +18,9 @@ namespace PluginRegister
     /// <summary>
     /// UserControl1.xaml の相互作用ロジック
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class PluginRegisterUserControl : UserControl
     {
-        public UserControl1()
+        public PluginRegisterUserControl()
         {
             InitializeComponent();
         }
