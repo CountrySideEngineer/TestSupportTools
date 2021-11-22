@@ -82,6 +82,7 @@
                               x:Name="CustomMenuRoot"
                               IsTabStop="True"
                               ItemsSource="{Binding Path=CustomPlugins}"
+                              IsEnabled="{Binding Path=CustomPluginEnable}"
                               >
                         <MenuItem.ItemContainerStyle>
                             <Style TargetType="MenuItem">
