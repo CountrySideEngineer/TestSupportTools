@@ -80,17 +80,26 @@
                     <Separator/>
                     <MenuItem Header="カスタム"
                               x:Name="CustomMenuRoot"
-                              Style="{StaticResource MenuItem_MenuItem}"
+                              IsTabStop="True"
+                              ItemsSource="{Binding Path=CustomPlugins}"
                               IsEnabled="{Binding Path=CustomPluginEnable}"
-                              />
+                              >
+                        <MenuItem.ItemContainerStyle>
+                            <Style TargetType="MenuItem">
+                                <Setter Property="Header" Value="{Binding Path=Name}"/>
+                                <Setter Property="Command" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=MenuItem}, Path=DataContext.CustomPluginCommand}"/>
+                                <Setter Property="CommandParameter" Value="{Binding}"/>
+                            </Style>
+                        </MenuItem.ItemContainerStyle>
+                    </MenuItem>
                     <Separator/>
                     <MenuItem Header="カスタムマネージャ"
                               Style="{StaticResource MenuItem_MenuItem}"
+                              Command="{Binding Path=RegisterPluginCommand}"
                               />
                 </MenuItem>
                 <MenuItem Header="ヘルプ"
                           Style="{StaticResource MenuItem_MenuBar}"
-                          Command="{Binding Path=RunCommand}"
                       >
                     <MenuItem Header="AutoTestPrepのバージョン情報"
                               Style="{StaticResource MenuItem_MenuItem}"

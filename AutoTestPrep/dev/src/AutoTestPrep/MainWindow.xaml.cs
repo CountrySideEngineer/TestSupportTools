@@ -1,23 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using AutoTestPrep.Model.EventArgs;
 using AutoTestPrep.View;
 using AutoTestPrep.ViewModel;
-using CSEngineer;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace AutoTestPrep
 {
@@ -45,6 +30,7 @@ namespace AutoTestPrep
 			try
 			{
 				((MainWindowsViewModel)viewModel).ShowAboutReq += this.ShowAboutEventHandler;
+				((MainWindowsViewModel)viewModel).ShowPluginRegisterReq += this.ShowPluginRegisterEventHandler;
 			}
 			catch (InvalidCastException)
 			{
@@ -84,6 +70,13 @@ namespace AutoTestPrep
 				Owner = this
 			};
 			about.ShowDialog();
+		}
+
+		protected void ShowPluginRegisterEventHandler(object sender, EventArgs e)
+		{
+			var registPlugin = new PluginRegisterWindow();
+			registPlugin.Owner = this;
+			registPlugin.ShowDialog();
 		}
 	}
 }
