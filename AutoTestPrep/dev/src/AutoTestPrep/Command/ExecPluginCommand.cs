@@ -1,4 +1,5 @@
 ﻿using AutoTestPrep.Command.Argument;
+using CSEngineer;
 using Plugin;
 using Plugin.TestStubDriver;
 using StubDriverPlugin;
@@ -31,7 +32,7 @@ namespace AutoTestPrep.Command
 		/// <exception cref="ArgumentException"></exception>
 		/// <exception cref="ArgumentNullException"></exception>
 		/// <exception cref="NullReferenceException"></exception>
-		public override void Execute(object commandArg)
+		protected void _Execute(object commandArg)
 		{
 			try
 			{
@@ -52,6 +53,46 @@ namespace AutoTestPrep.Command
 
 				throw;
 			}
+		}
+
+		/// <summary>
+		/// Execute plugin.
+		/// </summary>
+		/// <param name="commandArg">Argument data for plugin.</param>
+		public override void Execute(object commandArg)
+		{
+			try
+			{
+				string logFilePath = this.GetLogFilePath();
+				using (var stream = new StreamWriter(logFilePath, false, Encoding.UTF8))
+				{
+					Logger.Level = Logger.LogLevel.All;
+					Logger.AddStream(stream);
+					Logger.INFO("Start logging!");
+					this._Execute(commandArg);
+					Logger.RemoveStream(stream);
+				}
+			}
+			catch (System.Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException) || (ex is NullReferenceException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// Create log file path.
+		/// </summary>
+		/// <returns>Path of log file.</returns>
+		protected string GetLogFilePath()
+		{
+			DateTime dateTime = DateTime.Now;
+			string dateTimeString = dateTime.ToString("yyyyMMddHHmmss");
+			string logFileName = $"Log_{dateTimeString}.log";
+			string logFilePath = $@"./{logFileName}";
+			return logFilePath;
 		}
 
 		/// <summary>
