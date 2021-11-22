@@ -4,11 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PluginRegister"
+             xmlns:vm="clr-namespace:PluginRegister.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="400"
              MinHeight="96"
              MinWidth="400"
              >
+    <UserControl.DataContext>
+        <vm:PluginRegisterViewModel/>
+    </UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -33,27 +37,28 @@
                    Grid.Column="0"
                    Style="{DynamicResource ResourceKey=TextBlock_InputItemTitle}"
                    TextAlignment="Right"
-                   Text="名前："
+                   Text="{Binding Path=PluginNameInputAreaTitle}"
                    />
         <TextBox x:Name="PluginNameInput"
                  Grid.Row="0"
                  Grid.Column="1"
                  Grid.ColumnSpan="3"
                  Style="{DynamicResource ResourceKey=TextBox_ItemItem}"
-                 Margin="8"
+                 Text="{Binding Path=PluginName}"
                  />
         <TextBlock x:Name="PluginPathTitle"
                    Grid.Row="1"
                    Grid.Column="0"
                    Style="{DynamicResource ResourceKey=TextBlock_InputItemTitle}"
                    TextAlignment="Right"
-                   Text="パス："
+                   Text="{Binding Path=PluginPathInputAreaTitle}"
                    />
         <TextBox x:Name="PluginPathInput"
                  Grid.Row="1"
                  Grid.Column="1"
                  Grid.ColumnSpan="3"
                  Style="{DynamicResource ResourceKey=TextBox_ItemItem}"
+                 Text="{Binding Path=PluginName}"
                  />
         <Grid x:Name="ButtonAreaGrid"
               Grid.Row="3"

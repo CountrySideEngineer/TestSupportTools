@@ -58,6 +58,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\EventArgs\NotificationEventArgs.cs" />
     <Compile Include="PluginRegisterUserControl.xaml.cs">
       <DependentUpon>PluginRegisterUserControl.xaml</DependentUpon>
     </Compile>
@@ -74,6 +75,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ViewModel\NotificationViewModelBase.cs" />
+    <Compile Include="ViewModel\PluginRegisterViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -83,5 +87,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
