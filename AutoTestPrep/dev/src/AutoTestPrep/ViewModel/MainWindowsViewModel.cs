@@ -60,8 +60,6 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		protected DefineMacroInputViewModel _DefineMacroVM;
 
-		protected DelegateCommand _RunCommand;
-
 		protected DelegateCommand _NewProjectCommand;
 
 		protected DelegateCommand _SaveProjectCommand;
@@ -73,6 +71,8 @@ namespace AutoTestPrep.ViewModel
 		protected DelegateCommand _ShutdownCommand;
 
 		protected DelegateCommand _AboutCommand;
+
+		protected DelegateCommand _RegisterPluginCommand;
 
 		protected DelegateCommand<PluginInfo> _DefaultPluginCommand;
 
@@ -97,6 +97,9 @@ namespace AutoTestPrep.ViewModel
 		public delegate void RequestAboutDialogShowRequestEventHandler(object sender, EventArgs e);
 		public event RequestAboutDialogShowRequestEventHandler ShowAboutReq;
 
+		public delegate void PluginRegisterShowRequetEventHandler(object sender, EventArgs e);
+		public event PluginRegisterShowRequetEventHandler ShowPluginRegisterReq;
+
 
 		/// <summary>
 		/// Default consttuctor
@@ -111,7 +114,6 @@ namespace AutoTestPrep.ViewModel
 				"ヘッダ情報(スタブ)",
 				"ライブラリ情報",
 				"マクロ情報",
-				"フレーワーク設定",
 			};
 			this.CurrentFilePath = string.Empty;
 			this.CurrentTitle = "AutoTestPrep";
@@ -329,19 +331,6 @@ namespace AutoTestPrep.ViewModel
 			}
 		}
 
-
-		public DelegateCommand RunCommand
-		{
-			get
-			{
-				if (null == this._RunCommand)
-				{
-					this._RunCommand = new DelegateCommand(this.RunCommandExecute, this.CanRunCommandExecute);
-				}
-				return this._RunCommand;
-			}
-		}
-
 		public bool CustomPluginEnable
 		{
 			get => this._CustomPluginEnable;
@@ -350,40 +339,6 @@ namespace AutoTestPrep.ViewModel
 				this._CustomPluginEnable = value;
 				this.RaisePropertyChanged(nameof(CustomPluginEnable));
 			}
-		}
-
-		public void RunCommandExecute()
-		{
-			try
-			{
-				var testDataInfo = new TestDataInfo();
-				this.SetupTestInformationReq?.Invoke(ref testDataInfo);
-				Debug.WriteLine("RunCommandExecute()");
-				var command = new RunToolCommand();
-				command.Execute(testDataInfo);
-
-				var eventArg = new NotificationEventArgs()
-				{
-					Title = "完了",
-					Message = "テストデータの解析とコード生成が完了しました。"
-				};
-				this.NotifyOkInformation?.Invoke(this, eventArg);
-			}
-			catch (Exception)
-			{
-				var errArg = new NotificationEventArgs()
-				{
-					Title = "完了(エラーあり)",
-					Message = "エラー発生\n" +
-						"詳細はログを確認してください。"
-				};
-				this.NotifyErrorInformation?.Invoke(this, errArg);
-			}
-		}
-
-		public bool CanRunCommandExecute()
-		{
-			return true;
 		}
 
 		public DelegateCommand NewProjectCommand
@@ -585,6 +540,40 @@ namespace AutoTestPrep.ViewModel
 		}
 
 		/// <summary>
+		/// Command to show window to register plugin command.
+		/// </summary>
+		public DelegateCommand RegisterPluginCommand
+		{
+			get
+			{
+				if (null == this._RegisterPluginCommand)
+				{
+					this._RegisterPluginCommand = new DelegateCommand(
+						this.PluginRegisterCommandExecute, 
+						this.CanPluginRegisterCommandExecute);
+				}
+				return this._RegisterPluginCommand;
+			}
+		}
+
+		/// <summary>
+		/// Body of command to register plugin.
+		/// </summary>
+		public void PluginRegisterCommandExecute()
+		{
+			this.ShowPluginRegisterReq?.Invoke(this, new EventArgs());
+		}
+
+		/// <summary>
+		/// Returns whether the command to register plugin can execute or not.
+		/// </summary>
+		/// <returns></returns>
+		public bool CanPluginRegisterCommandExecute()
+		{
+			return true;
+		}
+
+		/// <summary>
 		/// Load default and user custom plugin information.
 		/// </summary>
 		protected void LoadPlugins()
@@ -617,7 +606,8 @@ namespace AutoTestPrep.ViewModel
 			{
 				if (null == this._DefaultPluginCommand)
 				{
-					this._DefaultPluginCommand = new DelegateCommand<PluginInfo>(this.DefaultPluginCommandExecute, this.CanDefaultPluginCommandExecute);
+					this._DefaultPluginCommand = new DelegateCommand<PluginInfo>(
+						this.DefaultPluginCommandExecute, this.CanDefaultPluginCommandExecute);
 				}
 				return this._DefaultPluginCommand;
 			}
@@ -629,16 +619,79 @@ namespace AutoTestPrep.ViewModel
 		/// <param name="pluginInfo">Plugin information selected.</param>
 		public void DefaultPluginCommandExecute(PluginInfo pluginInfo)
 		{
+			var testDataInfo = new TestDataInfo();
+			this.SetupTestInformationReq?.Invoke(ref testDataInfo);
+
+			var converter = new TestDataInfoConverter();
+			PluginInput pluginInput = converter.ToPluginInput(testDataInfo);
+
+			var command = new ExecDefaultPluginCommand();
+			var commandArg = new PluginCommandArgument(pluginInfo, pluginInput);
+			this.PluginCommandExecute(command, commandArg);
+		}
+
+		/// <summary>
+		/// Returns whether the command of menu item can execute or not.
+		/// </summary>
+		/// <param name="data">Command data.</param>
+		/// <returns>Returns true if the command can execute, otherwise false.</returns>
+		public bool CanDefaultPluginCommandExecute(object data)
+		{
+			return true;
+		}
+
+		public DelegateCommand<PluginInfo> CustomPluginCommand
+		{
+			get
+			{
+				if (null == this._CustomPluginCommand)
+				{
+					this._CustomPluginCommand = new DelegateCommand<PluginInfo>(
+						this.CustomPluginCommandExecute, this.CanCustomPluginCommandExecute);
+				}
+				return this._CustomPluginCommand;
+			}
+		}
+
+		/// <summary>
+		/// Execute user custom plugin command.
+		/// </summary>
+		/// <param name="pluginInfo"></param>
+		public void CustomPluginCommandExecute(PluginInfo pluginInfo)
+		{
+			var testDataInfo = new TestDataInfo();
+			this.SetupTestInformationReq?.Invoke(ref testDataInfo);
+
+			var converter = new TestDataInfoConverter();
+			PluginInput pluginInput = converter.ToPluginInput(testDataInfo);
+
+			var command = new ExecCustomPluginCommand();
+			var commandArg = new PluginCommandArgument(pluginInfo, pluginInput);
+			this.PluginCommandExecute(command, commandArg);
+		}
+
+		/// <summary>
+		/// Return whether the command of menu item about user custom plugin can execute or not.
+		/// </summary>
+		/// <param name="data">Command data</param>
+		/// <returns>Returns ture if the command can execute, otherwise returns false.</returns>
+		public bool CanCustomPluginCommandExecute(object data)
+		{
+			bool isEnable = false;
+			if (0 < this.CustomPlugins.Count)
+			{
+				isEnable = true;
+			}
+
+			this.CustomPluginEnable = isEnable;
+
+			return isEnable;
+		}
+
+		protected void PluginCommandExecute(ExecPluginCommand command, PluginCommandArgument commandArg)
+		{
 			try
 			{
-				var testDataInfo = new TestDataInfo();
-				this.SetupTestInformationReq?.Invoke(ref testDataInfo);
-
-				var converter = new TestDataInfoConverter();
-				PluginInput pluginInput = converter.ToPluginInput(testDataInfo);
-
-				var command = new ExecPluginCommand();
-				var commandArg = new PluginCommandArgument(pluginInfo, pluginInput);
 				command.Execute(commandArg);
 
 				var message = new NotificationEventArgs()
@@ -660,34 +713,6 @@ namespace AutoTestPrep.ViewModel
 				};
 				this.NotifyErrorInformation.Invoke(this, message);
 			}
-		}
-
-		/// <summary>
-		/// Returns whether the command of menu item can execute or not.
-		/// </summary>
-		/// <param name="data">Command data.</param>
-		/// <returns>Returns true if the command can execute, otherwise false.</returns>
-		public bool CanDefaultPluginCommandExecute(object data)
-		{
-			return true;
-		}
-
-		/// <summary>
-		/// Return whether the command of menu item about user custom plugin can execute or not.
-		/// </summary>
-		/// <param name="data">Command data</param>
-		/// <returns>Returns ture if the command can execute, otherwise returns false.</returns>
-		public bool CanCustomPluginCommandExecute(object data)
-		{
-			bool isEnable = false;
-			if (0 < this.CustomPlugins.Count)
-			{
-				isEnable = true;
-			}
-
-			this.CustomPluginEnable = isEnable;
-
-			return isEnable;
 		}
 	}
 }
