@@ -91,6 +91,10 @@
     <Reference Include="PluginManager">
       <HintPath>..\..\bin\PluginManager.dll</HintPath>
     </Reference>
+    <Reference Include="PluginRegister, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\PluginRegister.dll</HintPath>
+    </Reference>
     <Reference Include="StubCodeGenerator">
       <HintPath>..\..\bin\StubCodeGenerator.dll</HintPath>
     </Reference>
@@ -138,6 +142,8 @@
     <Compile Include="Command\Argument\ProjectCommandArgument.cs" />
     <Compile Include="Command\DelegateCommand.cs" />
     <Compile Include="Command\Exception\CommandCancelException.cs" />
+    <Compile Include="Command\ExecCustomPluginCommand.cs" />
+    <Compile Include="Command\ExecDefaultPluginCommand.cs" />
     <Compile Include="Command\ExecPluginCommand.cs" />
     <Compile Include="Command\IPluginCommand.cs" />
     <Compile Include="Command\IProjectCommand.cs" />
@@ -147,7 +153,6 @@
     <Compile Include="Command\LoadProjectCommand.cs" />
     <Compile Include="Command\NewProjectCommand.cs" />
     <Compile Include="Command\OverWriteProjectCommand.cs" />
-    <Compile Include="Command\RunToolCommand.cs" />
     <Compile Include="Command\SaveProjectCommand.cs" />
     <Compile Include="Command\ShutdownCommand.cs" />
     <Compile Include="Model\Converter\TestDataInfoConverter.cs" />
@@ -195,6 +200,9 @@
     </Compile>
     <Compile Include="View\MultiLineInputView.xaml.cs">
       <DependentUpon>MultiLineInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PluginRegisterWindow.xaml.cs">
+      <DependentUpon>PluginRegisterWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SizeInputView.xaml.cs">
       <DependentUpon>SizeInputView.xaml</DependentUpon>
@@ -250,6 +258,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MultiLineInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PluginRegisterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
