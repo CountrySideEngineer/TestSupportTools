@@ -45,7 +45,7 @@
                  Grid.Column="1"
                  Grid.ColumnSpan="3"
                  Style="{DynamicResource ResourceKey=TextBox_ItemItem}"
-                 Text="{Binding Path=PluginName}"
+                 Text="{Binding Path=PluginName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  />
         <TextBlock x:Name="PluginPathTitle"
                    Grid.Row="1"
@@ -59,7 +59,7 @@
                  Grid.Column="1"
                  Grid.ColumnSpan="3"
                  Style="{DynamicResource ResourceKey=TextBox_ItemItem}"
-                 Text="{Binding Path=PluginName}" 
+                 Text="{Binding Path=PluginPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  PreviewDragOver="PluginPathInput_PreviewDragOver" 
                  PreviewDrop="PluginPathInput_PreviewDrop"
                  />

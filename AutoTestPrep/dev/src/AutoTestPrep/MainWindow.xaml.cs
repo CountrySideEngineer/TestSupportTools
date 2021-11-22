@@ -1,24 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using AutoTestPrep.Model.EventArgs;
 using AutoTestPrep.View;
 using AutoTestPrep.ViewModel;
-using CSEngineer;
-using PluginRegister;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace AutoTestPrep
 {
@@ -90,10 +74,8 @@ namespace AutoTestPrep
 
 		protected void ShowPluginRegisterEventHandler(object sender, EventArgs e)
 		{
-			var registPlugin = new PluginRegisterWindow()
-			{
-				Owner = this
-			};
+			var registPlugin = new PluginRegisterWindow();
+			registPlugin.Owner = this;
 			registPlugin.ShowDialog();
 		}
 	}
