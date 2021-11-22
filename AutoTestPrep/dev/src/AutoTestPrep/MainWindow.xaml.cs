@@ -85,10 +85,5 @@ namespace AutoTestPrep
 			};
 			about.ShowDialog();
 		}
-
-		protected void NotifyRunMenuUserItems(object sender, EventArgs eventArgs)
-		{
-
-		}
 	}
 }
