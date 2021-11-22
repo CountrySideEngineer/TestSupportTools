@@ -17,6 +17,7 @@ using AutoTestPrep.Model.EventArgs;
 using AutoTestPrep.View;
 using AutoTestPrep.ViewModel;
 using CSEngineer;
+using PluginRegister;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace AutoTestPrep
@@ -45,6 +46,7 @@ namespace AutoTestPrep
 			try
 			{
 				((MainWindowsViewModel)viewModel).ShowAboutReq += this.ShowAboutEventHandler;
+				((MainWindowsViewModel)viewModel).ShowPluginRegisterReq += this.ShowPluginRegisterEventHandler;
 			}
 			catch (InvalidCastException)
 			{
@@ -84,6 +86,15 @@ namespace AutoTestPrep
 				Owner = this
 			};
 			about.ShowDialog();
+		}
+
+		protected void ShowPluginRegisterEventHandler(object sender, EventArgs e)
+		{
+			var registPlugin = new PluginRegisterWindow()
+			{
+				Owner = this
+			};
+			registPlugin.ShowDialog();
 		}
 	}
 }

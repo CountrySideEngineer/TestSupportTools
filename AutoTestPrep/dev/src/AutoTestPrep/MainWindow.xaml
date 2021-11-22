@@ -86,6 +86,7 @@
                     <Separator/>
                     <MenuItem Header="カスタムマネージャ"
                               Style="{StaticResource MenuItem_MenuItem}"
+                              Command="{Binding Path=RegisterPluginCommand}"
                               />
                 </MenuItem>
                 <MenuItem Header="ヘルプ"

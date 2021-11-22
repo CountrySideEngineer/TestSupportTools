@@ -60,8 +60,6 @@ namespace AutoTestPrep.ViewModel
 		/// </summary>
 		protected DefineMacroInputViewModel _DefineMacroVM;
 
-		protected DelegateCommand _RunCommand;
-
 		protected DelegateCommand _NewProjectCommand;
 
 		protected DelegateCommand _SaveProjectCommand;
@@ -73,6 +71,8 @@ namespace AutoTestPrep.ViewModel
 		protected DelegateCommand _ShutdownCommand;
 
 		protected DelegateCommand _AboutCommand;
+
+		protected DelegateCommand _RegisterPluginCommand;
 
 		protected DelegateCommand<PluginInfo> _DefaultPluginCommand;
 
@@ -96,6 +96,9 @@ namespace AutoTestPrep.ViewModel
 
 		public delegate void RequestAboutDialogShowRequestEventHandler(object sender, EventArgs e);
 		public event RequestAboutDialogShowRequestEventHandler ShowAboutReq;
+
+		public delegate void PluginRegisterShowRequetEventHandler(object sender, EventArgs e);
+		public event PluginRegisterShowRequetEventHandler ShowPluginRegisterReq;
 
 
 		/// <summary>
@@ -532,6 +535,40 @@ namespace AutoTestPrep.ViewModel
 		}
 
 		public bool CanAboutCommandExecute()
+		{
+			return true;
+		}
+
+		/// <summary>
+		/// Command to show window to register plugin command.
+		/// </summary>
+		public DelegateCommand RegisterPluginCommand
+		{
+			get
+			{
+				if (null == this._RegisterPluginCommand)
+				{
+					this._RegisterPluginCommand = new DelegateCommand(
+						this.PluginRegisterCommandExecute, 
+						this.CanPluginRegisterCommandExecute);
+				}
+				return this._RegisterPluginCommand;
+			}
+		}
+
+		/// <summary>
+		/// Body of command to register plugin.
+		/// </summary>
+		public void PluginRegisterCommandExecute()
+		{
+			this.ShowPluginRegisterReq?.Invoke(this, new EventArgs());
+		}
+
+		/// <summary>
+		/// Returns whether the command to register plugin can execute or not.
+		/// </summary>
+		/// <returns></returns>
+		public bool CanPluginRegisterCommandExecute()
 		{
 			return true;
 		}
