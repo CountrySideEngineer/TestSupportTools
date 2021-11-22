@@ -69,18 +69,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AutoTestPrep\Command\ACommonPluginCommand.cs">
-      <Link>Command\ACommonPluginCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\AutoTestPrep\Command\Argument\PluginCommandArgument.cs">
-      <Link>Command\Argument\PluginCommandArgument.cs</Link>
-    </Compile>
-    <Compile Include="..\AutoTestPrep\Command\DelegateCommand.cs">
-      <Link>Command\DelegateCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\AutoTestPrep\Command\IPluginCommand.cs">
-      <Link>Command\IPluginCommand.cs</Link>
-    </Compile>
+    <Compile Include="Command\ACommonPluginCommand.cs" />
+    <Compile Include="Command\Argument\PluginCommandArgument.cs" />
+    <Compile Include="Command\DelegateCommand.cs" />
+    <Compile Include="Command\IPluginCommand.cs" />
     <Compile Include="Command\RegistPluginCommand.cs" />
     <Compile Include="Model\EventArgs\NotificationEventArgs.cs" />
     <Compile Include="PluginRegisterUserControl.xaml.cs">

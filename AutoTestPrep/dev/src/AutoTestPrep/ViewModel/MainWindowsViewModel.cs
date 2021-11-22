@@ -606,7 +606,8 @@ namespace AutoTestPrep.ViewModel
 			{
 				if (null == this._DefaultPluginCommand)
 				{
-					this._DefaultPluginCommand = new DelegateCommand<PluginInfo>(this.DefaultPluginCommandExecute, this.CanDefaultPluginCommandExecute);
+					this._DefaultPluginCommand = new DelegateCommand<PluginInfo>(
+						this.DefaultPluginCommandExecute, this.CanDefaultPluginCommandExecute);
 				}
 				return this._DefaultPluginCommand;
 			}
@@ -659,6 +660,24 @@ namespace AutoTestPrep.ViewModel
 		public bool CanDefaultPluginCommandExecute(object data)
 		{
 			return true;
+		}
+
+		public DelegateCommand<PluginInfo> CustomPluginCommand
+		{
+			get
+			{
+				if (null == this._CustomPluginCommand)
+				{
+					this._CustomPluginCommand = new DelegateCommand<PluginInfo>(
+						this.CustomPluginCommandExecute, this.CanCustomPluginCommandExecute);
+				}
+				return this._CustomPluginCommand;
+			}
+		}
+
+		public void CustomPluginCommandExecute(PluginInfo pluginInfo)
+		{
+			Debug.WriteLine($"plugin info, {pluginInfo.Name}");
 		}
 
 		/// <summary>

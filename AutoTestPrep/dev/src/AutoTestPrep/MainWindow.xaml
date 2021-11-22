@@ -80,9 +80,17 @@
                     <Separator/>
                     <MenuItem Header="カスタム"
                               x:Name="CustomMenuRoot"
-                              Style="{StaticResource MenuItem_MenuItem}"
-                              IsEnabled="{Binding Path=CustomPluginEnable}"
-                              />
+                              IsTabStop="True"
+                              ItemsSource="{Binding Path=CustomPlugins}"
+                              >
+                        <MenuItem.ItemContainerStyle>
+                            <Style TargetType="MenuItem">
+                                <Setter Property="Header" Value="{Binding Path=Name}"/>
+                                <Setter Property="Command" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=MenuItem}, Path=DataContext.CustomPluginCommand}"/>
+                                <Setter Property="CommandParameter" Value="{Binding}"/>
+                            </Style>
+                        </MenuItem.ItemContainerStyle>
+                    </MenuItem>
                     <Separator/>
                     <MenuItem Header="カスタムマネージャ"
                               Style="{StaticResource MenuItem_MenuItem}"

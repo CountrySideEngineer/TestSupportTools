@@ -17,7 +17,7 @@ namespace PluginRegister.Command
 		public RegistPluginCommand() : base()
 		{
 			string currentDir = System.IO.Directory.GetCurrentDirectory();
-			string dbPath = $@"{currentDir}\db\DefaultPlugin.plugin";
+			string dbPath = $@"{currentDir}\db\CustomPlugin.plugin";
 			string tableName = "CustomPlugin";
 			base.DbPath = dbPath;
 			base.DbTableName = tableName;
@@ -39,7 +39,13 @@ namespace PluginRegister.Command
 			this.Copy(pluginInfo);
 
 			var manager = new PluginManager(this.DbPath, this.DbTableName);
-			manager.Regist(pluginInfo);
+			string fileName = Path.GetFileName(pluginInfo.FileName);
+			var pluginInfoToRegist = new PluginInfo()
+			{
+				Name = pluginInfo.Name,
+				FileName = fileName
+			};
+			manager.Regist(pluginInfoToRegist);
 		}
 
 		/// <summary>
