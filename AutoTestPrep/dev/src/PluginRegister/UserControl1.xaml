@@ -5,8 +5,74 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PluginRegister"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             d:DesignHeight="150" d:DesignWidth="400"
+             MinHeight="96"
+             MinWidth="400"
+             >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resource/Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Style="{DynamicResource ResourceKey=Grid_CommonBase}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="48"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="96"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="192"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="PluginNameTitle"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Style="{DynamicResource ResourceKey=TextBlock_InputItemTitle}"
+                   TextAlignment="Right"
+                   Text="名前："
+                   />
+        <TextBox x:Name="PluginNameInput"
+                 Grid.Row="0"
+                 Grid.Column="1"
+                 Grid.ColumnSpan="3"
+                 Style="{DynamicResource ResourceKey=TextBox_ItemItem}"
+                 Margin="8"
+                 />
+        <TextBlock x:Name="PluginPathTitle"
+                   Grid.Row="1"
+                   Grid.Column="0"
+                   Style="{DynamicResource ResourceKey=TextBlock_InputItemTitle}"
+                   TextAlignment="Right"
+                   Text="パス："
+                   />
+        <TextBox x:Name="PluginPathInput"
+                 Grid.Row="1"
+                 Grid.Column="1"
+                 Grid.ColumnSpan="3"
+                 Style="{DynamicResource ResourceKey=TextBox_ItemItem}"
+                 />
+        <Grid x:Name="ButtonAreaGrid"
+              Grid.Row="3"
+              Grid.Column="2"
+              >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="CancelRegist"
+                    Grid.Column="0"
+                    Style="{DynamicResource ResourceKey=Button_LineLeftSide}"
+                    Content="キャンセル"
+                    />
+            <Button x:Name="Regist"
+                    Grid.Column="1"
+                    Style="{DynamicResource ResourceKey=Button_LineRightSide}"
+                    Content="登録"
+                    />
+        </Grid>
     </Grid>
 </UserControl>
