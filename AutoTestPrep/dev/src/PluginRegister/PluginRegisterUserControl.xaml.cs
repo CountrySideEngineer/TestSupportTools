@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoTestPrep.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +25,26 @@ namespace PluginRegister
         {
             InitializeComponent();
         }
-    }
+
+        /// <summary>
+        /// Data context changed event handler.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
+		private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+		{
+            var viewModel = (NotificationViewModelBase)e.NewValue;
+            viewModel.NotifyOkInformation = this.NotifyOkInformationEventHandler;
+		}
+
+        /// <summary>
+        /// Event handler notifying "OK" event.
+        /// </summary>
+        /// <param name="sender">Event sender</param>
+        /// <param name="args">Event argument.</param>
+        public void NotifyOkInformationEventHandler(object sender, EventArgs args)
+		{
+            MessageBox.Show("OK", "messageBox", MessageBoxButton.OK);
+		}
+	}
 }

@@ -8,7 +8,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="400"
              MinHeight="96"
-             MinWidth="400"
+             MinWidth="400" 
+             DataContextChanged="UserControl_DataContextChanged"
              >
     <UserControl.DataContext>
         <vm:PluginRegisterViewModel/>

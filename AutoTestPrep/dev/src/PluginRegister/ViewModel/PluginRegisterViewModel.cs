@@ -1,4 +1,5 @@
 ﻿using AutoTestPrep.ViewModel;
+using CStubMKGui.Command;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,13 @@ namespace PluginRegister.ViewModel
 		/// Field of plugin path.
 		/// </summary>
 		protected string _pluginPath;
+
+		protected bool _canRegistPlugin;
+
+		/// <summary>
+		/// Command field to regist plugin information
+		/// </summary>
+		protected DelegateCommand _registPluginCommand;
 
 		/// <summary>
 		/// Default constructor.
@@ -104,5 +112,58 @@ namespace PluginRegister.ViewModel
 			}
 		}
 
+		public bool CanRegistPlugin
+		{
+			get
+			{
+				if (((string.IsNullOrEmpty(this.PluginName)) || (string.IsNullOrWhiteSpace(this.PluginName))) || 
+					((string.IsNullOrEmpty(this.PluginPath)) || (string.IsNullOrWhiteSpace(this.PluginPath))))
+				{
+					this._canRegistPlugin = false;
+				}
+				else
+				{
+					this._canRegistPlugin = true;
+				}
+				return this._canRegistPlugin;
+			}
+			set
+			{
+				this._canRegistPlugin = value;
+				this.RaisePropertyChanged(nameof(CanRegistPlugin));
+			}
+		}
+
+		/// <summary>
+		/// Command to regist plugin command execution.
+		/// </summary>
+		public DelegateCommand RegistPluginCommand
+		{
+			get
+			{
+				if (null == this._registPluginCommand)
+				{
+					this._registPluginCommand = new DelegateCommand(this.RegistPluginCommandExecute);
+				}
+				return this._registPluginCommand;
+			}
+		}
+
+		/// <summary>
+		/// Returns whether the command to regist 
+		/// </summary>
+		/// <returns></returns>
+		public bool CanRegistPluginCommandExecute()
+		{
+			return this.CanRegistPlugin;
+		}
+
+		/// <summary>
+		/// Execute command to register plugin information.
+		/// </summary>
+		public void RegistPluginCommandExecute()
+		{
+			this.NotifyOkInformation?.Invoke(this, null);
+		}
 	}
 }

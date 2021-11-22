@@ -58,6 +58,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command\DelegateCommand.cs" />
     <Compile Include="Model\EventArgs\NotificationEventArgs.cs" />
     <Compile Include="PluginRegisterUserControl.xaml.cs">
       <DependentUpon>PluginRegisterUserControl.xaml</DependentUpon>
