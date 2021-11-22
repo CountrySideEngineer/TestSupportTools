@@ -653,9 +653,21 @@ namespace AutoTestPrep.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Execute user custom plugin command.
+		/// </summary>
+		/// <param name="pluginInfo"></param>
 		public void CustomPluginCommandExecute(PluginInfo pluginInfo)
 		{
-			Debug.WriteLine($"plugin info, {pluginInfo.Name}");
+			var testDataInfo = new TestDataInfo();
+			this.SetupTestInformationReq?.Invoke(ref testDataInfo);
+
+			var converter = new TestDataInfoConverter();
+			PluginInput pluginInput = converter.ToPluginInput(testDataInfo);
+
+			var command = new ExecCustomPluginCommand();
+			var commandArg = new PluginCommandArgument(pluginInfo, pluginInput);
+			this.PluginCommandExecute(command, commandArg);
 		}
 
 		/// <summary>
