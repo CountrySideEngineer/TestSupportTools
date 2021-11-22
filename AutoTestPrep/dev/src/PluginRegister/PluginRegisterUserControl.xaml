@@ -59,7 +59,9 @@
                  Grid.Column="1"
                  Grid.ColumnSpan="3"
                  Style="{DynamicResource ResourceKey=TextBox_ItemItem}"
-                 Text="{Binding Path=PluginName}"
+                 Text="{Binding Path=PluginName}" 
+                 PreviewDragOver="PluginPathInput_PreviewDragOver" 
+                 PreviewDrop="PluginPathInput_PreviewDrop"
                  />
         <Grid x:Name="ButtonAreaGrid"
               Grid.Row="3"
