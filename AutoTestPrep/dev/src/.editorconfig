@@ -4,4 +4,4 @@
 dotnet_analyzer_diagnostic.category-Style.severity = none
 
 # CS0436: 型がインポートされた型と競合しています
-dotnet_diagnostic.CS0436.severity = silent
+dotnet_diagnostic.CS0436.severity = none

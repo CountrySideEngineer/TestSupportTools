@@ -619,37 +619,15 @@ namespace AutoTestPrep.ViewModel
 		/// <param name="pluginInfo">Plugin information selected.</param>
 		public void DefaultPluginCommandExecute(PluginInfo pluginInfo)
 		{
-			try
-			{
-				var testDataInfo = new TestDataInfo();
-				this.SetupTestInformationReq?.Invoke(ref testDataInfo);
+			var testDataInfo = new TestDataInfo();
+			this.SetupTestInformationReq?.Invoke(ref testDataInfo);
 
-				var converter = new TestDataInfoConverter();
-				PluginInput pluginInput = converter.ToPluginInput(testDataInfo);
+			var converter = new TestDataInfoConverter();
+			PluginInput pluginInput = converter.ToPluginInput(testDataInfo);
 
-				var command = new ExecPluginCommand();
-				var commandArg = new PluginCommandArgument(pluginInfo, pluginInput);
-				command.Execute(commandArg);
-
-				var message = new NotificationEventArgs()
-				{
-					Title = "プラグイン実行結果",
-					Message = commandArg.PluginOutput.Message
-				};
-				this.NotifyOkInformation?.Invoke(this, message);
-			}
-			catch (System.Exception ex)
-			when ((ex is ArgumentException) || (ex is ArgumentNullException) || (ex is NullReferenceException))
-			{
-				Debug.WriteLine(ex.StackTrace);
-
-				var message = new NotificationEventArgs()
-				{
-					Title = "エラー",
-					Message = "コマンド実行エラー"
-				};
-				this.NotifyErrorInformation.Invoke(this, message);
-			}
+			var command = new ExecDefaultPluginCommand();
+			var commandArg = new PluginCommandArgument(pluginInfo, pluginInput);
+			this.PluginCommandExecute(command, commandArg);
 		}
 
 		/// <summary>
@@ -696,6 +674,33 @@ namespace AutoTestPrep.ViewModel
 			this.CustomPluginEnable = isEnable;
 
 			return isEnable;
+		}
+
+		protected void PluginCommandExecute(ExecPluginCommand command, PluginCommandArgument commandArg)
+		{
+			try
+			{
+				command.Execute(commandArg);
+
+				var message = new NotificationEventArgs()
+				{
+					Title = "プラグイン実行結果",
+					Message = commandArg.PluginOutput.Message
+				};
+				this.NotifyOkInformation?.Invoke(this, message);
+			}
+			catch (System.Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException) || (ex is NullReferenceException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				var message = new NotificationEventArgs()
+				{
+					Title = "エラー",
+					Message = "コマンド実行エラー"
+				};
+				this.NotifyErrorInformation.Invoke(this, message);
+			}
 		}
 	}
 }

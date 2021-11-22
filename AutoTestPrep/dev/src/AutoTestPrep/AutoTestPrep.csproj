@@ -142,6 +142,8 @@
     <Compile Include="Command\Argument\ProjectCommandArgument.cs" />
     <Compile Include="Command\DelegateCommand.cs" />
     <Compile Include="Command\Exception\CommandCancelException.cs" />
+    <Compile Include="Command\ExecCustomPluginCommand.cs" />
+    <Compile Include="Command\ExecDefaultPluginCommand.cs" />
     <Compile Include="Command\ExecPluginCommand.cs" />
     <Compile Include="Command\IPluginCommand.cs" />
     <Compile Include="Command\IProjectCommand.cs" />

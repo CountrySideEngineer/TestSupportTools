@@ -17,14 +17,24 @@ namespace AutoTestPrep.Command
 {
 	public class ExecPluginCommand : ACommonPluginCommand
 	{
-		public ExecPluginCommand() : base()
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		protected ExecPluginCommand() : base() { }
+
+		/// <summary>
+		/// Constructor with argument.
+		/// </summary>
+		/// <param name="dbName">Plugin data base file name in db directory.</param>
+		/// <param name="tableName">Plugin table name.</param>
+		public ExecPluginCommand(string dbName, string tableName) : base()
 		{
 			string currentDir = System.IO.Directory.GetCurrentDirectory();
-			string dbPath = $@"{currentDir}\db\DefaultPlugin.plugin";
-			string tableName = "DefaultPlugin";
+			string dbPath = $@"{currentDir}\db\{dbName}";
 			base.DbPath = dbPath;
 			base.DbTableName = tableName;
 		}
+
 		/// <summary>
 		/// Execute plugin.
 		/// </summary>
