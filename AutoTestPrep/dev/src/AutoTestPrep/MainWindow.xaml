@@ -90,7 +90,6 @@
                 </MenuItem>
                 <MenuItem Header="ヘルプ"
                           Style="{StaticResource MenuItem_MenuBar}"
-                          Command="{Binding Path=RunCommand}"
                       >
                     <MenuItem Header="AutoTestPrepのバージョン情報"
                               Style="{StaticResource MenuItem_MenuItem}"
