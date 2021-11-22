@@ -77,6 +77,7 @@
             <Button x:Name="Regist"
                     Grid.Column="1"
                     Style="{DynamicResource ResourceKey=Button_LineRightSide}"
+                    Command="{Binding Path=RegistPluginCommand}"
                     Content="登録"
                     />
         </Grid>
