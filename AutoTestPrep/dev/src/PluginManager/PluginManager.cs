@@ -50,13 +50,23 @@ namespace Plugin.TestStubDriver
         /// <returns>Returns true if the plugin has been registered, otherwise returns false.</returns>
         public virtual bool IsRegistered(PluginInfo pluginInfo)
 		{
-            bool isRegistered = false;
-            using (var db = new LiteDatabase(this.FilePath))
+            try
 			{
-                isRegistered = this.IsRegistered(db, pluginInfo);
+                bool isRegistered = false;
+                using (var db = new LiteDatabase(this.FilePath))
+                {
+                    isRegistered = this.IsRegistered(db, pluginInfo);
+                }
+                return isRegistered;
+            }
+            catch (Exception ex)
+			{
+                Debug.WriteLine(ex.StackTrace);
+
+                throw;
 			}
-            return isRegistered;
-		}
+
+        }
 
         /// <summary>
         /// Check whether a plugin information has been registered in database.
