@@ -2,7 +2,10 @@
 using Plugin.TestStubDriver;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,10 +34,25 @@ namespace AutoTestPrep.Command
 			base(dbPath, dbTableName)
 		{}
 
+		/// <summary>
+		/// Execute load plugin command.
+		/// </summary>
+		/// <param name="commandArg"></param>
 		public override void Execute(object commandArg)
 		{
-			this.RegistDefaultPluginIfNotExist();
-			base.Execute(commandArg);
+			try
+			{
+				base.CreateDbDirectroyIfNotExists();
+				this.RegistDefaultPluginIfNotExist();
+				base.Execute(commandArg);
+			}
+			catch (System.Exception ex)
+			when ((ex is IOException) || (ex is SecurityException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
 		}
 
 		/// <summary>

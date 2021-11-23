@@ -3,6 +3,7 @@ using Plugin.TestStubDriver;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace AutoTestPrep.Command
 		protected LoadPluginCommand()
 		{
 			this.DbPath = string.Empty;
+			this.DbTableName = string.Empty;
 		}
 
 		/// <summary>
@@ -54,6 +56,21 @@ namespace AutoTestPrep.Command
 			when ((ex is NullReferenceException) || (ex is InvalidCastException))
 			{
 				throw new ArgumentException();
+			}
+		}
+
+		/// <summary>
+		/// Create output directory if it has not been exists.
+		/// </summary>
+		/// <remarks>This is for classes inherit this class.
+		/// </remarks>
+		protected virtual void CreateDbDirectroyIfNotExists()
+		{
+			DirectoryInfo dbFileDirInfo = new DirectoryInfo(this.DbPath);
+			DirectoryInfo dbFileParentDirInfo = dbFileDirInfo.Parent;
+			if (!dbFileParentDirInfo.Exists)
+			{
+				dbFileParentDirInfo.Create();
 			}
 		}
 	}
