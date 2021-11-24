@@ -166,6 +166,8 @@ namespace AutoTestPrep.ViewModel
 			this.SetupTestInformationReq(ref this.BaseTestDataInfo);
 
 			this.LoadPlugins();
+			this.UpdateCustomPluginEnable();
+
 		}
 
 		public string CurrentTitle
@@ -585,6 +587,21 @@ namespace AutoTestPrep.ViewModel
 		}
 
 		/// <summary>
+		/// Update whetther the custom plugins can execute or not.
+		/// </summary>
+		protected void UpdateCustomPluginEnable()
+		{
+			if (0 < this.CustomPlugins.Count)
+			{
+				this.CustomPluginEnable = true;
+			}
+			else
+			{
+				this.CustomPluginEnable = false;
+			}
+		}
+
+		/// <summary>
 		/// Load plugin using IPluginCommand, and its concrete object.
 		/// </summary>
 		/// <param name="loadPluginCommnad">Command to load plugin information.</param>
@@ -677,15 +694,7 @@ namespace AutoTestPrep.ViewModel
 		/// <returns>Returns ture if the command can execute, otherwise returns false.</returns>
 		public bool CanCustomPluginCommandExecute(object data)
 		{
-			bool isEnable = false;
-			if (0 < this.CustomPlugins.Count)
-			{
-				isEnable = true;
-			}
-
-			this.CustomPluginEnable = isEnable;
-
-			return isEnable;
+			return this.CustomPluginEnable;
 		}
 
 		protected void PluginCommandExecute(ExecPluginCommand command, PluginCommandArgument commandArg)
