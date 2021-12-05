@@ -705,7 +705,7 @@ namespace AutoTestPrep.ViewModel
 
 				var message = new NotificationEventArgs()
 				{
-					Title = "プラグイン実行結果",
+					Title = "プラグイン実行結果 - " + commandArg.PluginOutput.Title,
 					Message = commandArg.PluginOutput.Message
 				};
 				this.NotifyOkInformation?.Invoke(this, message);
