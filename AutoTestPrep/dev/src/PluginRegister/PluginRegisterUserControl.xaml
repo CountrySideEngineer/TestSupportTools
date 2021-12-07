@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:PluginRegister"
              xmlns:vm="clr-namespace:PluginRegister.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="150" d:DesignWidth="400"
-             MinHeight="96"
+             d:DesignHeight="132" d:DesignWidth="400"
+             MinHeight="124"
              MinWidth="400" 
              DataContextChanged="UserControl_DataContextChanged"
              >
@@ -29,7 +29,7 @@
             <RowDefinition Height="48"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="96"/>
+            <ColumnDefinition Width="72"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="192"/>
         </Grid.ColumnDefinitions>
@@ -71,11 +71,6 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="CancelRegist"
-                    Grid.Column="0"
-                    Style="{DynamicResource ResourceKey=Button_LineLeftSide}"
-                    Content="キャンセル"
-                    />
             <Button x:Name="Regist"
                     Grid.Column="1"
                     Style="{DynamicResource ResourceKey=Button_LineRightSide}"

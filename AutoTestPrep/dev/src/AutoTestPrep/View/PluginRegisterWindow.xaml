@@ -6,14 +6,25 @@
         xmlns:local="clr-namespace:AutoTestPrep.View"
         xmlns:plgin="clr-namespace:PluginRegister;assembly=PluginRegister"
         mc:Ignorable="d"
+        d:DesignHeight="248"
         WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
         Title="プラグインの登録" 
-        Height="200" 
-        Width="500"
+        Height="160" 
+        Width="210"
         MinWidth="500"
         MaxWidth="600"
+        MinHeight="210"
+        Background="#EFEFEF" 
         >
-    <Grid>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="./../Resource/Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Margin="16">
         <plgin:PluginRegisterUserControl/>
     </Grid>
 </Window>
