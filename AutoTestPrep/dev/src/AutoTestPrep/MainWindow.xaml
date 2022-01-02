@@ -8,6 +8,7 @@
         xmlns:uc="clr-namespace:AutoTestPrep.View"
         mc:Ignorable="d"
         Title="{Binding Path=CurrentTitle}" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
         DataContextChanged="MainWindow_DataContextChanged">
     <Window.Resources>
         <ResourceDictionary>
