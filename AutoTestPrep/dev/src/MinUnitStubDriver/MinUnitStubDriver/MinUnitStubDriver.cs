@@ -35,14 +35,14 @@ namespace StubDriverPlugin.MinUnitStubDriver
 					this.CreateCode(testItem, rootDirInfo, config);
 				}
 
-				output = new PluginOutput(nameof(MinUnitStubDriver), "コードの生成が完了しました。");
+				output = new PluginOutput("Min unit", "min_unitフレームワークを使用したコードの生成が完了しました。");
 			}
 			catch (Exception ex)
 			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
 				Debug.WriteLine(ex.StackTrace);
 
-				output = new PluginOutput(nameof(MinUnitStubDriver), "コードの生成中にエラーが発生しました。");
+				output = new PluginOutput("Min unit", "min_unitフレームワークを使用したコードの生成中に\r\nエラーが発生しました。");
 			}
 			return output;
 		}

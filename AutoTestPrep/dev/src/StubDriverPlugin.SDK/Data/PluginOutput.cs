@@ -11,7 +11,12 @@ namespace StubDriverPlugin.Data
 		/// <summary>
 		/// About, summary of output.
 		/// </summary>
-		public string About { get; protected set; }
+		public string About { get; set; }
+
+		/// <summary>
+		/// Title of plugin.
+		/// </summary>
+		public string Title { get; protected set; }
 
 		/// <summary>
 		/// Message about plugin
@@ -23,7 +28,7 @@ namespace StubDriverPlugin.Data
 		/// </summary>
 		public PluginOutput()
 		{
-			this.About = string.Empty;
+			this.Title = string.Empty;
 			this.Message = string.Empty;
 		}
 
@@ -33,7 +38,7 @@ namespace StubDriverPlugin.Data
 		/// <param name="message">Message about result of plugin.</param>
 		public PluginOutput(string message)
 		{
-			this.About = string.Empty;
+			this.Title = string.Empty;
 			this.Message = message;
 		}
 
@@ -44,7 +49,7 @@ namespace StubDriverPlugin.Data
 		/// <param name="message">Message about result of plugin.</param>
 		public PluginOutput(string about, string messgae)
 		{
-			this.About = about;
+			this.Title = about;
 			this.Message = messgae;
 		}
 
@@ -54,7 +59,9 @@ namespace StubDriverPlugin.Data
 		/// <param name="src">Copy source object.</param>
 		public PluginOutput(PluginOutput src)
 		{
+			this.Title = src.Title;
 			this.Message = src.Message;
+			this.About = src.About;
 		}
 
 	}
