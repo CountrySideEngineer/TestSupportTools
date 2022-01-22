@@ -15,56 +15,38 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="112"/>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0"
-              Margin="16, 16, 16, 8"
-              >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-            <StackPanel VerticalAlignment="Center"
-                        Orientation="Horizontal"
-                        Grid.Row="0"
+        <StackPanel VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Grid.Row="0"
+                    Margin="16, 0"
                 >
-                <TextBlock Text="テスト名："
-                           Style="{StaticResource TextBlockRightStyle}"
-                           Width="80"
+            <TextBlock Text="テスト名："
+                       Style="{StaticResource TextBlockRightStyle}"
                            />
-                <TextBlock Text="{Binding TestName}"
-                           Style="{StaticResource TextBlockLeftStyle}"
+            <TextBlock Text="{Binding TestInformation.TestItems[0].Name}"
+                       Style="{StaticResource TextBlockLeftStyle}"
                            />
-            </StackPanel>
-            <StackPanel VerticalAlignment="Center"
-                        Orientation="Horizontal"
-                        Grid.Row="1"
-                        >
-                <TextBlock Text="テスト結果："
-                           Style="{StaticResource TextBlockRightStyle}"
-                           Width="80"
-                           />
-                <TextBlock Text="{Binding TestResult}"
-                           Style="{StaticResource TextBlockOkNgLeftStyle}"
-                           />
-            </StackPanel>
-        </Grid>
+        </StackPanel>
         <DataGrid x:Name="dataGrid"
                   Grid.Row="1"
                   Style="{StaticResource DataGridViewCommonStyle}"
                   ColumnHeaderStyle="{StaticResource DataGridViewColumnHeaderStyle}"
-                  AutoGenerateColumns="False" Margin="16,8,16,16"
+                  AutoGenerateColumns="False"
                   ItemsSource="{Binding TestCases}"
+                  IsReadOnly="True"
                   >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="実行日時"
                                     Width="*"
-                                    Binding="{Binding Timestamp, Mode=TwoWay}"
-                                    ElementStyle="{StaticResource DataGridColumnTestItemNameTextStyle}" />
+                                    Binding="{Binding Timestamp}"
+                                    ElementStyle="{StaticResource DataGridColumnTestItemNameTextStyle}"
+                                    />
                 <DataGridTextColumn Header="実行時間"
                                     Width="*"
-                                    Binding="{Binding Time, Mode=TwoWay}"
+                                    Binding="{Binding Time}"
                                     ElementStyle="{StaticResource DataGridColumnRightTextStyle}" />
                 <DataGridTextColumn Header="実行結果"
                                     Width="*"
