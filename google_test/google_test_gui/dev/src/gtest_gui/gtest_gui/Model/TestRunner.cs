@@ -15,9 +15,9 @@ namespace gtest_gui.Model
         public string Target { get; set; }
 
         /// <summary>
-        /// Path to test report file.
+        /// Test log and file information.
         /// </summary>
-        public string Report { get; set; }
+        public OutputDirAndFile OutputDirFile { get; set; }
 
         /// <summary>
         /// Default constructor.
@@ -25,7 +25,7 @@ namespace gtest_gui.Model
         public TestRunner()
 		{
             this.Target = string.Empty;
-            this.Report = string.Empty;
+            this.OutputDirFile = null;
 		}
 
         /// <summary>
@@ -35,18 +35,18 @@ namespace gtest_gui.Model
         public TestRunner(string target)
         {
             this.Target = target;
-            this.Report = string.Empty;
+            this.OutputDirFile = null;
         }
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="target">Path to test file.</param>
-        /// <param name="report">Path to report file to output.</param>
-        public TestRunner(string target, string report)
+        /// <param name="outputDirFile">OutputDirAndFile object handle test log and report.</param>
+        public TestRunner(string target, OutputDirAndFile outputDirFile)
         {
             this.Target = target;
-            this.Report = report;
+            this.OutputDirFile = outputDirFile;
         }
 
         /// <summary>
@@ -64,31 +64,51 @@ namespace gtest_gui.Model
         public virtual void Run(string path, TestInformation information)
 		{
             var targetTestItems = information.TestItems.Where(_ => _.IsSelected);
-            var testFilterOption = string.Empty;
-            bool isTop = true;
-            foreach (var item in targetTestItems)
+            foreach (var testItem in targetTestItems)
+            {
+                this.OutputDirFile.SetUpTestOutputDirecries(testItem.Name);
+                this.RunTest(path, testItem);
+            }
+        }
+
+        /// <summary>
+        /// Run a test.
+        /// </summary>
+        /// <param name="path">Path to file to run test.</param>
+        /// <param name="testItem">Test parameter.</param>
+        protected virtual void RunTest(string path, TestItem testItem)
+		{
+            Process process = this.Start(path, testItem);
+            process.WaitForExit();
+
+            //Get and output log 
+            string outputData = process.StandardOutput.ReadToEnd();
+            string logFilePath = this.OutputDirFile.LogFilePath(testItem.Name);
+            using (var writer = new StreamWriter(logFilePath))
 			{
-                if (isTop)
-				{
-                    testFilterOption = "--gtest_filter=";   //Option prefix to filter test case.
-				}
-				else
-				{
-                    testFilterOption += ":";
-				}
-                testFilterOption += item.Name;
-                isTop = false;
-			}
-            string testLogFilePath = this.GetTestLogFilePath(path);
-            string testLogOption = "--gtest_output=xml:" + testLogFilePath;
-			var app = new ProcessStartInfo
-			{
-				FileName = path,
-				UseShellExecute = false,
-				Arguments = testLogOption + " " + testFilterOption,
-			};
-            Process proc = this.Run(app);
-            proc.WaitForExit();
+                writer.Write(outputData);
+            }
+        }
+
+        /// <summary>
+        /// Run a test 
+        /// </summary>
+        /// <param name="path">Path to file.</param>
+        /// <param name="testItem">Test information.</param>
+        /// <returns>Test running process.</returns>
+        protected virtual Process Start(string path, TestItem testItem)
+		{
+            string filterOption = this.GetFilterOption(path, testItem);
+            string outputOption = this.GetXmlOutputOption(path, testItem);
+            var app = new ProcessStartInfo
+            {
+                FileName = path,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                Arguments = $"{outputOption} {filterOption}"
+            };
+            Process process = this.Start(app);
+            return process;
 		}
 
         /// <summary>
@@ -96,11 +116,21 @@ namespace gtest_gui.Model
         /// </summary>
         /// <param name="processInfo">Proces object to run test.</param>
         /// <returns>Process object the test run.</returns>
-        protected virtual Process Run(ProcessStartInfo processInfo)
+        protected virtual Process Start(ProcessStartInfo processInfo)
 		{
             Process proc = Process.Start(processInfo);
 
             return proc;
+		}
+
+        /// <summary>
+        /// Get test information
+        /// </summary>
+        /// <returns>Test information object.</returns>
+        public virtual TestInformation GetTestList()
+		{
+            TestInformation testInformation = this.GetTestList(this.Target);
+            return testInformation;
 		}
 
         /// <summary>
@@ -119,7 +149,7 @@ namespace gtest_gui.Model
 				RedirectStandardOutput = true
 			};
 
-			Process proc = this.Run(app);
+			Process proc = this.Start(app);
             string stdOutput = proc.StandardOutput.ReadToEnd();
             IEnumerable<TestItem> testItems = this.OutputToTestItem(stdOutput);
             var testInfo = new TestInformation
@@ -171,18 +201,28 @@ namespace gtest_gui.Model
 		}
 
         /// <summary>
-        /// Create path of log file.
+        /// Create test filter option of google test framework.
         /// </summary>
-        /// <param name="filePath">Path to file to run test.</param>
-        /// <returns>Path to file of log.</returns>
-        protected string GetTestLogFilePath(string filePath)
-		{
-            string fileName = Path.GetFileNameWithoutExtension(filePath);
-            var dateTimeNow = DateTime.Now.ToString("yyyyMMddHHmmss");
-            string logFileName = fileName + "_" + dateTimeNow + ".xml";
-            string logFilePath = @".\log\" + logFileName;
+        /// <param name="fileName">Test file path.</param>
+        /// <param name="testItem">Test item information.</param>
+        /// <returns>Test filter string.</returns>
+        protected string GetFilterOption(string fileName, TestItem testItem)
+        {
+            string filterOption = $"--gtest_filter={testItem.Name}";
+            return filterOption;
+		}
 
-            return logFilePath;
+        /// <summary>
+        /// Create test result output in XML format option.
+        /// </summary>
+        /// <param name="fileName">Test file path.</param>
+        /// <param name="testItem">Test item information.</param>
+        /// <returns>Test output filter option.</returns>
+        protected string GetXmlOutputOption(string fileName, TestItem testItem)
+		{
+            string xmlFilePath = this.OutputDirFile.TestReportFilePath(testItem.Name);
+            string xmlOption = $"--gtest_output=xml:{xmlFilePath}";
+            return xmlOption;
 		}
     }
 }
