@@ -1,5 +1,7 @@
 ﻿using gtest_gui.Command.Argument;
 using gtest_gui.Model;
+using gtest_gui.MoveWindow;
+using gtest_gui.View;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,12 +20,25 @@ namespace gtest_gui.Command
 		/// </summary>
 		/// <param name="cmdArgument">Argument for test including target test file and information to run it.</param>
 		/// <returns>Returns always 0.</returns>
-		public object ExecuteCommand(TestCommandArgument cmdArgument)
+		public virtual object ExecuteCommand(TestCommandArgument cmdArgument)
 		{
-			string testFilePath = cmdArgument.TestInfo.TestFile;
+			TestRunner testRunner = SetUpTestRunner(cmdArgument);
+			TestInformation testInfo = cmdArgument.TestInfo;
+			testRunner.Run(testInfo);
+
+			return 0;
+		}
+
+		/// <summary>
+		/// Set up TestRunner object with parameters passed with argument, TestCommandArgument.
+		/// </summary>
+		/// <param name="cmdArg">Command argument used to setup TestRunner object.</param>
+		/// <returns>TestRunner object to run test.</returns>
+		protected virtual TestRunner SetUpTestRunner(TestCommandArgument cmdArg)
+		{
+			string testFilePath = cmdArg.TestInfo.TestFile;
 			string testFileName = System.IO.Path.GetFileNameWithoutExtension(testFilePath);
 			var outputDirInfo = new OutputDirAndFile(Directory.GetCurrentDirectory(), testFileName);
-			TestInformation testInformation = cmdArgument.TestInfo;
 			var testRunner = new TestRunner
 			{
 				Target = testFilePath,
@@ -32,8 +47,8 @@ namespace gtest_gui.Command
 			var outputLogBuilder = new OutputLogBuilder(outputDirInfo);
 			testRunner.TestDataReceivedEventHandler += outputLogBuilder.OnDataReceived;
 			testRunner.TestDataFinisedEventHandler += outputLogBuilder.OnDataReceiveFinished;
-			testRunner.Run(testInformation);
-			return (int)0;
+
+			return testRunner;
 		}
 	}
 }

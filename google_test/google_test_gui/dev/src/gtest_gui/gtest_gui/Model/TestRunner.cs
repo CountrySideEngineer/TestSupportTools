@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace gtest_gui.Model
 {
@@ -82,6 +83,15 @@ namespace gtest_gui.Model
 		}
 
         /// <summary>
+        /// Run a test item.
+        /// </summary>
+        /// <param name="testItem">Test data to run.</param>
+        public virtual void Run(TestItem testItem)
+		{
+            this.Run(this.Target, testItem);
+		}
+
+        /// <summary>
         /// Run test
         /// </summary>
         /// <param name="path">Path to file to run test.</param>
@@ -90,13 +100,7 @@ namespace gtest_gui.Model
             var targetTestItems = information.TestItems.Where(_ => _.IsSelected);
             foreach (var testItem in targetTestItems)
             {
-                this.OutputDirFile.SetUpTestOutputDirecries(testItem.Name);
-                this.Run(path, testItem);
-                var eventArg = new TestDataFinishedEventArgs()
-                {
-                    TestItem = testItem
-				};
-				this.TestDataFinisedEventHandler?.Invoke(this, eventArg);
+                RunTestProc(path, testItem);
             }
         }
 
@@ -135,6 +139,28 @@ namespace gtest_gui.Model
 		}
 
         /// <summary>
+        /// Run a test case with pre- and post procedure.
+        /// Pre-procedure is to setup directories to output log and report.
+        /// Post-procedure is to notify a test finished by event.
+        /// </summary>
+        /// <param name="path">Path to file to execute.</param>
+        /// <param name="testItem">Test item information.</param>
+        public virtual void RunTestProc(string path, TestItem testItem)
+		{
+            //pre-procedure.
+            this.OutputDirFile.SetUpTestOutputDirecries(testItem.Name);
+
+            this.Run(path, testItem);
+
+            //post procedure.
+            var eventArg = new TestDataFinishedEventArgs()
+            {
+                TestItem = testItem
+            };
+            this.TestDataFinisedEventHandler?.Invoke(this, eventArg);
+		}
+
+        /// <summary>
         /// Data received from execution process output.
         /// </summary>
         /// <param name="sender">event sender.</param>
@@ -160,18 +186,6 @@ namespace gtest_gui.Model
 			{
                 writer.Write(outputData);
 			}
-		}
-
-        /// <summary>
-        /// Run test execution file.
-        /// </summary>
-        /// <param name="processInfo">Proces object to run test.</param>
-        /// <returns>Process object the test run.</returns>
-        protected virtual Process Start(ProcessStartInfo processInfo)
-		{
-            Process proc = Process.Start(processInfo);
-
-            return proc;
 		}
 
         /// <summary>
