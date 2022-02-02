@@ -87,39 +87,65 @@ namespace TestParser.Parser
 		{
 			Logger.INFO("Start reading target function info, function and sheet name.");
 
+			Range tableItemRange = this.GetRangeToRead(reader);
+
+			Logger.DEBUG($"\t\t-\tTable range:");
+			Logger.DEBUG($"\t\t\t\t--\tStart row = {tableItemRange.StartRow}, start column = {tableItemRange.StartColumn}");
+			Logger.DEBUG($"\t\t\t\t\tRow count = {tableItemRange.RowCount}, row column = {tableItemRange.ColumnCount}");
+
+			var infoList = this.ReadFunctionInfo(reader, tableItemRange);
+			return infoList;
+		}
+
+		/// <summary>
+		/// Read function information to read.
+		/// </summary>
+		/// <param name="reader">ExcelReader object.</param>
+		/// <param name="range">Range to read.</param>
+		/// <returns>Read function informations.</returns>
+		public IEnumerable<ParameterInfo> ReadFunctionInfo(ExcelReader reader, Range range)
+		{
+			var rangeToRead = new Range(range);
+			var parameterInfoList = new List<ParameterInfo>();
+			for (int index = 0; index < rangeToRead.RowCount; index++)
+			{
+				try
+				{
+					ParameterInfo parameterInfo = this.ReadFunctionInfoItem(reader, range);
+					parameterInfoList.Add(parameterInfo);
+				}
+				catch (ParseException)
+				{
+					Logger.WARN($"\t\t-\tSkip ({range.StartRow}, {range.StartColumn}) because empty cell found.");
+				}
+				catch (ParseDataNotFoundException)
+				{
+					Logger.WARN($"\t\t-\tSkip ({range.StartRow}, {range.StartColumn}) because invalid data found.");
+				}
+				catch (FormatException)
+				{
+					Logger.WARN($"\t\t-\tSkip ({range.StartRow}, {range.StartColumn}) because invalid format.");
+				}
+				rangeToRead.StartRow++;
+			}
+
+			return parameterInfoList;
+		}
+
+		/// <summary>
+		/// Get range t to read.
+		/// </summary>
+		/// <param name="reader">ExcelReader object</param>
+		/// <returns>Range to read to get function information.</returns>
+		protected Range GetRangeToRead(ExcelReader reader)
+		{
 			Range tableItemRange = new Range();
 			reader.GetRowRange(ref tableItemRange);
 			reader.GetColumnRange(ref tableItemRange);
 			tableItemRange.StartRow++;
 			tableItemRange.ColumnCount = 4;
 
-			Logger.DEBUG($"\t\t-\tTable range:");
-			Logger.DEBUG($"\t\t\t\t--\tStart row = {tableItemRange.StartRow}, start column = {tableItemRange.StartColumn}");
-			Logger.DEBUG($"\t\t\t\t\tRow count = {tableItemRange.RowCount}, row column = {tableItemRange.ColumnCount}");
-
-			var parameterInfoList = new List<ParameterInfo>();
-			for (int index = 0; index < tableItemRange.RowCount; index++)
-			{
-				try
-				{
-					ParameterInfo parameterInfo = this.ReadFunctionInfo(reader, tableItemRange);
-					parameterInfoList.Add(parameterInfo);
-				}
-				catch (ParseException)
-				{
-					Logger.WARN($"\t\t-\tSkip ({tableItemRange.StartRow}, {tableItemRange.StartColumn}) because empty cell found.");
-				}
-				catch (ParseDataNotFoundException)
-				{
-					Logger.WARN($"\t\t-\tSkip ({tableItemRange.StartRow}, {tableItemRange.StartColumn}) because invalid data found.");
-				}
-				catch (FormatException)
-				{
-					Logger.WARN($"\t\t-\tSkip ({tableItemRange.StartRow}, {tableItemRange.StartColumn}) because invalid format.");
-				}
-				tableItemRange.StartRow++;
-			}
-			return parameterInfoList;
+			return tableItemRange;
 		}
 
 		/// <summary>
@@ -131,7 +157,7 @@ namespace TestParser.Parser
 		/// <exception cref="ParseException">One of cell in the <para>range</para> is empty.</exception>
 		/// <exception cref="ParseDataNotFoundException">The range has no data. </exception>
 		/// <exception cref="FormatException">The index can not convert into "int" type.</exception>
-		protected ParameterInfo ReadFunctionInfo(ExcelReader reader, Range range)
+		protected ParameterInfo ReadFunctionInfoItem(ExcelReader reader, Range range)
 		{
 			IEnumerable<string> rowItem = reader.ReadRow(range);
 			if (0 == rowItem.Count())

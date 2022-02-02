@@ -13,7 +13,10 @@ namespace TestParser.Parser
 		/// </summary>
 		public TestParser()
 		{
-			this.FunctionListParser = new FunctionListParser();
+			this.FunctionListParser = new FunctionListParser()
+			{
+				Target = "テスト一覧"
+			};
 			this.FunctionParser = new FunctionParser();
 			this.TestCaseParser = new TestCaseParser();
 		}
@@ -93,7 +96,6 @@ namespace TestParser.Parser
 		{
 			try
 			{
-				this.FunctionListParser.Target = "テスト一覧";
 				var testTargetFunctionInfos = (IEnumerable<ParameterInfo>)this.FunctionListParser.Parse(stream);
 
 				var tests = new List<Test>();

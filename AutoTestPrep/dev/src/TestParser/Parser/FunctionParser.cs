@@ -13,7 +13,7 @@ namespace TestParser.Parser
 	public class FunctionParser : AParser
 	{
 		/// <summary>
-		/// Returns the function parameter data in 
+		/// Returns the function parameter data in srcPath file.
 		/// </summary>
 		/// <param name="srcPath">Path to function data.</param>
 		/// <returns>Function information data as Parameter object.</returns>
@@ -22,6 +22,11 @@ namespace TestParser.Parser
 			return this.Read(srcPath);
 		}
 
+		/// <summary>
+		/// Returns the function parameter data read from stream.
+		/// </summary>
+		/// <param name="stream">Stream to read data from.</param>
+		/// <returns>Parameter object read from stream.</returns>
 		public override object Parse(Stream stream)
 		{
 			Parameter parameter = this.ReadTargetFunction(stream);
@@ -96,15 +101,49 @@ namespace TestParser.Parser
 		/// <param name="reader"></param>
 		/// <param name="range"></param>
 		/// <returns></returns>
+		/// <exception cref="FormatException">Function information format is invalid.</exception>
 		protected Function GetFunctionInfo(ExcelReader reader, Range range)
 		{
-			//Get description.
-			string description = string.Empty;
 			try
 			{
-				Range descRange = reader.FindFirstItemInRow("説明", range);
-				List<string> items = reader.ReadRow(descRange).ToList();
-				description = items[1];
+				string description = this.GetDescription(reader, range);
+				string name = this.GetFunctionName(reader, range);
+				int pointerNum = 0;
+				string dataTypeWithoutPointer = string.Empty;
+				(dataTypeWithoutPointer, pointerNum) = GetDataType(reader, range);
+				IEnumerable<Parameter> arguments = this.GetArguments(reader, range);
+
+				var function = new Function
+				{
+					Description = description,
+					Name = name,
+					DataType = dataTypeWithoutPointer,
+					Arguments = arguments,
+					PointerNum = pointerNum
+				};
+				return function;
+			}
+			catch (FormatException)
+			{
+				throw;	//The log data has been handled.
+			}
+		}
+
+		/// <summary>
+		/// Read description about function or argument.
+		/// </summary>
+		/// <param name="reader">Excel reader.</param>
+		/// <param name="range">Range to read.</param>
+		/// <returns>Descrition.</returns>
+		protected string GetDescription(ExcelReader reader, Range range)
+		{
+			string description = string.Empty;
+
+			try
+			{
+				Range rangeToRead = reader.FindFirstItemInRow("説明", range);
+				List<string> itemsInRow = reader.ReadRow(rangeToRead).ToList();
+				description = itemsInRow[1];
 
 				Logger.INFO($"\t\t-\tGet \"description\" about function ... DONE!");
 			}
@@ -115,25 +154,47 @@ namespace TestParser.Parser
 
 				description = string.Empty;
 			}
+			return description;
+		}
 
-			//Get name.
-			string name = string.Empty;
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="reader"></param>
+		/// <param name="range"></param>
+		/// <returns></returns>
+		/// <exception cref="FormatException">The function name can not read in range.</exception>
+		protected string GetFunctionName(ExcelReader reader, Range range)
+		{
 			try
 			{
-				Range nameRange = reader.FindFirstItemInRow("関数名", range);
-				List<string> items = reader.ReadRow(nameRange).ToList();
-				name = items[1];
+				string name = string.Empty;
 
-				Logger.INFO($"\t\t-\tGet \"function name\" ... DONE!");
+				Range rangeToRead = reader.FindFirstItemInRow("関数名", range);
+				List<string> itemsInRow = reader.ReadRow(rangeToRead).ToList();
+				name = itemsInRow[1];
+
+				Logger.INFO($"\t\t-\tGet \"description\" about function ... DONE!");
+
+				return name;
 			}
 			catch (FormatException)
 			{
-				Logger.ERROR($"\t\t-\t\"Description\" cell can not be found in \"{this.Target}\" sheet.");
+				Logger.WARN($"\t\t-\t\"Function name\" cell can not be found in \"{this.Target}\" sheet.");
+				Logger.WARN("\t\t\tThe valus will be empty");
 
 				throw;
 			}
+		}
 
-			//Get data type.
+		/// <summary>
+		/// Get data type and number of pointer, pointer level.
+		/// </summary>
+		/// <param name="reader">Excel reader</param>
+		/// <param name="range">Range to read from excel.</param>
+		/// <returns>Data type name and number of pointer.</returns>
+		protected (string, int) GetDataType(ExcelReader reader, Range range)
+		{
 			int pointerNum = 0;
 			string dataTypeWithoutPointer = string.Empty;
 			try
@@ -155,26 +216,7 @@ namespace TestParser.Parser
 				dataTypeWithoutPointer = "void";
 			}
 
-			//Get arguments
-			IEnumerable<Parameter> arguments = null;
-			try
-			{
-				arguments = this.GetArguments(reader, range);
-			}
-			catch (FormatException)
-			{
-				throw;	//The log data has been handled.
-			}
-
-			var function = new Function
-			{
-				Description = description,
-				Name = name,
-				DataType = dataTypeWithoutPointer,
-				Arguments = arguments,
-				PointerNum = pointerNum
-			};
-			return function;
+			return (dataTypeWithoutPointer, pointerNum);
 		}
 
 		/// <summary>
