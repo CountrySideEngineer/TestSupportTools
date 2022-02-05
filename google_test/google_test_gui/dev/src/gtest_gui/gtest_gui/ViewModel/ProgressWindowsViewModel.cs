@@ -34,9 +34,19 @@ namespace gtest_gui.MoveWindow
 		/// </summary>
 		protected int _denominator;
 
+		/// <summary>
+		/// Delegate to handle "CloseWindow" event.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		public delegate void CloseWindowsEventHandler(object sender, EventArgs e);
 		public CloseWindowsEventHandler CloseWindowEvent;
 
+		/// <summary>
+		/// Delegate to handle "StartPogress" event.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		public delegate void StartProgressEventHandler(object sender, EventArgs e);
 		public StartProgressEventHandler StartProgressEvent;
 
@@ -69,13 +79,13 @@ namespace gtest_gui.MoveWindow
 		/// <summary>
 		/// Property of prgresss.
 		/// </summary>
-		public int Progress
+		public int ProgressRate
 		{
 			get => _progress;
 			set
 			{
 				_progress = value;
-				RaisePropertyChanged(nameof(Progress));
+				RaisePropertyChanged(nameof(ProgressRate));
 			}
 		}
 
@@ -95,8 +105,11 @@ namespace gtest_gui.MoveWindow
 		/// <summary>
 		/// Test Progress interface.
 		/// </summary>
-		public IProgress<ProgressInfo> TestProgress { get; set; }
+		public IProgress<ProgressInfo> Progress { get; set; }
 
+		/// <summary>
+		/// Task to run in asynchronously.
+		/// </summary>
 		public IAsyncTask<ProgressInfo> AsyncTask { get; set; }
 
 		/// <summary>
@@ -119,37 +132,20 @@ namespace gtest_gui.MoveWindow
 		{
 			Title = string.Empty;
 			ProcessName = string.Empty;
-			Progress = 0;
+			ProgressRate = 0;
 			Numerator = 0;
 			Denominator = 0;
-
-			TestProgress = new Progress<ProgressInfo>(OnProgressChanged);
+			Progress = null;
 		}
 
-		public void OnProgressChanged(ProgressInfo progressInfo)
-		{
-			try
-			{
-				Title = progressInfo.Title;
-				ProcessName = progressInfo.ProcessName;
-				Progress = progressInfo.Progress;
-				Numerator = progressInfo.Numerator;
-				Denominator = progressInfo.Denominator;
-
-				if (100 <= Progress)
-				{
-					CloseWindowEvent?.Invoke(this, null);
-				}
-			}
-			catch (NullReferenceException)
-			{
-				//Can the exception ignore...?
-			}
-		}
-
+		/// <summary>
+		/// Event handler notifying start the task.
+		/// </summary>
+		/// <param name="sender">Event sender</param>
+		/// <param name="e">Event argument.</param>
 		public void OnProgressStart(object sender, EventArgs e)
 		{
-			AsyncTask.RunTask(TestProgress);
+			AsyncTask.RunTask(Progress);
 		}
 
 		/// <summary>
@@ -163,15 +159,14 @@ namespace gtest_gui.MoveWindow
 			ProgressInfo progressInfo = arg.ProgressInfo;
 			Title = progressInfo.Title;
 			ProcessName = progressInfo.ProcessName;
-			Progress = progressInfo.Progress;
+			ProgressRate = progressInfo.Progress;
 			Numerator = progressInfo.Numerator;
 			Denominator = progressInfo.Denominator;
 
-			if (100 <= Progress)
+			if (100 <= ProgressRate)
 			{
 				CloseWindowEvent?.Invoke(this, null);
 			}
 		}
-
 	}
 }
