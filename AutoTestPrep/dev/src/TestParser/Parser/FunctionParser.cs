@@ -39,13 +39,20 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="srcPath">Path to file which contains the target function information.</param>
 		/// <returns>Object of function data.</returns>
+		/// <exception cref="IOException">The file <para>srcPath</para> has already been opened by other process.</exception>
 		protected object Read(string srcPath)
 		{
-			using (var stream = new FileStream(srcPath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
+			try
 			{
-				Parameter parameter = this.ReadTargetFunction(stream);
-
-				return parameter;
+				using (var stream = new FileStream(srcPath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
+				{
+					Parameter parameter = this.ReadTargetFunction(stream);
+					return parameter;
+				}
+			}
+			catch (IOException)
+			{
+				throw;
 			}
 		}
 

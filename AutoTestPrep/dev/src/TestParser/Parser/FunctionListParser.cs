@@ -20,7 +20,7 @@ namespace TestParser.Parser
 		/// Parse function information in file <para>srcPath</para>.
 		/// </summary>
 		/// <param name="srcPath">Path to input file.</param>
-		/// <returns></returns>
+		/// <returns>Collection of functin information to parse.</returns>
 		/// <exception cref="ParseDataNotFoundException"></exception>
 		public override object Parse(string srcPath)
 		{

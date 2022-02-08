@@ -84,12 +84,20 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="srcPath">Path to file contains test case data.</param>
 		/// <returns>List of test case in TestCase object.</returns>
+		/// <exception cref="IOException">The file <para>srcPath</para> has already been opened by other process.</exception>
 		protected object Read(string srcPath)
 		{
-			using (var stream = new FileStream(srcPath, FileMode.Open, FileAccess.Read))
+			try
 			{
-				IEnumerable<TestCase> testCases = this.ReadTestCase(stream);
-				return testCases;
+				using (var stream = new FileStream(srcPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+				{
+					IEnumerable<TestCase> testCases = this.ReadTestCase(stream);
+					return testCases;
+				}
+			}
+			catch (IOException)
+			{
+				throw;
 			}
 		}
 

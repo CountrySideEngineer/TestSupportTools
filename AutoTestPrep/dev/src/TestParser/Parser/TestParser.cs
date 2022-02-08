@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using TestParser.Target;
 using TestParser.Data;
+using System.Linq;
 
 namespace TestParser.Parser
 {
@@ -69,18 +70,26 @@ namespace TestParser.Parser
 		/// <exception cref="NullReferenceException">
 		/// Object to parse function list, function, or test case has not been set.
 		/// </exception>
+		/// <exception cref="IOException">The file <para>srcPath</para> are already opened by other process.</exception>
 		protected object Read(string srcPath)
 		{
-			using (var stream = new FileStream(srcPath, FileMode.Open, FileAccess.Read))
+			try
 			{
-				try
+				using (var stream = new FileStream(srcPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
 				{
-					return this.Read(stream);
+					try
+					{
+						return this.Read(stream);
+					}
+					catch (NullReferenceException)
+					{
+						throw;
+					}
 				}
-				catch (NullReferenceException)
-				{
-					throw;
-				}
+			}
+			catch (IOException)
+			{
+				throw;
 			}
 		}
 
@@ -96,13 +105,18 @@ namespace TestParser.Parser
 		{
 			try
 			{
+				NotifyParseProgressDelegate?.Invoke(0, 100);
 				var testTargetFunctionInfos = (IEnumerable<ParameterInfo>)this.FunctionListParser.Parse(stream);
+				NotifyParseProgressDelegate?.Invoke(100, 100);
 
 				var tests = new List<Test>();
-				foreach (var testTargetFunctionInfoItem in testTargetFunctionInfos)
+				for (int index = 0; index < testTargetFunctionInfos.Count(); index++)
 				{
+					ParameterInfo testTargetFunctionInfoItem = testTargetFunctionInfos.ElementAt(index);
 					Test test = this.Read(stream, testTargetFunctionInfoItem);
 					tests.Add(test);
+
+					NotifyParseProgressDelegate?.Invoke((index + 1), testTargetFunctionInfos.Count());
 				}
 
 				return tests;
