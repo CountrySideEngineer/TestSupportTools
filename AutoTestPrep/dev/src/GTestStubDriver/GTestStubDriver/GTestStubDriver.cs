@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestParser.Parser;
+using TestParser.ParserException;
 using TestParser.Data;
 using CodeGenerator.Data;
 using CodeGenerator.Stub;
@@ -32,6 +33,7 @@ namespace StubDriverPlugin.GTestStubDriver
 			DirectoryInfo rootDirInfo = new DirectoryInfo(data.OutputDirPath);
 			CodeConfiguration config = this.Input2CodeConfigForStub(data);
 
+			string outputAbout = "Google test";
 			PluginOutput pluginOutput = null;
 			try
 			{
@@ -40,21 +42,29 @@ namespace StubDriverPlugin.GTestStubDriver
 					this.CreateCode(testItem, rootDirInfo, config);
 				}
 
-				pluginOutput = new PluginOutput("Google test", "Google Testフレームワークを使用したコードの生成が完了しました。");
+				pluginOutput = new PluginOutput(outputAbout, "Google Testフレームワークを使用したコードの生成が完了しました。");
+			}
+			catch (TestParserException ex)
+			{
+				string errorMessage =
+					$"テストデータの解析中にエラーが発生しました。" +
+					Environment.NewLine +
+					$"エラーコード：0x{Convert.ToString(ex.ErrorCode, 16)}";
+				pluginOutput = new PluginOutput(outputAbout, errorMessage);
 			}
 			catch (Exception ex)
 			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
 				Debug.WriteLine(ex.StackTrace);
 
-				pluginOutput = new PluginOutput("Google test", "Google Testフレームワークを使用したコードの生成中に\r\nエラーが発生しました。");
+				pluginOutput = new PluginOutput(outputAbout, "Google Testフレームワークを使用したコードの生成中に\r\nエラーが発生しました。");
 			}
 			catch (Exception ex)
 			when (ex is IOException)
 			{
 				Debug.WriteLine(ex.StackTrace);
 
-				pluginOutput = new PluginOutput("Google test", "指定されたファイルを開けま線でした。");
+				pluginOutput = new PluginOutput(outputAbout, "指定されたファイルを開けませんでした。");
 			}
 			return pluginOutput;
 		}
