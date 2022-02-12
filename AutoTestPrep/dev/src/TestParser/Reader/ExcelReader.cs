@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -40,13 +41,16 @@ namespace TestParser.Reader
 		/// </summary>
 		/// <param name="item">String a cell should contain.</param>
 		/// <returns>A range which contains string.</returns>
-		/// <exception cref="ArgumentOutOfRangeException">A cell can not be found.</exception>
+		/// <exception cref="ArgumentException">Target sheet can not be found in workbook.</exception>
+		/// <exception cref="FormatException">No cell contains item.</exception>
 		public Range FindFirstItem(string item)
 		{
+			Debug.Assert(null != _excelStream);
+
 			try
 			{
 				var workBook = new XLWorkbook(this._excelStream);
-				var workSheet = workBook.Worksheet(this.SheetName);
+				var workSheet = workBook.Worksheet(this.SheetName);	//ArgumentException
 				var itemCell = workSheet.CellsUsed()
 					.Where(_ => (0 == string.Compare(item, _.GetString())))
 					.FirstOrDefault();
@@ -58,9 +62,10 @@ namespace TestParser.Reader
 
 				return range;
 			}
-			catch (NullReferenceException)
+			catch (Exception ex)
+			when ((ex is NullReferenceException) || (ex is ArgumentException))
 			{
-				throw new FormatException();
+				throw new ArgumentException($"No cell contains {item} in {this.SheetName}.");
 			}
 		}
 
@@ -70,6 +75,7 @@ namespace TestParser.Reader
 		/// <param name="item">String a cell should contain.</param>
 		/// <returns>A range which contains string.</returns>
 		/// <exception cref="ArgumentOutOfRangeException">A cell can not be found.</exception>
+		/// <exception cref="ArgumentException">A cell can not be found.</exception>
 		public Range FindFirstItem(string item, Range range)
 		{
 			try
@@ -89,9 +95,10 @@ namespace TestParser.Reader
 
 				return itemRange;
 			}
-			catch (ArgumentOutOfRangeException)
+			catch (Exception ex)
+			when ((ex is NullReferenceException) || (ex is ArgumentOutOfRangeException))
 			{
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentException($"No cell contains {item} in {this.SheetName}.");
 			}
 		}
 
@@ -100,7 +107,7 @@ namespace TestParser.Reader
 		/// </summary>
 		/// <param name="item">String a cell should contain.</param>
 		/// <returns>A range which contains string.</returns>
-		/// <exception cref="FormatException">A cell can not be found.</exception>
+		/// <exception cref="ArgumentException">A cell can not be found.</exception>
 		public Range FindFirstItemInRow(string item, Range range)
 		{
 			try
@@ -122,7 +129,7 @@ namespace TestParser.Reader
 			}
 			catch (NullReferenceException)
 			{
-				throw new FormatException($"No cell contains {item} in {this.SheetName}.");
+				throw new ArgumentException($"No cell contains {item} in {this.SheetName}.");
 			}
 		}
 
@@ -131,7 +138,7 @@ namespace TestParser.Reader
 		/// </summary>
 		/// <param name="item">String a cell should contain.</param>
 		/// <returns>A range which contains string.</returns>
-		/// <exception cref="ArgumentOutOfRangeException">A cell can not be found.</exception>
+		/// <exception cref="ArgumentException">A cell can not be found.</exception>
 		public Range FindFirstItemInColumn(string item, Range range)
 		{
 			try
@@ -153,7 +160,7 @@ namespace TestParser.Reader
 			}
 			catch (NullReferenceException)
 			{
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentException($"No cell contains {item} in {this.SheetName}.");
 			}
 		}
 
@@ -165,6 +172,12 @@ namespace TestParser.Reader
 		/// <exception cref="FormatException">A cell can not be found.</exception>
 		public IEnumerable<Range> FindItem(string item)
 		{
+			if ((string.IsNullOrEmpty(item)) ||
+				(string.IsNullOrWhiteSpace(item)))
+			{
+				throw new ArgumentException($"Target string must not be empty.");
+			}
+
 			var workBook = new XLWorkbook(this._excelStream);
 			var workSheet = workBook.Worksheet(this.SheetName);
 			var itemCells = workSheet.CellsUsed()
@@ -175,7 +188,7 @@ namespace TestParser.Reader
 				 * A case that any cell contains "item" can not found in a sheet, it means
 				 * that the format is invalid.
 				 */
-				throw new FormatException($"No cell contains {item} can be found in {this.SheetName}.");
+				throw new ArgumentException($"No cell contains {item} can be found in {this.SheetName}.");
 			}
 			var ranges = new List<Range>();
 			foreach (var itemCell in itemCells)

@@ -114,13 +114,13 @@ namespace TestParser.Parser
 					ParameterInfo parameterInfo = this.ReadFunctionInfoItem(reader, range);
 					parameterInfoList.Add(parameterInfo);
 				}
-				catch (ParseException)
-				{
-					Logger.WARN($"\t\t-\tSkip ({range.StartRow}, {range.StartColumn}) because empty cell found.");
-				}
 				catch (ParseDataNotFoundException)
 				{
 					Logger.WARN($"\t\t-\tSkip ({range.StartRow}, {range.StartColumn}) because invalid data found.");
+				}
+				catch (ParseException)
+				{
+					Logger.WARN($"\t\t-\tSkip ({range.StartRow}, {range.StartColumn}) because empty cell found.");
 				}
 				catch (FormatException)
 				{

@@ -11,19 +11,34 @@ namespace TestParser.ParserException
 		/// <summary>
 		/// Error code.
 		/// </summary>
-		public long ErrorCode { get; protected set; }
+		public ushort ErrorCode { get; protected set; }
 
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		public TestParserException() : base()
 		{
-			this.ErrorCode = -1;
+			this.ErrorCode = 0xFFFF;
 		}
 
+		/// <summary>
+		/// Constructor with message.
+		/// </summary>
+		/// <param name="message">Error message</param>
 		public TestParserException(string message) : base(message)
 		{
-			this.ErrorCode = -1;
+			this.ErrorCode = 0xFFFF;
+		}
+
+		/// <summary>
+		/// Constructor with error code and message
+		/// </summary>
+		/// <param name="errCode">Error code.</param>
+		/// <param name="message">Error message</param>
+		/// <remarks>Message is empty in default</remarks>
+		public TestParserException(ushort errCode, string message = "") : base(message)
+		{
+			ErrorCode = errCode;
 		}
 
 		/// <summary>
@@ -34,7 +49,7 @@ namespace TestParser.ParserException
 		public TestParserException(string message, Exception innerException) 
 			: base(message, innerException)
 		{
-			this.ErrorCode = -1;
+			this.ErrorCode = 0xFFFF;
 		}
 	}
 

@@ -7,6 +7,7 @@ using CSEngineer.TestSupport.Utility;
 using TestParser.Reader;
 using TestParser;
 using TestParser.Target;
+using TestParser.ParserException;
 
 namespace TestParser.Parser
 {
@@ -39,7 +40,7 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="srcPath">Path to file which contains the target function information.</param>
 		/// <returns>Object of function data.</returns>
-		/// <exception cref="IOException">The file <para>srcPath</para> has already been opened by other process.</exception>
+		/// <exception cref="ParseException">The file <para>srcPath</para> has already been opened by other process.</exception>
 		protected object Read(string srcPath)
 		{
 			try
@@ -52,7 +53,7 @@ namespace TestParser.Parser
 			}
 			catch (IOException)
 			{
-				throw;
+				throw new Exception.ParseException(0x1001);
 			}
 		}
 
@@ -86,7 +87,14 @@ namespace TestParser.Parser
 				//「対象関数」のセルを取得する
 				Logger.INFO($"Start getting target function data in \"{this.Target}\" sheet.");
 				targetFuncRange = reader.FindFirstItem("対象関数");
+			}
+			catch (ArgumentException)
+			{
+				throw new Exception.ParseException(0x1002);
+			}
 
+			try
+			{
 				//取得したRangeを引数として、GetFunCtionInfo()を実行する
 				function = this.GetFunctionInfo(reader, targetFuncRange);
 
@@ -94,7 +102,7 @@ namespace TestParser.Parser
 				IEnumerable<Function> subFunctions = this.GetSubfunctions(reader);
 				function.SubFunctions = subFunctions;
 			}
-			catch (FormatException)
+			catch (ArgumentException)
 			{
 				function.SubFunctions = null;
 			}
@@ -105,9 +113,9 @@ namespace TestParser.Parser
 		/// <summary>
 		/// Get function information in a area specified in range.
 		/// </summary>
-		/// <param name="reader"></param>
-		/// <param name="range"></param>
-		/// <returns></returns>
+		/// <param name="reader">Excel reader.</param>
+		/// <param name="range">Range to read from excel file.</param>
+		/// <returns>Function data read from excel.</returns>
 		/// <exception cref="FormatException">Function information format is invalid.</exception>
 		protected Function GetFunctionInfo(ExcelReader reader, Range range)
 		{
@@ -130,9 +138,10 @@ namespace TestParser.Parser
 				};
 				return function;
 			}
-			catch (FormatException)
+			catch (System.Exception ex)
+			when ((ex is FormatException) || (ex is ArgumentException))
 			{
-				throw;	//The log data has been handled.
+				throw new FormatException(ex.Message);
 			}
 		}
 
@@ -154,7 +163,7 @@ namespace TestParser.Parser
 
 				Logger.INFO($"\t\t-\tGet \"description\" about function ... DONE!");
 			}
-			catch (FormatException)
+			catch (ArgumentException)
 			{
 				Logger.WARN($"\t\t-\t\"Description\" cell can not be found in \"{this.Target}\" sheet.");
 				Logger.WARN("\t\t\tThe valus will be empty");
@@ -165,11 +174,11 @@ namespace TestParser.Parser
 		}
 
 		/// <summary>
-		/// 
+		/// Get function name.
 		/// </summary>
-		/// <param name="reader"></param>
-		/// <param name="range"></param>
-		/// <returns></returns>
+		/// <param name="reader">Excel reader.</param>
+		/// <param name="range">Range to read.</param>
+		/// <returns>Function name.</returns>
 		/// <exception cref="FormatException">The function name can not read in range.</exception>
 		protected string GetFunctionName(ExcelReader reader, Range range)
 		{
@@ -185,12 +194,12 @@ namespace TestParser.Parser
 
 				return name;
 			}
-			catch (FormatException)
+			catch (ArgumentException)
 			{
 				Logger.WARN($"\t\t-\t\"Function name\" cell can not be found in \"{this.Target}\" sheet.");
 				Logger.WARN("\t\t\tThe valus will be empty");
 
-				throw;
+				throw new TestParserException(0x1005);
 			}
 		}
 
@@ -200,6 +209,7 @@ namespace TestParser.Parser
 		/// <param name="reader">Excel reader</param>
 		/// <param name="range">Range to read from excel.</param>
 		/// <returns>Data type name and number of pointer.</returns>
+		/// <exception cref="TestParserException">Test data type value is empty.</exception>
 		protected (string, int) GetDataType(ExcelReader reader, Range range)
 		{
 			int pointerNum = 0;
@@ -213,17 +223,16 @@ namespace TestParser.Parser
 				dataTypeWithoutPointer = Util.RemovePointer(dataType);
 
 				Logger.INFO($"\t\t-\tGet \"data type\" of the function ... DONE!");
+
+				return (dataTypeWithoutPointer, pointerNum);
 			}
-			catch (FormatException)
+			catch (ArgumentException)
 			{
 				Logger.WARN($"\t\t-\t\"data type\" of the function or argument can not be found in \"{this.Target}\" sheet.");
 				Logger.WARN($"\t\t\tThe data type will be \"void\"");
 
-				pointerNum = 0;
-				dataTypeWithoutPointer = "void";
+				throw new TestParserException(0x1005);
 			}
-
-			return (dataTypeWithoutPointer, pointerNum);
 		}
 
 		/// <summary>
@@ -232,7 +241,7 @@ namespace TestParser.Parser
 		/// <param name="reader">Object to read data from Excel.</param>
 		/// <param name="range">Range to read.</param>
 		/// <returns>A list of argument in <para>Parameter</para> object.</returns>
-		/// <exception cref="FormatException">Format of data sheet is invalid.</exception>
+		/// <exception cref="ArgumentException">Format of data sheet is invalid.</exception>
 		protected IEnumerable<Parameter> GetArguments(ExcelReader reader, Range range)
 		{
 			try
@@ -241,7 +250,7 @@ namespace TestParser.Parser
 				Range argRange = reader.FindFirstItemInRow("引数情報", range);
 				reader.GetMergedCellRange(ref argRange);
 				argRange.StartRow++;
-				argRange.RowCount--;
+				argRange.RowCount--;	//Do not count the table header.
 
 				var arguments = new List<Parameter>();
 				for (int index = 0; index < argRange.RowCount; index++)
@@ -280,18 +289,17 @@ namespace TestParser.Parser
 				Logger.INFO($"\t\t-\tGet \"argument\" of the function ... DONE!");
 				return arguments;
 			}
-			catch (FormatException)
+			catch (ArgumentException ex)
 			{
 				Logger.ERROR($"\t\t-\t\"Argument\" of the function can not be found in \"{this.Target}\" sheet.");
 
-				throw;
+				throw new FormatException(ex.Message);
 			}
 			catch (InvalidDataException)
 			{
 				Logger.WARN("\t\t-\tAn empty cell found while argument of function searching.");
 				throw new FormatException();
 			}
-
 		}
 
 		/// <summary>
