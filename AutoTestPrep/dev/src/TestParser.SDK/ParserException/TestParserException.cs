@@ -41,6 +41,18 @@ namespace TestParser.ParserException
 			ErrorCode = errCode;
 		}
 
+		public TestParserException(Code errCode, string message = "") : base(message)
+		{
+			try
+			{
+				ErrorCode = Convert.ToUInt16(errCode);
+			}
+			catch (Exception)
+			{
+				ErrorCode = 0xFFFF;
+			}
+		}
+
 		/// <summary>
 		/// Constructor with argument.
 		/// </summary>
@@ -51,6 +63,18 @@ namespace TestParser.ParserException
 		{
 			this.ErrorCode = 0xFFFF;
 		}
-	}
 
+		public enum Code
+		{
+			FILE_CAN_NOT_OPEN = 0x1001,
+			NO_TEST_LIST_SHEET,
+			NO_TEST_FUNCTION_IN_LIST,
+			TARGET_TEST_SHEET_NOT_FOUND,
+			TARGET_FUNCTION_TABLE_FORMAT_INVALID,
+			SUB_FUNCTION_TABLE_FORMAT_INVALID,
+			TARGET_FUNCTION_DEFINITION_INVALID,
+			SUB_FUNCTION_DEFINITION_INVALID,
+			TEST_PARSE_FAILED = 0xFFFF
+		};
+	}
 }

@@ -18,9 +18,21 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="srcPath">Path to function data.</param>
 		/// <returns>Function information data as Parameter object.</returns>
+		/// <exception cref="TestParserException">Exception detected while parsing test data.</exception>
 		public override object Parse(string srcPath)
 		{
-			return this.Read(srcPath);
+			try
+			{
+				return this.Read(srcPath);
+			}
+			catch (TestParserException)
+			{
+				throw;
+			}
+			catch (System.Exception)
+			{
+				throw new TestParserException(TestParserException.Code.TEST_PARSE_FAILED);
+			}
 		}
 
 		/// <summary>
@@ -28,11 +40,23 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="stream">Stream to read data from.</param>
 		/// <returns>Parameter object read from stream.</returns>
+		/// <exception cref="TestParserException">Exception detected while parsing test data.</exception>
 		public override object Parse(Stream stream)
 		{
-			Parameter parameter = this.ReadTargetFunction(stream);
+			try
+			{
+				Parameter parameter = this.ReadTargetFunction(stream);
 
-			return parameter;
+				return parameter;
+			}
+			catch (TestParserException)
+			{
+				throw;
+			}
+			catch (System.Exception)
+			{
+				throw new TestParserException(TestParserException.Code.TEST_PARSE_FAILED);
+			}
 		}
 
 		/// <summary>
@@ -90,7 +114,9 @@ namespace TestParser.Parser
 			}
 			catch (ArgumentException)
 			{
-				throw new Exception.ParseException(0x1002);
+				Logger.WARN($"\t\t-\t\"Target function\" cell can not be found in \"{this.Target}\" sheet.");
+
+				throw new TestParserException(TestParserException.Code.TARGET_FUNCTION_TABLE_FORMAT_INVALID);
 			}
 
 			try
@@ -117,6 +143,7 @@ namespace TestParser.Parser
 		/// <param name="range">Range to read from excel file.</param>
 		/// <returns>Function data read from excel.</returns>
 		/// <exception cref="FormatException">Function information format is invalid.</exception>
+		/// <exception cref="InvalidDataException">A data is invalid, or has not been set (empty).</exception>
 		protected Function GetFunctionInfo(ExcelReader reader, Range range)
 		{
 			try
@@ -138,10 +165,13 @@ namespace TestParser.Parser
 				};
 				return function;
 			}
-			catch (System.Exception ex)
-			when ((ex is FormatException) || (ex is ArgumentException))
+			catch (FormatException)
 			{
-				throw new FormatException(ex.Message);
+				throw new TestParserException(TestParserException.Code.SUB_FUNCTION_TABLE_FORMAT_INVALID);
+			}
+			catch (InvalidDataException)
+			{
+				throw new TestParserException(TestParserException.Code.TARGET_FUNCTION_DEFINITION_INVALID);
 			}
 		}
 
@@ -179,7 +209,8 @@ namespace TestParser.Parser
 		/// <param name="reader">Excel reader.</param>
 		/// <param name="range">Range to read.</param>
 		/// <returns>Function name.</returns>
-		/// <exception cref="FormatException">The function name can not read in range.</exception>
+		/// <exception cref="FormatException">The sheet does not have cell contains "FunctionName".</exception>
+		/// <exception cref="InvalidDataException">The "FunctionName" cell has been empty.</exception>
 		protected string GetFunctionName(ExcelReader reader, Range range)
 		{
 			try
@@ -189,6 +220,10 @@ namespace TestParser.Parser
 				Range rangeToRead = reader.FindFirstItemInRow("関数名", range);
 				List<string> itemsInRow = reader.ReadRow(rangeToRead).ToList();
 				name = itemsInRow[1];
+				if ((string.IsNullOrEmpty(name)) || (string.IsNullOrWhiteSpace(name)))
+				{
+					throw new InvalidDataException();
+				}
 
 				Logger.INFO($"\t\t-\tGet \"description\" about function ... DONE!");
 
@@ -197,9 +232,14 @@ namespace TestParser.Parser
 			catch (ArgumentException)
 			{
 				Logger.WARN($"\t\t-\t\"Function name\" cell can not be found in \"{this.Target}\" sheet.");
-				Logger.WARN("\t\t\tThe valus will be empty");
 
-				throw new TestParserException(0x1005);
+				throw new FormatException();
+			}
+			catch (InvalidDataException)
+			{
+				Logger.WARN($"\t\t-\tFunction name has not been set in range ({range.StartRow}, {range.StartColumn})");
+
+				throw;
 			}
 		}
 
@@ -209,7 +249,8 @@ namespace TestParser.Parser
 		/// <param name="reader">Excel reader</param>
 		/// <param name="range">Range to read from excel.</param>
 		/// <returns>Data type name and number of pointer.</returns>
-		/// <exception cref="TestParserException">Test data type value is empty.</exception>
+		/// <exception cref="FormatException">The sheet does not have cell contains "DataType".</exception>
+		/// <exception cref="InvalidDataException">The "DataType" cell has been empty.</exception>
 		protected (string, int) GetDataType(ExcelReader reader, Range range)
 		{
 			int pointerNum = 0;
@@ -221,6 +262,11 @@ namespace TestParser.Parser
 				var dataType = items[1];
 				pointerNum = Util.GetPointerNum(dataType);
 				dataTypeWithoutPointer = Util.RemovePointer(dataType);
+				if ((string.IsNullOrEmpty(dataTypeWithoutPointer)) ||
+					(string.IsNullOrWhiteSpace(dataTypeWithoutPointer)))
+				{
+					throw new InvalidDataException();
+				}
 
 				Logger.INFO($"\t\t-\tGet \"data type\" of the function ... DONE!");
 
@@ -231,7 +277,13 @@ namespace TestParser.Parser
 				Logger.WARN($"\t\t-\t\"data type\" of the function or argument can not be found in \"{this.Target}\" sheet.");
 				Logger.WARN($"\t\t\tThe data type will be \"void\"");
 
-				throw new TestParserException(0x1005);
+				throw new FormatException();
+			}
+			catch (InvalidDataException)
+			{
+				Logger.WARN($"\t\t-\tThe data typehas not been set in range ({range.StartRow}, {range.StartColumn})");
+
+				throw;
 			}
 		}
 
@@ -242,6 +294,7 @@ namespace TestParser.Parser
 		/// <param name="range">Range to read.</param>
 		/// <returns>A list of argument in <para>Parameter</para> object.</returns>
 		/// <exception cref="ArgumentException">Format of data sheet is invalid.</exception>
+		/// <exception cref="InvalidDataException">The "Argument" cell has been empty.</exception>
 		protected IEnumerable<Parameter> GetArguments(ExcelReader reader, Range range)
 		{
 			try
@@ -289,16 +342,17 @@ namespace TestParser.Parser
 				Logger.INFO($"\t\t-\tGet \"argument\" of the function ... DONE!");
 				return arguments;
 			}
-			catch (ArgumentException ex)
+			catch (ArgumentException)
 			{
 				Logger.ERROR($"\t\t-\t\"Argument\" of the function can not be found in \"{this.Target}\" sheet.");
 
-				throw new FormatException(ex.Message);
+				throw new FormatException();
 			}
 			catch (InvalidDataException)
 			{
 				Logger.WARN("\t\t-\tAn empty cell found while argument of function searching.");
-				throw new FormatException();
+
+				throw;
 			}
 		}
 
@@ -323,10 +377,14 @@ namespace TestParser.Parser
 				Logger.INFO($"\t\t-\tGet \"subfunction\" datas of the function ... DONE!");
 				return parameters;
 			}
-			catch (FormatException)
+			catch (ArgumentException)
 			{
 				Logger.ERROR($"\t\t-\t\"Subfunction\" cell can not be found in \"{this.Target}\" sheet.");
 
+				throw;
+			}
+			catch (TestParserException)
+			{
 				throw;
 			}
 		}
@@ -337,11 +395,23 @@ namespace TestParser.Parser
 		/// <param name="reader">Object to read data from an excel file.</param>
 		/// <param name="range">Range to read.</param>
 		/// <returns>Read parameter</returns>
+		/// <exception cref="TestParserException">The data has been invalid.</exception>
 		protected Function GetSubfunction(ExcelReader reader, Range range)
 		{
-			Function function = GetFunctionInfo(reader, range);
+			try
+			{
+				Function function = GetFunctionInfo(reader, range);
 
-			return function;
+				return function;
+			}
+			catch (FormatException)
+			{
+				throw new TestParserException(TestParserException.Code.SUB_FUNCTION_TABLE_FORMAT_INVALID);
+			}
+			catch (InvalidDataException)
+			{
+				throw new TestParserException(TestParserException.Code.SUB_FUNCTION_DEFINITION_INVALID);
+			}
 		}
 	}
 }
