@@ -41,6 +41,11 @@ namespace TestParser.ParserException
 			ErrorCode = errCode;
 		}
 
+		/// <summary>
+		/// Constructor with error code and message.
+		/// </summary>
+		/// <param name="errCode">Error code</param>
+		/// <param name="message">Error message</param>
 		public TestParserException(Code errCode, string message = "") : base(message)
 		{
 			try
