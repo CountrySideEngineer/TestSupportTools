@@ -14,12 +14,34 @@ namespace TestParser.Parser.Exception
 	{
 		public Range Range { get; protected set; }
 
+		public ushort ErrorCode { get; protected set; }
+
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public ParseException()
+		{
+			Range = null;
+			ErrorCode = 0;
+		}
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="message">Message about exception</param>
-		public ParseException(string message) : base(message) { }
+		public ParseException(string message) : base(message)
+		{
+			ErrorCode = 0;
+		}
+
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		/// <param name="errCode"></param>
+		public ParseException(ushort errCode)
+		{
+			ErrorCode = errCode;
+		}
 
 		/// <summary>
 		/// Constructor with argument about range.

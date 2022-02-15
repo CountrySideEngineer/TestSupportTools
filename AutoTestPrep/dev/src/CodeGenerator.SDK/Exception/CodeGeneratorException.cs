@@ -11,14 +11,14 @@ namespace CodeGenerator
 		/// <summary>
 		/// Error code.
 		/// </summary>
-		public long ErrorCode { get; protected set; }
+		public ushort ErrorCode { get; protected set; }
 
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		public CodeGeneratorException() : base()
 		{
-			this.ErrorCode = -1;
+			this.ErrorCode = 0xFFFF;
 		}
 
 		/// <summary>
@@ -27,7 +27,17 @@ namespace CodeGenerator
 		/// <param name="message">Message about exception</param>
 		public CodeGeneratorException(string message) : base(message)
 		{
-			this.ErrorCode = -1;
+			this.ErrorCode = 0xFFFF;
+		}
+
+		/// <summary>
+		/// Constructor with error code and message.
+		/// </summary>
+		/// <param name="errCode">Error code about exception.</param>
+		/// <param name="message">Message about exception.</param>
+		public CodeGeneratorException(ushort errCode, string message = "") : base(message)
+		{
+			this.ErrorCode = 0xFFFF;
 		}
 
 		/// <summary>
@@ -38,16 +48,7 @@ namespace CodeGenerator
 		public CodeGeneratorException(string message, System.Exception innerException)
 			: base(message, innerException)
 		{
-			this.ErrorCode = -1;
-		}
-
-		/// <summary>
-		/// Constructor with error code.
-		/// </summary>
-		/// <param name="errCode">Error code about exception.</param>
-		public CodeGeneratorException(long errCode) : base()
-		{
-			this.ErrorCode = errCode;
+			this.ErrorCode = 0xFFFF;
 		}
 	}
 }

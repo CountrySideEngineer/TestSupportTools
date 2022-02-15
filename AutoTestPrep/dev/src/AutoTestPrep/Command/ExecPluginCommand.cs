@@ -113,10 +113,25 @@ namespace AutoTestPrep.Command
 		/// <returns>Result of plugin as PluginOutput object.</returns>
 		protected PluginOutput ExecutePlugin(PluginInfo pluginInfo, PluginInput pluginInput)
 		{
-			var manager = new PluginManager(this.DbPath, this.DbTableName);
-			IStubDriverPlugin plugin = manager.Load(pluginInfo);
-			PluginOutput pluginOutput = plugin.Execute(pluginInput);
-			return pluginOutput;
+			try
+			{
+				var manager = new PluginManager(this.DbPath, this.DbTableName);
+				IStubDriverPlugin plugin = manager.Load(pluginInfo);
+				PluginOutput pluginOutput = plugin.Execute(pluginInput);
+				return pluginOutput;
+			}
+			catch (System.Exception ex)
+			when (ex is TestParser.ParserException.TestParserException)
+			{
+				var parserException = ex as TestParser.ParserException.TestParserException;
+				ushort code = parserException.ErrorCode;
+				string codeString = $"0x{Convert.ToString(code, 16)}";
+				return new PluginOutput(codeString);
+			}
+			catch (System.Exception)
+			{
+				return new PluginOutput("FAILED");
+			}
 		}
 	}
 }
