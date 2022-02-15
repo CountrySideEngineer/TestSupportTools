@@ -47,6 +47,14 @@ namespace StubDriverPlugin.MinUnitStubDriver
 					$"エラーコード：0x{Convert.ToString(ex.ErrorCode, 16)}";
 				pluginOutput = new PluginOutput(outputAbout, errorMessage);
 			}
+			catch (CodeGeneratorException ex)
+			{
+				string errorMessgae =
+					$"コードの作成中にエラーが発生しました。" +
+					Environment.NewLine +
+					$"エラーコード：0x{Convert.ToString(ex.ErrorCode, 16)}";
+				pluginOutput = new PluginOutput(outputAbout, errorMessgae);
+			}
 			catch (Exception ex)
 			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
