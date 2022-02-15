@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestParser.Data;
+using TestParser.ParserException;
 
 namespace StubDriverPlugin.MinUnitStubDriver
 {
@@ -27,7 +28,8 @@ namespace StubDriverPlugin.MinUnitStubDriver
 			DirectoryInfo rootDirInfo = new DirectoryInfo(data.OutputDirPath);
 			CodeConfiguration config = this.Input2CodeConfigForStub(data);
 
-			PluginOutput output = null;
+			string outputAbout = "Min unit";
+			PluginOutput pluginOutput = null;
 			try
 			{
 				foreach (var testItem in tests)
@@ -35,16 +37,33 @@ namespace StubDriverPlugin.MinUnitStubDriver
 					this.CreateCode(testItem, rootDirInfo, config);
 				}
 
-				output = new PluginOutput("Min unit", "min_unitフレームワークを使用したコードの生成が完了しました。");
+				pluginOutput = new PluginOutput(outputAbout, "min_unitフレームワークを使用したコードの生成が完了しました。");
+			}
+			catch (TestParserException ex)
+			{
+				string errorMessage =
+					$"テストデータの解析中にエラーが発生しました。" +
+					Environment.NewLine +
+					$"エラーコード：0x{Convert.ToString(ex.ErrorCode, 16)}";
+				pluginOutput = new PluginOutput(outputAbout, errorMessage);
+			}
+			catch (CodeGeneratorException ex)
+			{
+				string errorMessgae =
+					$"コードの作成中にエラーが発生しました。" +
+					Environment.NewLine +
+					$"エラーコード：0x{Convert.ToString(ex.ErrorCode, 16)}";
+				pluginOutput = new PluginOutput(outputAbout, errorMessgae);
 			}
 			catch (Exception ex)
 			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
 				Debug.WriteLine(ex.StackTrace);
 
-				output = new PluginOutput("Min unit", "min_unitフレームワークを使用したコードの生成中に\r\nエラーが発生しました。");
+				string errorMessage = "min_unitフレームワークを使用したコードの生成中にエラーが発生しました。";
+				pluginOutput = new PluginOutput(outputAbout, errorMessage);
 			}
-			return output;
+			return pluginOutput;
 		}
 
 		/// <summary>

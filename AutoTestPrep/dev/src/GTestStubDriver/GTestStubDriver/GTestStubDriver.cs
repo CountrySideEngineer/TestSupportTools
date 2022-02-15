@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestParser.Parser;
+using TestParser.ParserException;
 using TestParser.Data;
 using CodeGenerator.Data;
 using CodeGenerator.Stub;
@@ -12,6 +13,8 @@ using System.IO;
 using CodeGenerator;
 using CodeGenerator.TestDriver.GoogleTest;
 using System.Diagnostics;
+using CountrySideEngineer.ProgressWindow.Model;
+using CountrySideEngineer.ProgressWindow.Model.Interface;
 
 namespace StubDriverPlugin.GTestStubDriver
 {
@@ -30,6 +33,7 @@ namespace StubDriverPlugin.GTestStubDriver
 			DirectoryInfo rootDirInfo = new DirectoryInfo(data.OutputDirPath);
 			CodeConfiguration config = this.Input2CodeConfigForStub(data);
 
+			string outputAbout = "Google test";
 			PluginOutput pluginOutput = null;
 			try
 			{
@@ -38,14 +42,37 @@ namespace StubDriverPlugin.GTestStubDriver
 					this.CreateCode(testItem, rootDirInfo, config);
 				}
 
-				pluginOutput = new PluginOutput("Google test", "Google Testフレームワークを使用したコードの生成が完了しました。");
+				pluginOutput = new PluginOutput(outputAbout, "Google Testフレームワークを使用したコードの生成が完了しました。");
+			}
+			catch (TestParserException ex)
+			{
+				string errorMessage =
+					$"テストデータの解析中にエラーが発生しました。" +
+					Environment.NewLine +
+					$"エラーコード：0x{Convert.ToString(ex.ErrorCode, 16)}";
+				pluginOutput = new PluginOutput(outputAbout, errorMessage);
+			}
+			catch (CodeGeneratorException ex)
+			{
+				string errorMessgae =
+					$"コードの作成中にエラーが発生しました。" +
+					Environment.NewLine +
+					$"エラーコード：0x{Convert.ToString(ex.ErrorCode, 16)}";
+				pluginOutput = new PluginOutput(outputAbout, errorMessgae);
 			}
 			catch (Exception ex)
 			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
 				Debug.WriteLine(ex.StackTrace);
 
-				pluginOutput = new PluginOutput("Google test", "Google Testフレームワークを使用したコードの生成中に\r\nエラーが発生しました。");
+				pluginOutput = new PluginOutput(outputAbout, "Google Testフレームワークを使用したコードの生成中に\r\nエラーが発生しました。");
+			}
+			catch (Exception ex)
+			when (ex is IOException)
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				pluginOutput = new PluginOutput(outputAbout, "指定されたファイルを開けませんでした。");
 			}
 			return pluginOutput;
 		}
@@ -193,7 +220,7 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// <returns>Test data parsed by a parser </returns>
 		protected IEnumerable<Test> ParseExecute(PluginInput data)
 		{
-			TestParser.IParser parser = new TestParser.Parser.TestParser();
+			var parser = new TestParser.Parser.TestParser();
 			IEnumerable<Test> tests = this.ParseExecute(parser, data);
 
 			return tests;
@@ -210,23 +237,6 @@ namespace StubDriverPlugin.GTestStubDriver
 			string path = input.InputFilePath;
 			IEnumerable<Test> tests = (IEnumerable<Test>)parser.Parse(path);
 			return tests;
-		}
-
-		/// <summary>
-		/// Create <para>WriteData</para> object from plugin input data.
-		/// </summary>
-		/// <param name="test">Test data</param>
-		/// <param name="input">Input data for the plugin.</param>
-		/// <returns>Write data as <para>WriteData</para> object.</returns>
-		protected WriteData CreateWriteDataForStub(Test test, PluginInput input)
-		{
-			CodeConfiguration config = this.Input2CodeConfigForStub(input);
-			var writeData = new WriteData()
-			{
-				Test = test,
-				CodeConfig = config
-			};
-			return writeData;
 		}
 
 		/// <summary>
@@ -257,6 +267,11 @@ namespace StubDriverPlugin.GTestStubDriver
 			string outputDirPath = $@"{rootDir.FullName}\{data.Test.Target.Name}_test";
 			var outputDirInfo = new DirectoryInfo(outputDirPath);
 			return outputDirInfo;
+		}
+
+		public void RunTask(IProgress<ProgressInfo> progress)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

@@ -7,18 +7,24 @@ using TestParser.Reader;
 
 namespace TestParser.Parser.Exception
 {
-	public class ParseDataNotFoundException : System.Exception
+	public class ParseDataNotFoundException : ParseException
 	{
-		public Range Range { get; protected set; }
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public ParseDataNotFoundException() { }
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="errCode">Error code.</param>
+		public ParseDataNotFoundException(ushort errCode) : base(errCode) { }
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="range">Range the exception occurred.</param>
-		public ParseDataNotFoundException(Range range)
-		{
-			this.Range = range;
-		}
+		public ParseDataNotFoundException(Range range) : base(range) { }
 
 		/// <summary>
 		/// Constructor with message
