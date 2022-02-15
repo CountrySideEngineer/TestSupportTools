@@ -34,8 +34,14 @@
     <Reference Include="CodeGenerator.SDK">
       <HintPath>..\..\bin\sdk\CodeGenerator.SDK.dll</HintPath>
     </Reference>
+    <Reference Include="CountrySideEngineer.ViewModel.Base">
+      <HintPath>..\lib\CountrySideEngineer.ViewModel.Base.dll</HintPath>
+    </Reference>
     <Reference Include="GTestCodeGenerator">
       <HintPath>..\..\bin\GTestCodeGenerator.dll</HintPath>
+    </Reference>
+    <Reference Include="ProgressWindow">
+      <HintPath>..\lib\ProgressWindow.dll</HintPath>
     </Reference>
     <Reference Include="StubCodeGenerator">
       <HintPath>..\..\bin\StubCodeGenerator.dll</HintPath>
@@ -61,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GTestStubDriver\GTestStubDriver.cs" />
+    <Compile Include="GTestStubDriver\GTestStubDriverAsync.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -11,6 +11,53 @@ namespace CodeGenerator.Stub.Template
 	public partial class StubTemplate
 	{
 		/// <summary>
+		/// Create code to include standard header files defined by user.
+		/// </summary>
+		/// <param name="headerFiles">Collection of standard header files.</param>
+		/// <returns>Code to include standard header files.</returns>
+		public virtual string CreateStdHeaderInclude(IEnumerable<string> headerFiles)
+		{
+			string includeHeaderFiles = string.Empty;
+			includeHeaderFiles = this.CreateHeaderInclude(headerFiles, "<", ">");
+			return includeHeaderFiles;
+		}
+
+		/// <summary>
+		/// Create code to include user header files defined by user.
+		/// </summary>
+		/// <param name="headerFiles">Collection of user header files.</param>
+		/// <returns>Code to include user header files.</returns>
+		public virtual string CreateUserHeaderInclude(IEnumerable<string> headerFiles)
+		{
+			string includeHeaderFiles = string.Empty;
+			includeHeaderFiles = this.CreateHeaderInclude(headerFiles, "\"", "\"");
+			return includeHeaderFiles;
+		}
+
+		/// <summary>
+		/// Create code to include header files defined by usre.
+		/// </summary>
+		/// <param name="headerFiles">Collection of header files.</param>
+		/// <param name="openTag">Opening parentheses of include code.</param>
+		/// <param name="closeTag">Closing parenthese of include code.</param>
+		/// <returns>Code to include header files.</returns>
+		protected virtual string CreateHeaderInclude(IEnumerable<string> headerFiles, string openTag, string closeTag)
+		{
+			string includeHeaderFiles = string.Empty;
+			foreach (var headerFileItem in headerFiles)
+			{
+				if ((string.IsNullOrEmpty(headerFileItem)) ||
+					(string.IsNullOrWhiteSpace(headerFileItem)))
+				{
+					continue;
+				}
+				includeHeaderFiles += $"#include {openTag}{headerFileItem}{closeTag}";
+			}
+			return includeHeaderFiles;
+		}
+
+
+		/// <summary>
 		/// Create buffer to store the count a method is called.
 		/// </summary>
 		/// <param name="function">Target function information.</param>
