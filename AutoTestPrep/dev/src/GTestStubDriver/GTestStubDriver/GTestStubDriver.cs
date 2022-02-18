@@ -25,7 +25,7 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// </summary>
 		/// <param name="data">Plugin input data</param>
 		/// <returns>Result of plugin.</returns>
-		public PluginOutput Execute(PluginInput data)
+		public virtual PluginOutput Execute(PluginInput data)
 		{
 			Debug.Assert(null != data, $"{nameof(GTestStubDriver)}.{nameof(Execute)}, {nameof(data)}");
 
@@ -83,7 +83,7 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// <param name="test">Test data for the code.</param>
 		/// <param name="rootDirInfo">Directory information for output.</param>
 		/// <param name="config"><para>CodeConfiguration</para> object.</param>
-		protected void CreateCode(Test test, DirectoryInfo rootDirInfo, CodeConfiguration config)
+		protected virtual void CreateCode(Test test, DirectoryInfo rootDirInfo, CodeConfiguration config)
 		{
 			try
 			{
@@ -111,7 +111,7 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// <param name="data">Write data.</param>
 		/// <exception cref="ArgumentException"></exception>
 		/// <exception cref="ArgumentNullException"></exception>
-		protected void CreateStubCode(DirectoryInfo outputRootDirInfo, WriteData data)
+		protected virtual void CreateStubCode(DirectoryInfo outputRootDirInfo, WriteData data)
 		{
 			try
 			{
@@ -156,7 +156,7 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// <param name="data">Write data.</param>
 		/// <exception cref="ArgumentException"></exception>
 		/// <exception cref="ArgumentNullException"></exception>
-		protected void CreateDriverCode(DirectoryInfo outputRootDirInfo, WriteData data)
+		protected virtual void CreateDriverCode(DirectoryInfo outputRootDirInfo, WriteData data)
 		{
 			try
 			{
@@ -193,7 +193,7 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// <param name="fileInfo">Output file information.</param>
 		/// <exception cref="ArgumentException"></exception>
 		/// <exception cref="ArgumentNullException"></exception>
-		protected void CreateCode(WriteData writeData, ICodeGenerator codeGenerator, FileInfo fileInfo)
+		protected virtual void CreateCode(WriteData writeData, ICodeGenerator codeGenerator, FileInfo fileInfo)
 		{
 			string content = string.Empty;
 			try
@@ -218,7 +218,7 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// </summary>
 		/// <param name="data">Test data input.</param>
 		/// <returns>Test data parsed by a parser </returns>
-		protected IEnumerable<Test> ParseExecute(PluginInput data)
+		protected virtual IEnumerable<Test> ParseExecute(PluginInput data)
 		{
 			var parser = new TestParser.Parser.TestParser();
 			IEnumerable<Test> tests = this.ParseExecute(parser, data);
@@ -232,7 +232,7 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// <param name="parser">Parser inherits <para>IParser</para> interface.</param>
 		/// <param name="input">Input data for the plugin.</param>
 		/// <returns>Collection of <para>Test</para> object.</returns>
-		protected IEnumerable<Test> ParseExecute(TestParser.IParser parser, PluginInput input)
+		protected virtual IEnumerable<Test> ParseExecute(TestParser.IParser parser, PluginInput input)
 		{
 			string path = input.InputFilePath;
 			IEnumerable<Test> tests = (IEnumerable<Test>)parser.Parse(path);
@@ -267,11 +267,6 @@ namespace StubDriverPlugin.GTestStubDriver
 			string outputDirPath = $@"{rootDir.FullName}\{data.Test.Target.Name}_test";
 			var outputDirInfo = new DirectoryInfo(outputDirPath);
 			return outputDirInfo;
-		}
-
-		public void RunTask(IProgress<ProgressInfo> progress)
-		{
-			throw new NotImplementedException();
 		}
 	}
 }
