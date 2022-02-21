@@ -42,7 +42,7 @@ namespace AutoTestPrep.Command
 		/// <exception cref="ArgumentException"></exception>
 		/// <exception cref="ArgumentNullException"></exception>
 		/// <exception cref="NullReferenceException"></exception>
-		protected void _Execute(object commandArg)
+		protected virtual void _Execute(object commandArg)
 		{
 			try
 			{

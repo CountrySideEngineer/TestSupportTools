@@ -15,17 +15,88 @@ using CodeGenerator.TestDriver.GoogleTest;
 using System.Diagnostics;
 using CountrySideEngineer.ProgressWindow.Model;
 using CountrySideEngineer.ProgressWindow.Model.Interface;
+using System.Threading;
 
 namespace StubDriverPlugin.GTestStubDriver
 {
-	public class GTestStubDriver : IStubDriverPlugin
+	public class GTestStubDriver : IStubDriverPlugin, IAsyncTask<ProgressInfo>
 	{
+		PluginInput pluginInput;
+		PluginOutput pluginOutput;
+
+		/// <summary>
+		/// Execute process to create stub and test driver code using google test framework.
+		/// </summary>
+		/// <param name="data">Pluing input data.</param>
+		/// <returns>Plugin ouput data containig result of the plugin.</returns>
+		public virtual PluginOutput Execute(PluginInput data)
+		{
+			pluginInput = data;
+			var progressWindow = new CountrySideEngineer.ProgressWindow.ProgressWindow();
+			progressWindow.Start(this);
+
+			return pluginOutput;
+		}
+
+		/// <summary>
+		/// Execute task asynchronously.
+		/// </summary>
+		/// <param name="progress">IProgress object to notify progress of the process.</param>
+		public void RunTask(IProgress<ProgressInfo> progress)
+		{
+			Task task = ExecuteAsync(progress, pluginInput);
+		}
+
+		/// <summary>
+		/// Execute task asynchronously.
+		/// </summary>
+		/// <param name="progress">IProgress object to notify progress of the process.</param>
+		/// <param name="data">Pluing input data.</param>
+		/// <returns>Task executed.</returns>
+		protected virtual async Task ExecuteAsync(IProgress<ProgressInfo> progress, PluginInput data)
+		{
+			Task<PluginOutput> task = CreateTask(progress, data);
+			await task;
+		}
+
+		/// <summary>
+		/// Create task to run process to create stub and test driver code.
+		/// </summary>
+		/// <param name="progress">IProgress object to notify progress of the process.</param>
+		/// <param name="data">Pluing input data.</param>
+		/// <returns>Task executed.</returns>
+		protected virtual Task<PluginOutput> CreateTask(IProgress<ProgressInfo> progress, PluginInput data)
+		{
+			Task<PluginOutput> task = Task<PluginOutput>.Run(() =>
+			{
+				int denominator = 100;
+				var basePogInfo = new ProgressInfo()
+				{
+					Title = data.InputFilePath,
+					ProcessName = "解析中",
+					Denominator = denominator,
+					Numerator = 0
+				};
+				progress.Report(basePogInfo);
+
+				PluginOutput pluginOutput = _Execute(data);
+
+				var progInfo = new ProgressInfo(basePogInfo);
+				progInfo.Numerator = 100;
+				progInfo.Progress = 100;
+				progress.Report(progInfo);
+
+				return pluginOutput;
+			});
+			return task;
+		}
+
 		/// <summary>
 		/// Create stub and driver code for test.
 		/// </summary>
 		/// <param name="data">Plugin input data</param>
 		/// <returns>Result of plugin.</returns>
-		public PluginOutput Execute(PluginInput data)
+		public virtual PluginOutput _Execute(PluginInput data)
 		{
 			Debug.Assert(null != data, $"{nameof(GTestStubDriver)}.{nameof(Execute)}, {nameof(data)}");
 
@@ -34,7 +105,6 @@ namespace StubDriverPlugin.GTestStubDriver
 			CodeConfiguration config = this.Input2CodeConfigForStub(data);
 
 			string outputAbout = "Google test";
-			PluginOutput pluginOutput = null;
 			try
 			{
 				foreach (var testItem in tests)
@@ -83,7 +153,7 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// <param name="test">Test data for the code.</param>
 		/// <param name="rootDirInfo">Directory information for output.</param>
 		/// <param name="config"><para>CodeConfiguration</para> object.</param>
-		protected void CreateCode(Test test, DirectoryInfo rootDirInfo, CodeConfiguration config)
+		protected virtual void CreateCode(Test test, DirectoryInfo rootDirInfo, CodeConfiguration config)
 		{
 			try
 			{
@@ -111,7 +181,7 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// <param name="data">Write data.</param>
 		/// <exception cref="ArgumentException"></exception>
 		/// <exception cref="ArgumentNullException"></exception>
-		protected void CreateStubCode(DirectoryInfo outputRootDirInfo, WriteData data)
+		protected virtual void CreateStubCode(DirectoryInfo outputRootDirInfo, WriteData data)
 		{
 			try
 			{
@@ -156,7 +226,7 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// <param name="data">Write data.</param>
 		/// <exception cref="ArgumentException"></exception>
 		/// <exception cref="ArgumentNullException"></exception>
-		protected void CreateDriverCode(DirectoryInfo outputRootDirInfo, WriteData data)
+		protected virtual void CreateDriverCode(DirectoryInfo outputRootDirInfo, WriteData data)
 		{
 			try
 			{
@@ -193,7 +263,7 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// <param name="fileInfo">Output file information.</param>
 		/// <exception cref="ArgumentException"></exception>
 		/// <exception cref="ArgumentNullException"></exception>
-		protected void CreateCode(WriteData writeData, ICodeGenerator codeGenerator, FileInfo fileInfo)
+		protected virtual void CreateCode(WriteData writeData, ICodeGenerator codeGenerator, FileInfo fileInfo)
 		{
 			string content = string.Empty;
 			try
@@ -218,7 +288,7 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// </summary>
 		/// <param name="data">Test data input.</param>
 		/// <returns>Test data parsed by a parser </returns>
-		protected IEnumerable<Test> ParseExecute(PluginInput data)
+		protected virtual IEnumerable<Test> ParseExecute(PluginInput data)
 		{
 			var parser = new TestParser.Parser.TestParser();
 			IEnumerable<Test> tests = this.ParseExecute(parser, data);
@@ -232,7 +302,7 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// <param name="parser">Parser inherits <para>IParser</para> interface.</param>
 		/// <param name="input">Input data for the plugin.</param>
 		/// <returns>Collection of <para>Test</para> object.</returns>
-		protected IEnumerable<Test> ParseExecute(TestParser.IParser parser, PluginInput input)
+		protected virtual IEnumerable<Test> ParseExecute(TestParser.IParser parser, PluginInput input)
 		{
 			string path = input.InputFilePath;
 			IEnumerable<Test> tests = (IEnumerable<Test>)parser.Parse(path);
@@ -267,11 +337,6 @@ namespace StubDriverPlugin.GTestStubDriver
 			string outputDirPath = $@"{rootDir.FullName}\{data.Test.Target.Name}_test";
 			var outputDirInfo = new DirectoryInfo(outputDirPath);
 			return outputDirInfo;
-		}
-
-		public void RunTask(IProgress<ProgressInfo> progress)
-		{
-			throw new NotImplementedException();
 		}
 	}
 }
