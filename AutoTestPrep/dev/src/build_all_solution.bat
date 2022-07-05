@@ -10,3 +10,4 @@ call .\build_solution.bat "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\
 call .\build_solution.bat "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\PluginRegister.sln"
 call .\build_solution.bat "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\StubDriverPlugin.sln"
 call .\build_solution.bat "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\AutoTestPrep.sln"
+pause:
