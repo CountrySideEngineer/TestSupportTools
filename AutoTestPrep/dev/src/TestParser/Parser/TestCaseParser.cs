@@ -137,7 +137,7 @@ namespace TestParser.Parser
 		/// <param name="reader">Object to read data from excel.</param>
 		protected void SetupDatas(ExcelReader reader)
 		{
-			Logger.INFO($"Start getting test data of target function in \"{this.Target}\" sheet.");
+			INFO($"Start getting test data of target function in \"{this.Target}\" sheet.");
 
 			this.SetupTableTopRange(reader);
 			this.SetupInputRange(reader);
@@ -171,29 +171,29 @@ namespace TestParser.Parser
 					testCases.Add(testCase);
 				}
 
-				Logger.INFO("\t\t-\tTest case datas:");
+				INFO("\t\t-\tTest case datas:");
 				foreach (var testCaseItem in testCases)
 				{
-					Logger.INFO($"\t\t\t\t--\tTest case id = {testCaseItem.Id}");
-					Logger.INFO($"\t\t\t\t\t\t---\tInputs:");
+					INFO($"\t\t\t\t--\tTest case id = {testCaseItem.Id}");
+					INFO($"\t\t\t\t\t\t---\tInputs:");
 					foreach (var inputItem in testCaseItem.Input)
 					{
-						Logger.INFO($"\t\t\t\t\t\t\t\tName = {inputItem.Name}, value = {inputItem.Value}");
+						INFO($"\t\t\t\t\t\t\t\tName = {inputItem.Name}, value = {inputItem.Value}");
 					}
-					Logger.INFO($"\t\t\t\t\t\t---\tExpects:");
+					INFO($"\t\t\t\t\t\t---\tExpects:");
 					foreach (var expeectItem in testCaseItem.Expects)
 					{
-						Logger.INFO($"\t\t\t\t\t\t\t\tName = {expeectItem.Name}, value = {expeectItem.Value}");
+						INFO($"\t\t\t\t\t\t\t\tName = {expeectItem.Name}, value = {expeectItem.Value}");
 					}
 				}
 
-				Logger.INFO("\t\t-\tGet \"representative value\" of test ... DONE!");
+				INFO("\t\t-\tGet \"representative value\" of test ... DONE!");
 
 				return testCases;
 			}
 			catch (FormatException)
 			{
-				Logger.ERROR($"\t\t-\t\"Representative value\" cell can not be found in {this.Target} sheet.");
+				ERROR($"\t\t-\t\"Representative value\" cell can not be found in {this.Target} sheet.");
 
 				throw;
 			}
@@ -237,8 +237,8 @@ namespace TestParser.Parser
 					var testData = new TestData(allTestDatas.ElementAt(index));
 					appliedTestDatas.Add(testData);
 
-					Logger.DEBUG($"\t\t-\tApplied test data:");
-					Logger.DEBUG($"\t\t\t\t--\tName = {testData.Name}, value = {testData.Value}");
+					DEBUG($"\t\t-\tApplied test data:");
+					DEBUG($"\t\t\t\t--\tName = {testData.Name}, value = {testData.Value}");
 				}
 			}
 			return appliedTestDatas;
@@ -257,7 +257,7 @@ namespace TestParser.Parser
 			}
 			catch (FormatException)
 			{
-				Logger.ERROR($"\t\t-\t\"Input/Output\" cell can not be found in {this.Target} sheet.");
+				ERROR($"\t\t-\t\"Input/Output\" cell can not be found in {this.Target} sheet.");
 
 				throw;
 			}
@@ -276,12 +276,12 @@ namespace TestParser.Parser
 				reader.GetMergedCellRange(ref range);
 				this.InputRange = range;
 
-				Logger.DEBUG("\t\t-\t\"Input data\" range:");
-				Logger.DEBUG($"\t\t\t\t--\tstart - ({range.StartRow}, {range.StartColumn}) / count - ({range.RowCount}, {range.ColumnCount})");
+				DEBUG("\t\t-\t\"Input data\" range:");
+				DEBUG($"\t\t\t\t--\tstart - ({range.StartRow}, {range.StartColumn}) / count - ({range.RowCount}, {range.ColumnCount})");
 			}
 			catch (FormatException)
 			{
-				Logger.ERROR($"\t\t-\t\"Input\" cell can not be found in {this.Target} sheet.");
+				ERROR($"\t\t-\t\"Input\" cell can not be found in {this.Target} sheet.");
 
 				throw;
 			}
@@ -299,12 +299,12 @@ namespace TestParser.Parser
 				reader.GetMergedCellRange(ref range);
 				this.OutputRange = range;
 
-				Logger.DEBUG("\t\t-\t\"output data\" range:");
-				Logger.DEBUG($"\t\t\t\t--\tstart - ({range.StartRow}, {range.StartColumn}) / count - ({range.RowCount}, {range.ColumnCount})");
+				DEBUG("\t\t-\t\"output data\" range:");
+				DEBUG($"\t\t\t\t--\tstart - ({range.StartRow}, {range.StartColumn}) / count - ({range.RowCount}, {range.ColumnCount})");
 			}
 			catch (FormatException)
 			{
-				Logger.ERROR($"\t\t\t-\t\"Exepect(Output)\" can not be found in {this.Target} sheet.");
+				ERROR($"\t\t\t-\t\"Exepect(Output)\" can not be found in {this.Target} sheet.");
 
 				throw;
 			}
@@ -327,7 +327,7 @@ namespace TestParser.Parser
 			}
 			catch (FormatException)
 			{
-				Logger.ERROR($"\t\t\t-\t\"Representative name\" can not be found in {this.Target} sheet.");
+				ERROR($"\t\t\t-\t\"Representative name\" can not be found in {this.Target} sheet.");
 
 				throw;
 			}
@@ -351,7 +351,7 @@ namespace TestParser.Parser
 			}
 			catch (FormatException)
 			{
-				Logger.ERROR($"\t\t\t-\t\"Representative value\" can not be found in {this.Target} sheet.");
+				ERROR($"\t\t\t-\t\"Representative value\" can not be found in {this.Target} sheet.");
 
 				throw;
 			}
@@ -375,7 +375,7 @@ namespace TestParser.Parser
 			}
 			catch (FormatException)
 			{
-				Logger.ERROR($"\t\t\t-\t\"{columnId}\" can not be found in {this.Target} sheet.");
+				ERROR($"\t\t\t-\t\"{columnId}\" can not be found in {this.Target} sheet.");
 
 				throw;
 			}
@@ -402,9 +402,9 @@ namespace TestParser.Parser
 					Value = this.InputValues.ElementAt(index)
 				};
 
-				Logger.DEBUG("\t\t-\tGet test input data.");
-				Logger.DEBUG($"\t\t\t\t--\tName = {testData.Name}");
-				Logger.DEBUG($"\t\t\t\t\tValue = {testData.Value}");
+				DEBUG("\t\t-\tGet test input data.");
+				DEBUG($"\t\t\t\t--\tName = {testData.Name}");
+				DEBUG($"\t\t\t\t\tValue = {testData.Value}");
 
 				allInputData.Add(testData);
 			}
@@ -419,9 +419,9 @@ namespace TestParser.Parser
 					Value = this.OutputValues.ElementAt(index)
 				};
 
-				Logger.DEBUG("\t\t-\tGet test output data.");
-				Logger.DEBUG($"\t\t\t\t--\tName = {testData.Name}");
-				Logger.DEBUG($"\t\t\t\t\tValue = {testData.Value}");
+				DEBUG("\t\t-\tGet test output data.");
+				DEBUG($"\t\t\t\t--\tName = {testData.Name}");
+				DEBUG($"\t\t\t\t\tValue = {testData.Value}");
 
 				allOutputData.Add(testData);
 			}
