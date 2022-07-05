@@ -109,12 +109,12 @@ namespace TestParser.Parser
 			try
 			{
 				//「対象関数」のセルを取得する
-				Logger.INFO($"Start getting target function data in \"{this.Target}\" sheet.");
+				INFO($"Start getting target function data in \"{this.Target}\" sheet.");
 				targetFuncRange = reader.FindFirstItem("対象関数");
 			}
 			catch (ArgumentException)
 			{
-				Logger.WARN($"\t\t-\t\"Target function\" cell can not be found in \"{this.Target}\" sheet.");
+				WARN($"\t\t-\t\"Target function\" cell can not be found in \"{this.Target}\" sheet.");
 
 				throw new TestParserException(TestParserException.Code.TARGET_FUNCTION_TABLE_FORMAT_INVALID);
 			}
@@ -191,12 +191,12 @@ namespace TestParser.Parser
 				List<string> itemsInRow = reader.ReadRow(rangeToRead).ToList();
 				description = itemsInRow[1];
 
-				Logger.INFO($"\t\t-\tGet \"description\" about function ... DONE!");
+				INFO($"\t\t-\tGet \"description\" about function ... DONE!");
 			}
 			catch (ArgumentException)
 			{
-				Logger.WARN($"\t\t-\t\"Description\" cell can not be found in \"{this.Target}\" sheet.");
-				Logger.WARN("\t\t\tThe valus will be empty");
+				WARN($"\t\t-\t\"Description\" cell can not be found in \"{this.Target}\" sheet.");
+				WARN("\t\t\tThe valus will be empty");
 
 				description = string.Empty;
 			}
@@ -225,19 +225,19 @@ namespace TestParser.Parser
 					throw new InvalidDataException();
 				}
 
-				Logger.INFO($"\t\t-\tGet \"description\" about function ... DONE!");
+				INFO($"\t\t-\tGet \"description\" about function ... DONE!");
 
 				return name;
 			}
 			catch (ArgumentException)
 			{
-				Logger.WARN($"\t\t-\t\"Function name\" cell can not be found in \"{this.Target}\" sheet.");
+				WARN($"\t\t-\t\"Function name\" cell can not be found in \"{this.Target}\" sheet.");
 
 				throw new FormatException();
 			}
 			catch (InvalidDataException)
 			{
-				Logger.WARN($"\t\t-\tFunction name has not been set in range ({range.StartRow}, {range.StartColumn})");
+				WARN($"\t\t-\tFunction name has not been set in range ({range.StartRow}, {range.StartColumn})");
 
 				throw;
 			}
@@ -268,20 +268,20 @@ namespace TestParser.Parser
 					throw new InvalidDataException();
 				}
 
-				Logger.INFO($"\t\t-\tGet \"data type\" of the function ... DONE!");
+				INFO($"\t\t-\tGet \"data type\" of the function ... DONE!");
 
 				return (dataTypeWithoutPointer, pointerNum);
 			}
 			catch (ArgumentException)
 			{
-				Logger.WARN($"\t\t-\t\"data type\" of the function or argument can not be found in \"{this.Target}\" sheet.");
-				Logger.WARN($"\t\t\tThe data type will be \"void\"");
+				WARN($"\t\t-\t\"data type\" of the function or argument can not be found in \"{this.Target}\" sheet.");
+				WARN($"\t\t\tThe data type will be \"void\"");
 
 				throw new FormatException();
 			}
 			catch (InvalidDataException)
 			{
-				Logger.WARN($"\t\t-\tThe data typehas not been set in range ({range.StartRow}, {range.StartColumn})");
+				WARN($"\t\t-\tThe data typehas not been set in range ({range.StartRow}, {range.StartColumn})");
 
 				throw;
 			}
@@ -339,18 +339,18 @@ namespace TestParser.Parser
 					arguments.Add(argInfo);
 				}
 
-				Logger.INFO($"\t\t-\tGet \"argument\" of the function ... DONE!");
+				INFO($"\t\t-\tGet \"argument\" of the function ... DONE!");
 				return arguments;
 			}
 			catch (ArgumentException)
 			{
-				Logger.ERROR($"\t\t-\t\"Argument\" of the function can not be found in \"{this.Target}\" sheet.");
+				ERROR($"\t\t-\t\"Argument\" of the function can not be found in \"{this.Target}\" sheet.");
 
 				throw new FormatException();
 			}
 			catch (InvalidDataException)
 			{
-				Logger.WARN("\t\t-\tAn empty cell found while argument of function searching.");
+				WARN("\t\t-\tAn empty cell found while argument of function searching.");
 
 				throw;
 			}
@@ -374,12 +374,12 @@ namespace TestParser.Parser
 					parameters.Add(subfuncParam);
 				}
 
-				Logger.INFO($"\t\t-\tGet \"subfunction\" datas of the function ... DONE!");
+				INFO($"\t\t-\tGet \"subfunction\" datas of the function ... DONE!");
 				return parameters;
 			}
 			catch (ArgumentException)
 			{
-				Logger.ERROR($"\t\t-\t\"Subfunction\" cell can not be found in \"{this.Target}\" sheet.");
+				ERROR($"\t\t-\t\"Subfunction\" cell can not be found in \"{this.Target}\" sheet.");
 
 				throw;
 			}
