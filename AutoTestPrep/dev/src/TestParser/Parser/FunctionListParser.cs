@@ -67,7 +67,7 @@ namespace TestParser.Parser
 			string targetSheetName = string.Empty;
 			if (string.IsNullOrEmpty(this.Target) || (string.IsNullOrWhiteSpace(this.Target)))
 			{
-				Logger.ERROR($"The sheet name target functin and sheet name has not been set.");
+				ERROR($"The sheet name target functin and sheet name has not been set.");
 				throw new ParseDataNotFoundException("Target sheet has not been set.");
 			}
 			var reader = new ExcelReader(stream)
@@ -85,13 +85,13 @@ namespace TestParser.Parser
 		/// <returns>List of function information.</returns>
 		protected IEnumerable<ParameterInfo> ReadFunctionInfo(ExcelReader reader)
 		{
-			Logger.INFO("Start reading target function info, function and sheet name.");
+			INFO("Start reading target function info, function and sheet name.");
 
 			Range tableItemRange = this.GetRangeToRead(reader);
 
-			Logger.DEBUG($"\t\t-\tTable range:");
-			Logger.DEBUG($"\t\t\t\t--\tStart row = {tableItemRange.StartRow}, start column = {tableItemRange.StartColumn}");
-			Logger.DEBUG($"\t\t\t\t\tRow count = {tableItemRange.RowCount}, row column = {tableItemRange.ColumnCount}");
+			DEBUG($"\t\t-\tTable range:");
+			DEBUG($"\t\t\t\t--\tStart row = {tableItemRange.StartRow}, start column = {tableItemRange.StartColumn}");
+			DEBUG($"\t\t\t\t\tRow count = {tableItemRange.RowCount}, row column = {tableItemRange.ColumnCount}");
 
 			var infoList = this.ReadFunctionInfo(reader, tableItemRange);
 			return infoList;
@@ -116,15 +116,15 @@ namespace TestParser.Parser
 				}
 				catch (ParseDataNotFoundException)
 				{
-					Logger.WARN($"\t\t-\tSkip ({range.StartRow}, {range.StartColumn}) because invalid data found.");
+					WARN($"\t\t-\tSkip ({range.StartRow}, {range.StartColumn}) because invalid data found.");
 				}
 				catch (ParseException)
 				{
-					Logger.WARN($"\t\t-\tSkip ({range.StartRow}, {range.StartColumn}) because empty cell found.");
+					WARN($"\t\t-\tSkip ({range.StartRow}, {range.StartColumn}) because empty cell found.");
 				}
 				catch (FormatException)
 				{
-					Logger.WARN($"\t\t-\tSkip ({range.StartRow}, {range.StartColumn}) because invalid format.");
+					WARN($"\t\t-\tSkip ({range.StartRow}, {range.StartColumn}) because invalid format.");
 				}
 				rangeToRead.StartRow++;
 			}
@@ -162,7 +162,7 @@ namespace TestParser.Parser
 			IEnumerable<string> rowItem = reader.ReadRow(range);
 			if (0 == rowItem.Count())
 			{
-				Logger.WARN($"\t\t-\tNo item found in row ({range.StartRow}.");
+				WARN($"\t\t-\tNo item found in row ({range.StartRow}.");
 				throw new ParseDataNotFoundException(range);
 			}
 
