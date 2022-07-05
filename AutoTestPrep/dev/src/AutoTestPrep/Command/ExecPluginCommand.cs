@@ -73,15 +73,7 @@ namespace AutoTestPrep.Command
 		{
 			try
 			{
-				string logFilePath = this.GetLogFilePath();
-				using (var stream = new StreamWriter(logFilePath, false, Encoding.UTF8))
-				{
-					Logger.Level = Logger.LogLevel.All;
-					Logger.AddStream(stream);
-					Logger.INFO("Start logging!");
-					this._Execute(commandArg);
-					Logger.RemoveStream(stream);
-				}
+				this._Execute(commandArg);
 			}
 			catch (System.Exception ex)
 			when ((ex is ArgumentException) || (ex is ArgumentNullException) || (ex is NullReferenceException))
