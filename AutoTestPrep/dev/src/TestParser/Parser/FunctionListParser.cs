@@ -17,6 +17,14 @@ namespace TestParser.Parser
 	public class FunctionListParser : AParser
 	{
 		/// <summary>
+		/// Default constructor
+		/// </summary>
+		public FunctionListParser() : base() { }
+
+		public FunctionListParser(string target) : base(target) { }
+
+
+		/// <summary>
 		/// Parse function information in file <para>srcPath</para>.
 		/// </summary>
 		/// <param name="srcPath">Path to input file.</param>
@@ -48,7 +56,8 @@ namespace TestParser.Parser
 		{
 			try
 			{
-				return this.ReadFunctionList(stream);
+				IEnumerable<ParameterInfo> functionInfoList = this.ReadFunctionList(stream);
+				return functionInfoList;
 			}
 			catch (ParseDataNotFoundException)
 			{
@@ -85,13 +94,15 @@ namespace TestParser.Parser
 		/// <returns>List of function information.</returns>
 		protected IEnumerable<ParameterInfo> ReadFunctionInfo(ExcelReader reader)
 		{
-			INFO("Start reading target function info, function and sheet name.");
+			INFO($"Get target function list from the sheet, {reader.SheetName}");
 
 			Range tableItemRange = this.GetRangeToRead(reader);
 
-			DEBUG($"\t\t-\tTable range:");
-			DEBUG($"\t\t\t\t--\tStart row = {tableItemRange.StartRow}, start column = {tableItemRange.StartColumn}");
-			DEBUG($"\t\t\t\t\tRow count = {tableItemRange.RowCount}, row column = {tableItemRange.ColumnCount}");
+			DEBUG($"Range to read;");
+			DEBUG($"    Start row    = {tableItemRange.StartRow}");
+			DEBUG($"    Start column = {tableItemRange.StartColumn}");
+			DEBUG($"    Row count    = {tableItemRange.RowCount}");
+			DEBUG($"    Column count = {tableItemRange.ColumnCount}");
 
 			var infoList = this.ReadFunctionInfo(reader, tableItemRange);
 			return infoList;
@@ -111,20 +122,20 @@ namespace TestParser.Parser
 			{
 				try
 				{
-					ParameterInfo parameterInfo = this.ReadFunctionInfoItem(reader, range);
+					ParameterInfo parameterInfo = this.ReadFunctionInfoItem(reader, rangeToRead);
 					parameterInfoList.Add(parameterInfo);
 				}
 				catch (ParseDataNotFoundException)
 				{
-					WARN($"\t\t-\tSkip ({range.StartRow}, {range.StartColumn}) because invalid data found.");
+					WARN($"Skip ({range.StartRow}, {range.StartColumn}) because invalid data found.");
 				}
 				catch (ParseException)
 				{
-					WARN($"\t\t-\tSkip ({range.StartRow}, {range.StartColumn}) because empty cell found.");
+					WARN($"Skip ({range.StartRow}, {range.StartColumn}) because empty cell found.");
 				}
 				catch (FormatException)
 				{
-					WARN($"\t\t-\tSkip ({range.StartRow}, {range.StartColumn}) because invalid format.");
+					WARN($"Skip ({range.StartRow}, {range.StartColumn}) because invalid format.");
 				}
 				rangeToRead.StartRow++;
 			}
@@ -162,7 +173,7 @@ namespace TestParser.Parser
 			IEnumerable<string> rowItem = reader.ReadRow(range);
 			if (0 == rowItem.Count())
 			{
-				WARN($"\t\t-\tNo item found in row ({range.StartRow}.");
+				WARN($"No item found in row ({range.StartRow}.");
 				throw new ParseDataNotFoundException(range);
 			}
 
@@ -172,6 +183,7 @@ namespace TestParser.Parser
 				{
 					if ((string.IsNullOrWhiteSpace(item)) || (string.IsNullOrEmpty(item)))
 					{
+						WARN("Invalid data found in function list,");
 						throw new ParseException("Data is invalid");
 					}
 				}
@@ -180,6 +192,12 @@ namespace TestParser.Parser
 				parameterInfo.Name = rowItem.ElementAt(1);
 				parameterInfo.InfoName = rowItem.ElementAt(2);
 				parameterInfo.FileName = rowItem.ElementAt(3);
+
+				DEBUG($"Function table info:");
+				DEBUG($"    Index    = {parameterInfo.Index}");
+				DEBUG($"    Name     = {parameterInfo.Name}");
+				DEBUG($"    InfoName = {parameterInfo.InfoName}");
+				DEBUG($"    FileName = {parameterInfo.FileName}");
 
 				return parameterInfo;
 			}
