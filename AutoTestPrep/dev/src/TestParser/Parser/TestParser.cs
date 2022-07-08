@@ -123,6 +123,14 @@ namespace TestParser.Parser
 			}
 			catch (NullReferenceException)
 			{
+				ERROR($"NullReferenceException detected while reading data.");
+				throw;
+			}
+			catch (System.Exception ex)
+			{
+				ERROR($"{nameof(ex)}");
+				ERROR($"{ex.Message}");
+
 				throw;
 			}
 		}
