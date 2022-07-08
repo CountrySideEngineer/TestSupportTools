@@ -18,7 +18,7 @@ namespace CodeGenerator.TestDriver.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestHeaderTemplate.tt"
+    #line 1 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestHeaderTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class GoogleTestHeaderTemplate : GoogleTestTemplate
     {
@@ -30,14 +30,14 @@ namespace CodeGenerator.TestDriver.Template
         {
             this.Write("/*\r\n *\t");
             
-            #line 8 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestHeaderTemplate.tt"
+            #line 8 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestHeaderTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TargetFunction.Name));
             
             #line default
             #line hidden
             this.Write(" header test driver header code.\r\n */\r\n#pragma once\r\n\r\nclass ");
             
-            #line 12 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestHeaderTemplate.tt"
+            #line 12 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestHeaderTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TestClassName(TargetFunction)));
             
             #line default
