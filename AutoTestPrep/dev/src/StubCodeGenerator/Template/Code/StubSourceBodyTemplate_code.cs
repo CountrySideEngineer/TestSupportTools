@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestParser.Target;
+using CSEngineer;
+using CSEngineer.Logger;
 
 namespace CodeGenerator.Stub.Template
 {
@@ -53,9 +55,10 @@ namespace CodeGenerator.Stub.Template
 				}
 				return bufferDeclare;
 			}
-			catch (NullReferenceException ex)
+			catch (NullReferenceException)
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "An error occurred while creating code to declare function return buffer.";
+				Log.GetInstance().ERROR(message);
 
 				throw new ArgumentNullException();
 			}
@@ -75,9 +78,10 @@ namespace CodeGenerator.Stub.Template
 				bufferDeclare = $"{bufferDeclare}[STUB_BUFFER_SIZE_1];";
 				return bufferDeclare;
 			}
-			catch (ArgumentException ex)
+			catch (ArgumentException)
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "An error occurred while creating code to declare argument buffer.";
+				Log.GetInstance().ERROR(message);
 
 				throw;
 			}
@@ -108,13 +112,15 @@ namespace CodeGenerator.Stub.Template
 			catch (Exception ex)
 			when (ex is ArgumentNullException)
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "An error occurred while creating code to declare pointer output buffer.";
+				Log.GetInstance().ERROR(message);
 
 				throw;
 			}
-			catch (NullReferenceException ex)
+			catch (NullReferenceException)
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "Null value has been referred while creating code to declare pointer output buffer.";
+				Log.GetInstance().ERROR(message);
 
 				throw new ArgumentNullException();
 			}
@@ -158,9 +164,10 @@ namespace CodeGenerator.Stub.Template
 				}
 				return outputArgInit;
 			}
-			catch (NullReferenceException ex)
+			catch (NullReferenceException)
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "Null value has been referred while creating code to initialize argument buffer.";
+				Log.GetInstance().ERROR(message);
 
 				throw new ArgumentNullException();
 			}
@@ -190,9 +197,10 @@ namespace CodeGenerator.Stub.Template
 
 				return returnLatchCode;
 			}
-			catch (NullReferenceException ex)
+			catch (NullReferenceException)
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "Null value has been referred while creating code to latch return value.";
+				Log.GetInstance().ERROR(message);
 
 				throw new ArgumentNullException();
 			}
@@ -220,9 +228,10 @@ namespace CodeGenerator.Stub.Template
 
 				return returnLatchCode;
 			}
-			catch (NullReferenceException ex)
+			catch (NullReferenceException)
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "Null value has been referred while creating code to return latched value.";
+				Log.GetInstance().ERROR(message);
 
 				throw new ArgumentNullException();
 			}
@@ -269,7 +278,8 @@ namespace CodeGenerator.Stub.Template
 			catch (Exception ex)
 			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "An error occurred while creating code to initialize function called count buffer.";
+				Log.GetInstance().ERROR(message);
 
 				throw;
 			}

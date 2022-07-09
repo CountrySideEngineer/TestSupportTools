@@ -25,13 +25,19 @@ namespace CodeGenerator.TestDriver.GoogleTest
 
 			try
 			{
+				INFO("Start generating test driver codes using google test framework.");
+
 				var template = this.CreateTemplate(data);
+
+				INFO("    Generate test driver codes of function using template.");
+				INFO($"        {data.Test.Target.ToString()}");
+
 				return template.TransformText();
 			}
 			catch (Exception ex)
 			when ((ex is ArgumentNullException) || (ex is NullReferenceException))
 			{
-				Debug.WriteLine(ex.StackTrace);
+				DEBUG($"ex.StackTrace");
 				throw;
 			}
 		}

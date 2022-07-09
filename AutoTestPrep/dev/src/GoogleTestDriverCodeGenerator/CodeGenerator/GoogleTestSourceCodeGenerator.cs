@@ -22,6 +22,8 @@ namespace CodeGenerator.TestDriver.GoogleTest
 			Debug.Assert(null != writeData.Test.Target, $"{nameof(GoogleTestSourceCodeGenerator)}.{nameof(CreateTemplate)}.writeData.Test.Target");
 			Debug.Assert(null != writeData.CodeConfig, $"{nameof(GoogleTestSourceCodeGenerator)}.{nameof(CreateTemplate)}.writeData.CodeConfig");
 
+			INFO("Generate test driver code template of google test.");
+
 			var template = new GoogleTestSourceTemplate()
 			{
 				TargetFunction = writeData.Test.Target,

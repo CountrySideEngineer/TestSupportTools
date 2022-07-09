@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSEngineer.Logger;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -49,6 +50,7 @@ namespace CodeGenerator.Stub.Template
 				if ((string.IsNullOrEmpty(headerFileItem)) ||
 					(string.IsNullOrWhiteSpace(headerFileItem)))
 				{
+					Log.GetInstance().WARN("SKIP : Empty header file name has been detected.");
 					continue;
 				}
 				includeHeaderFiles += $"#include {openTag}{headerFileItem}{closeTag}";
@@ -70,6 +72,8 @@ namespace CodeGenerator.Stub.Template
 			{
 				if ((string.IsNullOrEmpty(function.Name)) || (string.IsNullOrWhiteSpace(function.Name)))
 				{
+					Log.GetInstance().ERROR("The function name has not been set.");
+
 					throw new ArgumentException();
 				}
 				string bufferName = $"{function.Name}_called_count";
@@ -77,6 +81,8 @@ namespace CodeGenerator.Stub.Template
 			}
 			catch (NullReferenceException)
 			{
+				Log.GetInstance().FATAL("NULL data has been referred in creating function called count buffer name");
+
 				throw new ArgumentNullException();
 			}
 		}
@@ -98,15 +104,17 @@ namespace CodeGenerator.Stub.Template
 				if (((string.IsNullOrEmpty(function.Name)) || (string.IsNullOrWhiteSpace(function.Name)))
 					|| ((string.IsNullOrEmpty(argument.Name)) || (string.IsNullOrWhiteSpace(argument.Name))))
 				{
+					Log.GetInstance().ERROR("The function or argument name has not been set.");
+
 					throw new ArgumentException();
 				}
 
 				string bufferName = $"{function.Name}_{argument.Name}";
 				return bufferName;
 			}
-			catch (NullReferenceException ex)
+			catch (NullReferenceException)
 			{
-				Debug.WriteLine(ex.StackTrace);
+				Log.GetInstance().FATAL("NULL data has been referred in creating argument value buffer name.");
 
 				throw new ArgumentNullException();
 			}
@@ -125,6 +133,8 @@ namespace CodeGenerator.Stub.Template
 			{
 				if ((string.IsNullOrEmpty(function.Name)) || (string.IsNullOrWhiteSpace(function.Name)))
 				{
+					Log.GetInstance().ERROR("The function name has not been set.");
+
 					throw new ArgumentException();
 				}
 				string bufferName = string.Empty;
@@ -134,15 +144,15 @@ namespace CodeGenerator.Stub.Template
 				}
 				return bufferName;
 			}
-			catch (ArgumentException ex)
+			catch (ArgumentException)
 			{
-				Debug.WriteLine(ex.StackTrace);
+				Log.GetInstance().DEBUG("An error occurred while creating fuction return value buffer name.");
 
 				throw;
 			}
-			catch (NullReferenceException ex)
+			catch (NullReferenceException)
 			{
-				Debug.WriteLine(ex.StackTrace);
+				Log.GetInstance().FATAL("NULL data has been referred in creating function return value buffer name.");
 
 				throw new ArgumentNullException();
 			}
@@ -168,13 +178,13 @@ namespace CodeGenerator.Stub.Template
 			catch (Exception ex)
 			when ((ex is ArgumentNullException) || (ex is ArgumentException))
 			{
-				Debug.WriteLine(ex.StackTrace);
+				Log.GetInstance().DEBUG("An error occurred while creating output value buffer name.");
 
 				throw ex;
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine(ex.ToString());
+				Log.GetInstance().FATAL("An exception has been referred in creating function return value buffer name.");
 
 				throw ex;
 			}
@@ -275,13 +285,15 @@ namespace CodeGenerator.Stub.Template
 			catch (Exception ex)
 			when ((ex is ArgumentNullException) || (ex is ArgumentException))
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "An error occurred while creating code to declare function return value buffer.";
+				Log.GetInstance().ERROR(message);
 
 				throw;
 			}
-			catch (NullReferenceException ex)
+			catch (NullReferenceException)
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "An null reference error occurred while creating code to declare function return value buffer.";
+				Log.GetInstance().ERROR(message);
 
 				throw new ArgumentNullException();
 			}
@@ -314,13 +326,15 @@ namespace CodeGenerator.Stub.Template
 			catch (Exception ex)
 			when ((ex is ArgumentNullException) || (ex is ArgumentException))
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "An error occurred while creating code to declare output value buffer.";
+				Log.GetInstance().DEBUG(message);
 
 				throw;
 			}
-			catch (NullReferenceException ex)
+			catch (NullReferenceException)
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "An error occurred while creating code to declare output value buffer.";
+				Log.GetInstance().DEBUG(message);
 
 				throw new ArgumentNullException();
 			}
@@ -340,6 +354,8 @@ namespace CodeGenerator.Stub.Template
 				if ((string.IsNullOrEmpty(function.Name)) ||
 					(string.IsNullOrWhiteSpace(function.Name)))
 				{
+					Log.GetInstance().ERROR("The function name has not been set.");
+
 					throw new ArgumentException();
 				}
 
@@ -350,13 +366,15 @@ namespace CodeGenerator.Stub.Template
 			catch (Exception ex)
 			when ((ex is ArgumentNullException) || (ex is ArgumentException))
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string messag = "An error occurred while creating function name to initialize buffers.";
+				Log.GetInstance().DEBUG(messag);
 
 				throw;
 			}
-			catch (NullReferenceException ex)
+			catch (NullReferenceException)
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "An null value has been detected while creating function name to initialize buffers.";
+				Log.GetInstance().DEBUG(message);
 
 				throw new ArgumentNullException();
 			}
@@ -380,7 +398,8 @@ namespace CodeGenerator.Stub.Template
 			catch (Exception ex)
 			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "An error occurred while creating code to declare function to initialize buffers.";
+				Log.GetInstance().DEBUG(message);
 
 				throw;
 			}

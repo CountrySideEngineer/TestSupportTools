@@ -22,19 +22,30 @@ namespace CodeGenerator.Stub
 		/// <returns>Generated stub code.</returns>
 		/// <exception cref="ArgumentException"></exception>
 		/// <exception cref="ArgumentNullException"></exception>
-		public string Generate(WriteData data)
+		public virtual string Generate(WriteData data)
 		{
 			Debug.Assert(null != data, $"{nameof(StubCodeGenerator)}.{nameof(Generate)}.data");
 
 			try
 			{
+				INFO("Start generating stub code.");
+
 				var template = this.CreateTemplate(data);
-				return template.TransformText();
+				string codes = template.TransformText();
+				return codes;
 			}
 			catch (Exception ex)
 			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
-				Debug.WriteLine(ex.StackTrace);
+				ERROR("An error occurred while generating codes.");
+				ERROR($"    {ex.Message}");
+
+				throw;
+			}
+			catch (Exception ex)
+			{
+				ERROR("An unknown error occurred while generating codes.");
+				ERROR($"    {ex.Message}");
 
 				throw;
 			}
