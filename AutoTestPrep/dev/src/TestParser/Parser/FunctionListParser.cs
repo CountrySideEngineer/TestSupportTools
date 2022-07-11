@@ -21,8 +21,11 @@ namespace TestParser.Parser
 		/// </summary>
 		public FunctionListParser() : base() { }
 
+		/// <summary>
+		/// Constructor with argument.
+		/// </summary>
+		/// <param name="target">Function list parser sheet name in excel.</param>
 		public FunctionListParser(string target) : base(target) { }
-
 
 		/// <summary>
 		/// Parse function information in file <para>srcPath</para>.

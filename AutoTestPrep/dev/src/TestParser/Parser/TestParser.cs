@@ -105,6 +105,7 @@ namespace TestParser.Parser
 			try
 			{
 				NotifyParseProgressDelegate?.Invoke(0, 100);
+				INFO("Start function list.");
 				var testTargetFunctionInfos = (IEnumerable<ParameterInfo>)this.FunctionListParser.Parse(stream);
 				NotifyParseProgressDelegate?.Invoke(100, 100);
 

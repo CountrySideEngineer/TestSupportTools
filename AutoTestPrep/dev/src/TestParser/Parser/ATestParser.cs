@@ -49,40 +49,58 @@ namespace TestParser.Parser
 		/// <returns>Object about test.</returns>
 		public abstract object Parse(Stream stream);
 
+		/// <summary>
+		/// Output TRACE level log message.
+		/// </summary>
+		/// <param name="message">Output message.</param>
 		public void TRACE(string message)
 		{
-			var logger = Log.GetInstance();
-			logger.TRACE(message);
+			Log.GetInstance().TRACE(message);
 		}
 
+		/// <summary>
+		/// Output DEBUG level log message.
+		/// </summary>
+		/// <param name="message">Output message.</param>
 		public void DEBUG(string message)
 		{
-			var logger = Log.GetInstance();
-			logger.DEBUG(message);
+			Log.GetInstance().DEBUG(message);
 		}
 
+		/// <summary>
+		/// Output INFO (information) level log message.
+		/// </summary>
+		/// <param name="message">Output message.</param>
 		public void INFO(string message)
 		{
-			var logger = Log.GetInstance();
-			logger.INFO(message);
+			Log.GetInstance().INFO(message);
 		}
 
+		/// <summary>
+		/// Output WARN (warning) level log message.
+		/// </summary>
+		/// <param name="message">Output message.</param>
 		public void WARN(string message)
 		{
-			var logger = Log.GetInstance();
-			logger.WARN(message);
+			Log.GetInstance().WARN(message);
 		}
 
+		/// <summary>
+		/// Output ERROR level log message.
+		/// </summary>
+		/// <param name="message">Output message.</param>
 		public void ERROR(string message)
 		{
-			var logger = Log.GetInstance();
-			logger.ERROR(message);
+			Log.GetInstance().ERROR(message);
 		}
 
+		/// <summary>
+		/// Output FATAL level log message.
+		/// </summary>
+		/// <param name="message">Output message.</param>
 		public void FATAL(string message)
 		{
-			var logger = Log.GetInstance();
-			logger.FATAL(message);
+			Log.GetInstance().FATAL(message);
 		}
 	}
 }
