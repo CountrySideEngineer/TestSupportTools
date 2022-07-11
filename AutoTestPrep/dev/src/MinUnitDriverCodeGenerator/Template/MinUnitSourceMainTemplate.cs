@@ -18,7 +18,7 @@ namespace CodeGenerator.TestDriver.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceMainTemplate.tt"
+    #line 1 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceMainTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class MinUnitSourceMainTemplate : MinUnitTemplate
     {
@@ -30,21 +30,21 @@ namespace CodeGenerator.TestDriver.Template
         {
             this.Write("#include <stdio.h>\r\n#include \"min_unit.h\"\r\n\r\nint test_run = 0;\r\n\r\nchar* ");
             
-            #line 12 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceMainTemplate.tt"
+            #line 12 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.TargetFunction.Name));
             
             #line default
             #line hidden
             this.Write("_utest_run_all();\r\n\r\nint main()\r\n{\r\n\tmu_run_all_test(\"");
             
-            #line 16 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceMainTemplate.tt"
+            #line 16 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.TargetFunction.Name));
             
             #line default
             #line hidden
             this.Write("_utest_run_all\", ");
             
-            #line 16 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceMainTemplate.tt"
+            #line 16 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.TargetFunction.Name));
             
             #line default

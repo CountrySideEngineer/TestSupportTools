@@ -18,7 +18,7 @@ namespace CodeGenerator.Stub.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+    #line 1 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class StubHeaderBodyTemplate : StubTemplate
     {
@@ -30,14 +30,14 @@ namespace CodeGenerator.Stub.Template
         {
             this.Write("/*\r\n *\tBuffer for stub of ");
             
-            #line 8 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+            #line 8 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TargetFunction.Name));
             
             #line default
             #line hidden
             this.Write(".\r\n */\r\n");
             
-            #line 10 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+            #line 10 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateFunctoinCalledCountBufferDeclare(this.TargetFunction)));
             
             #line default
@@ -45,34 +45,34 @@ namespace CodeGenerator.Stub.Template
             this.Write("\r\n\r\n//External declaration of the buffer to store value the method should return." +
                     "\r\n");
             
-            #line 13 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+            #line 13 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateFunctionReturnBufferDeclare(this.TargetFunction)));
             
             #line default
             #line hidden
             this.Write("\r\n\r\n");
             
-            #line 15 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+            #line 15 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
 	if (null != this.TargetFunction.Arguments) {	
             
             #line default
             #line hidden
             this.Write("//External declaration of the buffers which store the value of arguments. \r\n");
             
-            #line 17 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+            #line 17 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
 		foreach (var argItem in this.TargetFunction.Arguments) {	
             
             #line default
             #line hidden
             
-            #line 18 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+            #line 18 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateArgumentBufferDeclare(this.TargetFunction, argItem)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 19 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+            #line 19 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
 		}	
             
             #line default
@@ -80,33 +80,33 @@ namespace CodeGenerator.Stub.Template
             this.Write("\r\n//External declaration of the buffers that store the values the method should r" +
                     "eturn via a pointer argument.\r\n");
             
-            #line 22 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+            #line 22 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
 		foreach (var argItem in this.TargetFunction.Arguments) {	
             
             #line default
             #line hidden
             
-            #line 23 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+            #line 23 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateOutputBufferDeclare(this.TargetFunction, argItem)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 24 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+            #line 24 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
 		} 
             
             #line default
             #line hidden
             
-            #line 25 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+            #line 25 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
 	}	
             
             #line default
             #line hidden
             this.Write("\r\n//Function to initialize buffers.\r\n");
             
-            #line 28 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
+            #line 28 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubHeaderBodyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.CreateInitializeFunctionDeclare(this.TargetFunction)));
             
             #line default

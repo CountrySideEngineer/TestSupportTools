@@ -23,6 +23,23 @@ namespace TestParser.Parser
 		public Delegate Delegate;
 
 		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public AParser()
+		{
+			Target = string.Empty;
+		}
+
+		/// <summary>
+		/// Constructor with argument.
+		/// </summary>
+		/// <param name="target">Target name to parse.</param>
+		public AParser(string target)
+		{
+			Target = target;
+		}
+
+		/// <summary>
 		/// Target name to parse.
 		/// </summary>
 		public string Target { get; set; }

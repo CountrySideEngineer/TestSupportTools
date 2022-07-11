@@ -41,6 +41,10 @@
     <Reference Include="GTestCodeGenerator">
       <HintPath>..\..\bin\GTestCodeGenerator.dll</HintPath>
     </Reference>
+    <Reference Include="Logger, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Logger.1.0.0\Logger.dll</HintPath>
+    </Reference>
     <Reference Include="ProgressWindow">
       <HintPath>..\lib\ProgressWindow.dll</HintPath>
     </Reference>

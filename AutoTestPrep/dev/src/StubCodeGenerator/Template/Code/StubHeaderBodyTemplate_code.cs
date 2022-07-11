@@ -1,4 +1,5 @@
 ﻿using CodeGenerator.Data;
+using CSEngineer.Logger;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -53,7 +54,8 @@ namespace CodeGenerator.Stub.Template
 			catch (Exception ex)
 			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "An error occurred while creating code to declare extern function called count buffer.";
+				Log.GetInstance().ERROR(message);
 
 				throw;
 			}
@@ -78,7 +80,8 @@ namespace CodeGenerator.Stub.Template
 			catch (Exception ex)
 			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "An error occurred while creating code to declare extern argument buffer.";
+				Log.GetInstance().ERROR(message);
 
 				throw;
 			}
@@ -108,7 +111,8 @@ namespace CodeGenerator.Stub.Template
 			}
 			catch (ArgumentNullException ex)
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "An error occurred while creating code to declare extern output buffer.";
+				Log.GetInstance().ERROR(message);
 
 				throw ex;
 			}
@@ -140,7 +144,8 @@ namespace CodeGenerator.Stub.Template
 			catch (Exception ex)
 			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "An error occurred while creating code to declare extern return value buffer.";
+				Log.GetInstance().ERROR(message);
 
 				throw;
 			}
@@ -164,7 +169,8 @@ namespace CodeGenerator.Stub.Template
 			catch (Exception ex)
 			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "An error occurred while creating code to declare extern initialize stub function.";
+				Log.GetInstance().ERROR(message);
 
 				throw;
 			}
