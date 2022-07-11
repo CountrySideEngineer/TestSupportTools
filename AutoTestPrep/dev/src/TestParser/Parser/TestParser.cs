@@ -14,10 +14,7 @@ namespace TestParser.Parser
 		/// </summary>
 		public TestParser()
 		{
-			this.FunctionListParser = new FunctionListParser()
-			{
-				Target = "テスト一覧"
-			};
+			this.FunctionListParser = new FunctionListParser("テスト一覧");
 			this.FunctionParser = new FunctionParser();
 			this.TestCaseParser = new TestCaseParser();
 		}
@@ -77,6 +74,7 @@ namespace TestParser.Parser
 			{
 				using (var stream = new FileStream(srcPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
 				{
+					base.INFO($"Start reading input file : {srcPath}");
 					try
 					{
 						return this.Read(stream);
@@ -89,6 +87,7 @@ namespace TestParser.Parser
 			}
 			catch (IOException)
 			{
+				ERROR($"Error occurred when reading input file.");
 				throw;
 			}
 		}
@@ -106,23 +105,33 @@ namespace TestParser.Parser
 			try
 			{
 				NotifyParseProgressDelegate?.Invoke(0, 100);
+				INFO("Start function list.");
 				var testTargetFunctionInfos = (IEnumerable<ParameterInfo>)this.FunctionListParser.Parse(stream);
 				NotifyParseProgressDelegate?.Invoke(100, 100);
 
 				var tests = new List<Test>();
-				for (int index = 0; index < testTargetFunctionInfos.Count(); index++)
+				int index = 0;
+				foreach (var paramInfoItem in testTargetFunctionInfos)
 				{
-					ParameterInfo testTargetFunctionInfoItem = testTargetFunctionInfos.ElementAt(index);
-					Test test = this.Read(stream, testTargetFunctionInfoItem);
+					Test test = this.Read(stream, paramInfoItem);
 					tests.Add(test);
 
 					NotifyParseProgressDelegate?.Invoke((index + 1), testTargetFunctionInfos.Count());
+					index++;
 				}
 
 				return tests;
 			}
 			catch (NullReferenceException)
 			{
+				ERROR($"NullReferenceException detected while reading data.");
+				throw;
+			}
+			catch (System.Exception ex)
+			{
+				ERROR($"{nameof(ex)}");
+				ERROR($"{ex.Message}");
+
 				throw;
 			}
 		}
@@ -138,9 +147,11 @@ namespace TestParser.Parser
 		{
 			try
 			{
+				INFO("Start reading target function data.");
 				this.FunctionParser.Target = paramInfo.InfoName;
 				var targetFunction = (Function)this.FunctionParser.Parse(stream);
 
+				INFO("Start reading test case data.");
 				this.TestCaseParser.Target = paramInfo.InfoName;
 				var testCases = (IEnumerable<TestCase>)this.TestCaseParser.Parse(stream);
 				var test = new Test

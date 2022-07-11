@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\CountrySideEngineer.ViewModel.Base.dll</HintPath>
     </Reference>
+    <Reference Include="Logger, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Logger.1.0.0\Logger.dll</HintPath>
+    </Reference>
     <Reference Include="MinUnitDriverCodeGenerator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\MinUnitDriverCodeGenerator.dll</HintPath>

@@ -1,4 +1,6 @@
-﻿using LiteDB;
+﻿using CSEngineer.Logger;
+using CSEngineer.Logger.Interface;
+using LiteDB;
 using StubDriverPlugin;
 using System;
 using System.Collections.Generic;
@@ -9,9 +11,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Plugin.TestStubDriver
+namespace Plugin.Manager
 {
-    public class PluginManager
+    public class PluginManager : PluginManagerBase
     {
         /// <summary>
         /// Database table name.
@@ -59,9 +61,10 @@ namespace Plugin.TestStubDriver
                 }
                 return isRegistered;
             }
-            catch (Exception ex)
+            catch (Exception)
 			{
-                Debug.WriteLine(ex.StackTrace);
+                string message = "An error occurred while checking plugin has been registered.";
+                Log.GetInstance().DEBUG(message);
 
                 throw;
 			}
@@ -92,7 +95,8 @@ namespace Plugin.TestStubDriver
             catch (Exception ex)
             when ((ex is ArgumentNullException) || (ex is OverflowException))
 			{
-                Debug.WriteLine(ex.StackTrace);
+                string message = "An error occurred while checking plugin has been registered.";
+                Log.GetInstance().DEBUG(message);
 
                 isRegistered = false;
 			}
@@ -142,15 +146,17 @@ namespace Plugin.TestStubDriver
                 IStubDriverPlugin plugin = this.Load(pluginInfo);
                 return plugin;
             }
-            catch (ArgumentOutOfRangeException ex)
+            catch (ArgumentOutOfRangeException)
 			{
-                Debug.WriteLine(ex.StackTrace);
+                string message = "An error occurred while loading plugin.";
+                Log.GetInstance().ERROR(message);
 
                 throw;
 			}
-            catch (FileNotFoundException ex)
+            catch (FileNotFoundException)
 			{
-                Debug.WriteLine(ex.StackTrace);
+                string message = $"Plugin file index {index} can not find.";
+                Log.GetInstance().ERROR(message);
 
                 throw;
 			}
@@ -171,6 +177,9 @@ namespace Plugin.TestStubDriver
                     .FirstOrDefault();
                 if (null == ifType)
                 {
+                    string message = $"Selected plugin is invalid type.";
+                    Log.GetInstance().ERROR(message);
+
                     throw new NullReferenceException();
                 }
                 IStubDriverPlugin plugin = (IStubDriverPlugin)Activator.CreateInstance(ifType);
@@ -179,7 +188,8 @@ namespace Plugin.TestStubDriver
             catch (Exception ex)
             when ((ex is FileNotFoundException) || (ex is ArgumentNullException))
 			{
-                Debug.WriteLine(ex.StackTrace);
+                string message = "An error occurred while loading plugin.";
+                Log.GetInstance().ERROR(message);
 
                 throw;
             }

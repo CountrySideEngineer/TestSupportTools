@@ -1,4 +1,5 @@
 ﻿using Plugin;
+using Plugin.Manager;
 using StubDriverPlugin.Data;
 using System;
 using System.Collections.Generic;

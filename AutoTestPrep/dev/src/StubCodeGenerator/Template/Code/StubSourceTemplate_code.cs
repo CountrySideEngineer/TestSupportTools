@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TestParser.Target;
 using CodeGenerator.Data;
 using System.Diagnostics;
+using CSEngineer.Logger;
 
 namespace CodeGenerator.Stub.Template
 {
@@ -59,7 +60,8 @@ namespace CodeGenerator.Stub.Template
 			catch (Exception ex)
 			when ((ex is ArgumentException) || (ex is ArgumentNullException))
 			{
-				Debug.WriteLine(ex.StackTrace);
+				string message = "An error occurred while creating stub function source code.";
+				Log.GetInstance().ERROR(message);
 
 				throw;
 			}
