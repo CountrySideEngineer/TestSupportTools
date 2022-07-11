@@ -14,6 +14,17 @@ namespace TestParser.Parser
 	public class FunctionParser : AParser
 	{
 		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public FunctionParser() : base() { }
+
+		/// <summary>
+		/// Constructor with argument, target sheet name.
+		/// </summary>
+		/// <param name="targe">Target sheet name.</param>
+		public FunctionParser(string targe) : base(targe) { }
+
+		/// <summary>
 		/// Returns the function parameter data in srcPath file.
 		/// </summary>
 		/// <param name="srcPath">Path to function data.</param>
@@ -114,7 +125,7 @@ namespace TestParser.Parser
 			}
 			catch (ArgumentException)
 			{
-				WARN($"\t\t-\t\"Target function\" cell can not be found in \"{this.Target}\" sheet.");
+				WARN($"\"Target function\" cell can not be found in \"{this.Target}\" sheet.");
 
 				throw new TestParserException(TestParserException.Code.TARGET_FUNCTION_TABLE_FORMAT_INVALID);
 			}
@@ -187,16 +198,19 @@ namespace TestParser.Parser
 
 			try
 			{
+				INFO($"Start getting \"description\" about function.");
+
 				Range rangeToRead = reader.FindFirstItemInRow("説明", range);
 				List<string> itemsInRow = reader.ReadRow(rangeToRead).ToList();
 				description = itemsInRow[1];
 
-				INFO($"\t\t-\tGet \"description\" about function ... DONE!");
+				INFO($"Get \"description\" about function.");
+				DEBUG($"    descriptoin : {description}");
 			}
 			catch (ArgumentException)
 			{
-				WARN($"\t\t-\t\"Description\" cell can not be found in \"{this.Target}\" sheet.");
-				WARN("\t\t\tThe valus will be empty");
+				WARN($"\"Description\" cell can not be found in \"{this.Target}\" sheet.");
+				WARN("    The description set empty.");
 
 				description = string.Empty;
 			}
@@ -215,6 +229,8 @@ namespace TestParser.Parser
 		{
 			try
 			{
+				INFO($"Start getting \"name\" of function.");
+
 				string name = string.Empty;
 
 				Range rangeToRead = reader.FindFirstItemInRow("関数名", range);
@@ -225,19 +241,20 @@ namespace TestParser.Parser
 					throw new InvalidDataException();
 				}
 
-				INFO($"\t\t-\tGet \"description\" about function ... DONE!");
+				INFO($"Get \"name\" about function.");
+				DEBUG($"    name: {name}");
 
 				return name;
 			}
 			catch (ArgumentException)
 			{
-				WARN($"\t\t-\t\"Function name\" cell can not be found in \"{this.Target}\" sheet.");
+				WARN($"\"Function name\" cell can not be found in \"{this.Target}\" sheet.");
 
 				throw new FormatException();
 			}
 			catch (InvalidDataException)
 			{
-				WARN($"\t\t-\tFunction name has not been set in range ({range.StartRow}, {range.StartColumn})");
+				WARN($"\tFunction name has not been set in range ({range.StartRow}, {range.StartColumn})");
 
 				throw;
 			}
@@ -257,6 +274,8 @@ namespace TestParser.Parser
 			string dataTypeWithoutPointer = string.Empty;
 			try
 			{
+				INFO($"Start getting \"data type\" of function.");
+
 				Range typeRange = reader.FindFirstItemInRow("データ型", range);
 				List<string> items = reader.ReadRow(typeRange).ToList();
 				var dataType = items[1];
@@ -268,20 +287,22 @@ namespace TestParser.Parser
 					throw new InvalidDataException();
 				}
 
-				INFO($"\t\t-\tGet \"data type\" of the function ... DONE!");
+				INFO($"Get \"data type\" of the function.");
+				DEBUG($"    data type   : {dataTypeWithoutPointer}");
+				DEBUG($"    pointer num : {pointerNum}");
 
 				return (dataTypeWithoutPointer, pointerNum);
 			}
 			catch (ArgumentException)
 			{
-				WARN($"\t\t-\t\"data type\" of the function or argument can not be found in \"{this.Target}\" sheet.");
-				WARN($"\t\t\tThe data type will be \"void\"");
+				WARN($"\"data type\" of the function or argument can not be found in \"{this.Target}\" sheet.");
+				WARN($"The data type will be \"void\"");
 
 				throw new FormatException();
 			}
 			catch (InvalidDataException)
 			{
-				WARN($"\t\t-\tThe data typehas not been set in range ({range.StartRow}, {range.StartColumn})");
+				WARN($"The data typehas not been set in range ({range.StartRow}, {range.StartColumn})");
 
 				throw;
 			}
@@ -299,6 +320,8 @@ namespace TestParser.Parser
 		{
 			try
 			{
+				INFO($"Start getting \"arguments\" of function.");
+
 				//Range argument Range
 				Range argRange = reader.FindFirstItemInRow("引数情報", range);
 				reader.GetMergedCellRange(ref argRange);
@@ -306,55 +329,80 @@ namespace TestParser.Parser
 				argRange.RowCount--;	//Do not count the table header.
 
 				var arguments = new List<Parameter>();
+				var rangeToRead = new Range
+				{
+					StartRow = argRange.StartRow,
+					StartColumn = argRange.StartColumn
+				};
 				for (int index = 0; index < argRange.RowCount; index++)
 				{
-					var rowRange = new Range
-					{
-						StartRow = argRange.StartRow + index,
-						StartColumn = argRange.StartColumn
-					};
-					List<string> argInfos = reader.ReadRow(rowRange).ToList();
-
-					/*
-					 * Check argument whether parameters without description have been set.
-					 * If not, it means the parameters are invalid and this function should notify error
-					 * by throwing eception.
-					 */
-					if (((string.IsNullOrEmpty(argInfos[1])) || (string.IsNullOrWhiteSpace(argInfos[1]))) ||
-						((string.IsNullOrEmpty(argInfos[2])) || (string.IsNullOrWhiteSpace(argInfos[2]))))
-					{
-						throw new InvalidDataException();
-					}
-
-					var dataTypeWithoutPointer = Util.RemovePointer(argInfos[2]);
-					int poinuterNum = Util.GetPointerNum(argInfos[2]);
-					var argInfo = new Parameter
-					{
-						Name = argInfos[1],
-						DataType = dataTypeWithoutPointer,
-						PointerNum = poinuterNum,
-						Description = argInfos[3],
-						Mode = Parameter.ToMode(argInfos[4])
-					};
+					Parameter argInfo = GetArgument(reader, rangeToRead);
 					arguments.Add(argInfo);
+
+					rangeToRead.StartRow++;
 				}
 
-				INFO($"\t\t-\tGet \"argument\" of the function ... DONE!");
+				INFO($"Get \"argument\" of the function.");
+
 				return arguments;
 			}
 			catch (ArgumentException)
 			{
-				ERROR($"\t\t-\t\"Argument\" of the function can not be found in \"{this.Target}\" sheet.");
+				ERROR($"\"Argument\" of the function can not be found in \"{this.Target}\" sheet.");
 
 				throw new FormatException();
 			}
 			catch (InvalidDataException)
 			{
-				WARN("\t\t-\tAn empty cell found while argument of function searching.");
+				WARN("An empty cell found while argument of function searching.");
 
 				throw;
 			}
 		}
+
+		protected Parameter GetArgument(ExcelReader reader, Range range)
+		{
+			INFO($"Start getting \"argument\" of function.");
+			DEBUG($"    start row    = {range.StartRow}");
+			DEBUG($"    start column = {range.StartColumn}");
+			DEBUG($"    Row count    = {range.RowCount}");
+			DEBUG($"    Column count = {range.ColumnCount}");
+
+			List<string> argInfos = reader.ReadRow(range).ToList();
+
+			/*
+			 * Check argument whether parameters without description have been set.
+			 * If not, it means the parameters are invalid and this function should notify error
+			 * by throwing eception.
+			 */
+			if (((string.IsNullOrEmpty(argInfos[1])) || (string.IsNullOrWhiteSpace(argInfos[1]))) ||
+				((string.IsNullOrEmpty(argInfos[2])) || (string.IsNullOrWhiteSpace(argInfos[2]))))
+			{
+				throw new InvalidDataException();
+			}
+
+			var dataTypeWithoutPointer = Util.RemovePointer(argInfos[2]);
+			int poinuterNum = Util.GetPointerNum(argInfos[2]);
+			var argInfo = new Parameter
+			{
+				Name = argInfos[1],
+				DataType = dataTypeWithoutPointer,
+				PointerNum = poinuterNum,
+				Description = argInfos[3],
+				Mode = Parameter.ToMode(argInfos[4])
+			};
+
+			INFO($"Get \"argument\" of function");
+			DEBUG($"Argument data:");
+			DEBUG($"    Name        = {argInfo.Name}");
+			DEBUG($"    DataType    = {argInfo.DataType}");
+			DEBUG($"    Pointer Num = {argInfo.PointerNum}");
+			DEBUG($"    Description = {argInfo.Description}");
+			DEBUG($"    Mode        = {argInfo.Mode.ToString()}");
+
+			return argInfo;
+		}
+
 
 		/// <summary>
 		/// Get sub function information.
@@ -366,6 +414,8 @@ namespace TestParser.Parser
 		{
 			try
 			{
+				INFO($"Start getting \"subfunctions\" of function.");
+
 				IEnumerable<Range> subfuncRanges = reader.FindItem("子関数");
 				var parameters = new List<Function>();
 				foreach (var rangeItem in subfuncRanges)
@@ -374,12 +424,13 @@ namespace TestParser.Parser
 					parameters.Add(subfuncParam);
 				}
 
-				INFO($"\t\t-\tGet \"subfunction\" datas of the function ... DONE!");
+				INFO($"Get \"subfunction\" of the function.");
+
 				return parameters;
 			}
 			catch (ArgumentException)
 			{
-				ERROR($"\t\t-\t\"Subfunction\" cell can not be found in \"{this.Target}\" sheet.");
+				ERROR($"\"Subfunction\" cell can not be found in \"{this.Target}\" sheet.");
 
 				throw;
 			}
@@ -400,7 +451,16 @@ namespace TestParser.Parser
 		{
 			try
 			{
+				INFO($"Start getting \"subfunction\" of function.");
+				DEBUG($"    start row    = {range.StartRow}");
+				DEBUG($"    start column = {range.StartColumn}");
+				DEBUG($"    Row count    = {range.RowCount}");
+				DEBUG($"    Column count = {range.ColumnCount}");
+
 				Function function = GetFunctionInfo(reader, range);
+
+				INFO($"Get subfunction.");
+				DEBUG($"    {function.ToString()}");
 
 				return function;
 			}

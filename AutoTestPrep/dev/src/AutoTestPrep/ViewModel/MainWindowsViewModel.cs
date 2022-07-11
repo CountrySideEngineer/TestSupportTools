@@ -10,6 +10,8 @@ using System.Collections.ObjectModel;
 namespace AutoTestPrep.ViewModel
 {
 	using AutoTestPrep.Model.Converter;
+	using CSEngineer.Logger;
+	using CSEngineer.Logger.Interface;
 	using Plugin;
 	using StubDriverPlugin.Data;
 
@@ -167,7 +169,7 @@ namespace AutoTestPrep.ViewModel
 
 			this.LoadPlugins();
 			this.UpdateCustomPluginEnable();
-
+			this.SetUpLogger();
 		}
 
 		public string CurrentTitle
@@ -599,6 +601,27 @@ namespace AutoTestPrep.ViewModel
 			{
 				this.CustomPluginEnable = false;
 			}
+		}
+
+		protected void SetUpLogger()
+		{
+			var logger = Log.GetInstance();
+			ILogEvent consoleLog = new CSEngineer.Logger.Console.Log();
+			ILogEvent fileLog = new CSEngineer.Logger.File.Log();
+
+			SetUpLogger(ref consoleLog);
+			SetUpLogger(ref fileLog);
+		}
+
+		protected void SetUpLogger(ref ILogEvent logEvent)
+		{
+			var logger = Log.GetInstance();
+			logger.TraceLogEventHandler += logEvent.TRACE;
+			logger.DebugLogEventHandler += logEvent.DEBUG;
+			logger.InfoLogEventHandler += logEvent.INFO;
+			logger.WarnLogEventHandler += logEvent.WARN;
+			logger.ErrorLogEventHandler += logEvent.ERROR;
+			logger.FatalLogEventHandler += logEvent.FATAL;
 		}
 
 		/// <summary>

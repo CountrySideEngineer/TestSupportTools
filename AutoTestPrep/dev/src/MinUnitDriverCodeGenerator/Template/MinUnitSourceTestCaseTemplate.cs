@@ -18,7 +18,7 @@ namespace CodeGenerator.TestDriver.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
+    #line 1 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class MinUnitSourceTestCaseTemplate : MinUnitTemplate
     {
@@ -30,14 +30,14 @@ namespace CodeGenerator.TestDriver.Template
         {
             this.Write("\r\nstatic char* ");
             
-            #line 8 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
+            #line 8 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateTestCaseMethodName(this.TargetFunction, this.TestCase)));
             
             #line default
             #line hidden
             this.Write("()\r\n{\r\n\t//Declare argument for target\r\n");
             
-            #line 11 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
+            #line 11 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
 	
 	if (null != this.TargetFunction.Arguments) {
 		foreach (var argument in TargetFunction.Arguments) {
@@ -47,21 +47,21 @@ namespace CodeGenerator.TestDriver.Template
             #line hidden
             this.Write("\t");
             
-            #line 15 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
+            #line 15 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(argument.ActualDataType()));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 15 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
+            #line 15 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(argument.Name));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 16 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
+            #line 16 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
 		
 		}
 	}
@@ -71,77 +71,77 @@ namespace CodeGenerator.TestDriver.Template
             #line hidden
             this.Write("}\r\n\r\n\t//Declare return value buffer.\r\n\t");
             
-            #line 23 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
+            #line 23 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateReturnValueBufferDeclare(this.TargetFunction)));
             
             #line default
             #line hidden
             this.Write(";\r\n\t\r\n\r\n\t//Initialize stub parameters.\r\n\t");
             
-            #line 27 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
+            #line 27 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateStubInitMethodName(this.TargetFunction)));
             
             #line default
             #line hidden
             this.Write("();\r\n\r\n\t//Setup test parameters.\r\n");
             
-            #line 30 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
+            #line 30 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
  foreach (var input in TestCase.Input) {	
             
             #line default
             #line hidden
             this.Write("\t");
             
-            #line 31 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
+            #line 31 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(input.Name));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 31 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
+            #line 31 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(input.Value));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 32 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
+            #line 32 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
 	}	
             
             #line default
             #line hidden
             this.Write("\r\n\t");
             
-            #line 34 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
+            #line 34 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateTargetFunctionCall(this.TargetFunction)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\n");
             
-            #line 36 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
+            #line 36 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
  foreach (var expect in TestCase.Expects) {	
             
             #line default
             #line hidden
             this.Write("\tmu_assert(");
             
-            #line 37 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
+            #line 37 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(expect.Value));
             
             #line default
             #line hidden
             this.Write(" == ");
             
-            #line 37 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
+            #line 37 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(expect.Name));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 38 "E:\development\TestSupportTools_0_2_0\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
+            #line 38 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
 	}	
             
             #line default
