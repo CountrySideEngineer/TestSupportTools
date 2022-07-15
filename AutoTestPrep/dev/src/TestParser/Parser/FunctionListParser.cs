@@ -97,7 +97,7 @@ namespace TestParser.Parser
 		/// <returns>List of function information.</returns>
 		protected IEnumerable<ParameterInfo> ReadFunctionInfo(ExcelReader reader)
 		{
-			INFO($"Get target function list from the sheet, {reader.SheetName}");
+			INFO($"Get target function list from \"{reader.SheetName}\"");
 
 			Range tableItemRange = this.GetRangeToRead(reader);
 
@@ -176,7 +176,7 @@ namespace TestParser.Parser
 			IEnumerable<string> rowItem = reader.ReadRow(range);
 			if (0 == rowItem.Count())
 			{
-				WARN($"No item found in row ({range.StartRow}.");
+				WARN($"No item found in row ({range.StartRow}).");
 				throw new ParseDataNotFoundException(range);
 			}
 
@@ -186,7 +186,7 @@ namespace TestParser.Parser
 				{
 					if ((string.IsNullOrWhiteSpace(item)) || (string.IsNullOrEmpty(item)))
 					{
-						WARN("Invalid data found in function list,");
+						WARN("Invalid data found in function list.");
 						throw new ParseException("Data is invalid");
 					}
 				}
@@ -196,11 +196,11 @@ namespace TestParser.Parser
 				parameterInfo.InfoName = rowItem.ElementAt(2);
 				parameterInfo.FileName = rowItem.ElementAt(3);
 
-				DEBUG($"Function table info:");
-				DEBUG($"    Index    = {parameterInfo.Index}");
-				DEBUG($"    Name     = {parameterInfo.Name}");
-				DEBUG($"    InfoName = {parameterInfo.InfoName}");
-				DEBUG($"    FileName = {parameterInfo.FileName}");
+				INFO($"Function table info:");
+				INFO($"    Index    = {parameterInfo.Index}");
+				INFO($"    Name     = {parameterInfo.Name}");
+				INFO($"    InfoName = {parameterInfo.InfoName}");
+				INFO($"    FileName = {parameterInfo.FileName}");
 
 				return parameterInfo;
 			}
