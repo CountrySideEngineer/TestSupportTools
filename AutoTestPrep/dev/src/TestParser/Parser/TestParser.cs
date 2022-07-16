@@ -14,7 +14,8 @@ namespace TestParser.Parser
 		/// </summary>
 		public TestParser()
 		{
-			this.FunctionListParser = new FunctionListParser("テスト一覧");
+			string itemTag = "テスト一覧";
+			this.FunctionListParser = new FunctionListParser(itemTag);
 			this.FunctionParser = new FunctionParser();
 			this.TestCaseParser = new TestCaseParser();
 		}
