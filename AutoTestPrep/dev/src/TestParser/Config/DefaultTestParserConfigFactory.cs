@@ -58,7 +58,9 @@ namespace TestParser.Config
 			{
 				Name = "○対象関数情報",
 				RowOffset = 1,
-				ColOffset = 1
+				ColOffset = 1,
+				RowDataOffset = 1,
+				ColDataOffset = 0,
 			};
 			var targetFunctionConfig = new TargetFunctionConfig()
 			{
@@ -78,6 +80,8 @@ namespace TestParser.Config
 				Name = "○テスト/デシジョンテーブル",
 				RowOffset = 1,
 				ColOffset = 1,
+				RowDataOffset = 1,
+				ColDataOffset = 0,
 			};
 			var testConfig = new TestConfig()
 			{

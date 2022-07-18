@@ -117,7 +117,7 @@ namespace TestParser.Parser
 				{
 					this.FunctionListParser = 
 						new FunctionListParser(_testConfig.TestList.SheetName,
-							_testConfig.TestList.TableConfig);
+							_testConfig.TestList);
 				}
 				var testTargetFunctionInfos = (IEnumerable<ParameterInfo>)this.FunctionListParser.Parse(stream);
 				NotifyParseProgressDelegate?.Invoke(100, 100);

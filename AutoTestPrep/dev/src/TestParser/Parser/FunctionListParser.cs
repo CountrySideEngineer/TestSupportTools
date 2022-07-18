@@ -15,8 +15,13 @@ namespace TestParser.Parser
 	/// <summary>
 	/// Parse function info in a test design file.
 	/// </summary>
-	public class FunctionListParser : ATestSheetParser
+	public class FunctionListParser : AParser
 	{
+		/// <summary>
+		/// Configuration for test list reading.
+		/// </summary>
+		public TestListConfig Config { get; set; }
+
 		/// <summary>
 		/// Default constructor
 		/// </summary>
@@ -32,14 +37,20 @@ namespace TestParser.Parser
 		/// Constructor with argument.
 		/// </summary>
 		/// <param name="config"></param>
-		public FunctionListParser(TableConfig config) : base(config) { }
+		public FunctionListParser(TestListConfig config) : base()
+		{
+			Config = config;
+		}
 
 		/// <summary>
 		/// Constructor with argument.
 		/// </summary>
 		/// <param name="target">Sheet name to parser.</param>
 		/// <param name="config">Parser configuration.</param>
-		public FunctionListParser(string target, TableConfig config) : base(target, config) { }
+		public FunctionListParser(string target, TestListConfig config) : base(target)
+		{
+			Config = config;
+		}
 
 		/// <summary>
 		/// Parse function information in file <para>srcPath</para>.
@@ -169,15 +180,15 @@ namespace TestParser.Parser
 		{
 			try
 			{
-				Range tableNameRange = reader.FindFirstItem(TableConfig.Name);
+				Range tableNameRange = reader.FindFirstItem(Config.TableConfig.Name);
 				Range tableEndRange = new Range();
 				reader.GetRowRange(ref tableEndRange);
 				reader.GetColumnRange(ref tableEndRange);
 
 				Range rangeToRead = new Range()
 				{
-					StartRow = tableNameRange.StartRow + TableConfig.RowOffset + TableConfig.RowDataOffset,
-					StartColumn = tableNameRange.StartColumn + TableConfig.ColOffset + TableConfig.ColDataOffset,
+					StartRow = tableNameRange.StartRow + Config.TableConfig.RowOffset + Config.TableConfig.RowDataOffset,
+					StartColumn = tableNameRange.StartColumn + Config.TableConfig.ColOffset + Config.TableConfig.ColDataOffset,
 				};
 				int lastRowIndex = tableEndRange.StartRow + tableEndRange.RowCount - 1;
 				int lastColIndex = tableEndRange.StartColumn + tableEndRange.ColumnCount - 1;

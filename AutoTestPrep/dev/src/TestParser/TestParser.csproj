@@ -69,11 +69,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\DefaultTestParserConfigFactory.cs" />
+    <Compile Include="Config\FunctionConfig.cs" />
+    <Compile Include="Config\GlobalVariableConfig.cs" />
+    <Compile Include="Config\TargetFunctionConfig.cs" />
+    <Compile Include="Config\TestConfig.cs" />
     <Compile Include="Config\TestParserConfig.cs" />
     <Compile Include="Parameter\ParameterInfo.cs" />
     <Compile Include="Parser\AParser.cs" />
     <Compile Include="Parser\ATestParser.cs" />
-    <Compile Include="Parser\ATestSheetParser.cs" />
     <Compile Include="Parser\Exception\ParseDataNotFoundException.cs" />
     <Compile Include="Parser\Exception\ParseException.cs" />
     <Compile Include="Parser\FunctionListParser.cs" />

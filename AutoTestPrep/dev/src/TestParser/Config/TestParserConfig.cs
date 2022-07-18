@@ -114,44 +114,4 @@ namespace TestParser.Config
 		[XmlElement("TableConfig")]
 		public TableConfig TableConfig { get; set; }
 	}
-
-	/// <summary>
-	/// Target function configuration.
-	/// </summary>
-	public class TargetFunctionConfig
-	{
-		/// <summary>
-		/// Default constructor.
-		/// </summary>
-		public TargetFunctionConfig()
-		{
-			TableConfig = new TableConfig();
-		}
-
-		/// <summary>
-		/// Table configuration.
-		/// </summary>
-		[XmlElement("TableConfig")]
-		public TableConfig TableConfig { get; set; }
-	}
-
-	/// <summary>
-	/// Test configuration.
-	/// </summary>
-	public class TestConfig
-	{
-		/// <summary>
-		/// Default constructor.
-		/// </summary>
-		public TestConfig()
-		{
-			TableConfig = new TableConfig();
-		}
-
-		/// <summary>
-		/// Tablec configuration.
-		/// </summary>
-		[XmlElement("TableConfig")]
-		public TableConfig TableConfig { get; set; }
-	}
 }
