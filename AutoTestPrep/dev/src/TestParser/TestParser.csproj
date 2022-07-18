@@ -80,7 +80,9 @@
     <Compile Include="Parser\TestParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reader\ExcelReader.cs" />
+    <Compile Include="Reader\IReader.cs" />
     <Compile Include="Reader\Range.cs" />
+    <Compile Include="Reader\XmlConfigReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
