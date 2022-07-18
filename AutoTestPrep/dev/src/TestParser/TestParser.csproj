@@ -7,8 +7,8 @@
     <ProjectGuid>{71D812BF-5E0D-480C-93BA-B8D3E9D97380}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestParse</RootNamespace>
-    <AssemblyName>TestParse</AssemblyName>
+    <RootNamespace>TestParser</RootNamespace>
+    <AssemblyName>TestParser</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

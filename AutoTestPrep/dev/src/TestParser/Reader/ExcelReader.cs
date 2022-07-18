@@ -50,9 +50,13 @@ namespace TestParser.Reader
 			try
 			{
 				var workBook = new XLWorkbook(this._excelStream);
-				var workSheet = workBook.Worksheet(this.SheetName);	//ArgumentException
-				var itemCell = workSheet.CellsUsed()
-					.Where(_ => (0 == string.Compare(item, _.GetString())))
+				var workSheet = workBook.Worksheet(this.SheetName); //ArgumentException
+				var usedCells = workSheet.CellsUsed();
+				var itemCell = usedCells.Where(_ => {
+					Console.WriteLine($"item, value : {item}, {_.GetString()}");
+					return (0 == string.Compare(item, _.GetString()));
+					})
+
 					.FirstOrDefault();
 				var range = new Range
 				{

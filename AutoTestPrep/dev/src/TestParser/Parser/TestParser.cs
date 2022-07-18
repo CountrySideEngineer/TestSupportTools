@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using TestParser.Target;
 using TestParser.Data;
 using System.Linq;
-using TestParse.Reader;
-using TestParse.Config;
+using TestParser.Reader;
+using TestParser.Config;
 
 namespace TestParser.Parser
 {
@@ -115,7 +115,9 @@ namespace TestParser.Parser
 
 				if (null == this.FunctionListParser)
 				{
-					this.FunctionListParser = new FunctionListParser(_testConfig.TestList.SheetName);
+					this.FunctionListParser = 
+						new FunctionListParser(_testConfig.TestList.SheetName,
+							_testConfig.TestList.TableConfig);
 				}
 				var testTargetFunctionInfos = (IEnumerable<ParameterInfo>)this.FunctionListParser.Parse(stream);
 				NotifyParseProgressDelegate?.Invoke(100, 100);
@@ -142,6 +144,7 @@ namespace TestParser.Parser
 			{
 				ERROR($"{ex.Message}");
 
+				NotifyParseProgressDelegate?.Invoke(100, 100);
 				throw;
 			}
 		}
@@ -215,6 +218,11 @@ namespace TestParser.Parser
 		{
 			TestParserConfig config = DefaultTestParserConfigFactory.Create();
 			_testConfig = config;
+
+			DEBUG("TestParserConfig");
+			DEBUG($"    Sheet name : {_testConfig.TestList.SheetName}");
+			DEBUG($"    Row offset : {_testConfig.TestList.TableConfig.RowOffset}");
+			DEBUG($"    Col offset : {_testConfig.TestList.TableConfig.ColOffset}");
 		}
 	}
 }

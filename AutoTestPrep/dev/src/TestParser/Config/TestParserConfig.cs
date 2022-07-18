@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace TestParse.Config
+namespace TestParser.Config
 {
 	/// <summary>
 	/// Root class of test parser configuration.
@@ -74,6 +74,18 @@ namespace TestParse.Config
 		/// </summary>
 		[XmlElement("ColOffset")]
 		public int ColOffset { get; set; }
+
+		/// <summary>
+		/// Offset to data in column from table top.
+		/// </summary>
+		[XmlElement("RowDataOffset")]
+		public int RowDataOffset { get; set; }
+
+		/// <summary>
+		/// Offset to data in row from table top.
+		/// </summary>
+		[XmlElement("ColDataOffset")]
+		public int ColDataOffset { get; set; }
 	}
 
 	/// <summary>

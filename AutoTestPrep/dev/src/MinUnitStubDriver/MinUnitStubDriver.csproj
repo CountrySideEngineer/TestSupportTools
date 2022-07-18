@@ -66,8 +66,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="TestParse">
-      <HintPath>..\..\bin\TestParse.dll</HintPath>
+    <Reference Include="TestParser, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\TestParser.dll</HintPath>
     </Reference>
     <Reference Include="TestParser.SDK">
       <HintPath>..\..\bin\TestParser.SDK.dll</HintPath>

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using TestParse.Config;
+using TestParser.Config;
 
-namespace TestParse.Reader
+namespace TestParser.Reader
 {
 	public class XmlConfigReader : IReader
 	{

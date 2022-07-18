@@ -8,13 +8,14 @@ using CSEngineer;
 using TestParser.Reader;
 using TestParser.Parser.Exception;
 using TestParser.Target;
+using TestParser.Config;
 
 namespace TestParser.Parser
 {
 	/// <summary>
 	/// Parse function info in a test design file.
 	/// </summary>
-	public class FunctionListParser : AParser
+	public class FunctionListParser : ATestSheetParser
 	{
 		/// <summary>
 		/// Default constructor
@@ -26,6 +27,19 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="target">Function list parser sheet name in excel.</param>
 		public FunctionListParser(string target) : base(target) { }
+
+		/// <summary>
+		/// Constructor with argument.
+		/// </summary>
+		/// <param name="config"></param>
+		public FunctionListParser(TableConfig config) : base(config) { }
+
+		/// <summary>
+		/// Constructor with argument.
+		/// </summary>
+		/// <param name="target">Sheet name to parser.</param>
+		/// <param name="config">Parser configuration.</param>
+		public FunctionListParser(string target, TableConfig config) : base(target, config) { }
 
 		/// <summary>
 		/// Parse function information in file <para>srcPath</para>.
@@ -153,13 +167,32 @@ namespace TestParser.Parser
 		/// <returns>Range to read to get function information.</returns>
 		protected Range GetRangeToRead(ExcelReader reader)
 		{
-			Range tableItemRange = new Range();
-			reader.GetRowRange(ref tableItemRange);
-			reader.GetColumnRange(ref tableItemRange);
-			tableItemRange.StartRow++;
-			tableItemRange.ColumnCount = 4;
+			try
+			{
+				Range tableNameRange = reader.FindFirstItem(TableConfig.Name);
+				Range tableEndRange = new Range();
+				reader.GetRowRange(ref tableEndRange);
+				reader.GetColumnRange(ref tableEndRange);
 
-			return tableItemRange;
+				Range rangeToRead = new Range()
+				{
+					StartRow = tableNameRange.StartRow + TableConfig.RowOffset + TableConfig.RowDataOffset,
+					StartColumn = tableNameRange.StartColumn + TableConfig.ColOffset + TableConfig.ColDataOffset,
+				};
+				int lastRowIndex = tableEndRange.StartRow + tableEndRange.RowCount - 1;
+				int lastColIndex = tableEndRange.StartColumn + tableEndRange.ColumnCount - 1;
+				rangeToRead.RowCount = lastRowIndex - (rangeToRead.StartRow - 1);
+				rangeToRead.ColumnCount = lastColIndex - (rangeToRead.StartColumn - 1);
+
+				return rangeToRead;
+			}
+			catch (NullReferenceException)
+			{
+				FATAL("No object has no been set error.");
+
+				throw;
+
+			}
 		}
 
 		/// <summary>

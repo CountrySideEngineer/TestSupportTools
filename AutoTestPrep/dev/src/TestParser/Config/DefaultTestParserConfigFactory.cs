@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestParse.Config
+namespace TestParser.Config
 {
 	public class DefaultTestParserConfigFactory
 	{
@@ -36,7 +36,9 @@ namespace TestParse.Config
 			{
 				Name = "○テスト対象関数一覧",
 				RowOffset = 1,
-				ColOffset = 1
+				ColOffset = 1,
+				RowDataOffset = 1,
+				ColDataOffset = 0,
 			};
 			var testListConfig = new TestListConfig()
 			{

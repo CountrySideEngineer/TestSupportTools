@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestParse.Config;
+using TestParser.Config;
 using TestParser.Parser;
 
-namespace TestParse.Parser
+namespace TestParser.Parser
 {
 	public abstract class ATestSheetParser : AParser
 	{
@@ -39,6 +39,16 @@ namespace TestParse.Parser
 		public ATestSheetParser(string target) : base(target)
 		{
 			TableConfig = null;
+		}
+
+		/// <summary>
+		/// Constructror with argument.
+		/// </summary>
+		/// <param name="target">Target sheet name.</param>
+		/// <param name="config">Configuration of test.</param>
+		public ATestSheetParser(string target, TableConfig config) : base(target)
+		{
+			TableConfig = config;
 		}
 	}
 }
