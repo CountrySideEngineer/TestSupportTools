@@ -20,8 +20,6 @@ namespace TestParser.Parser
 		public delegate void NotifyParseProgress(string stage, string messgae, int numerator, int denominator);
 		public NotifyParseProgress NotifyParseProgressDelegate;
 
-		public Delegate Delegate;
-
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
