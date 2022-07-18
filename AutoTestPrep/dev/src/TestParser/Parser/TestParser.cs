@@ -4,20 +4,24 @@ using System.Collections.Generic;
 using TestParser.Target;
 using TestParser.Data;
 using System.Linq;
+using TestParse.Reader;
+using TestParse.Config;
 
 namespace TestParser.Parser
 {
 	public class TestParser : ATestParser
 	{
+		protected TestParserConfig _testConfig;
+
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		public TestParser()
 		{
-			string itemTag = "テスト一覧";
-			this.FunctionListParser = new FunctionListParser(itemTag);
-			this.FunctionParser = new FunctionParser();
-			this.TestCaseParser = new TestCaseParser();
+			_testConfig = null;
+			this.FunctionListParser = null;
+			this.FunctionParser = null;
+			this.TestCaseParser = null;
 		}
 
 		/// <summary>
@@ -107,6 +111,12 @@ namespace TestParser.Parser
 			{
 				NotifyParseProgressDelegate?.Invoke(0, 100);
 				INFO("Start function list.");
+				LoadConfig();
+
+				if (null == this.FunctionListParser)
+				{
+					this.FunctionListParser = new FunctionListParser(_testConfig.TestList.SheetName);
+				}
 				var testTargetFunctionInfos = (IEnumerable<ParameterInfo>)this.FunctionListParser.Parse(stream);
 				NotifyParseProgressDelegate?.Invoke(100, 100);
 
@@ -130,7 +140,6 @@ namespace TestParser.Parser
 			}
 			catch (System.Exception ex)
 			{
-				ERROR($"{nameof(ex)}");
 				ERROR($"{ex.Message}");
 
 				throw;
@@ -149,10 +158,18 @@ namespace TestParser.Parser
 			try
 			{
 				INFO("Start reading target function data.");
+				if (null == this.FunctionParser)
+				{
+					this.FunctionParser = new FunctionParser();
+				}
 				this.FunctionParser.Target = paramInfo.InfoName;
 				var targetFunction = (Function)this.FunctionParser.Parse(stream);
 
 				INFO("Start reading test case data.");
+				if (null == this.TestCaseParser)
+				{
+					this.TestCaseParser = new TestCaseParser();
+				}
 				this.TestCaseParser.Target = paramInfo.InfoName;
 				var testCases = (IEnumerable<TestCase>)this.TestCaseParser.Parse(stream);
 				var test = new Test
@@ -167,8 +184,37 @@ namespace TestParser.Parser
 			}
 			catch (NullReferenceException)
 			{
+				ERROR("protected Test Read(Stream stream, ParameterInfo paramInfo)");
 				throw;
 			}
+			catch (InvalidCastException ex)
+			{
+				ERROR(ex.Message);
+				throw;
+			}
+		}
+
+		protected void LoadConfig()
+		{
+			try
+			{
+				var configFilePath = @".\TestParserConfg.xml";
+				var reader = new XmlConfigReader();
+				var config = (TestParserConfig)reader.Read(configFilePath);
+				_testConfig = config;
+			}
+			catch (System.Exception)
+			{
+				WARN("The test config file can not load.");
+				WARN("    Use default config setting.");
+				LoadDefaultConfig();
+			}
+		}
+
+		protected void LoadDefaultConfig()
+		{
+			TestParserConfig config = DefaultTestParserConfigFactory.Create();
+			_testConfig = config;
 		}
 	}
 }
