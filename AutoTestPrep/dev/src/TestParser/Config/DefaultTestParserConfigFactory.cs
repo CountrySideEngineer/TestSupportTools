@@ -62,9 +62,30 @@ namespace TestParser.Config
 				RowDataOffset = 1,
 				ColDataOffset = 0,
 			};
+			var functionCofig = new FunctionConfig()
+			{
+				Type = "テスト対象関数",
+				Body = "本体",
+				Argument = "引数",
+			};
+			var subFunctionCofig = new FunctionConfig()
+			{
+				Type = "子関数",
+				Body = "本体",
+				Argument = "引数",
+			};
+			var globalVariableConfig = new GlobalVariableConfig()
+			{
+				Type = "グローバル変数",
+				External = "外部",
+				Internal = "内部"
+			};
 			var targetFunctionConfig = new TargetFunctionConfig()
 			{
-				TableConfig = tableConfig
+				TableConfig = tableConfig,
+				TestFunctionConfig = functionCofig,
+				SubFunctionConfig = subFunctionCofig,
+				GlobalVariableConfig = globalVariableConfig,
 			};
 			return targetFunctionConfig;
 		}
