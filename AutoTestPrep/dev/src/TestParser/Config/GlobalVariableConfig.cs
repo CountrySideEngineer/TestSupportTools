@@ -9,6 +9,16 @@ namespace TestParser.Config
 {
 	public class GlobalVariableConfig
 	{
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public GlobalVariableConfig()
+		{
+			Type = string.Empty;
+			External = string.Empty;
+			Internal = string.Empty;
+		}
+
 		[XmlElement("Type")]
 		public string Type { get; set; }
 
