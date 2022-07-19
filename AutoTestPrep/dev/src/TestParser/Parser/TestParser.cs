@@ -221,8 +221,8 @@ namespace TestParser.Parser
 
 			DEBUG("TestParserConfig");
 			DEBUG($"    Sheet name : {_testConfig.TestList.SheetName}");
-			DEBUG($"    Row offset : {_testConfig.TestList.TableConfig.RowOffset}");
-			DEBUG($"    Col offset : {_testConfig.TestList.TableConfig.ColOffset}");
+			DEBUG($"    Row offset : {_testConfig.TestList.TableConfig.TableColRowOffset}");
+			DEBUG($"    Col offset : {_testConfig.TestList.TableConfig.TableTopColOffset}");
 		}
 	}
 }

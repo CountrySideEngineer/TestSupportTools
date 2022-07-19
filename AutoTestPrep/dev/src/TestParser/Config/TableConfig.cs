@@ -18,8 +18,8 @@ namespace TestParser.Config
 		public TableConfig()
 		{
 			Name = string.Empty;
-			RowOffset = 0;
-			ColOffset = 0;
+			TableColRowOffset = 0;
+			TableTopColOffset = 0;
 		}
 
 		/// <summary>
@@ -31,14 +31,14 @@ namespace TestParser.Config
 		/// <summary>
 		/// Offset of table top in row from "name" cell.
 		/// </summary>
-		[XmlElement("RowOffset")]
-		public int RowOffset { get; set; }
+		[XmlElement("TableRowOffset")]
+		public int TableColRowOffset { get; set; }
 
 		/// <summary>
 		/// Offset of table top in column from "name" cell.
 		/// </summary>
-		[XmlElement("ColOffset")]
-		public int ColOffset { get; set; }
+		[XmlElement("TableTopColOffset")]
+		public int TableTopColOffset { get; set; }
 
 		/// <summary>
 		/// Offset to data in column from table top.

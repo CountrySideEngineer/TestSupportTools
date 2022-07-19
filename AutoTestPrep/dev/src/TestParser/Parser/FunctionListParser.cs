@@ -187,8 +187,8 @@ namespace TestParser.Parser
 
 				Range rangeToRead = new Range()
 				{
-					StartRow = tableNameRange.StartRow + Config.TableConfig.RowOffset + Config.TableConfig.RowDataOffset,
-					StartColumn = tableNameRange.StartColumn + Config.TableConfig.ColOffset + Config.TableConfig.ColDataOffset,
+					StartRow = tableNameRange.StartRow + Config.TableConfig.TableColRowOffset + Config.TableConfig.RowDataOffset,
+					StartColumn = tableNameRange.StartColumn + Config.TableConfig.TableTopColOffset + Config.TableConfig.ColDataOffset,
 				};
 				int lastRowIndex = tableEndRange.StartRow + tableEndRange.RowCount - 1;
 				int lastColIndex = tableEndRange.StartColumn + tableEndRange.ColumnCount - 1;
