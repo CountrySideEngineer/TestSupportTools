@@ -29,6 +29,8 @@ namespace TestParser.Target
 			{
 				this.SubFunctions = new List<Function>(src.SubFunctions);
 				this.Arguments = new List<Parameter>(src.Arguments);
+				this.InternalVariables = new List<Parameter>(src.InternalVariables);
+				this.ExternalVariables = new List<Parameter>(src.ExternalVariables);
 			}
 		}
 
