@@ -15,6 +15,8 @@ namespace TestParser.Target
 		{
 			this.Arguments = new List<Parameter>(0);
 			this.SubFunctions = new List<Function>(0);
+			this.InternalVariables = new List<Parameter>(0);
+			this.ExternalVariables = new List<Parameter>(0);
 		}
 
 		/// <summary>
@@ -92,5 +94,15 @@ namespace TestParser.Target
 			}
 			return hasReturn;
 		}
+
+		/// <summary>
+		/// Global variables declared in code the function is implemented.
+		/// </summary>
+		public IEnumerable<Parameter> InternalVariables { get; set; }
+
+		/// <summary>
+		/// Gloval variables declared in code the function is not implemented.
+		/// </summary>
+		public IEnumerable<Parameter> ExternalVariables { get; set; }
 	}
 }
