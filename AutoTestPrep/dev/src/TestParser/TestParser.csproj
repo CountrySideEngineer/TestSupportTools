@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Config\DefaultTestParserConfigFactory.cs" />
     <Compile Include="Config\FunctionConfig.cs" />
+    <Compile Include="Config\FunctionTableTagConfig.cs" />
     <Compile Include="Config\GlobalVariableConfig.cs" />
     <Compile Include="Config\TableConfig.cs" />
     <Compile Include="Config\TargetFunctionConfig.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Config\TestParserConfig.cs" />
     <Compile Include="Conveter\AFunctionTableItemConverter.cs" />
     <Compile Include="Conveter\ArgumentConverter.cs" />
+    <Compile Include="Conveter\ConverterFactory.cs" />
     <Compile Include="Conveter\ExternalVariableConverter.cs" />
     <Compile Include="Conveter\FunctionConverter.cs" />
     <Compile Include="Conveter\IFunctionTableItemConverter.cs" />
