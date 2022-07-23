@@ -163,7 +163,9 @@ namespace TestParser.Parser
 				INFO("Start reading target function data.");
 				if (null == this.FunctionParser)
 				{
-					this.FunctionParser = new FunctionParser();
+					this.FunctionParser = new FunctionParser(
+						_testConfig.TargetFunction.TableConfig.Name,
+						_testConfig.TargetFunction);
 				}
 				this.FunctionParser.Target = paramInfo.InfoName;
 				var targetFunction = (Function)this.FunctionParser.Parse(stream);
@@ -221,7 +223,7 @@ namespace TestParser.Parser
 
 			DEBUG("TestParserConfig");
 			DEBUG($"    Sheet name : {_testConfig.TestList.SheetName}");
-			DEBUG($"    Row offset : {_testConfig.TestList.TableConfig.TableColRowOffset}");
+			DEBUG($"    Row offset : {_testConfig.TestList.TableConfig.TableTopRowOffset}");
 			DEBUG($"    Col offset : {_testConfig.TestList.TableConfig.TableTopColOffset}");
 		}
 	}
