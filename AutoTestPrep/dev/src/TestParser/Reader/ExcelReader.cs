@@ -66,7 +66,7 @@ namespace TestParser.Reader
 			catch (Exception ex)
 			when ((ex is NullReferenceException) || (ex is ArgumentException))
 			{
-				throw new ArgumentException($"No cell contains {item} in {this.SheetName}.");
+				throw new ArgumentException($"No cell contains {item} in {this.SheetName} sheet.");
 			}
 		}
 
@@ -99,7 +99,7 @@ namespace TestParser.Reader
 			catch (Exception ex)
 			when ((ex is NullReferenceException) || (ex is ArgumentOutOfRangeException))
 			{
-				throw new ArgumentException($"No cell contains {item} in {this.SheetName}.");
+				throw new ArgumentException($"No cell contains {item} in {this.SheetName} sheet.");
 			}
 		}
 
@@ -130,7 +130,7 @@ namespace TestParser.Reader
 			}
 			catch (NullReferenceException)
 			{
-				throw new ArgumentException($"No cell contains {item} in {this.SheetName}.");
+				throw new ArgumentException($"No cell contains {item} in {this.SheetName} sheet.");
 			}
 		}
 
@@ -161,7 +161,7 @@ namespace TestParser.Reader
 			}
 			catch (NullReferenceException)
 			{
-				throw new ArgumentException($"No cell contains {item} in {this.SheetName}.");
+				throw new ArgumentException($"No cell contains {item} in {this.SheetName} sheet.");
 			}
 		}
 
@@ -189,7 +189,7 @@ namespace TestParser.Reader
 				 * A case that any cell contains "item" can not found in a sheet, it means
 				 * that the format is invalid.
 				 */
-				throw new ArgumentException($"No cell contains {item} can be found in {this.SheetName}.");
+				throw new ArgumentException($"No cell contains {item} can be found in {this.SheetName} sheet.");
 			}
 			var ranges = new List<Range>();
 			foreach (var itemCell in itemCells)
@@ -309,6 +309,18 @@ namespace TestParser.Reader
 
 			var lastUsedCell = workSheet.LastColumnUsed();
 			range.ColumnCount = lastUsedCell.ColumnNumber() - firstUsedCell.ColumnNumber() + 1;
+		}
+
+		public virtual void GetTableRange(ref Range tableTopRange)
+		{
+			string item = string.Empty;
+			Range rowRange = FindFirstItemInRow(item, tableTopRange);
+			Range colRange = FindFirstItemInColumn(item, tableTopRange);
+
+			int rowCount = colRange.StartRow - tableTopRange.StartRow + 1;
+			int colCount = rowRange.StartColumn - tableTopRange.StartColumn + 1;
+			tableTopRange.RowCount = rowCount;
+			tableTopRange.ColumnCount = colCount;
 		}
 	}
 }
