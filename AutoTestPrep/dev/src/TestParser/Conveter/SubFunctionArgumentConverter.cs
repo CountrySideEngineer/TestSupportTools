@@ -20,7 +20,7 @@ namespace TestParser.Conveter
 				Function dstFunction = (Function)dst;
 				int dstSubfunctionIndex = dstFunction.SubFunctions.Count() - 1;
 				Function dstSubfunction = dstFunction.SubFunctions.ElementAt(dstSubfunctionIndex);
-				dstSubfunction.Arguments.Append(argument);
+				dstSubfunction.Arguments = dstSubfunction.Arguments.Append(argument);
 			}
 			catch (TestParserException ex)
 			{

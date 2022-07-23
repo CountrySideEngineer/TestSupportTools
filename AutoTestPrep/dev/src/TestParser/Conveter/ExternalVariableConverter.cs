@@ -23,7 +23,7 @@ namespace TestParser.Conveter
 				base.Convert(src, ref parameter);
 
 				Function dstFunction = (Function)dst;
-				dstFunction.InternalVariables.Append(parameter);
+				dstFunction.InternalVariables = dstFunction.InternalVariables.Append(parameter);
 			}
 			catch (TestParserException ex)
 			{
