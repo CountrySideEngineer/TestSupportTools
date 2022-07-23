@@ -35,7 +35,7 @@ namespace TestParser.Config
 			var tableConfig = new TableConfig()
 			{
 				Name = "○テスト対象関数一覧",
-				TableColRowOffset = 1,
+				TableTopRowOffset = 1,
 				TableTopColOffset = 1,
 				RowDataOffset = 1,
 				ColDataOffset = 0,
@@ -57,7 +57,7 @@ namespace TestParser.Config
 			var tableConfig = new TableConfig()
 			{
 				Name = "○対象関数情報",
-				TableColRowOffset = 1,
+				TableTopRowOffset = 1,
 				TableTopColOffset = 1,
 				RowDataOffset = 1,
 				ColDataOffset = 0,
@@ -99,7 +99,7 @@ namespace TestParser.Config
 			var tableConfig = new TableConfig()
 			{
 				Name = "○テスト/デシジョンテーブル",
-				TableColRowOffset = 1,
+				TableTopRowOffset = 1,
 				TableTopColOffset = 1,
 				RowDataOffset = 1,
 				ColDataOffset = 0,
