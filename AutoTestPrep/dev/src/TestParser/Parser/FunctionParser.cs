@@ -8,11 +8,18 @@ using TestParser.Reader;
 using TestParser;
 using TestParser.Target;
 using TestParser.ParserException;
+using TestParser.Config;
+using TestParser.Conveter;
 
 namespace TestParser.Parser
 {
 	public class FunctionParser : AParser
 	{
+		/// <summary>
+		/// Configuration of target function table parser.
+		/// </summary>
+		public TargetFunctionConfig Config;
+
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
@@ -23,6 +30,16 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="targe">Target sheet name.</param>
 		public FunctionParser(string targe) : base(targe) { }
+
+		public FunctionParser(TargetFunctionConfig config) : base()
+		{
+			Config = config;
+		}
+
+		public FunctionParser(string target, TargetFunctionConfig config) : base(target)
+		{
+			Config = config;
+		}
 
 		/// <summary>
 		/// Returns the function parameter data in srcPath file.
@@ -113,40 +130,10 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="reader">Object to read function information from Excel.</param>
 		/// <returns>Function information in Paramter object.</returns>
-		protected Function GetFunctionInfo(ExcelReader reader)
+		protected Parameter GetFunctionInfo(ExcelReader reader)
 		{
-			Function function = null;
-			Range targetFuncRange = null;
-			string targetFuncTag = "対象関数";
-			try
-			{
-				//「対象関数」のセルを取得する
-				INFO($"Start getting target function data in \"{this.Target}\" sheet.");
-				targetFuncRange = reader.FindFirstItem(targetFuncTag);
-
-				INFO($"Find {targetFuncTag} in {this.Target} sheet at ({targetFuncRange.StartRow}, {targetFuncRange.StartColumn}).");
-			}
-			catch (ArgumentException)
-			{
-				WARN($"\"{targetFuncRange}\" cell can not be found in \"{this.Target}\" sheet.");
-
-				throw new TestParserException(TestParserException.Code.TARGET_FUNCTION_TABLE_FORMAT_INVALID);
-			}
-
-			try
-			{
-				//取得したRangeを引数として、GetFunCtionInfo()を実行する
-				function = this.GetFunctionInfo(reader, targetFuncRange);
-
-				//取得したRangeを引数として、子関数情報を取得する。
-				IEnumerable<Function> subFunctions = this.GetSubfunctions(reader);
-				function.SubFunctions = subFunctions;
-			}
-			catch (ArgumentException)
-			{
-				function.SubFunctions = null;
-			}
-
+			Range range = GetRangeToStartReading(reader);
+			Parameter function = ReadFunctionTable(reader, range);
 			return function;
 		}
 
@@ -490,6 +477,87 @@ namespace TestParser.Parser
 			{
 				throw new TestParserException(TestParserException.Code.SUB_FUNCTION_DEFINITION_INVALID);
 			}
+		}
+
+		protected Parameter ReadFunctionTable(ExcelReader reader, Range range)
+		{
+			IEnumerable<IEnumerable<string>> tableContent = ReadTable(reader, range);
+			Parameter function = new Function();
+			foreach (IEnumerable<string> rowItem in tableContent)
+			{
+				Items2FunctionData(rowItem, ref function);
+			}
+			return function;
+		}
+
+		protected IEnumerable<IEnumerable<string>> ReadTable(ExcelReader reader, Range range)
+		{
+			Range rangeToRead = new Range(range);
+			try
+			{
+				List<List<string>> tableItems = new List<List<string>>();
+				do
+				{
+					var readItem = reader.ReadRow(rangeToRead).ToList();
+					string type = readItem.ElementAt(0);
+					if ((string.IsNullOrWhiteSpace(type)) || (string.IsNullOrEmpty(type)))
+					{
+						break;
+					}
+					tableItems.Add(readItem);
+					rangeToRead.StartRow++;
+				} while (true);
+
+				return tableItems;
+			}
+			catch (ArgumentOutOfRangeException)
+			{
+				ERROR($"The Table content format invalid, {rangeToRead.StartRow}");
+
+				throw;
+			}
+		}
+
+		protected Range GetRangeToStartReading(ExcelReader reader)
+		{
+			Range targetFuncRange = null;
+			try
+			{
+				if ((string.IsNullOrEmpty(Config.TableConfig.Name)) || (string.IsNullOrWhiteSpace(Config.TableConfig.Name)))
+				{
+					ERROR("Function table name has not been set.");
+					throw new TestParserException(TestParserException.Code.TARGET_FUNCTION_TABLE_FORMAT_INVALID);
+				}
+
+				INFO($"Start getting target function table in \"{this.Target}\" sheet");
+				targetFuncRange = reader.FindFirstItem(Config.TableConfig.Name);
+
+				INFO($"Find {Config.TableConfig.Name} in {this.Target} sheet cell at({targetFuncRange.StartRow}, {targetFuncRange.StartColumn}).");
+
+				targetFuncRange.StartRow += (Config.TableConfig.TableTopRowOffset + Config.TableConfig.RowDataOffset);
+				targetFuncRange.StartColumn += (Config.TableConfig.TableTopColOffset + Config.TableConfig.ColDataOffset);
+
+				INFO($"The cell coordinates to start reading is ({targetFuncRange.StartRow}, {targetFuncRange.StartColumn}).");
+				return targetFuncRange;
+			}
+			catch (NullReferenceException)
+			{
+				FATAL("Function parser configuration has not been set.");
+				throw new TestParserException(TestParserException.Code.TEST_PARSE_FAILED);
+			}
+			catch (ArgumentException)
+			{
+				WARN($"\"{Config.TableConfig.Name}\" cell can not be found in \"{this.Target}\" sheet.");
+
+				throw new TestParserException(TestParserException.Code.TARGET_FUNCTION_TABLE_FORMAT_INVALID);
+			}
+		}
+
+		protected void Items2FunctionData(IEnumerable<string> items, ref Parameter function)
+		{
+			ConverterFactory factory = new ConverterFactory();
+			AFunctionTableItemConverter converter = factory.Create(items);
+			converter.Convert(items, ref function);
 		}
 	}
 }
