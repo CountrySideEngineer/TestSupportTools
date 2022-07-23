@@ -76,6 +76,17 @@
     <Compile Include="Config\TestConfig.cs" />
     <Compile Include="Config\TestListConfig.cs" />
     <Compile Include="Config\TestParserConfig.cs" />
+    <Compile Include="Conveter\AFunctionTableItemConverter.cs" />
+    <Compile Include="Conveter\ArgumentConverter.cs" />
+    <Compile Include="Conveter\ExternalVariableConverter.cs" />
+    <Compile Include="Conveter\FunctionConverter.cs" />
+    <Compile Include="Conveter\IFunctionTableItemConverter.cs" />
+    <Compile Include="Conveter\InternalVariableConverter.cs" />
+    <Compile Include="Conveter\SubFunctionArgumentConverter.cs" />
+    <Compile Include="Conveter\SubFunctionConverter.cs" />
+    <Compile Include="Conveter\TargetFunctionArgumentConverter.cs" />
+    <Compile Include="Conveter\TargetFunctionConverter.cs" />
+    <Compile Include="Conveter\VariableConverter.cs" />
     <Compile Include="Parameter\ParameterInfo.cs" />
     <Compile Include="Parser\AParser.cs" />
     <Compile Include="Parser\ATestParser.cs" />
