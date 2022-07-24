@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestParser.Target;
 
-namespace TestParser.Conveter
+namespace TestParser.Converter
 {
 	interface IFunctionTableItemConverter
 	{

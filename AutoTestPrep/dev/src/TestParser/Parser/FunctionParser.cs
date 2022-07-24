@@ -9,7 +9,7 @@ using TestParser;
 using TestParser.Target;
 using TestParser.ParserException;
 using TestParser.Config;
-using TestParser.Conveter;
+using TestParser.Converter;
 
 namespace TestParser.Parser
 {

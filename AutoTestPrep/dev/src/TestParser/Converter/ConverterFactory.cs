@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestParser.Config;
 
-namespace TestParser.Conveter
+namespace TestParser.Converter
 {
 	public class ConverterFactory
 	{

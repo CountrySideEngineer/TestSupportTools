@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TestParser.ParserException;
 using TestParser.Target;
 
-namespace TestParser.Conveter
+namespace TestParser.Converter
 {
 	public class InternalVariableConverter : VariableConverter
 	{

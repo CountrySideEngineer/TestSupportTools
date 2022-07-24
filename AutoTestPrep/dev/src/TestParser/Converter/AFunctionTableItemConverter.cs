@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestParser.Target;
 
-namespace TestParser.Conveter
+namespace TestParser.Converter
 {
 	public abstract class AFunctionTableItemConverter : IFunctionTableItemConverter, ILog
 	{
