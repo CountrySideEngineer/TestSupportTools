@@ -9,20 +9,36 @@ namespace TestParser.Converter
 {
 	public class ConverterFactory
 	{
-		public FunctionTableTagConfig Config { get; set; }
+		public FunctionConfig TestFunctionConfig { get; set; }
+		public FunctionConfig SubFunctionConfig { get; set; }
+		public GlobalVariableConfig GlobalVariableConfig { get; set; }
 
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
 		public ConverterFactory()
 		{
-			Config = new FunctionTableTagConfig()
-			{
-				TargetFunctionTag = "テスト対象関数",
-				SubFunctionTag = "子関数",
-				GlobalVariableTag = "グローバル変数",
-				BodyContentTag = "本体",
-				ArgumentTag = "引数",
-				InternalTag = "内部",
-				ExternalTag = "外部",
-			};
+			TestFunctionConfig = null;
+			SubFunctionConfig = null;
+			GlobalVariableConfig = null;
+		}
+
+		public ConverterFactory(
+			FunctionConfig testFunctionConfig, 
+			FunctionConfig subFunctionConfig,
+			GlobalVariableConfig globalVariableConfig
+			)
+		{
+			TestFunctionConfig = testFunctionConfig;
+			SubFunctionConfig = subFunctionConfig;
+			GlobalVariableConfig = globalVariableConfig;
+		}
+
+		public ConverterFactory(TargetFunctionConfig targetFunctionConfig)
+		{
+			TestFunctionConfig = targetFunctionConfig.TestFunctionConfig;
+			SubFunctionConfig = targetFunctionConfig.SubFunctionConfig;
+			GlobalVariableConfig = targetFunctionConfig.GlobalVariableConfig;
 		}
 
 		public virtual AFunctionTableItemConverter Create(IEnumerable<string> items)
@@ -30,29 +46,50 @@ namespace TestParser.Converter
 			AFunctionTableItemConverter converter = null;
 			string typeTag = items.ElementAt(0);
 			string contentTag = items.ElementAt(1);
-			if ((Config.TargetFunctionTag.Equals(typeTag)) && (Config.BodyContentTag.Equals(contentTag)))
+			if (TestFunctionConfig.Type.Equals(typeTag))
 			{
-				converter = new TargetFunctionConverter();
+				if (TestFunctionConfig.Body.Equals(contentTag))
+				{
+					converter = new TargetFunctionConverter();
+				}
+				else if (TestFunctionConfig.Argument.Equals(contentTag))
+				{
+					converter = new TargetFunctionArgumentConverter();
+				}
+				else
+				{
+					throw new ArgumentException();
+				}
 			}
-			else if ((Config.TargetFunctionTag.Equals(typeTag)) && (Config.ArgumentTag.Equals(contentTag)))
+			else if (SubFunctionConfig.Type.Equals(typeTag))
 			{
-				converter = new TargetFunctionArgumentConverter();
+				if (SubFunctionConfig.Body.Equals(contentTag))
+				{
+					converter = new SubFunctionConverter();
+				}
+				else if (SubFunctionConfig.Argument.Equals(contentTag))
+				{
+					converter = new SubFunctionArgumentConverter();
+				}
+				else
+				{
+					throw new ArgumentException();
+				}
 			}
-			else if ((Config.SubFunctionTag.Equals(typeTag)) && (Config.BodyContentTag.Equals(contentTag)))
+			else if (GlobalVariableConfig.Type.Equals(typeTag))
 			{
-				converter = new SubFunctionConverter();
-			}
-			else if ((Config.SubFunctionTag.Equals(typeTag)) && (Config.ArgumentTag.Equals(contentTag)))
-			{
-				converter = new SubFunctionArgumentConverter();
-			}
-			else if ((Config.GlobalVariableTag.Equals(typeTag)) && (Config.InternalTag.Equals(contentTag)))
-			{
-				converter = new InternalVariableConverter();
-			}
-			else if ((Config.GlobalVariableTag.Equals(typeTag)) && (Config.ExternalTag.Equals(contentTag)))
-			{
-				converter = new ExternalVariableConverter();
+				if (GlobalVariableConfig.Internal.Equals(contentTag))
+				{
+					converter = new InternalVariableConverter();
+				}
+				else if (GlobalVariableConfig.External.Equals(contentTag))
+				{
+					converter = new ExternalVariableConverter();
+				}
+				else
+				{
+					throw new ArgumentException();
+				}
 			}
 			else
 			{
