@@ -532,7 +532,7 @@ namespace TestParser.Parser
 				INFO($"Start getting target function table in \"{this.Target}\" sheet");
 				targetFuncRange = reader.FindFirstItem(Config.TableConfig.Name);
 
-				INFO($"Find {Config.TableConfig.Name} in {this.Target} sheet cell at({targetFuncRange.StartRow}, {targetFuncRange.StartColumn}).");
+				INFO($"    Find {Config.TableConfig.Name} in {this.Target} sheet cell at({targetFuncRange.StartRow}, {targetFuncRange.StartColumn}).");
 
 				targetFuncRange.StartRow += (Config.TableConfig.TableTopRowOffset + Config.TableConfig.RowDataOffset);
 				targetFuncRange.StartColumn += (Config.TableConfig.TableTopColOffset + Config.TableConfig.ColDataOffset);

@@ -122,7 +122,7 @@ namespace TestParser.Parser
 		/// <returns>List of function information.</returns>
 		protected IEnumerable<ParameterInfo> ReadFunctionInfo(ExcelReader reader)
 		{
-			INFO($"Get target function list from \"{reader.SheetName}\"");
+			INFO($"Start getting target function list from \"{reader.SheetName}\" sheet.");
 
 			Range tableItemRange = this.GetRangeToRead(reader);
 
@@ -181,6 +181,9 @@ namespace TestParser.Parser
 			try
 			{
 				Range tableNameRange = reader.FindFirstItem(Config.TableConfig.Name);
+
+				INFO($"    Find \"{Config.TableConfig.Name}\" in \"{reader.SheetName}\" sheet at ({tableNameRange.StartRow}, {tableNameRange.StartColumn}).");
+
 				Range tableEndRange = new Range();
 				reader.GetRowRange(ref tableEndRange);
 				reader.GetColumnRange(ref tableEndRange);
