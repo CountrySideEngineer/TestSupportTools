@@ -20,6 +20,8 @@ namespace TestParser.Config
 			Name = string.Empty;
 			TableTopRowOffset = 0;
 			TableTopColOffset = 0;
+			RowDataOffset = 0;
+			ColDataOffset = 0;
 		}
 
 		/// <summary>
