@@ -96,13 +96,15 @@ namespace TestParser.Config
 		/// <returns>TestConfig object with default parameter.</returns>
 		protected static TestConfig CreateTestConfig()
 		{
-			var tableConfig = new TableConfig()
+			var tableConfig = new TestCaseTableConfig()
 			{
 				Name = "○テスト/デシジョンテーブル",
 				TableTopRowOffset = 1,
 				TableTopColOffset = 1,
 				RowDataOffset = 1,
 				ColDataOffset = 0,
+				TestCaseRowOffset = 0,
+				TestCaseColOffset = 5
 			};
 			var testConfig = new TestConfig()
 			{
