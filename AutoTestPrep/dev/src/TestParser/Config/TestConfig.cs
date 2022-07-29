@@ -13,17 +13,18 @@ namespace TestParser.Config
 	public class TestConfig
 	{
 		/// <summary>
+		/// Tablec configuration.
+		/// </summary>
+		[XmlElement("TableConfig")]
+		public TestCaseTableConfig TableConfig { get; set; }
+
+		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		public TestConfig()
 		{
-			TableConfig = new TableConfig();
+			TableConfig = new TestCaseTableConfig();
 		}
 
-		/// <summary>
-		/// Tablec configuration.
-		/// </summary>
-		[XmlElement("TableConfig")]
-		public TableConfig TableConfig { get; set; }
 	}
 }
