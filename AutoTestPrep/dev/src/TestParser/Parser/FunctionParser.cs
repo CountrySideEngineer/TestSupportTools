@@ -172,29 +172,33 @@ namespace TestParser.Parser
 		protected IEnumerable<IEnumerable<string>> ReadTable(ExcelReader reader, Range range)
 		{
 			Range rangeToRead = new Range(range);
-			try
+			List<List<string>> tableItems = new List<List<string>>();
+			do
 			{
-				List<List<string>> tableItems = new List<List<string>>();
-				do
+				try
 				{
 					var readItem = reader.ReadRow(rangeToRead).ToList();
 					string type = readItem.ElementAt(0);
 					if ((string.IsNullOrWhiteSpace(type)) || (string.IsNullOrEmpty(type)))
 					{
+						INFO($"The cell in ({rangeToRead.StartRow}, {rangeToRead.StartColumn}) is empty.");
+						INFO($"Stop reading Table.");
+
 						break;
 					}
 					tableItems.Add(readItem);
 					rangeToRead.StartRow++;
-				} while (true);
+				}
+				catch (ArgumentOutOfRangeException)
+				{
+					INFO($"An empty cell is found in function table at ({rangeToRead.StartRow}, {rangeToRead.StartColumn}).");
+					INFO($"Stop reading Table.");
 
-				return tableItems;
-			}
-			catch (ArgumentOutOfRangeException)
-			{
-				ERROR($"The Table content format invalid, {rangeToRead.StartRow}");
+					break;
+				}
+			} while (true);
 
-				throw;
-			}
+			return tableItems;
 		}
 
 		/// <summary>
