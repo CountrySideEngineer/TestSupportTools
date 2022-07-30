@@ -106,9 +106,16 @@ namespace TestParser.Config
 				TestCaseRowOffset = 0,
 				TestCaseColOffset = 5
 			};
+			var testCaseConfig = new TestCaseConfig()
+			{
+				InputExpect = "入力/期待値",
+				Input = "入力",
+				Expect = "期待値",
+			};
 			var testConfig = new TestConfig()
 			{
-				TableConfig = tableConfig
+				TableConfig = tableConfig,
+				TestCaseConfig = testCaseConfig
 			};
 			return testConfig;
 		}
