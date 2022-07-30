@@ -173,7 +173,7 @@ namespace TestParser.Parser
 				INFO("Start reading test case data.");
 				if (null == this.TestCaseParser)
 				{
-					this.TestCaseParser = new TestCaseParser();
+					this.TestCaseParser = new TestCaseParser(_testConfig.Test);
 				}
 				this.TestCaseParser.Target = paramInfo.InfoName;
 				var testCases = (IEnumerable<TestCase>)this.TestCaseParser.Parse(stream);
