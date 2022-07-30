@@ -74,6 +74,7 @@
     <Compile Include="Config\GlobalVariableConfig.cs" />
     <Compile Include="Config\TableConfig.cs" />
     <Compile Include="Config\TargetFunctionConfig.cs" />
+    <Compile Include="Config\TestCaseConfig.cs" />
     <Compile Include="Config\TestCaseTableConfig.cs" />
     <Compile Include="Config\TestConfig.cs" />
     <Compile Include="Config\TestListConfig.cs" />
