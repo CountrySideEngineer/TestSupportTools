@@ -178,17 +178,29 @@ namespace TestParser.Parser
 			rangeApplied.RowCount = testInputsAndExpects.Count();
 			IEnumerable<IEnumerable<string>> applied = ReadAppliedDatas(reader, rangeApplied);
 
+			int index = 1;
 			List<TestCase> testCases = new List<TestCase>();
 			foreach (var appliedItem in applied)
 			{
-				(IEnumerable<TestData> inputs, IEnumerable<TestData> expects) = 
-					ExtractInputsAndExpects(testInputsAndExpects, appliedItem);
-				var testCase = new TestCase()
+				try
 				{
-					Input = inputs,
-					Expects = expects
-				};
-				testCases.Add(testCase);
+					(IEnumerable<TestData> inputs, IEnumerable<TestData> expects) =
+						ExtractInputsAndExpects(testInputsAndExpects, appliedItem);
+					var testCase = new TestCase()
+					{
+						Input = inputs,
+						Expects = expects
+					};
+					testCases.Add(testCase);
+				}
+				catch (TestParserException ex)
+				{
+					if (ex.ErrorCode.Equals(TestParserException.Code.TEST_PARSE_FAILED)) {
+						throw ex;
+					}
+					WARN($"Skip test case index {index}.");
+				}
+				index++;
 			}
 			return testCases;
 		}
@@ -467,34 +479,55 @@ namespace TestParser.Parser
 				IEnumerable<TestData> inputAndExpects, 
 				IEnumerable<string> appliedItems)
 		{
-			int index = 0;
-			List<TestData> appliedDatas = new List<TestData>();
-			foreach (var item in appliedItems)
+			try
 			{
-				if (item.ToLower().Equals("a"))
+				int index = 0;
+				List<TestData> appliedDatas = new List<TestData>();
+				foreach (var item in appliedItems)
 				{
-					TestData baseItem = inputAndExpects.ElementAt(index);
-					TestData testData = new TestData(baseItem);
-					appliedDatas.Add(testData);
+					if (item.ToLower().Equals("a"))
+					{
+						TestData baseItem = inputAndExpects.ElementAt(index);
+						TestData testData = new TestData(baseItem);
+						appliedDatas.Add(testData);
+					}
+					index++;
 				}
-				index++;
-			}
-			IEnumerable<TestData> inputs = appliedDatas.Where(_ => _.Condition.Equals("入力")).ToList();
-			IEnumerable<TestData> expects = appliedDatas.Where(_ => _.Condition.Equals("期待値")).ToList();
 
-			INFO("Applied test case:");
-			INFO($"    Inputs : ");
-			foreach (var item in inputs)
-			{
-				INFO($"        {item.Name} = {item.Value}");
+				IEnumerable<TestData> inputs = appliedDatas.Where(_ => _.Condition.Equals(Config.TestCaseConfig.Input));
+				if (inputs.Count() < 1)
+				{
+					WARN("No input has been selected.");
+					throw new TestParserException(TestParserException.Code.TEST_CASE_TEST_VALUE_NOT_SELECTED);
+				}
+				IEnumerable<TestData> expects = appliedDatas.Where(_ => _.Condition.Equals(Config.TestCaseConfig.Expect));
+				if (expects.Count() < 1)
+				{
+					WARN("No expects has been selected.");
+					throw new TestParserException(TestParserException.Code.TEST_CASE_TEST_VALUE_NOT_SELECTED);
+				}
+
+				INFO("Applied test case:");
+				INFO($"    Inputs : ");
+				foreach (var item in inputs)
+				{
+					INFO($"        {item.Name} = {item.Value}");
+				}
+				INFO($"    Expects : ");
+				foreach (var item in expects)
+				{
+					INFO($"        {item.Name} = {item.Value}");
+				}
+
+				return (inputs, expects);
+
 			}
-			INFO($"    Expects : ");
-			foreach (var item in expects)
+			catch (NullReferenceException)
 			{
-				INFO($"        {item.Name} = {item.Value}");
+				FATAL("Test configuration is not set or invalid.");
+				throw new TestParserException(TestParserException.Code.TEST_PARSE_FAILED);
 			}
 
-			return (inputs, expects);
 		}
 	}
 }
