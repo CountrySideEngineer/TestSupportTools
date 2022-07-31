@@ -12,7 +12,7 @@ static char* <#= CreateTestCaseMethodName(this.TargetFunction, this.TestCase) #>
 	if (null != this.TargetFunction.Arguments) {
 		foreach (var argument in TargetFunction.Arguments) {
 #>
-	<#= argument.ActualDataType() #> <#= argument.Name #>;
+	<#= DeclareArgumentVariable(argument) #> <#= argument.Name #>;
 <#		
 		}
 	}

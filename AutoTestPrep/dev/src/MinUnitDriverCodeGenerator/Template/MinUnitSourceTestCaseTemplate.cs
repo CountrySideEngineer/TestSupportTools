@@ -48,7 +48,7 @@ namespace CodeGenerator.TestDriver.Template
             this.Write("\t");
             
             #line 15 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTestCaseTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(argument.ActualDataType()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(DeclareArgumentVariable(argument)));
             
             #line default
             #line hidden
@@ -146,7 +146,7 @@ namespace CodeGenerator.TestDriver.Template
             
             #line default
             #line hidden
-            this.Write("}");
+            this.Write("}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
