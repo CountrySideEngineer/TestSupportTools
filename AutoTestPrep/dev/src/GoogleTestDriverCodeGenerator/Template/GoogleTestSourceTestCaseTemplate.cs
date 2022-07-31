@@ -59,7 +59,7 @@ namespace CodeGenerator.TestDriver.Template
             this.Write("\t");
             
             #line 13 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(argument.ActualDataType()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(DeclareArgumentVariable(argument)));
             
             #line default
             #line hidden
