@@ -33,7 +33,7 @@ namespace TestParser.Config
 		/// <summary>
 		/// Offset of table top in row from "name" cell.
 		/// </summary>
-		[XmlElement("TableRowOffset")]
+		[XmlElement("TableTopRowOffset")]
 		public int TableTopRowOffset { get; set; }
 
 		/// <summary>
