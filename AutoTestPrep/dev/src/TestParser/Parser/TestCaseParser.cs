@@ -176,7 +176,9 @@ namespace TestParser.Parser
 			IEnumerable<TestData> testInputsAndExpects = ReadInputsAndExpects(reader, range);
 			Range rangeApplied = GetRangeToStartReadingTestCase(reader);
 			rangeApplied.RowCount = testInputsAndExpects.Count();
-			IEnumerable<IEnumerable<string>> applied = ReadAppliedDatas(reader, rangeApplied);
+			(int testId, IEnumerable<IEnumerable<string>> testApply) = (0, null);
+
+			IEnumerable<(string testId, IEnumerable<string> testApply)> applied = ReadTestCaseItem(reader, rangeApplied);
 
 			int index = 1;
 			List<TestCase> testCases = new List<TestCase>();
@@ -185,9 +187,10 @@ namespace TestParser.Parser
 				try
 				{
 					(IEnumerable<TestData> inputs, IEnumerable<TestData> expects) =
-						ExtractInputsAndExpects(testInputsAndExpects, appliedItem);
+						ExtractInputsAndExpects(testInputsAndExpects, appliedItem.testApply);
 					var testCase = new TestCase()
 					{
+						Id = appliedItem.testId,
 						Input = inputs,
 						Expects = expects
 					};
@@ -423,10 +426,10 @@ namespace TestParser.Parser
 		/// <param name="reader">Excel reader.</param>
 		/// <param name="range">Range to read.</param>
 		/// <returns></returns>
-		protected IEnumerable<IEnumerable<string>> ReadAppliedDatas(ExcelReader reader, Range range)
+		protected IEnumerable<(string, IEnumerable<string>)> ReadTestCaseItem(ExcelReader reader, Range range)
 		{
 			Range rangeToRead = new Range(range);
-			List<List<string>> items = new List<List<string>>();
+			List<(string, IEnumerable<string>)> items = new List<(string, IEnumerable<string>)>();
 			do
 			{
 				try
@@ -442,7 +445,7 @@ namespace TestParser.Parser
 					}
 					//Remove item as header in table.
 					List<string> testCase = testCaseApply.GetRange(1, testCaseApply.Count() - 1);
-					items.Add(testCase);
+					items.Add((testCaseNo, testCase));
 					rangeToRead.StartColumn++;
 				}
 				catch (ArgumentOutOfRangeException)
