@@ -14,7 +14,6 @@ TEST_F(<#= TestClassName(this.TargetFunction) #>, <#= TestCaseMethodName(this.Ta
 <#		}	#>
 <#	}	#>
 
-
 	//Setup test parameters.
 <# foreach (var input in TestCase.Input) {	#>
 	<#= input.Name #> = <#= input.Value #>;

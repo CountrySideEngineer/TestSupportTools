@@ -102,7 +102,8 @@ namespace CodeGenerator.TestDriver.Template
 		{
 			try
 			{
-				if ((string.IsNullOrEmpty(targetFunction.Name)) || (string.IsNullOrWhiteSpace(targetFunction.Name)))
+				if ((string.IsNullOrEmpty(targetFunction.Name)) ||
+					(string.IsNullOrWhiteSpace(targetFunction.Name)))
 				{
 					throw new ArgumentException();
 				}
