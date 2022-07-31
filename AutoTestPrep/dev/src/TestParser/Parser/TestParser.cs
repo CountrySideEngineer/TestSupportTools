@@ -202,15 +202,20 @@ namespace TestParser.Parser
 		protected void LoadConfig()
 		{
 			string configFilePath = @".\TestParserConfg.xml";
+			LoadConfig(configFilePath);
+		}
+
+		protected void LoadConfig(string path)
+		{
 			try
 			{
 				var reader = new XmlConfigReader();
-				var config = (TestParserConfig)reader.Read(configFilePath);
+				var config = (TestParserConfig)reader.Read(path);
 				_testConfig = config;
 			}
 			catch (System.IO.FileNotFoundException)
 			{
-				WARN($"The test config file {configFilePath} has not been found.");
+				WARN($"The test config file {path} has not been found.");
 				WARN("Load default config setting.");
 				LoadDefaultConfig();
 			}
