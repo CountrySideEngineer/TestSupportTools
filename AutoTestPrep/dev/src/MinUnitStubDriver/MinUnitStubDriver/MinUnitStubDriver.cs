@@ -105,14 +105,16 @@ namespace StubDriverPlugin.MinUnitStubDriver
 		{
 			IEnumerable<Test> tests = this.ParseExecute(data);
 			DirectoryInfo rootDirInfo = new DirectoryInfo(data.OutputDirPath);
-			CodeConfiguration config = this.Input2CodeConfigForStub(data);
+			CodeConfiguration stubConfig = this.Input2CodeConfigForStub(data);
+			CodeConfiguration driverConfig = this.Input2CodeConfigForDriver(data);
 
 			string outputAbout = "Min unit";
 			try
 			{
 				foreach (var testItem in tests)
 				{
-					this.CreateCode(testItem, rootDirInfo, config);
+					this.CreateStubCode(testItem, rootDirInfo, stubConfig);
+					this.CreateDriverCode(testItem, rootDirInfo, driverConfig);
 				}
 
 				pluginOutput = new PluginOutput(outputAbout, "min_unitフレームワークを使用したコードの生成が完了しました。");
@@ -152,7 +154,7 @@ namespace StubDriverPlugin.MinUnitStubDriver
 		/// <param name="config"><para>CodeConfiguration</para> object.</param>
 		/// <exception cref="ArgumentException"></exception>
 		/// <exception cref="ArgumentNullException"></exception>
-		protected void CreateCode(Test test, DirectoryInfo rootDirInfo, CodeConfiguration config)
+		protected void CreateStubCode(Test test, DirectoryInfo rootDirInfo, CodeConfiguration config)
 		{
 			try
 			{
@@ -162,6 +164,33 @@ namespace StubDriverPlugin.MinUnitStubDriver
 					CodeConfig = config
 				};
 				this.CreateStubCode(rootDirInfo, writeData);
+			}
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// Create code.
+		/// </summary>
+		/// <param name="test">Test data for the code.</param>
+		/// <param name="rootDirInfo">Directory information for output.</param>
+		/// <param name="config"><para>CodeConfiguration</para> object.</param>
+		/// <exception cref="ArgumentException"></exception>
+		/// <exception cref="ArgumentNullException"></exception>
+		protected void CreateDriverCode(Test test, DirectoryInfo rootDirInfo, CodeConfiguration config)
+		{
+			try
+			{
+				var writeData = new WriteData()
+				{
+					Test = test,
+					CodeConfig = config
+				};
 				this.CreateDriverCode(rootDirInfo, writeData);
 			}
 			catch (Exception ex)
@@ -272,27 +301,10 @@ namespace StubDriverPlugin.MinUnitStubDriver
 		}
 
 		/// <summary>
-		/// Create <para>WriteData</para> object from plugin input data.
-		/// </summary>
-		/// <param name="test">Test data</param>
-		/// <param name="input">Input data for the plugin.</param>
-		/// <returns>Write data as <para>WriteData</para> object.</returns>
-		protected WriteData CreateWriteDataForStub(Test test, PluginInput input)
-		{
-			CodeConfiguration config = this.Input2CodeConfigForStub(input);
-			var writeData = new WriteData()
-			{
-				Test = test,
-				CodeConfig = config
-			};
-			return writeData;
-		}
-
-		/// <summary>
 		/// Convert plugin input data into to <para>CodeConfiguration</para> object to set CodeGenerator interface.
 		/// </summary>
 		/// <param name="input">Plugin input </param>
-		/// <returns>WriteData object for S</returns>
+		/// <returns>WriteData object for stub.</returns>
 		protected CodeConfiguration Input2CodeConfigForStub(PluginInput input)
 		{
 			var config = new CodeConfiguration()
@@ -301,6 +313,23 @@ namespace StubDriverPlugin.MinUnitStubDriver
 				BufferSize2 = Convert.ToInt32(input.StubBufferSize2),
 				StandardHeaderFiles = new List<string>(input.StubIncludeStandardHeaderFiles),
 				UserHeaderFiles = new List<string>(input.StubIncludeUserHeaderFiles)
+			};
+			return config;
+		}
+
+		/// <summary>
+		/// Convert plugin input data into to <para>CodeConfiguration</para> object to set CodeGenerator interface.
+		/// </summary>
+		/// <param name="input">Plugin input </param>
+		/// <returns>WriteData object for driver.</returns>
+		protected CodeConfiguration Input2CodeConfigForDriver(PluginInput input)
+		{
+			var config = new CodeConfiguration()
+			{
+				BufferSize1 = Convert.ToInt32(input.StubBufferSize1),
+				BufferSize2 = Convert.ToInt32(input.StubBufferSize2),
+				StandardHeaderFiles = new List<string>(input.DriverIncludeStandardHeaderFiles),
+				UserHeaderFiles = new List<string>(input.DriverIncludeUserHeaderFiles)
 			};
 			return config;
 		}
