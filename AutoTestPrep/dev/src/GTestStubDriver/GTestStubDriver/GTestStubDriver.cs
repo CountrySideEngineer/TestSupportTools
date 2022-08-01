@@ -150,32 +150,11 @@ namespace StubDriverPlugin.GTestStubDriver
 		}
 
 		/// <summary>
-		/// Create code.
+		/// Create test stub code.
 		/// </summary>
-		/// <param name="test">Test data for the code.</param>
-		/// <param name="rootDirInfo">Directory information for output.</param>
-		/// <param name="config"><para>CodeConfiguration</para> object.</param>
-		protected virtual void CreateCode(Test test, DirectoryInfo rootDirInfo, CodeConfiguration config)
-		{
-			try
-			{
-				var writeData = new WriteData()
-				{
-					Test = test,
-					CodeConfig = config
-				};
-				this.CreateStubCode(rootDirInfo, writeData);
-				this.CreateDriverCode(rootDirInfo, writeData);
-			}
-			catch (Exception ex)
-			when ((ex is ArgumentException) || (ex is ArgumentNullException))
-			{
-				Debug.WriteLine(ex.StackTrace);
-
-				throw;
-			}
-		}
-
+		/// <param name="test">Test input data.</param>
+		/// <param name="rootDirInfo">Eoor directory information.</param>
+		/// <param name="config">Code configuration.</param>
 		protected virtual void CreateStubCode(Test test, DirectoryInfo rootDirInfo, CodeConfiguration config)
 		{
 			try
@@ -196,6 +175,12 @@ namespace StubDriverPlugin.GTestStubDriver
 			}
 		}
 
+		/// <summary>
+		/// Create test driver code.
+		/// </summary>
+		/// <param name="test">Test input data.</param>
+		/// <param name="rootDirInfo">Root directory information.</param>
+		/// <param name="config">Code configuration.</param>
 		protected virtual void CreateDriverCode(Test test, DirectoryInfo rootDirInfo, CodeConfiguration config)
 		{
 			try
@@ -352,10 +337,10 @@ namespace StubDriverPlugin.GTestStubDriver
 		}
 
 		/// <summary>
-		/// Convert plugin input data into to <para>CodeConfiguration</para> object to set CodeGenerator interface.
+		/// Convert plugin input data for stub code into <para>CodeConfiguration</para> object to set CodeGenerator interface.
 		/// </summary>
 		/// <param name="input">Plugin input </param>
-		/// <returns>WriteData object for S</returns>
+		/// <returns>WriteData object for stub.</returns>
 		protected virtual CodeConfiguration Input2CodeConfigForStub(PluginInput input)
 		{
 			var config = new CodeConfiguration()
@@ -368,6 +353,11 @@ namespace StubDriverPlugin.GTestStubDriver
 			return config;
 		}
 
+		/// <summary>
+		/// Convert plugin input data for test driver into <para>CodeConfiguration</para> object to set CodeGenerator interface.
+		/// </summary>
+		/// <param name="input">Plugin input</param>
+		/// <returns>Write data object for driver.</returns>
 		protected virtual CodeConfiguration Input2CodeConfigForDriver(PluginInput input)
 		{
 			var config = new CodeConfiguration()
