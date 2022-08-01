@@ -102,14 +102,16 @@ namespace StubDriverPlugin.GTestStubDriver
 
 			IEnumerable<Test> tests = this.ParseExecute(data);
 			DirectoryInfo rootDirInfo = new DirectoryInfo(data.OutputDirPath);
-			CodeConfiguration config = this.Input2CodeConfigForStub(data);
+			CodeConfiguration stubCodeConfig = this.Input2CodeConfigForStub(data);
+			CodeConfiguration driverCodeConfig = this.Input2CodeConfigForDriver(data);
 
 			string outputAbout = "Google test";
 			try
 			{
 				foreach (var testItem in tests)
 				{
-					this.CreateCode(testItem, rootDirInfo, config);
+					this.CreateStubCode(testItem, rootDirInfo, stubCodeConfig);
+					this.CreateDriverCode(testItem, rootDirInfo, driverCodeConfig);
 				}
 
 				pluginOutput = new PluginOutput(outputAbout, "Google Testフレームワークを使用したコードの生成が完了しました。");
@@ -163,6 +165,46 @@ namespace StubDriverPlugin.GTestStubDriver
 					CodeConfig = config
 				};
 				this.CreateStubCode(rootDirInfo, writeData);
+				this.CreateDriverCode(rootDirInfo, writeData);
+			}
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
+		}
+
+		protected virtual void CreateStubCode(Test test, DirectoryInfo rootDirInfo, CodeConfiguration config)
+		{
+			try
+			{
+				var writeData = new WriteData()
+				{
+					Test = test,
+					CodeConfig = config
+				};
+				this.CreateStubCode(rootDirInfo, writeData);
+			}
+			catch (Exception ex)
+			when ((ex is ArgumentException) || (ex is ArgumentNullException))
+			{
+				Debug.WriteLine(ex.StackTrace);
+
+				throw;
+			}
+		}
+
+		protected virtual void CreateDriverCode(Test test, DirectoryInfo rootDirInfo, CodeConfiguration config)
+		{
+			try
+			{
+				var writeData = new WriteData()
+				{
+					Test = test,
+					CodeConfig = config
+				};
 				this.CreateDriverCode(rootDirInfo, writeData);
 			}
 			catch (Exception ex)
@@ -314,7 +356,7 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// </summary>
 		/// <param name="input">Plugin input </param>
 		/// <returns>WriteData object for S</returns>
-		protected CodeConfiguration Input2CodeConfigForStub(PluginInput input)
+		protected virtual CodeConfiguration Input2CodeConfigForStub(PluginInput input)
 		{
 			var config = new CodeConfiguration()
 			{
@@ -322,6 +364,18 @@ namespace StubDriverPlugin.GTestStubDriver
 				BufferSize2 = Convert.ToInt32(input.StubBufferSize2),
 				StandardHeaderFiles = new List<string>(input.StubIncludeStandardHeaderFiles),
 				UserHeaderFiles = new List<string>(input.StubIncludeUserHeaderFiles)
+			};
+			return config;
+		}
+
+		protected virtual CodeConfiguration Input2CodeConfigForDriver(PluginInput input)
+		{
+			var config = new CodeConfiguration()
+			{
+				BufferSize1 = Convert.ToInt32(input.StubBufferSize1),
+				BufferSize2 = Convert.ToInt32(input.StubBufferSize2),
+				StandardHeaderFiles = new List<string>(input.DriverIncludeStandardHeaderFiles),
+				UserHeaderFiles = new List<string>(input.DriverIncludeUserHeaderFiles)
 			};
 			return config;
 		}
