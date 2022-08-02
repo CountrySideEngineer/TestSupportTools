@@ -100,14 +100,15 @@ namespace StubDriverPlugin.GTestStubDriver
 		{
 			Debug.Assert(null != data, $"{nameof(GTestStubDriver)}.{nameof(Execute)}, {nameof(data)}");
 
-			IEnumerable<Test> tests = this.ParseExecute(data);
-			DirectoryInfo rootDirInfo = new DirectoryInfo(data.OutputDirPath);
-			CodeConfiguration stubCodeConfig = this.Input2CodeConfigForStub(data);
-			CodeConfiguration driverCodeConfig = this.Input2CodeConfigForDriver(data);
-
 			string outputAbout = "Google test";
 			try
 			{
+				IEnumerable<Test> tests = this.ParseExecute(data);
+				DirectoryInfo rootDirInfo = new DirectoryInfo(data.OutputDirPath);
+				CodeConfiguration stubCodeConfig = this.Input2CodeConfigForStub(data);
+				CodeConfiguration driverCodeConfig = this.Input2CodeConfigForDriver(data);
+
+
 				foreach (var testItem in tests)
 				{
 					this.CreateStubCode(testItem, rootDirInfo, stubCodeConfig);
@@ -145,6 +146,10 @@ namespace StubDriverPlugin.GTestStubDriver
 				Debug.WriteLine(ex.StackTrace);
 
 				pluginOutput = new PluginOutput(outputAbout, "指定されたファイルを開けませんでした。");
+			}
+			catch (Exception ex)
+			{
+				pluginOutput = new PluginOutput(outputAbout, $"プラグイン実行中にエラーが発生しました。\n{ex.Message}");
 			}
 			return pluginOutput;
 		}

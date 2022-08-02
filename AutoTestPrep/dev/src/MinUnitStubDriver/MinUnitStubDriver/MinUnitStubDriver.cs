@@ -103,14 +103,15 @@ namespace StubDriverPlugin.MinUnitStubDriver
 		/// <returns>Result of plugin.</returns>
 		protected virtual PluginOutput _Execute(PluginInput data)
 		{
-			IEnumerable<Test> tests = this.ParseExecute(data);
-			DirectoryInfo rootDirInfo = new DirectoryInfo(data.OutputDirPath);
-			CodeConfiguration stubConfig = this.Input2CodeConfigForStub(data);
-			CodeConfiguration driverConfig = this.Input2CodeConfigForDriver(data);
 
 			string outputAbout = "Min unit";
 			try
 			{
+				IEnumerable<Test> tests = this.ParseExecute(data);
+				DirectoryInfo rootDirInfo = new DirectoryInfo(data.OutputDirPath);
+				CodeConfiguration stubConfig = this.Input2CodeConfigForStub(data);
+				CodeConfiguration driverConfig = this.Input2CodeConfigForDriver(data);
+
 				foreach (var testItem in tests)
 				{
 					this.CreateStubCode(testItem, rootDirInfo, stubConfig);
