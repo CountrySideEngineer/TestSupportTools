@@ -4,12 +4,24 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#	foreach (var headerFile in Config.StandardHeaderFiles) { #>
+<#
+	foreach (var headerFile in Config.StandardHeaderFiles) {
+		if ((!string.IsNullOrEmpty(headerFile)) && (!string.IsNullOrWhiteSpace(headerFile))) {
+#>
 #include <<#= headerFile #>>
-<#	}	#>
-<#	foreach (var headerFile in Config.UserHeaderFiles) { #>
+<#
+		}
+	}
+#>
+<#
+	foreach (var headerFile in Config.UserHeaderFiles) { 
+		if ((!string.IsNullOrEmpty(headerFile)) && (!string.IsNullOrWhiteSpace(headerFile))) {
+#>
 #include "<#= headerFile #>"
-<#	}	#>
+<#
+		}
+	}
+#>
 
 <#= CreateSetUpCode(this.TargetFunction) #>
 <#= CreateTestCaseCode(this.TargetFunction, this.Test) #>

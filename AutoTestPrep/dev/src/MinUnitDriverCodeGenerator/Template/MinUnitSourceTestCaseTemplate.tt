@@ -12,26 +12,21 @@ static char* <#= CreateTestCaseMethodName(this.TargetFunction, this.TestCase) #>
 	if (null != this.TargetFunction.Arguments) {
 		foreach (var argument in TargetFunction.Arguments) {
 #>
-	<#= argument.ActualDataType() #> <#= argument.Name	#>;
+	<#= DeclareArgumentVariable(argument) #> <#= argument.Name #>;
 <#		
 		}
 	}
 #>
-}
-
-	//Declare return value buffer.
-	<#= CreateReturnValueBufferDeclare(this.TargetFunction) #>;
-	
-
-	//Initialize stub parameters.
-	<#= CreateStubInitMethodName(this.TargetFunction) #>();
 
 	//Setup test parameters.
 <# foreach (var input in TestCase.Input) {	#>
 	<#= input.Name #> = <#= input.Value #>;
 <#	}	#>
 
-	<#=	CreateTargetFunctionCall(this.TargetFunction)	#>;
+	//Initialize stub parameters.
+	<#= CreateStubInitMethodName(this.TargetFunction) #>();
+
+	<#=	CreateTargetFunctionCall(this.TargetFunction) #>;
 
 <# foreach (var expect in TestCase.Expects) {	#>
 	mu_assert(<#= expect.Value #> == <#= expect.Name #>);

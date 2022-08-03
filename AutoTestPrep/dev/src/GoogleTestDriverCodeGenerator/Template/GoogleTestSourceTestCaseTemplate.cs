@@ -59,7 +59,7 @@ namespace CodeGenerator.TestDriver.Template
             this.Write("\t");
             
             #line 13 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(argument.ActualDataType()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(DeclareArgumentVariable(argument)));
             
             #line default
             #line hidden
@@ -83,65 +83,65 @@ namespace CodeGenerator.TestDriver.Template
             
             #line default
             #line hidden
-            this.Write("\r\n\r\n\t//Setup test parameters.\r\n");
+            this.Write("\r\n\t//Setup test parameters.\r\n");
             
-            #line 19 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
+            #line 18 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
  foreach (var input in TestCase.Input) {	
             
             #line default
             #line hidden
             this.Write("\t");
             
-            #line 20 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
+            #line 19 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(input.Name));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 20 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
+            #line 19 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(input.Value));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 21 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
+            #line 20 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
 	}	
             
             #line default
             #line hidden
             this.Write("\r\n\t");
             
-            #line 23 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
+            #line 22 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateTargetFunctionCall(this.TargetFunction)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\n");
             
-            #line 25 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
+            #line 24 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
  foreach (var expect in TestCase.Expects) {	
             
             #line default
             #line hidden
             this.Write("\tASSERT_EQ(");
             
-            #line 26 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
+            #line 25 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(expect.Value));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 26 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
+            #line 25 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(expect.Name));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 27 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
+            #line 26 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTestCaseTemplate.tt"
 	}	
             
             #line default
