@@ -8,6 +8,7 @@ using CSEngineer;
 using TestParser.Reader;
 using TestParser.Parser.Exception;
 using TestParser.Target;
+using TestParser.Config;
 
 namespace TestParser.Parser
 {
@@ -16,6 +17,11 @@ namespace TestParser.Parser
 	/// </summary>
 	public class FunctionListParser : AParser
 	{
+		/// <summary>
+		/// Configuration for test list reading.
+		/// </summary>
+		public TestListConfig Config { get; set; }
+
 		/// <summary>
 		/// Default constructor
 		/// </summary>
@@ -26,6 +32,25 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="target">Function list parser sheet name in excel.</param>
 		public FunctionListParser(string target) : base(target) { }
+
+		/// <summary>
+		/// Constructor with argument.
+		/// </summary>
+		/// <param name="config"></param>
+		public FunctionListParser(TestListConfig config) : base()
+		{
+			Config = config;
+		}
+
+		/// <summary>
+		/// Constructor with argument.
+		/// </summary>
+		/// <param name="target">Sheet name to parser.</param>
+		/// <param name="config">Parser configuration.</param>
+		public FunctionListParser(string target, TestListConfig config) : base(target)
+		{
+			Config = config;
+		}
 
 		/// <summary>
 		/// Parse function information in file <para>srcPath</para>.
@@ -97,7 +122,7 @@ namespace TestParser.Parser
 		/// <returns>List of function information.</returns>
 		protected IEnumerable<ParameterInfo> ReadFunctionInfo(ExcelReader reader)
 		{
-			INFO($"Get target function list from the sheet, {reader.SheetName}");
+			INFO($"Start getting target function list from \"{reader.SheetName}\" sheet.");
 
 			Range tableItemRange = this.GetRangeToRead(reader);
 
@@ -153,13 +178,35 @@ namespace TestParser.Parser
 		/// <returns>Range to read to get function information.</returns>
 		protected Range GetRangeToRead(ExcelReader reader)
 		{
-			Range tableItemRange = new Range();
-			reader.GetRowRange(ref tableItemRange);
-			reader.GetColumnRange(ref tableItemRange);
-			tableItemRange.StartRow++;
-			tableItemRange.ColumnCount = 4;
+			try
+			{
+				Range tableNameRange = reader.FindFirstItem(Config.TableConfig.Name);
 
-			return tableItemRange;
+				INFO($"    Find \"{Config.TableConfig.Name}\" in \"{reader.SheetName}\" sheet at ({tableNameRange.StartRow}, {tableNameRange.StartColumn}).");
+
+				Range tableEndRange = new Range();
+				reader.GetRowRange(ref tableEndRange);
+				reader.GetColumnRange(ref tableEndRange);
+
+				Range rangeToRead = new Range()
+				{
+					StartRow = tableNameRange.StartRow + Config.TableConfig.TableTopRowOffset + Config.TableConfig.RowDataOffset,
+					StartColumn = tableNameRange.StartColumn + Config.TableConfig.TableTopColOffset + Config.TableConfig.ColDataOffset,
+				};
+				int lastRowIndex = tableEndRange.StartRow + tableEndRange.RowCount - 1;
+				int lastColIndex = tableEndRange.StartColumn + tableEndRange.ColumnCount - 1;
+				rangeToRead.RowCount = lastRowIndex - (rangeToRead.StartRow - 1);
+				rangeToRead.ColumnCount = lastColIndex - (rangeToRead.StartColumn - 1);
+
+				return rangeToRead;
+			}
+			catch (NullReferenceException)
+			{
+				FATAL("No object has no been set error.");
+
+				throw;
+
+			}
 		}
 
 		/// <summary>
@@ -176,7 +223,7 @@ namespace TestParser.Parser
 			IEnumerable<string> rowItem = reader.ReadRow(range);
 			if (0 == rowItem.Count())
 			{
-				WARN($"No item found in row ({range.StartRow}.");
+				WARN($"No item found in row ({range.StartRow}).");
 				throw new ParseDataNotFoundException(range);
 			}
 
@@ -186,7 +233,7 @@ namespace TestParser.Parser
 				{
 					if ((string.IsNullOrWhiteSpace(item)) || (string.IsNullOrEmpty(item)))
 					{
-						WARN("Invalid data found in function list,");
+						WARN("Invalid data found in function list.");
 						throw new ParseException("Data is invalid");
 					}
 				}
@@ -196,11 +243,11 @@ namespace TestParser.Parser
 				parameterInfo.InfoName = rowItem.ElementAt(2);
 				parameterInfo.FileName = rowItem.ElementAt(3);
 
-				DEBUG($"Function table info:");
-				DEBUG($"    Index    = {parameterInfo.Index}");
-				DEBUG($"    Name     = {parameterInfo.Name}");
-				DEBUG($"    InfoName = {parameterInfo.InfoName}");
-				DEBUG($"    FileName = {parameterInfo.FileName}");
+				INFO($"Function table info:");
+				INFO($"    Index    = {parameterInfo.Index}");
+				INFO($"    Name     = {parameterInfo.Name}");
+				INFO($"    InfoName = {parameterInfo.InfoName}");
+				INFO($"    FileName = {parameterInfo.FileName}");
 
 				return parameterInfo;
 			}

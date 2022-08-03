@@ -60,10 +60,15 @@ namespace CodeGenerator.TestDriver.Template
 		/// <returns>Function call code.</returns>
 		public virtual string CreateTargetFunctionCall(Function function)
 		{
+			if ((string.IsNullOrEmpty(function.Name)) || (string.IsNullOrWhiteSpace(function.Name)))
+			{
+				throw new ArgumentException();
+			}
+
 			string functionCall = string.Empty;
 			if (function.HasReturn())
 			{
-				functionCall = "returnValue ";
+				functionCall = $"{function.ActualDataType()} returnValue = ";
 			}
 			functionCall += $"{function.Name}(";
 			bool isTop = true;
@@ -73,7 +78,21 @@ namespace CodeGenerator.TestDriver.Template
 				{
 					functionCall += ", ";
 				}
-				functionCall += $"{argument.Name}";
+				string argumentCode = string.Empty;
+				if (0 == argument.PointerNum)
+				{
+					argumentCode = argument.Name;
+				}
+				else if ((1 == argument.PointerNum) || (2 == argument.PointerNum))
+				{
+					argumentCode = $"&{argument.Name}";
+				}
+				else
+				{
+					throw new ArgumentOutOfRangeException();
+				}
+				functionCall += $"{argumentCode}";
+				isTop = false;
 			}
 			functionCall += ")";
 			return functionCall;
