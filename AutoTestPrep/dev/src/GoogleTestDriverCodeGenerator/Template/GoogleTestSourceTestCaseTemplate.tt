@@ -10,10 +10,9 @@ TEST_F(<#= TestClassName(this.TargetFunction) #>, <#= TestCaseMethodName(this.Ta
 <#	if (null != TargetFunction.Arguments) {	#>
 	//Declare argument for target
 <#		foreach (var argument in TargetFunction.Arguments) {	#>
-	<#= argument.ActualDataType() #> <#= argument.Name	#>;
+	<#= DeclareArgumentVariable(argument) #> <#= argument.Name #>;
 <#		}	#>
 <#	}	#>
-
 
 	//Setup test parameters.
 <# foreach (var input in TestCase.Input) {	#>

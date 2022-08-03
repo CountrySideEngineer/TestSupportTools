@@ -30,68 +30,80 @@ namespace CodeGenerator.TestDriver.Template
         {
             
             #line 7 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTemplate.tt"
-	foreach (var headerFile in Config.StandardHeaderFiles) { 
+
+	foreach (var headerFile in Config.StandardHeaderFiles) {
+		if ((!string.IsNullOrEmpty(headerFile)) && (!string.IsNullOrWhiteSpace(headerFile))) {
+
             
             #line default
             #line hidden
             this.Write("#include <");
-            
-            #line 8 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(headerFile));
-            
-            #line default
-            #line hidden
-            this.Write(">\r\n");
-            
-            #line 9 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTemplate.tt"
-	}	
-            
-            #line default
-            #line hidden
-            
-            #line 10 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTemplate.tt"
-	foreach (var headerFile in Config.UserHeaderFiles) { 
-            
-            #line default
-            #line hidden
-            this.Write("#include \"");
             
             #line 11 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(headerFile));
             
             #line default
             #line hidden
-            this.Write("\"\r\n");
+            this.Write(">\r\n");
             
             #line 12 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTemplate.tt"
-	}	
+
+		}
+	}
+
             
             #line default
             #line hidden
-            this.Write("#include \"min_unit.h\"\r\n\r\n//Test target function declare.\r\n");
             
             #line 16 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTemplate.tt"
+
+	foreach (var headerFile in Config.UserHeaderFiles) { 
+		if ((!string.IsNullOrEmpty(headerFile)) && (!string.IsNullOrWhiteSpace(headerFile))) {
+
+            
+            #line default
+            #line hidden
+            this.Write("#include \"");
+            
+            #line 20 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(headerFile));
+            
+            #line default
+            #line hidden
+            this.Write("\"\r\n");
+            
+            #line 21 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTemplate.tt"
+
+		}
+	}
+
+            
+            #line default
+            #line hidden
+            this.Write("\r\n//Test target function declare.\r\n");
+            
+            #line 27 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TargetFunction.ToString()));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\n");
             
-            #line 18 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTemplate.tt"
+            #line 29 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateSetUpCode(this.TargetFunction)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 19 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTemplate.tt"
+            #line 30 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateTestCaseCode(this.TargetFunction, this.Test)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 20 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTemplate.tt"
+            #line 31 "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\MinUnitDriverCodeGenerator\Template\MinUnitSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateCallTestCaseCode(this.TargetFunction, this.Test)));
             
             #line default

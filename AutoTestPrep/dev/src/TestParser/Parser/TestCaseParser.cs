@@ -8,12 +8,48 @@ using CSEngineer;
 using TestParser.Parser;
 using TestParser.Reader;
 using TestParser.Data;
+using TestParser.Config;
+using TestParser.ParserException;
 
 namespace TestParser.Parser
 {
-
 	public class TestCaseParser : AParser
 	{
+		public TestConfig Config;
+
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public TestCaseParser() : base()
+		{
+			Config = null;
+		}
+
+		/// <summary>
+		/// Constructor with argument about sheet name to parse.
+		/// </summary>
+		/// <param name="target">Sheet name the test case are defined.</param>
+		public TestCaseParser(string target) : base(target) { }
+
+		/// <summary>
+		/// Constructor with argument.
+		/// </summary>
+		/// <param name="config">Parser configuration.</param>
+		public TestCaseParser(TestConfig config) : base()
+		{
+			Config = config;
+		}
+
+		/// <summary>
+		/// Constructor with arguments.
+		/// </summary>
+		/// <param name="target">Sheet name the test case are defined.</param>
+		/// <param name="config">Parser configuration.</param>
+		public TestCaseParser(string target, TestConfig config) : base(target)
+		{
+			Config = config;
+		}
+
 		/// <summary>
 		/// Range of test data table top.
 		/// </summary>
@@ -108,7 +144,6 @@ namespace TestParser.Parser
 		/// <returns></returns>
 		public object Read(ExcelReader reader)
 		{
-			this.SetupDatas(reader);
 			IEnumerable<TestCase> testCases = this.ReadTestCase(reader);
 
 			return testCases;
@@ -125,26 +160,9 @@ namespace TestParser.Parser
 			{
 				SheetName = this.Target
 			};
-			this.SetupDatas(reader);
 			IEnumerable<TestCase> testCases = this.ReadTestCase(reader);
 
 			return testCases;
-		}
-
-		/// <summary>
-		/// Setup data needed to get test case iformation.
-		/// </summary>
-		/// <param name="reader">Object to read data from excel.</param>
-		protected void SetupDatas(ExcelReader reader)
-		{
-			INFO($"Start getting test data of target function in \"{this.Target}\" sheet.");
-
-			this.SetupTableTopRange(reader);
-			this.SetupInputRange(reader);
-			this.SetupOutputRange(reader);
-			this.SetupDataNames(reader);
-			this.SetupDataValues(reader);
-			this.SetupAllTestDatas();
 		}
 
 		/// <summary>
@@ -154,71 +172,184 @@ namespace TestParser.Parser
 		/// <returns>List of test case.</returns>
 		protected IEnumerable<TestCase> ReadTestCase(ExcelReader reader)
 		{
-			try
+			Range range = GetRangeToStartReadingTableHeader(reader);
+			IEnumerable<TestData> testInputsAndExpects = ReadInputsAndExpects(reader, range);
+			Range rangeApplied = GetRangeToStartReadingTestCase(reader);
+			rangeApplied.RowCount = testInputsAndExpects.Count();
+			(int testId, IEnumerable<IEnumerable<string>> testApply) = (0, null);
+
+			IEnumerable<(string testId, IEnumerable<string> testApply)> applied = ReadTestCaseItem(reader, rangeApplied);
+
+			int index = 1;
+			List<TestCase> testCases = new List<TestCase>();
+			foreach (var appliedItem in applied)
 			{
-				//「代表値」のRangeオブジェクトを元に、テストケースのRangeオブジェクトを生成する
-				Range testCaseRange = reader.FindFirstItem("代表値");
-				testCaseRange.StartColumn++;
-				IEnumerable<string> testCaseNumbers = reader.ReadRow(testCaseRange);
-				int testCaseCount = testCaseNumbers.Count();
-				var testCases = new List<TestCase>();
-				for (int index = 0; index < testCaseCount; index++)
+				try
 				{
-					Range range = new Range(testCaseRange);
-					range.StartColumn += index;
-					TestCase testCase = this.ReadTestCase(reader, range);
-					testCase.Id = testCaseNumbers.ElementAt(index);
+					(IEnumerable<TestData> inputs, IEnumerable<TestData> expects) =
+						ExtractInputsAndExpects(testInputsAndExpects, appliedItem.testApply);
+					var testCase = new TestCase()
+					{
+						Id = appliedItem.testId,
+						Input = inputs,
+						Expects = expects
+					};
 					testCases.Add(testCase);
 				}
-
-				INFO("Test case datas:");
-				foreach (var testCaseItem in testCases)
+				catch (TestParserException ex)
 				{
-					INFO($"Test case id = {testCaseItem.Id}");
-					INFO($"    Inputs:");
-					foreach (var inputItem in testCaseItem.Input)
-					{
-						INFO($"        Name  = {inputItem.Name}");
-						INFO($"        Value = {inputItem.Value}");
+					if (ex.ErrorCode.Equals(TestParserException.Code.TEST_PARSE_FAILED)) {
+						throw ex;
 					}
-					INFO($"    Expects:");
-					foreach (var expeectItem in testCaseItem.Expects)
-					{
-						INFO($"        Name = {expeectItem.Name}, value = {expeectItem.Value}");
-						INFO($"        Value = {expeectItem.Value}");
-					}
+					WARN($"Skip test case index {index}.");
+				}
+				index++;
+			}
+			return testCases;
+		}
+
+		/// <summary>
+		/// Get the coordinates of the title cell with a Range object.
+		/// </summary>
+		/// <param name="reader">Excel reader object.</param>
+		/// <returns>The coordinate of the title cell in Range object.</returns>
+		protected Range GetTableTitle(ExcelReader reader)
+		{
+			try
+			{
+				Range tableRange = null;
+				string tableName = Config.TableConfig.Name;
+				if ((string.IsNullOrEmpty(tableName)) || (string.IsNullOrWhiteSpace(tableName)))
+				{
+					ERROR("Test case table has not been set in configuration file.");
+					throw new TestParserException(TestParserException.Code.TEST_PARSE_FAILED);
 				}
 
-				return testCases;
-			}
-			catch (FormatException)
-			{
-				ERROR($"Representative value\" cell can not be found in {this.Target} sheet.");
+				INFO($"Start getting target function table in \"{this.Target}\" sheet.");
+				tableRange = reader.FindFirstItem(Config.TableConfig.Name);
 
-				throw;
+				INFO($"    Find \"{tableName}\" in {this.Target} sheet cell at ({tableRange.StartRow}, {tableRange.StartColumn}).");
+
+				return tableRange;
+			}
+			catch (NullReferenceException)
+			{
+				FATAL("Test case parser configuration has not been set.");
+				throw new TestParserException(TestParserException.Code.TEST_PARSE_FAILED);
+			}
+			catch (ArgumentException)
+			{
+				WARN($"\"{Config.TableConfig.Name}\" cell can not be found in \"{this.Target}\" sheet.");
+				throw new TestParserException(TestParserException.Code.TEST_CASE_TABLE_NOT_FOUND);
 			}
 		}
 
 		/// <summary>
-		/// Setup test case from reader in a range.
+		/// Get the starting coordinate of the test case header with a Range object.
 		/// </summary>
-		/// <param name="reader">Object to read data from excel.</param>
-		/// <param name="testCaseRange">Range test cases are defined.</param>
-		/// <returns></returns>
-		protected TestCase ReadTestCase(ExcelReader reader, Range testCaseRange)
+		/// <param name="reader">Excel reader</param>
+		/// <returns>The starting coordinate of the test case header with a Range object.</returns>
+		protected Range GetRangeToStartReadingTableHeader(ExcelReader reader)
 		{
-			IEnumerable<string> testCaseItems = reader.ReadColumn(testCaseRange);
-			IEnumerable<string> inputApply = null;
-			IEnumerable<string> outputApply = null;
-			this.SplitToInputOutput(testCaseItems, this.InputRange, this.OutputRange, out inputApply, out outputApply);
-			IEnumerable<TestData> inputTestData = this.ReadTestCase(inputApply, this.AllInputData);
-			IEnumerable<TestData> outputTestData = this.ReadTestCase(outputApply, this.AllOutputData);
-			var testCase = new TestCase
+			try
 			{
-				Input = inputTestData,
-				Expects = outputTestData
-			};
-			return testCase;
+				Range tableTopRange = GetTableTitle(reader);
+				tableTopRange.StartRow += (Config.TableConfig.TableTopRowOffset + Config.TableConfig.RowDataOffset);
+				tableTopRange.StartColumn += (Config.TableConfig.TableTopColOffset + Config.TableConfig.ColDataOffset);
+
+				INFO($"    The cell corrdinates to start reading test table header is ({tableTopRange.StartRow}, {tableTopRange.StartColumn}).");
+				return tableTopRange;
+			}
+			catch (System.Exception)
+			{
+				throw;
+
+			}
+		}
+
+		/// <summary>
+		/// Get the starting coordinate of the test case with a Range object.
+		/// </summary>
+		/// <param name="reader">Excel reader.</param>
+		/// <returns>The starting coordinate of the test case with a Range object.</returns>
+		protected Range GetRangeToStartReadingTestCase(ExcelReader reader)
+		{
+			Range tableTop = GetTableTitle(reader);
+			tableTop.StartRow += Config.TableConfig.TableTopRowOffset;
+			tableTop.StartColumn += (Config.TableConfig.TableTopColOffset + Config.TableConfig.TestCaseColOffset);
+
+			INFO($"    The cell corrdinates to start reading test table header is ({tableTop.StartRow}, {tableTop.StartColumn}).");
+
+			return tableTop;
+		}
+
+		/// <summary>
+		/// Get the starting coordinate of the test case offset from table top with a Range object.
+		/// </summary>
+		/// <param name="reader">Excel reader.</param>
+		/// <param name="tableTopRange">Table top position as a Range.</param>
+		/// <returns>The starting coordinate of the test case with a Range object.</returns>
+		protected Range GetRangeToStartReadingTestCase(ExcelReader reader, Range tableTopRange)
+		{
+			Range tableRange = new Range(tableTopRange);
+			tableRange.StartColumn += Config.TableConfig.TestCaseColOffset;
+
+			INFO($"    The cell corrdinates to start reading test case is ({tableRange.StartRow}, {tableRange.StartColumn}).");
+
+			return tableRange;
+		}
+
+		/// <summary>
+		/// Get the starting corrdinate of the test inputs and expects data with a Range object.
+		/// </summary>
+		/// <param name="reader">Excel reader.</param>
+		/// <param name="range">Range to read.</param>
+		/// <returns></returns>
+		protected IEnumerable<TestData> ReadInputsAndExpects(ExcelReader reader, Range range)
+		{
+			IEnumerable<IEnumerable<string>> items = ReadInputAndExpectItem(reader, range);
+			List<TestData> testDataItems = new List<TestData>();
+			foreach (var item in items)
+			{
+				TestData testData = Items2InAndExpectTestData(item);
+				testDataItems.Add(testData);
+			}
+			return testDataItems;
+		}
+
+		/// <summary>
+		/// Read inputs and expect data.
+		/// </summary>
+		/// <param name="reader">Excel reader.</param>
+		/// <param name="range">Range to read.</param>
+		/// <returns>Inputs and expects.</returns>
+		protected IEnumerable<IEnumerable<string>> ReadInputAndExpectItem(ExcelReader reader, Range range)
+		{
+			Range rangeToRead = new Range(range);
+			List<List<string>> tableItems = new List<List<string>>();
+			do
+			{
+				try
+				{
+					var readItem = reader.ReadRow(rangeToRead).ToList();
+					string inOrExpect = readItem.ElementAt(0);
+					if ((string.IsNullOrEmpty(inOrExpect)) || (string.IsNullOrWhiteSpace(inOrExpect)))
+					{
+						break;
+					}
+					tableItems.Add(readItem);
+					rangeToRead.StartRow++;
+				}
+				catch (ArgumentOutOfRangeException)
+				{
+					INFO($"An empty cell is found in ({rangeToRead.StartRow}, {rangeToRead.StartColumn}).");
+					INFO($"Stop reading table.");
+
+					break;
+				}
+			} while (true);
+
+			return tableItems;
 		}
 
 		/// <summary>
@@ -246,211 +377,160 @@ namespace TestParser.Parser
 		}
 
 		/// <summary>
-		/// Set table top into Range object.
+		/// Convert collection of test item headers (input and expect) to TestDataObject.
 		/// </summary>
-		/// <param name="reader">Object to read data from excel.</param>
-		/// <exception cref="FormatException">Input or output cell can not be found.</exception>
-		protected void SetupTableTopRange(ExcelReader reader)
+		/// <param name="items">Collection of items to be converted.</param>
+		/// <returns>TestData object converted from items.</returns>
+		protected TestData Items2InAndExpectTestData(IEnumerable<string> items)
 		{
-			try
+			string condition = items.ElementAt(0);
+			if ((string.IsNullOrEmpty(condition)) ||
+				(string.IsNullOrWhiteSpace(condition)))
 			{
-				this.TableTop = reader.FindFirstItem("入力/出力");
+				ERROR($"\"INPUT\" or \"EXPECT\" has not been set.");
+				throw new TestParserException(TestParserException.Code.TEST_CASE_IN_OUT_FORMAT_INVALID);
 			}
-			catch (FormatException)
+			string description = items.ElementAt(1);
+			string name = items.ElementAt(2);
+			if ((string.IsNullOrEmpty(name)) ||
+				(string.IsNullOrWhiteSpace(name)))
 			{
-				ERROR($"\"Input/Output\" cell can not be found in {this.Target} sheet.");
-
-				throw;
+				ERROR($"Variable name has not been set."); ;
+				throw new TestParserException(TestParserException.Code.TEST_CASE_VARIABLE_NAME_INVALID);
 			}
+			string representativeValue = items.ElementAt(4);
+			if ((string.IsNullOrEmpty(representativeValue)) ||
+				(string.IsNullOrWhiteSpace(representativeValue)))
+			{
+				ERROR($"Variable name or representative value has not been set.");
+				throw new TestParserException(TestParserException.Code.TEST_CASE_TEST_VALUE_INVALID);
+			}
+			DEBUG("Get test data below:");
+			DEBUG($"      Condition : {condition}");
+			DEBUG($"           Name : {name}");
+			DEBUG($"    Descriotion : {description}");
+			DEBUG($"          Value : {representativeValue}");
+			TestData testData = new TestData()
+			{
+				Condition = condition,
+				Name = name,
+				Descriotion = description,
+				Value = representativeValue,
+			};
+			return testData;
 		}
 
 		/// <summary>
-		/// Setup input data range into Range object.
+		/// Get about the which inputs and expects are applied as a test case.
 		/// </summary>
-		/// <param name="reader">Object to read data from excel.</param>
-		/// <exception cref="FormatException">"Input" cell can not be found.</exception>
-		protected void SetupInputRange(ExcelReader reader)
+		/// <param name="reader">Excel reader.</param>
+		/// <param name="range">Range to read.</param>
+		/// <returns></returns>
+		protected IEnumerable<(string, IEnumerable<string>)> ReadTestCaseItem(ExcelReader reader, Range range)
 		{
-			try
+			Range rangeToRead = new Range(range);
+			List<(string, IEnumerable<string>)> items = new List<(string, IEnumerable<string>)>();
+			do
 			{
-				Range range = reader.FindFirstItem("入力情報");
-				reader.GetMergedCellRange(ref range);
-				this.InputRange = range;
-
-				DEBUG("\"Input data\" range:");
-				DEBUG($"    start - ({range.StartRow}, {range.StartColumn})");
-				DEBUG($"    count - ({range.RowCount}, {range.ColumnCount})");
-			}
-			catch (FormatException)
-			{
-				ERROR($"\"Input\" cell can not be found in {this.Target} sheet.");
-
-				throw;
-			}
-		}
-
-		/// <summary>
-		/// Setup output data range into Range object.
-		/// </summary>
-		/// <param name="reader">Object to read data from excel.</param>
-		protected void SetupOutputRange(ExcelReader reader)
-		{
-			try
-			{
-				Range range = reader.FindFirstItem("結果(動作)");
-				reader.GetMergedCellRange(ref range);
-				this.OutputRange = range;
-
-				DEBUG("\"Output data\" range:");
-				DEBUG($"    start - ({range.StartRow}, {range.StartColumn})");
-				DEBUG($"    count - ({range.RowCount}, {range.ColumnCount})");
-			}
-			catch (FormatException)
-			{
-				ERROR($"\"Exepect(Output)\" can not be found in {this.Target} sheet.");
-
-				throw;
-			}
-		}
-
-		/// <summary>
-		/// Setup list of data names.
-		/// </summary>
-		/// <param name="reader">Object to read data from excel.</param>
-		protected void SetupDataNames(ExcelReader reader)
-		{
-			try
-			{
-				string dataId = "代表名";
-				IEnumerable<string> inputDataNames = null;
-				IEnumerable<string> outputDataNames = null;
-				this.SetupDataCommon(reader, dataId, out inputDataNames, out outputDataNames);
-				this.InputNames = inputDataNames;
-				this.OutputNames = outputDataNames;
-			}
-			catch (FormatException)
-			{
-				ERROR($"\"Representative name\" can not be found in {this.Target} sheet.");
-
-				throw;
-			}
-		}
-
-		/// <summary>
-		/// Setup list of test values.
-		/// </summary>
-		/// <param name="reader">Object to read excel data.</param>
-		/// 
-		protected void SetupDataValues(ExcelReader reader)
-		{
-			try
-			{
-				string dataid = "代表値";
-				IEnumerable<string> inputDataValues = null;
-				IEnumerable<string> outputDataValues = null;
-				this.SetupDataCommon(reader, dataid, out inputDataValues, out outputDataValues);
-				this.InputValues = inputDataValues;
-				this.OutputValues = outputDataValues;
-			}
-			catch (FormatException)
-			{
-				ERROR($"\"Representative value\" can not be found in {this.Target} sheet.");
-
-				throw;
-			}
-		}
-
-		/// <summary>
-		/// Common function to setup test data.
-		/// </summary>
-		/// <param name="reader">Object to read data from excel.</param>
-		/// <param name="columnId">Id of column</param>
-		/// <param name="inputs">Object to set input data.</param>
-		/// <param name="outputs">Object to set output data.</param>
-		/// <exception cref="FormatException">Data specified by argument <para>columnid</para> can not be found.</exception>
-		protected void SetupDataCommon(ExcelReader reader, string columnId, out IEnumerable<string> inputs, out IEnumerable<string> outputs)
-		{
-			try
-			{
-				Range range = reader.FindFirstItem(columnId);
-				IEnumerable<string> names = reader.ReadColumn(range);
-				this.SplitToInputOutput<string>(names, this.InputRange, this.OutputRange, out inputs, out outputs);
-			}
-			catch (FormatException)
-			{
-				ERROR($"\"{columnId}\" can not be found in {this.Target} sheet.");
-
-				throw;
-			}
-		}
-
-		/// <summary>
-		/// Setup all test data, input and output.
-		/// </summary>
-		protected void SetupAllTestDatas()
-		{
-			//入力データの確認：代表名と代表値の件数が一致しているか否かを確認する
-			if ((this.InputNames.Count() != this.InputValues.Count()) ||
-				(this.OutputNames.Count() != this.OutputValues.Count()))
-			{
-				throw new InvalidDataException();
-			}
-			int inputCount = this.InputNames.Count();
-			var allInputData = new List<TestData>();
-			for (int index = 0; index < inputCount; index++)
-			{
-				var testData = new TestData
+				try
 				{
-					Name = this.InputNames.ElementAt(index),
-					Value = this.InputValues.ElementAt(index)
-				};
+					List<string> testCaseApply = ReadAppliedDataItem(reader, rangeToRead).ToList();
+					string testCaseNo = testCaseApply[0];
+					if ((string.IsNullOrEmpty(testCaseNo)) || (string.IsNullOrWhiteSpace(testCaseNo)))
+					{
+						INFO($"The cell ({rangeToRead.StartRow}, {rangeToRead.StartColumn}) is empty.");
+						INFO($"Stop reading table.");
 
-				DEBUG("Get test input data.");
-				DEBUG($"    Name  = {testData.Name}");
-				DEBUG($"    Value = {testData.Value}");
-
-				allInputData.Add(testData);
-			}
-
-			int outputCount = this.OutputNames.Count();
-			var allOutputData = new List<TestData>();
-			for (int index = 0; index < outputCount; index++)
-			{
-				var testData = new TestData
+						break;
+					}
+					//Remove item as header in table.
+					List<string> testCase = testCaseApply.GetRange(1, testCaseApply.Count() - 1);
+					items.Add((testCaseNo, testCase));
+					rangeToRead.StartColumn++;
+				}
+				catch (ArgumentOutOfRangeException)
 				{
-					Name = this.OutputNames.ElementAt(index),
-					Value = this.OutputValues.ElementAt(index)
-				};
+					INFO($"An empty cell is found while reading test case at ({rangeToRead.StartRow}, {rangeToRead.StartColumn}).");
+					INFO($"Stop reading table.");
 
-				DEBUG("Get test output data.");
-				DEBUG($"    Name  = {testData.Name}");
-				DEBUG($"    Value = {testData.Value}");
+					break;
+				}
 
-				allOutputData.Add(testData);
-			}
-
-			this.AllInputData = allInputData;
-			this.AllOutputData = allOutputData;
+			} while (true);
+			return items;
 		}
 
 		/// <summary>
-		/// Split test data into input and output depending on Range object information.
+		/// Read applied item data as a collection.
 		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="targetItems">Target items to split.</param>
-		/// <param name="inputRange">Range object about input data.</param>
-		/// <param name="outputRange">Range object about output data.</param>
-		/// <param name="inputItems">Reference to set input data .</param>
-		/// <param name="outputItems">Reference to set output data.</param>
-		protected void SplitToInputOutput<T>(
-			IEnumerable<T> targetItems,
-			Range inputRange,
-			Range outputRange,
-			out IEnumerable<T> inputItems,
-			out IEnumerable<T> outputItems)
+		/// <param name="reader">Excel reader.</param>
+		/// <param name="range">Range to read.</param>
+		/// <returns>Collectio of test case applied.</returns>
+		protected IEnumerable<string> ReadAppliedDataItem(ExcelReader reader, Range range)
 		{
-			inputItems = targetItems.ToList().GetRange(1, inputRange.RowCount);
-			outputItems = targetItems.ToList().GetRange(inputRange.RowCount + 1, outputRange.RowCount);
+			IEnumerable<string> item = reader.ReadColumn(range);
+			return item;
+		}
+
+		/// <summary>
+		/// Extract input and expects applied as a test case.
+		/// </summary>
+		/// <param name="inputAndExpects">Collection of test data as a test case.</param>
+		/// <param name="appliedItems">Collection of applied code.</param>
+		/// <returns>Inputs and expects of test case in tuple.</returns>
+		protected (IEnumerable<TestData>, IEnumerable<TestData>) ExtractInputsAndExpects(
+				IEnumerable<TestData> inputAndExpects, 
+				IEnumerable<string> appliedItems)
+		{
+			try
+			{
+				int index = 0;
+				List<TestData> appliedDatas = new List<TestData>();
+				foreach (var item in appliedItems)
+				{
+					if (item.ToLower().Equals("a"))
+					{
+						TestData baseItem = inputAndExpects.ElementAt(index);
+						TestData testData = new TestData(baseItem);
+						appliedDatas.Add(testData);
+					}
+					index++;
+				}
+
+				IEnumerable<TestData> inputs = appliedDatas.Where(_ => _.Condition.Equals(Config.TestCaseConfig.Input));
+				if (inputs.Count() < 1)
+				{
+					WARN("No input has been selected.");
+					throw new TestParserException(TestParserException.Code.TEST_CASE_TEST_VALUE_NOT_SELECTED);
+				}
+				IEnumerable<TestData> expects = appliedDatas.Where(_ => _.Condition.Equals(Config.TestCaseConfig.Expect));
+				if (expects.Count() < 1)
+				{
+					WARN("No expects has been selected.");
+					throw new TestParserException(TestParserException.Code.TEST_CASE_TEST_VALUE_NOT_SELECTED);
+				}
+
+				INFO("Applied test case:");
+				INFO($"    Inputs : ");
+				foreach (var item in inputs)
+				{
+					INFO($"        {item.Name} = {item.Value}");
+				}
+				INFO($"    Expects : ");
+				foreach (var item in expects)
+				{
+					INFO($"        {item.Name} = {item.Value}");
+				}
+
+				return (inputs, expects);
+
+			}
+			catch (NullReferenceException)
+			{
+				FATAL("Test configuration is not set or invalid.");
+				throw new TestParserException(TestParserException.Code.TEST_PARSE_FAILED);
+			}
+
 		}
 	}
 }

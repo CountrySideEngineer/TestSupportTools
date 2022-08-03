@@ -46,5 +46,27 @@ namespace CodeGenerator.TestDriver.Template
 			methodName = $"{function.Name}_utest_SetUp";
 			return methodName;
 		}
+
+		protected virtual string DeclareArgumentVariable(Parameter argument)
+		{
+			string code = string.Empty;
+			if (0 == argument.PointerNum)
+			{
+				code = argument.DataType;
+			}
+			else if (1 == argument.PointerNum)
+			{
+				code = argument.DataType;
+			}
+			else if (2 == argument.PointerNum)
+			{
+				code = $"{argument.PointerNum}*";
+			}
+			else
+			{
+				throw new ArgumentException();
+			}
+			return code;
+		}
 	}
 }
