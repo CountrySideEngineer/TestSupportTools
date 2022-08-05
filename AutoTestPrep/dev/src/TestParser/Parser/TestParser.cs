@@ -13,12 +13,15 @@ namespace TestParser.Parser
 	{
 		protected TestParserConfig _testConfig;
 
+		protected string _configFilePath;
+
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		public TestParser()
 		{
 			_testConfig = null;
+			_configFilePath = @".\TestParserConfg.xml";
 			this.FunctionListParser = null;
 			this.FunctionParser = null;
 			this.TestCaseParser = null;
@@ -199,43 +202,37 @@ namespace TestParser.Parser
 			}
 		}
 
+		/// <summary>
+		/// Load configuration file.
+		/// </summary>
 		protected void LoadConfig()
-		{
-			string configFilePath = @".\TestParserConfg.xml";
-			LoadConfig(configFilePath);
-		}
-
-		protected void LoadConfig(string path)
 		{
 			try
 			{
-				var reader = new XmlConfigReader();
-				var config = (TestParserConfig)reader.Read(path);
-				_testConfig = config;
+				_testConfig = TestParserConfig.LoadConfig(_configFilePath);
 			}
 			catch (System.IO.FileNotFoundException)
 			{
-				WARN($"The test config file {path} has not been found.");
+				WARN($"The test config file {_configFilePath} has not been found.");
 				WARN("Load default config setting.");
-				LoadDefaultConfig();
+				_testConfig = TestParserConfig.LoadDefaultConfig();
+
+				DEBUG("TestParserConfig");
+				DEBUG($"    Sheet name : {_testConfig.TestList.SheetName}");
+				DEBUG($"    Row offset : {_testConfig.TestList.TableConfig.TableTopRowOffset}");
+				DEBUG($"    Col offset : {_testConfig.TestList.TableConfig.TableTopColOffset}");
 			}
 			catch (System.Exception)
 			{
 				WARN("The test config file can not load.");
 				WARN("    Use default config setting.");
-				LoadDefaultConfig();
+				_testConfig = TestParserConfig.LoadDefaultConfig();
+
+				DEBUG("TestParserConfig");
+				DEBUG($"    Sheet name : {_testConfig.TestList.SheetName}");
+				DEBUG($"    Row offset : {_testConfig.TestList.TableConfig.TableTopRowOffset}");
+				DEBUG($"    Col offset : {_testConfig.TestList.TableConfig.TableTopColOffset}");
 			}
-		}
-
-		protected void LoadDefaultConfig()
-		{
-			TestParserConfig config = DefaultTestParserConfigFactory.Create();
-			_testConfig = config;
-
-			DEBUG("TestParserConfig");
-			DEBUG($"    Sheet name : {_testConfig.TestList.SheetName}");
-			DEBUG($"    Row offset : {_testConfig.TestList.TableConfig.TableTopRowOffset}");
-			DEBUG($"    Col offset : {_testConfig.TestList.TableConfig.TableTopColOffset}");
 		}
 	}
 }
