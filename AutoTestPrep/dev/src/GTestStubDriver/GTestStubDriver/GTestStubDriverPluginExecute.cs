@@ -61,8 +61,6 @@ namespace StubDriverPlugin.GTestStubDriver
 
 					testIndex++;
 					NotifyParseProgressDelegate?.Invoke(testIndex, tests.Count());
-
-					Thread.Sleep(200);
 				}
 				NotifyPluginFinishDelegate?.Invoke();
 
