@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TestParser.Data;
 using TestParser.ParserException;
@@ -20,6 +21,9 @@ namespace StubDriverPlugin.GTestStubDriver
 	{
 		public delegate void NotifyParseProgress(int numerator, int denominator);
 		public NotifyParseProgress NotifyParseProgressDelegate;
+
+		public delegate void NotifyPluginFinish();
+		public NotifyPluginFinish NotifyPluginFinishDelegate;
 
 		/// <summary>
 		/// /Default constructor.
@@ -41,6 +45,9 @@ namespace StubDriverPlugin.GTestStubDriver
 			{
 				NotifyParseProgressDelegate?.Invoke(0, 100);
 				IEnumerable<Test> tests = this.ParseExecute(data);
+				NotifyParseProgressDelegate?.Invoke(100, 100);
+
+
 				DirectoryInfo rootDirInfo = new DirectoryInfo(data.OutputDirPath);
 				CodeConfiguration stubCodeConfig = this.Input2CodeConfigForStub(data);
 				CodeConfiguration driverCodeConfig = this.Input2CodeConfigForDriver(data);
@@ -54,7 +61,10 @@ namespace StubDriverPlugin.GTestStubDriver
 
 					testIndex++;
 					NotifyParseProgressDelegate?.Invoke(testIndex, tests.Count());
+
+					Thread.Sleep(200);
 				}
+				NotifyPluginFinishDelegate?.Invoke();
 
 				pluginOutput = new PluginOutput(outputAbout, "Google Testフレームワークを使用したコードの生成が完了しました。");
 			}

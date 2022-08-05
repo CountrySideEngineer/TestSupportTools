@@ -82,6 +82,16 @@ namespace StubDriverPlugin.GTestStubDriver
 					};
 					progress.Report(progressInfo);
 				};
+				plugin.NotifyPluginFinishDelegate += () =>
+				{
+					var progressInfo = new ProgressInfo()
+					{
+						Title = data.InputFilePath,
+						ProcessName = "完了",
+						ShouldContinue = false,
+					};
+					progress.Report(progressInfo);
+				};
 				pluginOutput = ExecutePlugin(plugin, data);
 				return pluginOutput;
 			});

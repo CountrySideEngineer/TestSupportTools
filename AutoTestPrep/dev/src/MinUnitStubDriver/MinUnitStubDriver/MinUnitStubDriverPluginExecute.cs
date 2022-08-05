@@ -21,6 +21,9 @@ namespace MinUnitStubDriver.MinUnitStubDriver
 		public delegate void NotifyParseProgress(int numerator, int denominator);
 		public NotifyParseProgress NotifyParseProgressDelegate;
 
+		public delegate void NotifyPluginFinish();
+		public NotifyPluginFinish NotifyPluginFinishDelegate;
+
 		/// <summary>
 		/// Execute plugin to create stub and driver code for test.
 		/// </summary>
