@@ -16,7 +16,7 @@ using TestParser.ParserException;
 
 namespace MinUnitStubDriver.MinUnitStubDriver
 {
-	public class MinUnitStubDriverPluginExecute : IStubDriverPlugin
+	public class MinUnitStubDriverPluginExecute
 	{
 		public delegate void NotifyParseProgress(string processName, int numerator, int denominator);
 		public NotifyParseProgress NotifyParseProgressDelegate;

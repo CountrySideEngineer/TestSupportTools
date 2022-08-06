@@ -111,24 +111,10 @@ namespace StubDriverPlugin.MinUnitStubDriver
 					};
 					progress.Report(progressInfo);
 				};
-				pluginOutput = ExecutePlugin(plugin, data);
+				pluginOutput = plugin.Execute(pluginInput);
 				return pluginOutput;
 			});
 			return task;
 		}
-
-		/// <summary>
-		/// Execute plugin.
-		/// </summary>
-		/// <param name="plugin">Plugin object to execute.</param>
-		/// <param name="input">Plugin input data.</param>
-		/// <returns>Result of execution as PluginOutput object.</returns>
-		protected virtual PluginOutput ExecutePlugin(IStubDriverPlugin plugin, PluginInput input)
-		{
-			PluginOutput exePluginOutput = plugin.Execute(input);
-
-			return exePluginOutput;
-		}
-
 	}
 }
