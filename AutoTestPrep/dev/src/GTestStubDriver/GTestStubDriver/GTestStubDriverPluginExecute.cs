@@ -17,7 +17,7 @@ using TestParser.ParserException;
 
 namespace StubDriverPlugin.GTestStubDriver
 {
-	public class GTestStubDriverPluginExecute : IStubDriverPlugin
+	public class GTestStubDriverPluginExecute
 	{
 		public delegate void NotifyParseProgress(string processName, int numerator, int denominator);
 		public NotifyParseProgress NotifyParseProgressDelegate;
@@ -43,7 +43,7 @@ namespace StubDriverPlugin.GTestStubDriver
 			PluginOutput pluginOutput = null;
 			try
 			{
-				IEnumerable<Test> tests = this.ParseProcess(data);
+				IEnumerable<Test> tests = ParseProcess(data);
 				CreateCodeProcess(data, tests);
 
 				pluginOutput = new PluginOutput(outputAbout, "Google Testフレームワークを使用したコードの生成が完了しました。");
