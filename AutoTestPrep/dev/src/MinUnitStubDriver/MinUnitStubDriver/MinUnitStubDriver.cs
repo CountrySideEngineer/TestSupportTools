@@ -76,16 +76,29 @@ namespace StubDriverPlugin.MinUnitStubDriver
 			Task<PluginOutput> task = Task<PluginOutput>.Run(() =>
 			{
 				MinUnitStubDriverPluginExecute plugin = new MinUnitStubDriverPluginExecute();
-				plugin.NotifyParseProgressDelegate += (numerator, denominator) =>
+				plugin.NotifyParseProgressDelegate += (name, numerator, denominator) =>
 				{
+					int percent = 0;
+					if (0 == denominator)
+					{
+						percent = 0;
+					}
+					else
+					{
+						percent = (numerator * 100) / denominator;
+					}
+
 					var progressInfo = new ProgressInfo()
 					{
 						Title = data.InputFilePath,
-						ProcessName = "解析中",
 						Denominator = denominator,
 						Numerator = numerator,
-						Progress = (numerator * 100) / denominator,
+						Progress = percent,
 					};
+					if ((!string.IsNullOrEmpty(name)) || (!string.IsNullOrWhiteSpace(name)))
+					{
+						progressInfo.ProcessName = name;
+					}
 					progress.Report(progressInfo);
 				};
 				plugin.NotifyPluginFinishDelegate += () =>
