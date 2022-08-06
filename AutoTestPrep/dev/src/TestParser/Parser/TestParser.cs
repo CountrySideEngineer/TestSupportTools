@@ -126,6 +126,7 @@ namespace TestParser.Parser
 				var testTargetFunctionInfos = (IEnumerable<ParameterInfo>)this.FunctionListParser.Parse(stream);
 				NotifyProcessAndProgressDelegate?.Invoke(procName, 100, 100);
 
+				procName = "テスト設計情報読出し";
 				var tests = new List<Test>();
 				int index = 0;
 				foreach (var paramInfoItem in testTargetFunctionInfos)
