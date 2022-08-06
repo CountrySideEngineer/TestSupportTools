@@ -112,7 +112,8 @@ namespace TestParser.Parser
 		{
 			try
 			{
-				NotifyParseProgressDelegate?.Invoke(0, 100);
+				string procName = "対象関数一覧読出し";
+				NotifyProcessAndProgressDelegate?.Invoke(procName, 0, 0);
 				INFO("Start function list.");
 				LoadConfig();
 
@@ -123,7 +124,7 @@ namespace TestParser.Parser
 							_testConfig.TestList);
 				}
 				var testTargetFunctionInfos = (IEnumerable<ParameterInfo>)this.FunctionListParser.Parse(stream);
-				NotifyParseProgressDelegate?.Invoke(100, 100);
+				NotifyProcessAndProgressDelegate?.Invoke(procName, 100, 100);
 
 				var tests = new List<Test>();
 				int index = 0;
@@ -132,8 +133,9 @@ namespace TestParser.Parser
 					Test test = this.Read(stream, paramInfoItem);
 					tests.Add(test);
 
-					NotifyParseProgressDelegate?.Invoke((index + 1), testTargetFunctionInfos.Count());
 					index++;
+					string processName = $"{procName} : {paramInfoItem.Name}";
+					NotifyProcessAndProgressDelegate?.Invoke(processName, index, testTargetFunctionInfos.Count());
 				}
 
 				return tests;
