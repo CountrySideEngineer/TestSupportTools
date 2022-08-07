@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using TestParser.Reader;
 
 namespace TestParser.Config
 {
@@ -40,6 +41,41 @@ namespace TestParser.Config
 		/// </summary>
 		[XmlElement("Test")]
 		public TestConfig Test { get; set; }
+
+		/// <summary>
+		/// Load configuration file from default config file.
+		/// </summary>
+		/// <returns>Loaded configuration.</returns>
+		public static TestParserConfig LoadConfig()
+		{
+			string configFilePath = @".\TestParserConfg.xml";
+			return LoadConfig(configFilePath);
+		}
+
+		public static TestParserConfig LoadConfig(string path)
+		{
+			try
+			{
+				TestParserConfig config = null;
+				var reader = new XmlConfigReader();
+				config = (TestParserConfig)reader.Read(path);
+				return config;
+			}
+			catch (System.IO.FileNotFoundException)
+			{
+				throw;
+			}
+			catch (System.Exception)
+			{
+				throw;
+			}
+		}
+
+		public static TestParserConfig LoadDefaultConfig()
+		{
+			TestParserConfig config = DefaultTestParserConfigFactory.Create();
+			return config;
+		}
 	}
 
 }
