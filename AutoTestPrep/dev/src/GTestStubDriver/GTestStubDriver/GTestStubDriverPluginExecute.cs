@@ -10,16 +10,20 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TestParser.Data;
 using TestParser.ParserException;
 
 namespace StubDriverPlugin.GTestStubDriver
 {
-	public class GTestStubDriverPluginExecute : IStubDriverPlugin
+	public class GTestStubDriverPluginExecute
 	{
-		public delegate void NotifyParseProgress(int numerator, int denominator);
+		public delegate void NotifyParseProgress(string processName, int numerator, int denominator);
 		public NotifyParseProgress NotifyParseProgressDelegate;
+
+		public delegate void NotifyPluginFinish();
+		public NotifyPluginFinish NotifyPluginFinishDelegate;
 
 		/// <summary>
 		/// /Default constructor.
@@ -39,22 +43,8 @@ namespace StubDriverPlugin.GTestStubDriver
 			PluginOutput pluginOutput = null;
 			try
 			{
-				NotifyParseProgressDelegate?.Invoke(0, 100);
-				IEnumerable<Test> tests = this.ParseExecute(data);
-				DirectoryInfo rootDirInfo = new DirectoryInfo(data.OutputDirPath);
-				CodeConfiguration stubCodeConfig = this.Input2CodeConfigForStub(data);
-				CodeConfiguration driverCodeConfig = this.Input2CodeConfigForDriver(data);
-
-				int testIndex = 0;
-				NotifyParseProgressDelegate?.Invoke(testIndex, tests.Count());
-				foreach (var testItem in tests)
-				{
-					this.CreateStubCode(testItem, rootDirInfo, stubCodeConfig);
-					this.CreateDriverCode(testItem, rootDirInfo, driverCodeConfig);
-
-					testIndex++;
-					NotifyParseProgressDelegate?.Invoke(testIndex, tests.Count());
-				}
+				IEnumerable<Test> tests = ParseProcess(data);
+				CreateCodeProcess(data, tests);
 
 				pluginOutput = new PluginOutput(outputAbout, "Google Testフレームワークを使用したコードの生成が完了しました。");
 			}
@@ -261,9 +251,10 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// </summary>
 		/// <param name="data">Test data input.</param>
 		/// <returns>Test data parsed by a parser </returns>
-		protected virtual IEnumerable<Test> ParseExecute(PluginInput data)
+		protected virtual IEnumerable<Test> ParseProcess(PluginInput data)
 		{
 			var parser = new TestParser.Parser.TestParser();
+			parser.NotifyProcessAndProgressDelegate += ReceiveTestParseProgress;
 			IEnumerable<Test> tests = this.ParseExecute(parser, data);
 
 			return tests;
@@ -280,6 +271,69 @@ namespace StubDriverPlugin.GTestStubDriver
 			string path = input.InputFilePath;
 			IEnumerable<Test> tests = (IEnumerable<Test>)parser.Parse(path);
 			return tests;
+		}
+
+		/// <summary>
+		/// Create stub and test driver code.
+		/// </summary>
+		/// <param name="data">Plugin input data.</param>
+		/// <param name="tests">Test datas.</param>
+		protected virtual void CreateCodeProcess(PluginInput data, IEnumerable<Test> tests)
+		{
+			DirectoryInfo rootDirInfo = new DirectoryInfo(data.OutputDirPath);
+
+			NotifyParseProgressDelegate?.Invoke(string.Empty, 0, 1);
+
+			CreateStubCodeExeucte(data, tests, rootDirInfo);
+			CreateDriverCodeExecute(data, tests, rootDirInfo);
+
+			NotifyPluginFinishDelegate?.Invoke();
+		}
+
+		/// <summary>
+		/// Create stub codes.
+		/// </summary>
+		/// <param name="data">Plugin input data.</param>
+		/// <param name="tests">Test datas.</param>
+		/// <param name="rootDirInfo">Code output root directory information.</param>
+		protected virtual void CreateStubCodeExeucte(PluginInput data, IEnumerable<Test> tests, DirectoryInfo rootDirInfo)
+		{
+			CodeConfiguration codeConfig = this.Input2CodeConfigForStub(data);
+
+			int testIndex = 0;
+			string processName = "スタブコード生成：";
+			NotifyParseProgressDelegate?.Invoke(processName, testIndex, tests.Count());
+			foreach (var testItem in tests)
+			{
+				this.CreateStubCode(testItem, rootDirInfo, codeConfig);
+
+				testIndex++;
+				string progName = $"{processName} : {testItem.Name}";
+				NotifyParseProgressDelegate?.Invoke(processName, testIndex, tests.Count());
+			}
+		}
+
+		/// <summary>
+		/// Create test driver codes.
+		/// </summary>
+		/// <param name="data">Plugin input data.</param>
+		/// <param name="tests">Test datas.</param>
+		/// <param name="rootDirInfo">Code output root directory information.</param>
+		protected virtual void CreateDriverCodeExecute(PluginInput data, IEnumerable<Test> tests, DirectoryInfo rootDirInfo)
+		{
+			CodeConfiguration codeConfig = this.Input2CodeConfigForDriver(data);
+
+			int testIndex = 0;
+			string processName = "テストドライバ生成：";
+			NotifyParseProgressDelegate?.Invoke(processName, testIndex, tests.Count());
+			foreach (var testItem in tests)
+			{
+				this.CreateDriverCode(testItem, rootDirInfo, codeConfig);
+
+				testIndex++;
+				string progName = $"{processName} : {testItem.Name}";
+				NotifyParseProgressDelegate?.Invoke(processName, testIndex, tests.Count());
+			}
 		}
 
 		/// <summary>
@@ -327,6 +381,16 @@ namespace StubDriverPlugin.GTestStubDriver
 			string outputDirPath = $@"{rootDir.FullName}\{data.Test.Target.Name}_test";
 			var outputDirInfo = new DirectoryInfo(outputDirPath);
 			return outputDirInfo;
+		}
+
+		/// <summary>
+		/// Delegate to receive parser progress.
+		/// </summary>
+		/// <param name="numerator">Numerator of progress.</param>
+		/// <param name="denominator">Denominator of progress.</param>
+		protected void ReceiveTestParseProgress(string name, int numerator, int denominator)
+		{
+			NotifyParseProgressDelegate?.Invoke(name, numerator, denominator);
 		}
 	}
 }

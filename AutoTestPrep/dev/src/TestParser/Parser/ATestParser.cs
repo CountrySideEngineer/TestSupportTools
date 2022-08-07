@@ -13,12 +13,13 @@ namespace TestParser.Parser
 		/// <summary>
 		/// Delegate to notify progress of parsing test.
 		/// </summary>
-		/// <param name="stage">Parse stage name.</param>
-		/// <param name="messgae">Message</param>
 		/// <param name="numerator">Progress numerator</param>
 		/// <param name="denominator">Progress denominator</param>
 		public delegate void NotifyParseProgress(int numerator, int denominator);
 		public NotifyParseProgress NotifyParseProgressDelegate;
+
+		public delegate void NotifyProcessAndProgress(string procName, int numerator, int denominator);
+		public NotifyProcessAndProgress NotifyProcessAndProgressDelegate;
 
 		/// <summary>
 		/// Parser to read function list.

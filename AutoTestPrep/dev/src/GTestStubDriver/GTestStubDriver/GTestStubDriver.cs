@@ -21,7 +21,14 @@ namespace StubDriverPlugin.GTestStubDriver
 {
 	public class GTestStubDriver : IStubDriverPlugin, IAsyncTask<ProgressInfo>
 	{
+		/// <summary>
+		/// Plugin input data.
+		/// </summary>
 		PluginInput pluginInput;
+
+		/// <summary>
+		/// Plugin output data.
+		/// </summary>
 		PluginOutput pluginOutput;
 
 		/// <summary>
@@ -70,35 +77,45 @@ namespace StubDriverPlugin.GTestStubDriver
 			Task<PluginOutput> task = Task<PluginOutput>.Run(() =>
 			{
 				GTestStubDriverPluginExecute plugin = new GTestStubDriverPluginExecute();
-				plugin.NotifyParseProgressDelegate += (numerator, denominator) =>
+				plugin.NotifyParseProgressDelegate += (name, numerator, denominator) =>
+				{
+					int percent = 0;
+					if (0 == denominator)
+					{
+						percent = 0;
+					}
+					else
+					{
+						percent = (numerator * 100) / denominator;
+					}
+
+					var progressInfo = new ProgressInfo()
+					{
+						Title = data.InputFilePath,
+						Denominator = denominator,
+						Numerator = numerator,
+						Progress = percent,
+					};
+					if ((!string.IsNullOrEmpty(name)) || (!string.IsNullOrWhiteSpace(name)))
+					{
+						progressInfo.ProcessName = name;
+					}
+					progress.Report(progressInfo);
+				};
+				plugin.NotifyPluginFinishDelegate += () =>
 				{
 					var progressInfo = new ProgressInfo()
 					{
 						Title = data.InputFilePath,
-						ProcessName = "解析中",
-						Denominator = denominator,
-						Numerator = numerator,
-						Progress = (numerator * 100) / denominator,
+						ProcessName = "完了",
+						ShouldContinue = false,
 					};
 					progress.Report(progressInfo);
 				};
-				pluginOutput = ExecutePlugin(plugin, data);
+				pluginOutput = plugin.Execute(pluginInput);
 				return pluginOutput;
 			});
 			return task;
-		}
-
-		/// <summary>
-		/// Execute plugin.
-		/// </summary>
-		/// <param name="plugin">Plugin object to execute.</param>
-		/// <param name="input">Plugin input data.</param>
-		/// <returns>Result of execution as PluginOutput object.</returns>
-		protected virtual PluginOutput ExecutePlugin(IStubDriverPlugin plugin, PluginInput input)
-		{
-			PluginOutput exePluginOutput = plugin.Execute(input);
-
-			return exePluginOutput;
 		}
 	}
 }
