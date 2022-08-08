@@ -1,13 +1,38 @@
 @echo off
 
+SETLOCAL
 rem 開発者用コマンドプロンプト起動
 call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat"
 
+rem 各種ファイルのパスの設定
+SET SOLUTION_ROOT=E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\
+SET TEST_PARSER_SLN_NAME=TestParser.sln
+SET CODE_GENERATOR_SLN_NAME=CodeGenerator.sln
+SET PLUGIN_MANAGER_SLN_NAME=PluginManager.sln
+SET PLUGIN_REGISTER_SLN_NAME=PluginRegister.sln
+SET STUB_DRIVER_PLUGIN_SLN_NAME=StubDriverPlugin.sln
+SET AUTO_TEST_PREP_SLN_NAME=AutoTestPrep.sln
+
+SET BUILD_SOLUTION_BAT_NAME=build_solution.bat
+
+rem ビルドするソリューションのパスの作成
+SET TEST_PARSER_SLN_PATH=%SOLUTION_ROOT%%TEST_PARSER_SLN_NAME%
+SET CODE_GENERATOR_SLN_PATH=%SOLUTION_ROOT%%CODE_GENERATOR_SLN_NAME%
+SET PLUGIN_MANAGER_SLN_PATH=%SOLUTION_ROOT%%PLUGIN_MANAGER_SLN_NAME%
+SET PLUGIN_REGISTER_SLN_PATH=%SOLUTION_ROOT%%PLUGIN_REGISTER_SLN_NAME%
+SET STUB_DRIVER_PLUGIN_SLN_PATH=%SOLUTION_ROOT%%STUB_DRIVER_PLUGIN_SLN_NAME%
+SET AUTO_TEST_PREP_SLN_PATH=%SOLUTION_ROOT%%AUTO_TEST_PREP_SLN_NAME%
+SET BUILD_SOLUTION_BAT_PATH=.\%BUILD_SOLUTION_BAT_NAME%
+
+SET BUILD_COMMAND_BAT=call %BUILD_SOLUTION_BAT_PATH%
+
 rem .slnファイルを指定、順番にビルドを実施する。
-call .\build_solution.bat "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\TestParser.sln"
-call .\build_solution.bat "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\CodeGenerator.sln"
-call .\build_solution.bat "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\PluginManager.sln"
-call .\build_solution.bat "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\PluginRegister.sln"
-call .\build_solution.bat "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\StubDriverPlugin.sln"
-call .\build_solution.bat "E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\AutoTestPrep.sln"
+%BUILD_COMMAND_BAT% %TEST_PARSER_SLN_PATH%
+%BUILD_COMMAND_BAT% %CODE_GENERATOR_SLN_PATH%
+%BUILD_COMMAND_BAT% %PLUGIN_MANAGER_SLN_PATH%
+%BUILD_COMMAND_BAT% %PLUGIN_REGISTER_SLN_PATH%
+%BUILD_COMMAND_BAT% %STUB_DRIVER_PLUGIN_SLN_PATH%
+%BUILD_COMMAND_BAT% %AUTO_TEST_PREP_SLN_PATH%
+
+ENDLOCAL
 pause:
