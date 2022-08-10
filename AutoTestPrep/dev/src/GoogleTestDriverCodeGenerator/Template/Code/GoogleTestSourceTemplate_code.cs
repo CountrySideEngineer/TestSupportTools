@@ -97,5 +97,110 @@ namespace CodeGenerator.TestDriver.Template
 				throw;
 			}
 		}
+
+		/// <summary>
+		/// Generates codes to declare global variables.
+		/// </summary>
+		/// <param name="function">Target function data.</param>
+		/// <returns>Codes to deaclare global variables.</returns>
+		public virtual string CreateDecalreGlobalVariable(Function function)
+		{
+			string code = string.Empty;
+			code += CreateDeclareExternalGlobalVariable(function.ExternalVariables);
+			code += CreateDeclareInternalGlobalVariable(function.InternalVariables);
+			return code;
+		}
+
+		/// <summary>
+		/// Generates codes to declare internal global variables.
+		/// </summary>
+		/// <param name="variables">Collection of global variable information.</param>
+		/// <returns>Codes to declare internal global variables.</returns>
+		protected virtual string CreateDeclareInternalGlobalVariable(IEnumerable<Parameter> variables)
+		{
+			try
+			{
+				string codes = string.Empty;
+				foreach (var variable in variables)
+				{
+					string code = CreateDeclareInternalGlobalVariable(variable);
+					if ((!string.IsNullOrEmpty(code)) && (!string.IsNullOrWhiteSpace(code)))
+					{
+						codes += code;
+						codes += Environment.NewLine;
+					}
+				}
+				return codes;
+			}
+			catch (NullReferenceException)
+			{
+				string message = "//There is no internal global variable.";
+				return message;
+			}
+		}
+
+		/// <summary>
+		/// Generates code to declare internal global variable.
+		/// </summary>
+		/// <param name="variable">Variable data.</param>
+		/// <returns>Code to declare internal global variable.</returns>
+		protected virtual string CreateDeclareInternalGlobalVariable(Parameter variable)
+		{
+			try
+			{
+				string code = $"extern {variable.ToString()};";
+				return code;
+			}
+			catch (NullReferenceException)
+			{
+				return string.Empty;
+			}
+		}
+
+		/// <summary>
+		/// Generates code to declare external global variables.
+		/// </summary>
+		/// <param name="variables">Collection of global variables.</param>
+		/// <returns>Codes to declare global variables.</returns>
+		protected virtual string CreateDeclareExternalGlobalVariable(IEnumerable<Parameter> variables)
+		{
+			try
+			{
+				string codes = string.Empty;
+				foreach (var variable in variables)
+				{
+					string code = CreateDeclareExternalGlobalVariable(variable);
+					if ((!string.IsNullOrEmpty(code)) && (!string.IsNullOrWhiteSpace(code)))
+					{
+						codes += code;
+						codes += Environment.NewLine;
+					}
+				}
+				return codes;
+			}
+			catch (NullReferenceException)
+			{
+				string message = "//The is no external global variable.";
+				return message;
+			}
+		}
+
+		/// <summary>
+		/// Generates code to declare external global variable.
+		/// </summary>
+		/// <param name="variable">Variable data.</param>
+		/// <returns>Code to declare external global variable.</returns>
+		protected virtual string CreateDeclareExternalGlobalVariable(Parameter variable)
+		{
+			try
+			{
+				string code = $"{variable.ToString()};";
+				return code;
+			}
+			catch (NullReferenceException)
+			{
+				return string.Empty;
+			}
+		}
 	}
 }
