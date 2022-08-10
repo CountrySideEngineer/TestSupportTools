@@ -23,6 +23,8 @@
 	}
 #>
 
+<#= CreateDecalreGlobalVariable(this.TargetFunction) #>
+
 //Test target function declare.
 <#= TargetFunction.ToString() #>;
 

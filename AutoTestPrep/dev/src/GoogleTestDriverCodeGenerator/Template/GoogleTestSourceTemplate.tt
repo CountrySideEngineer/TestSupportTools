@@ -23,5 +23,6 @@
 	}
 #>
 
+<#= CreateDecalreGlobalVariable(this.TargetFunction) #>
 <#= CreateSetUpCode(this.TargetFunction) #>
 <#= CreateTestCaseCode(this.TargetFunction, this.Test) #>
