@@ -2,13 +2,21 @@
 #include <windows.h>
 #include "UserHeader.h"
 
-void sample_function_001_utest::SetUp()
+long outsideVariable;
+extern short insideVariable;
+
+
+//Test target function declare.
+int sample_function_001(int input1, int* input2);
+
+//Initialize test stub buffers.
+void sample_function_001_utest_SetUp()
 {
 	subFuncA_init();
 }
 
 
-TEST_F(sample_function_001_utest, sample_function_001_utest_2)
+static char* sample_function_001_utest_2()
 {
 	//Declare argument for target
 	int input1;
@@ -18,8 +26,18 @@ TEST_F(sample_function_001_utest, sample_function_001_utest_2)
 	input1 = 0;
 	input2 = 2;
 
+	//Initialize stub parameters.
+	sample_function_001_utest_SetUp();
+
 	int returnValue = sample_function_001(input1, &input2);
 
-	ASSERT_EQ(2, ret_val);
+	mu_assert(2 == ret_val);
+}
+
+char* sample_function_001_utest_run_all()
+{
+	mu_run_test("sample_function_001_utest_2", sample_function_001_utest_2);
+
+	return 0;
 }
 

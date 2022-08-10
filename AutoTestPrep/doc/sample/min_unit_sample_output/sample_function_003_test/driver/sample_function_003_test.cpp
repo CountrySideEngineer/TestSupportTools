@@ -2,6 +2,8 @@
 #include <windows.h>
 #include "UserHeader.h"
 
+//No global variables are refered by function sample_function_003.
+
 //Test target function declare.
 int sample_function_003(int input1, int* input2, SHORT input3);
 
