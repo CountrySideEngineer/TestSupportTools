@@ -5,7 +5,7 @@ rem 開発者用コマンドプロンプト起動
 call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat"
 
 rem 各種ファイルのパスの設定
-SET SOLUTION_ROOT=E:\development\TestSupportTools_0_3\AutoTestPrep\dev\src\
+SET SOLUTION_ROOT=.\
 SET TEST_PARSER_SLN_NAME=TestParser.sln
 SET CODE_GENERATOR_SLN_NAME=CodeGenerator.sln
 SET PLUGIN_MANAGER_SLN_NAME=PluginManager.sln
