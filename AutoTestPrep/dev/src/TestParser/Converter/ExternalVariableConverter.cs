@@ -23,7 +23,7 @@ namespace TestParser.Converter
 				base.Convert(src, ref parameter);
 
 				Function dstFunction = (Function)dst;
-				dstFunction.InternalVariables = dstFunction.InternalVariables.Append(parameter);
+				dstFunction.ExternalVariables = dstFunction.ExternalVariables.Append(parameter);
 			}
 			catch (TestParserException ex)
 			{
