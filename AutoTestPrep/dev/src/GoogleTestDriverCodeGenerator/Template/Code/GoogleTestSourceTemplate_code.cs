@@ -108,6 +108,11 @@ namespace CodeGenerator.TestDriver.Template
 			string code = string.Empty;
 			code += CreateDeclareExternalGlobalVariable(function.ExternalVariables);
 			code += CreateDeclareInternalGlobalVariable(function.InternalVariables);
+
+			if ((string.IsNullOrEmpty(code)) || (string.IsNullOrWhiteSpace(code)))
+			{
+				code = $"//No global variables are refered by function {function.Name}.";
+			}
 			return code;
 		}
 
