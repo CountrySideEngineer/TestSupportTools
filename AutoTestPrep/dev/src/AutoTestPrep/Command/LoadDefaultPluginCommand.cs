@@ -79,6 +79,12 @@ namespace AutoTestPrep.Command
 				FileName = "MinUnitStubDriverPlugin.dll"
 			};
 			this.RegistDefaultPluginIfNotExist(manager, minUnitPluginUnfo);
+			var stubCodePlugin = new PluginInfo
+			{
+				Name = "Stub code",
+				FileName = "StubCodePlugin.dll",
+			};
+			this.RegistDefaultPluginIfNotExist(manager, stubCodePlugin);
 		}
 
 		/// <summary>

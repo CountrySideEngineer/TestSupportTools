@@ -72,12 +72,6 @@
                             </Style>
                         </MenuItem.ItemContainerStyle>
                     </MenuItem>
-                    <MenuItem Header="ドライバ"
-                              Style="{StaticResource MenuItem_MenuItem}"
-                              />
-                    <MenuItem Header="スタブ"
-                              Style="{StaticResource MenuItem_MenuItem}"
-                              />
                     <Separator/>
                     <MenuItem Header="カスタム"
                               x:Name="CustomMenuRoot"
