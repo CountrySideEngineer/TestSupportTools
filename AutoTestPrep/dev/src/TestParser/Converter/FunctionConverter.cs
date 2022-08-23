@@ -40,7 +40,16 @@ namespace TestParser.Converter
 				string postFix = src.ElementAt(4);
 				dst.PointerNum = Util.GetPointerNum(postFix);
 				dst.Name = name;
-				dst.Description = src.ElementAt(7);
+				try
+				{
+					dst.Description = src.ElementAt(7);
+				}
+				catch (ArgumentOutOfRangeException)
+				{
+					DEBUG($"Description about {name} has not been set, skip!");
+
+					dst.Description = string.Empty;
+				}
 			}
 			catch (ArgumentOutOfRangeException)
 			{
