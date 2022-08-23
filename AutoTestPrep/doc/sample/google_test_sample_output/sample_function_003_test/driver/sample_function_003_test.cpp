@@ -3,17 +3,12 @@
 #include "UserHeader.h"
 
 //No global variables are refered by function sample_function_003.
-
-//Test target function declare.
-int sample_function_003(int input1, int* input2, SHORT input3);
-
-//Initialize test stub buffers.
-void sample_function_003_utest_SetUp()
+void sample_function_003_utest::SetUp()
 {
 }
 
 
-static char* sample_function_003_utest_1()
+TEST_F(sample_function_003_utest, sample_function_003_utest_1)
 {
 	//Declare argument for target
 	int input1;
@@ -24,16 +19,13 @@ static char* sample_function_003_utest_1()
 	input1 = 0;
 	input2 = 1;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(1 == ret_val);
-	mu_assert(20 == input2);
+	ASSERT_EQ(1, ret_val);
+	ASSERT_EQ(20, input2);
 }
 
-static char* sample_function_003_utest_2()
+TEST_F(sample_function_003_utest, sample_function_003_utest_2)
 {
 	//Declare argument for target
 	int input1;
@@ -44,15 +36,12 @@ static char* sample_function_003_utest_2()
 	input1 = 0;
 	input2 = 2;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(2 == ret_val);
+	ASSERT_EQ(2, ret_val);
 }
 
-static char* sample_function_003_utest_3()
+TEST_F(sample_function_003_utest, sample_function_003_utest_3)
 {
 	//Declare argument for target
 	int input1;
@@ -63,16 +52,13 @@ static char* sample_function_003_utest_3()
 	input1 = 0;
 	input2 = 3;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(3 == ret_val);
-	mu_assert(40 == input2);
+	ASSERT_EQ(3, ret_val);
+	ASSERT_EQ(40, input2);
 }
 
-static char* sample_function_003_utest_4()
+TEST_F(sample_function_003_utest, sample_function_003_utest_4)
 {
 	//Declare argument for target
 	int input1;
@@ -83,16 +69,13 @@ static char* sample_function_003_utest_4()
 	input1 = 0;
 	input2 = 0;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(0 == ret_val);
-	mu_assert(10 == input2);
+	ASSERT_EQ(0, ret_val);
+	ASSERT_EQ(10, input2);
 }
 
-static char* sample_function_003_utest_5()
+TEST_F(sample_function_003_utest, sample_function_003_utest_5)
 {
 	//Declare argument for target
 	int input1;
@@ -103,16 +86,13 @@ static char* sample_function_003_utest_5()
 	input1 = 1;
 	input2 = 0;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(1 == ret_val);
-	mu_assert(20 == input2);
+	ASSERT_EQ(1, ret_val);
+	ASSERT_EQ(20, input2);
 }
 
-static char* sample_function_003_utest_6()
+TEST_F(sample_function_003_utest, sample_function_003_utest_6)
 {
 	//Declare argument for target
 	int input1;
@@ -123,15 +103,12 @@ static char* sample_function_003_utest_6()
 	input1 = 2;
 	input2 = 0;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(2 == ret_val);
+	ASSERT_EQ(2, ret_val);
 }
 
-static char* sample_function_003_utest_7()
+TEST_F(sample_function_003_utest, sample_function_003_utest_7)
 {
 	//Declare argument for target
 	int input1;
@@ -142,16 +119,13 @@ static char* sample_function_003_utest_7()
 	input1 = 3;
 	input2 = 0;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(3 == ret_val);
-	mu_assert(40 == input2);
+	ASSERT_EQ(3, ret_val);
+	ASSERT_EQ(40, input2);
 }
 
-static char* sample_function_003_utest_8()
+TEST_F(sample_function_003_utest, sample_function_003_utest_8)
 {
 	//Declare argument for target
 	int input1;
@@ -162,16 +136,13 @@ static char* sample_function_003_utest_8()
 	input1 = 0;
 	input2 = 1;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(1 == ret_val);
-	mu_assert(20 == input2);
+	ASSERT_EQ(1, ret_val);
+	ASSERT_EQ(20, input2);
 }
 
-static char* sample_function_003_utest_9()
+TEST_F(sample_function_003_utest, sample_function_003_utest_9)
 {
 	//Declare argument for target
 	int input1;
@@ -182,15 +153,12 @@ static char* sample_function_003_utest_9()
 	input1 = 0;
 	input2 = 2;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(2 == ret_val);
+	ASSERT_EQ(2, ret_val);
 }
 
-static char* sample_function_003_utest_10()
+TEST_F(sample_function_003_utest, sample_function_003_utest_10)
 {
 	//Declare argument for target
 	int input1;
@@ -201,16 +169,13 @@ static char* sample_function_003_utest_10()
 	input1 = 0;
 	input2 = 3;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(3 == ret_val);
-	mu_assert(40 == input2);
+	ASSERT_EQ(3, ret_val);
+	ASSERT_EQ(40, input2);
 }
 
-static char* sample_function_003_utest_11()
+TEST_F(sample_function_003_utest, sample_function_003_utest_11)
 {
 	//Declare argument for target
 	int input1;
@@ -221,16 +186,13 @@ static char* sample_function_003_utest_11()
 	input1 = 0;
 	input2 = 0;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(0 == ret_val);
-	mu_assert(10 == input2);
+	ASSERT_EQ(0, ret_val);
+	ASSERT_EQ(10, input2);
 }
 
-static char* sample_function_003_utest_12()
+TEST_F(sample_function_003_utest, sample_function_003_utest_12)
 {
 	//Declare argument for target
 	int input1;
@@ -241,16 +203,13 @@ static char* sample_function_003_utest_12()
 	input1 = 1;
 	input2 = 0;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(1 == ret_val);
-	mu_assert(20 == input2);
+	ASSERT_EQ(1, ret_val);
+	ASSERT_EQ(20, input2);
 }
 
-static char* sample_function_003_utest_13()
+TEST_F(sample_function_003_utest, sample_function_003_utest_13)
 {
 	//Declare argument for target
 	int input1;
@@ -261,15 +220,12 @@ static char* sample_function_003_utest_13()
 	input1 = 2;
 	input2 = 0;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(2 == ret_val);
+	ASSERT_EQ(2, ret_val);
 }
 
-static char* sample_function_003_utest_14()
+TEST_F(sample_function_003_utest, sample_function_003_utest_14)
 {
 	//Declare argument for target
 	int input1;
@@ -280,16 +236,13 @@ static char* sample_function_003_utest_14()
 	input1 = 3;
 	input2 = 0;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(3 == ret_val);
-	mu_assert(40 == input2);
+	ASSERT_EQ(3, ret_val);
+	ASSERT_EQ(40, input2);
 }
 
-static char* sample_function_003_utest_15()
+TEST_F(sample_function_003_utest, sample_function_003_utest_15)
 {
 	//Declare argument for target
 	int input1;
@@ -300,16 +253,13 @@ static char* sample_function_003_utest_15()
 	input1 = 0;
 	input2 = 1;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(1 == ret_val);
-	mu_assert(20 == input2);
+	ASSERT_EQ(1, ret_val);
+	ASSERT_EQ(20, input2);
 }
 
-static char* sample_function_003_utest_16()
+TEST_F(sample_function_003_utest, sample_function_003_utest_16)
 {
 	//Declare argument for target
 	int input1;
@@ -320,15 +270,12 @@ static char* sample_function_003_utest_16()
 	input1 = 0;
 	input2 = 2;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(2 == ret_val);
+	ASSERT_EQ(2, ret_val);
 }
 
-static char* sample_function_003_utest_17()
+TEST_F(sample_function_003_utest, sample_function_003_utest_17)
 {
 	//Declare argument for target
 	int input1;
@@ -339,16 +286,13 @@ static char* sample_function_003_utest_17()
 	input1 = 0;
 	input2 = 3;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(3 == ret_val);
-	mu_assert(40 == input2);
+	ASSERT_EQ(3, ret_val);
+	ASSERT_EQ(40, input2);
 }
 
-static char* sample_function_003_utest_18()
+TEST_F(sample_function_003_utest, sample_function_003_utest_18)
 {
 	//Declare argument for target
 	int input1;
@@ -359,16 +303,13 @@ static char* sample_function_003_utest_18()
 	input1 = 0;
 	input2 = 0;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(0 == ret_val);
-	mu_assert(10 == input2);
+	ASSERT_EQ(0, ret_val);
+	ASSERT_EQ(10, input2);
 }
 
-static char* sample_function_003_utest_19()
+TEST_F(sample_function_003_utest, sample_function_003_utest_19)
 {
 	//Declare argument for target
 	int input1;
@@ -379,16 +320,13 @@ static char* sample_function_003_utest_19()
 	input1 = 1;
 	input2 = 0;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(1 == ret_val);
-	mu_assert(20 == input2);
+	ASSERT_EQ(1, ret_val);
+	ASSERT_EQ(20, input2);
 }
 
-static char* sample_function_003_utest_20()
+TEST_F(sample_function_003_utest, sample_function_003_utest_20)
 {
 	//Declare argument for target
 	int input1;
@@ -399,16 +337,13 @@ static char* sample_function_003_utest_20()
 	input1 = 2;
 	input2 = 0;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(2 == ret_val);
-	mu_assert(30 == input2);
+	ASSERT_EQ(2, ret_val);
+	ASSERT_EQ(30, input2);
 }
 
-static char* sample_function_003_utest_21()
+TEST_F(sample_function_003_utest, sample_function_003_utest_21)
 {
 	//Declare argument for target
 	int input1;
@@ -419,15 +354,12 @@ static char* sample_function_003_utest_21()
 	input1 = 3;
 	input2 = 0;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(3 == ret_val);
+	ASSERT_EQ(3, ret_val);
 }
 
-static char* sample_function_003_utest_22()
+TEST_F(sample_function_003_utest, sample_function_003_utest_22)
 {
 	//Declare argument for target
 	int input1;
@@ -438,16 +370,13 @@ static char* sample_function_003_utest_22()
 	input1 = 0;
 	input2 = 1;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(1 == ret_val);
-	mu_assert(20 == input2);
+	ASSERT_EQ(1, ret_val);
+	ASSERT_EQ(20, input2);
 }
 
-static char* sample_function_003_utest_23()
+TEST_F(sample_function_003_utest, sample_function_003_utest_23)
 {
 	//Declare argument for target
 	int input1;
@@ -458,16 +387,13 @@ static char* sample_function_003_utest_23()
 	input1 = 0;
 	input2 = 2;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(2 == ret_val);
-	mu_assert(30 == input2);
+	ASSERT_EQ(2, ret_val);
+	ASSERT_EQ(30, input2);
 }
 
-static char* sample_function_003_utest_24()
+TEST_F(sample_function_003_utest, sample_function_003_utest_24)
 {
 	//Declare argument for target
 	int input1;
@@ -478,15 +404,12 @@ static char* sample_function_003_utest_24()
 	input1 = 0;
 	input2 = 3;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(3 == ret_val);
+	ASSERT_EQ(3, ret_val);
 }
 
-static char* sample_function_003_utest_25()
+TEST_F(sample_function_003_utest, sample_function_003_utest_25)
 {
 	//Declare argument for target
 	int input1;
@@ -497,16 +420,13 @@ static char* sample_function_003_utest_25()
 	input1 = 0;
 	input2 = 0;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(0 == ret_val);
-	mu_assert(10 == input2);
+	ASSERT_EQ(0, ret_val);
+	ASSERT_EQ(10, input2);
 }
 
-static char* sample_function_003_utest_26()
+TEST_F(sample_function_003_utest, sample_function_003_utest_26)
 {
 	//Declare argument for target
 	int input1;
@@ -517,16 +437,13 @@ static char* sample_function_003_utest_26()
 	input1 = 1;
 	input2 = 0;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(1 == ret_val);
-	mu_assert(20 == input2);
+	ASSERT_EQ(1, ret_val);
+	ASSERT_EQ(20, input2);
 }
 
-static char* sample_function_003_utest_27()
+TEST_F(sample_function_003_utest, sample_function_003_utest_27)
 {
 	//Declare argument for target
 	int input1;
@@ -537,16 +454,13 @@ static char* sample_function_003_utest_27()
 	input1 = 2;
 	input2 = 0;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(2 == ret_val);
-	mu_assert(30 == input2);
+	ASSERT_EQ(2, ret_val);
+	ASSERT_EQ(30, input2);
 }
 
-static char* sample_function_003_utest_28()
+TEST_F(sample_function_003_utest, sample_function_003_utest_28)
 {
 	//Declare argument for target
 	int input1;
@@ -557,45 +471,8 @@ static char* sample_function_003_utest_28()
 	input1 = 3;
 	input2 = 0;
 
-	//Initialize stub parameters.
-	sample_function_003_utest_SetUp();
-
 	int returnValue = sample_function_003(input1, &input2, input3);
 
-	mu_assert(3 == ret_val);
-}
-
-char* sample_function_003_utest_run_all()
-{
-	mu_run_test("sample_function_003_utest_1", sample_function_003_utest_1);
-	mu_run_test("sample_function_003_utest_2", sample_function_003_utest_2);
-	mu_run_test("sample_function_003_utest_3", sample_function_003_utest_3);
-	mu_run_test("sample_function_003_utest_4", sample_function_003_utest_4);
-	mu_run_test("sample_function_003_utest_5", sample_function_003_utest_5);
-	mu_run_test("sample_function_003_utest_6", sample_function_003_utest_6);
-	mu_run_test("sample_function_003_utest_7", sample_function_003_utest_7);
-	mu_run_test("sample_function_003_utest_8", sample_function_003_utest_8);
-	mu_run_test("sample_function_003_utest_9", sample_function_003_utest_9);
-	mu_run_test("sample_function_003_utest_10", sample_function_003_utest_10);
-	mu_run_test("sample_function_003_utest_11", sample_function_003_utest_11);
-	mu_run_test("sample_function_003_utest_12", sample_function_003_utest_12);
-	mu_run_test("sample_function_003_utest_13", sample_function_003_utest_13);
-	mu_run_test("sample_function_003_utest_14", sample_function_003_utest_14);
-	mu_run_test("sample_function_003_utest_15", sample_function_003_utest_15);
-	mu_run_test("sample_function_003_utest_16", sample_function_003_utest_16);
-	mu_run_test("sample_function_003_utest_17", sample_function_003_utest_17);
-	mu_run_test("sample_function_003_utest_18", sample_function_003_utest_18);
-	mu_run_test("sample_function_003_utest_19", sample_function_003_utest_19);
-	mu_run_test("sample_function_003_utest_20", sample_function_003_utest_20);
-	mu_run_test("sample_function_003_utest_21", sample_function_003_utest_21);
-	mu_run_test("sample_function_003_utest_22", sample_function_003_utest_22);
-	mu_run_test("sample_function_003_utest_23", sample_function_003_utest_23);
-	mu_run_test("sample_function_003_utest_24", sample_function_003_utest_24);
-	mu_run_test("sample_function_003_utest_25", sample_function_003_utest_25);
-	mu_run_test("sample_function_003_utest_26", sample_function_003_utest_26);
-	mu_run_test("sample_function_003_utest_27", sample_function_003_utest_27);
-	mu_run_test("sample_function_003_utest_28", sample_function_003_utest_28);
-
-	return 0;
+	ASSERT_EQ(3, ret_val);
 }
 

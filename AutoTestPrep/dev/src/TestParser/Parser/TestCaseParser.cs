@@ -10,6 +10,8 @@ using TestParser.Reader;
 using TestParser.Data;
 using TestParser.Config;
 using TestParser.ParserException;
+using TableReader.TableData;
+using TableReader.Excel;
 
 namespace TestParser.Parser
 {
@@ -142,7 +144,7 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="reader"></param>
 		/// <returns></returns>
-		public object Read(ExcelReader reader)
+		public object Read(ExcelTableReader reader)
 		{
 			IEnumerable<TestCase> testCases = this.ReadTestCase(reader);
 
@@ -156,7 +158,7 @@ namespace TestParser.Parser
 		/// <returns>List of test case in TestCase object.</returns>
 		protected IEnumerable<TestCase> ReadTestCase(Stream stream)
 		{
-			var reader = new ExcelReader(stream)
+			var reader = new ExcelTableReader(stream)
 			{
 				SheetName = this.Target
 			};
@@ -170,7 +172,7 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="reader">Object to read data from excel.</param>
 		/// <returns>List of test case.</returns>
-		protected IEnumerable<TestCase> ReadTestCase(ExcelReader reader)
+		protected IEnumerable<TestCase> ReadTestCase(ExcelTableReader reader)
 		{
 			Range range = GetRangeToStartReadingTableHeader(reader);
 			IEnumerable<TestData> testInputsAndExpects = ReadInputsAndExpects(reader, range);
@@ -213,7 +215,7 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="reader">Excel reader object.</param>
 		/// <returns>The coordinate of the title cell in Range object.</returns>
-		protected Range GetTableTitle(ExcelReader reader)
+		protected Range GetTableTitle(ExcelTableReader reader)
 		{
 			try
 			{
@@ -249,7 +251,7 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="reader">Excel reader</param>
 		/// <returns>The starting coordinate of the test case header with a Range object.</returns>
-		protected Range GetRangeToStartReadingTableHeader(ExcelReader reader)
+		protected Range GetRangeToStartReadingTableHeader(ExcelTableReader reader)
 		{
 			try
 			{
@@ -272,7 +274,7 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="reader">Excel reader.</param>
 		/// <returns>The starting coordinate of the test case with a Range object.</returns>
-		protected Range GetRangeToStartReadingTestCase(ExcelReader reader)
+		protected Range GetRangeToStartReadingTestCase(ExcelTableReader reader)
 		{
 			Range tableTop = GetTableTitle(reader);
 			tableTop.StartRow += Config.TableConfig.TableTopRowOffset;
@@ -289,7 +291,7 @@ namespace TestParser.Parser
 		/// <param name="reader">Excel reader.</param>
 		/// <param name="tableTopRange">Table top position as a Range.</param>
 		/// <returns>The starting coordinate of the test case with a Range object.</returns>
-		protected Range GetRangeToStartReadingTestCase(ExcelReader reader, Range tableTopRange)
+		protected Range GetRangeToStartReadingTestCase(ExcelTableReader reader, Range tableTopRange)
 		{
 			Range tableRange = new Range(tableTopRange);
 			tableRange.StartColumn += Config.TableConfig.TestCaseColOffset;
@@ -305,7 +307,7 @@ namespace TestParser.Parser
 		/// <param name="reader">Excel reader.</param>
 		/// <param name="range">Range to read.</param>
 		/// <returns></returns>
-		protected IEnumerable<TestData> ReadInputsAndExpects(ExcelReader reader, Range range)
+		protected IEnumerable<TestData> ReadInputsAndExpects(ExcelTableReader reader, Range range)
 		{
 			IEnumerable<IEnumerable<string>> items = ReadInputAndExpectItem(reader, range);
 			List<TestData> testDataItems = new List<TestData>();
@@ -323,7 +325,7 @@ namespace TestParser.Parser
 		/// <param name="reader">Excel reader.</param>
 		/// <param name="range">Range to read.</param>
 		/// <returns>Inputs and expects.</returns>
-		protected IEnumerable<IEnumerable<string>> ReadInputAndExpectItem(ExcelReader reader, Range range)
+		protected IEnumerable<IEnumerable<string>> ReadInputAndExpectItem(ExcelTableReader reader, Range range)
 		{
 			Range rangeToRead = new Range(range);
 			List<List<string>> tableItems = new List<List<string>>();
@@ -426,7 +428,7 @@ namespace TestParser.Parser
 		/// <param name="reader">Excel reader.</param>
 		/// <param name="range">Range to read.</param>
 		/// <returns></returns>
-		protected IEnumerable<(string, IEnumerable<string>)> ReadTestCaseItem(ExcelReader reader, Range range)
+		protected IEnumerable<(string, IEnumerable<string>)> ReadTestCaseItem(ExcelTableReader reader, Range range)
 		{
 			Range rangeToRead = new Range(range);
 			List<(string, IEnumerable<string>)> items = new List<(string, IEnumerable<string>)>();
@@ -466,7 +468,7 @@ namespace TestParser.Parser
 		/// <param name="reader">Excel reader.</param>
 		/// <param name="range">Range to read.</param>
 		/// <returns>Collectio of test case applied.</returns>
-		protected IEnumerable<string> ReadAppliedDataItem(ExcelReader reader, Range range)
+		protected IEnumerable<string> ReadAppliedDataItem(ExcelTableReader reader, Range range)
 		{
 			IEnumerable<string> item = reader.ReadColumn(range);
 			return item;
