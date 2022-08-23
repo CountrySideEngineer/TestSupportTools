@@ -3,6 +3,10 @@
 #include "UserHeader.h"
 
 //No global variables are refered by function sample_function_002.
+
+//Test target function declare
+int sample_function_002(int input1, int input2);
+
 void sample_function_002_utest::SetUp()
 {
 	subFuncA_002_init();

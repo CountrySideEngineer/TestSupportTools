@@ -5,6 +5,10 @@
 long outsideVariable;
 extern short insideVariable;
 
+
+//Test target function declare
+int sample_function_001(int input1, int* input2);
+
 void sample_function_001_utest::SetUp()
 {
 	subFuncA_init();
