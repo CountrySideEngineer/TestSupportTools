@@ -24,5 +24,9 @@
 #>
 
 <#= CreateDecalreGlobalVariable(this.TargetFunction) #>
+
+//Test target function declare
+<#= TargetFunction.ToString() #>;
+
 <#= CreateSetUpCode(this.TargetFunction) #>
 <#= CreateTestCaseCode(this.TargetFunction, this.Test) #>
