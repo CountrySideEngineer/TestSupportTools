@@ -10,6 +10,8 @@ using TestParser.Target;
 using TestParser.ParserException;
 using TestParser.Config;
 using TestParser.Converter;
+using TableReader.Excel;
+using TableReader.TableData;
 
 namespace TestParser.Parser
 {
@@ -125,7 +127,7 @@ namespace TestParser.Parser
 		/// <returns>Parameter of target function.</returns>
 		protected Parameter ReadTargetFunction(Stream stream)
 		{
-			var reader = new ExcelReader(stream)
+			var reader = new ExcelTableReader(stream)
 			{
 				SheetName = this.Target
 			};
@@ -135,11 +137,11 @@ namespace TestParser.Parser
 		}
 
 		/// <summary>
-		/// Get function information from excel file using object <para>ExcelReader</para>.
+		/// Get function information from excel file using object <para>ExcelTableReader</para>.
 		/// </summary>
 		/// <param name="reader">Object to read function information from Excel.</param>
 		/// <returns>Function information in Paramter object.</returns>
-		protected Parameter GetFunctionInfo(ExcelReader reader)
+		protected Parameter GetFunctionInfo(ExcelTableReader reader)
 		{
 			Range range = GetRangeToStartReading(reader);
 			Parameter function = ReadFunctionTable(reader, range);
@@ -152,7 +154,7 @@ namespace TestParser.Parser
 		/// <param name="reader">Excel reader object.</param>
 		/// <param name="range">Range about table to read.</param>
 		/// <returns>Parameter object read from table.</returns>
-		protected Parameter ReadFunctionTable(ExcelReader reader, Range range)
+		protected Parameter ReadFunctionTable(ExcelTableReader reader, Range range)
 		{
 			IEnumerable<IEnumerable<string>> tableContent = ReadTable(reader, range);
 			Parameter function = new Function();
@@ -166,10 +168,10 @@ namespace TestParser.Parser
 		/// <summary>
 		/// Read table contents.
 		/// </summary>
-		/// <param name="reader">ExcelReader object.</param>
+		/// <param name="reader">ExcelTableReader object.</param>
 		/// <param name="range">Range row and col data to read.</param>
 		/// <returns>Collection of items in table.</returns>
-		protected IEnumerable<IEnumerable<string>> ReadTable(ExcelReader reader, Range range)
+		protected IEnumerable<IEnumerable<string>> ReadTable(ExcelTableReader reader, Range range)
 		{
 			Range rangeToRead = new Range(range);
 			List<List<string>> tableItems = new List<List<string>>();
@@ -204,9 +206,9 @@ namespace TestParser.Parser
 		/// <summary>
 		/// Get row and col to start reading table.
 		/// </summary>
-		/// <param name="reader">ExcelReader object.</param>
+		/// <param name="reader">ExcelTableReader object.</param>
 		/// <returns>Range to start reading function table.</returns>
-		protected Range GetRangeToStartReading(ExcelReader reader)
+		protected Range GetRangeToStartReading(ExcelTableReader reader)
 		{
 			Range targetFuncRange = null;
 			try

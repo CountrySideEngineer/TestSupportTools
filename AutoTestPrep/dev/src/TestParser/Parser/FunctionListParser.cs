@@ -9,6 +9,8 @@ using TestParser.Reader;
 using TestParser.Parser.Exception;
 using TestParser.Target;
 using TestParser.Config;
+using TableReader.Excel;
+using TableReader.TableData;
 
 namespace TestParser.Parser
 {
@@ -107,7 +109,7 @@ namespace TestParser.Parser
 				ERROR($"The sheet name target functin and sheet name has not been set.");
 				throw new ParseDataNotFoundException("Target sheet has not been set.");
 			}
-			var reader = new ExcelReader(stream)
+			var reader = new ExcelTableReader(stream)
 			{
 				SheetName = this.Target
 			};
@@ -120,7 +122,7 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="reader">Object to read test data information from excel file.</param>
 		/// <returns>List of function information.</returns>
-		protected IEnumerable<ParameterInfo> ReadFunctionInfo(ExcelReader reader)
+		protected IEnumerable<ParameterInfo> ReadFunctionInfo(ExcelTableReader reader)
 		{
 			INFO($"Start getting target function list from \"{reader.SheetName}\" sheet.");
 
@@ -139,10 +141,10 @@ namespace TestParser.Parser
 		/// <summary>
 		/// Read function information to read.
 		/// </summary>
-		/// <param name="reader">ExcelReader object.</param>
+		/// <param name="reader">ExcelTableReader object.</param>
 		/// <param name="range">Range to read.</param>
 		/// <returns>Read function informations.</returns>
-		public IEnumerable<ParameterInfo> ReadFunctionInfo(ExcelReader reader, Range range)
+		public IEnumerable<ParameterInfo> ReadFunctionInfo(ExcelTableReader reader, Range range)
 		{
 			var rangeToRead = new Range(range);
 			var parameterInfoList = new List<ParameterInfo>();
@@ -174,9 +176,9 @@ namespace TestParser.Parser
 		/// <summary>
 		/// Get range t to read.
 		/// </summary>
-		/// <param name="reader">ExcelReader object</param>
+		/// <param name="reader">ExcelTableReader object</param>
 		/// <returns>Range to read to get function information.</returns>
-		protected Range GetRangeToRead(ExcelReader reader)
+		protected Range GetRangeToRead(ExcelTableReader reader)
 		{
 			try
 			{
@@ -218,13 +220,13 @@ namespace TestParser.Parser
 		/// <exception cref="ParseException">One of cell in the <para>range</para> is empty.</exception>
 		/// <exception cref="ParseDataNotFoundException">The range has no data. </exception>
 		/// <exception cref="FormatException">The index can not convert into "int" type.</exception>
-		protected ParameterInfo ReadFunctionInfoItem(ExcelReader reader, Range range)
+		protected ParameterInfo ReadFunctionInfoItem(ExcelTableReader reader, Range range)
 		{
 			IEnumerable<string> rowItem = reader.ReadRow(range);
 			if (0 == rowItem.Count())
 			{
 				WARN($"No item found in row ({range.StartRow}).");
-				throw new ParseDataNotFoundException(range);
+				throw new ParseDataNotFoundException((ushort)range.StartRow);
 			}
 
 			try
