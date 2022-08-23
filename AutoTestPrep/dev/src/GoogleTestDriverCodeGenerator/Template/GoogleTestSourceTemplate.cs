@@ -80,30 +80,30 @@ namespace CodeGenerator.TestDriver.Template
             
             #line default
             #line hidden
-            this.Write("\r\n");
+            this.Write("#include \"gtest/gtest.h\"\r\n\r\n");
             
-            #line 26 "E:\development\TestSupportTools_v0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTemplate.tt"
+            #line 27 "E:\development\TestSupportTools_v0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateDecalreGlobalVariable(this.TargetFunction)));
             
             #line default
             #line hidden
             this.Write("\r\n\r\n//Test target function declare\r\n");
             
-            #line 29 "E:\development\TestSupportTools_v0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTemplate.tt"
+            #line 30 "E:\development\TestSupportTools_v0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TargetFunction.ToString()));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\n");
             
-            #line 31 "E:\development\TestSupportTools_v0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTemplate.tt"
+            #line 32 "E:\development\TestSupportTools_v0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateSetUpCode(this.TargetFunction)));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 32 "E:\development\TestSupportTools_v0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTemplate.tt"
+            #line 33 "E:\development\TestSupportTools_v0\AutoTestPrep\dev\src\GoogleTestDriverCodeGenerator\Template\GoogleTestSourceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateTestCaseCode(this.TargetFunction, this.Test)));
             
             #line default

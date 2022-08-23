@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <windows.h>
 #include "UserHeader.h"
+#include "gtest/gtest.h"
 
 long outsideVariable;
 extern short insideVariable;
