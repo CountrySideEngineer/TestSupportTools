@@ -43,8 +43,8 @@ namespace StubDriverPlugin.GTestStubDriver
 			PluginOutput pluginOutput = null;
 			try
 			{
-				IEnumerable<Test> tests = ParseProcess(data);
-				CreateCodeProcess(data, tests);
+				IEnumerable<Test> process = ParseProcess(data);
+				StartProcess(data, process);
 
 				pluginOutput = new PluginOutput(outputAbout, "Google Testフレームワークを使用したコードの生成が完了しました。");
 			}
@@ -278,7 +278,7 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// </summary>
 		/// <param name="data">Plugin input data.</param>
 		/// <param name="tests">Test datas.</param>
-		protected virtual void CreateCodeProcess(PluginInput data, IEnumerable<Test> tests)
+		protected virtual void StartProcess(PluginInput data, IEnumerable<Test> tests)
 		{
 			DirectoryInfo rootDirInfo = new DirectoryInfo(data.OutputDirPath);
 
