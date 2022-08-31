@@ -43,8 +43,8 @@ namespace StubDriverPlugin.GTestStubDriver
 			PluginOutput pluginOutput = null;
 			try
 			{
-				IEnumerable<Test> process = ParseProcess(data);
-				StartProcess(data, process);
+				IEnumerable<Test> parsedTest = ParseProcess(data);
+				CodeGenerateProcess(data, parsedTest);
 
 				pluginOutput = new PluginOutput(outputAbout, "Google Testフレームワークを使用したコードの生成が完了しました。");
 			}
@@ -81,6 +81,10 @@ namespace StubDriverPlugin.GTestStubDriver
 			catch (Exception ex)
 			{
 				pluginOutput = new PluginOutput(outputAbout, $"プラグイン実行中にエラーが発生しました。\n{ex.Message}");
+			}
+			finally
+			{
+				FinishProcess(data);
 			}
 			return pluginOutput;
 		}
@@ -278,7 +282,7 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// </summary>
 		/// <param name="data">Plugin input data.</param>
 		/// <param name="tests">Test datas.</param>
-		protected virtual void StartProcess(PluginInput data, IEnumerable<Test> tests)
+		protected virtual void CodeGenerateProcess(PluginInput data, IEnumerable<Test> tests)
 		{
 			DirectoryInfo rootDirInfo = new DirectoryInfo(data.OutputDirPath);
 
@@ -286,7 +290,10 @@ namespace StubDriverPlugin.GTestStubDriver
 
 			CreateStubCodeExeucte(data, tests, rootDirInfo);
 			CreateDriverCodeExecute(data, tests, rootDirInfo);
+		}
 
+		protected virtual void FinishProcess(PluginInput data)
+		{
 			NotifyPluginFinishDelegate?.Invoke();
 		}
 
