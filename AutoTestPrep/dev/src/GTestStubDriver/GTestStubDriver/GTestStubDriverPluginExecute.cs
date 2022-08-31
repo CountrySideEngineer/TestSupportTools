@@ -84,7 +84,7 @@ namespace StubDriverPlugin.GTestStubDriver
 			}
 			finally
 			{
-				FinishProcess(data);
+				CompleteExecute(data);
 			}
 			return pluginOutput;
 		}
@@ -292,7 +292,11 @@ namespace StubDriverPlugin.GTestStubDriver
 			CreateDriverCodeExecute(data, tests, rootDirInfo);
 		}
 
-		protected virtual void FinishProcess(PluginInput data)
+		/// <summary>
+		/// Notify that execution is complete.
+		/// </summary>
+		/// <param name="data"></param>
+		protected virtual void CompleteExecute(PluginInput data)
 		{
 			NotifyPluginFinishDelegate?.Invoke();
 		}
