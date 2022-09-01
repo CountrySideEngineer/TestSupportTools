@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <windows.h>
 #include "UserHeader.h"
+#include "min_unit.h"
 
 long outsideVariable;
 extern short insideVariable;

@@ -35,8 +35,8 @@ namespace MinUnitStubDriver.MinUnitStubDriver
 			PluginOutput pluginOutput = null;
 			try
 			{
-				IEnumerable<Test> tests = ParseProcess(data);
-				CreateCodeProcess(data, tests);
+				IEnumerable<Test> parsedData = ParseProcess(data);
+				CreateCodeProcess(data, parsedData);
 
 				pluginOutput = new PluginOutput(outputAbout, "min_unitフレームワークを使用したコードの生成が完了しました。");
 			}
@@ -63,6 +63,10 @@ namespace MinUnitStubDriver.MinUnitStubDriver
 
 				string errorMessage = "min_unitフレームワークを使用したコードの生成中にエラーが発生しました。";
 				pluginOutput = new PluginOutput(outputAbout, errorMessage);
+			}
+			finally
+			{
+				CompleteExecute(data);
 			}
 			return pluginOutput;
 		}
@@ -249,6 +253,15 @@ namespace MinUnitStubDriver.MinUnitStubDriver
 			CreateStubCodeExeucte(data, tests, rootDirInfo);
 			CreateDriverCodeExecute(data, tests, rootDirInfo);
 
+			NotifyPluginFinishDelegate?.Invoke();
+		}
+
+		/// <summary>
+		/// Notify that execution is complete.
+		/// </summary>
+		/// <param name="data"></param>
+		protected virtual void CompleteExecute(PluginInput data)
+		{
 			NotifyPluginFinishDelegate?.Invoke();
 		}
 
