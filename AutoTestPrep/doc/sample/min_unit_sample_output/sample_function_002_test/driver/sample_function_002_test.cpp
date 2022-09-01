@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <windows.h>
 #include "UserHeader.h"
+#include "min_unit.h"
 
 //No global variables are refered by function sample_function_002.
 

@@ -1,8 +1,13 @@
 #include <stdio.h>
 #include <windows.h>
 #include "UserHeader.h"
+#include "gtest/gtest.h"
 
 //No global variables are refered by function sample_function_003.
+
+//Test target function declare
+int sample_function_003(int input1, int* input2, SHORT input3);
+
 void sample_function_003_utest::SetUp()
 {
 }
