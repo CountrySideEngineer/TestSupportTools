@@ -22,39 +22,13 @@ namespace TestParser.Converter
 				Function dstSubfunction = dstFunction.SubFunctions.ElementAt(dstSubfunctionIndex);
 				dstSubfunction.Arguments = dstSubfunction.Arguments.Append(argument);
 			}
-			catch (TestParserException ex)
+			catch (TestParserException)
 			{
-				if (ex.ErrorCode.Equals(TestParserException.Code.VARIABLE_NAME_INVALID))
-				{
-					ERROR("\"Name\" of arguemnt in test function table is invalid.");
-					throw new TestParserException(TestParserException.Code.TARGET_FUNCTION_ARGUMENT_NAME_INVALID);
-				}
-				else if (ex.ErrorCode.Equals(TestParserException.Code.VARIABLE_DATATYPE_INVALID))
-				{
-					ERROR("\"Data type\" of argument in test function table is invalid.");
-					throw new TestParserException(TestParserException.Code.TARGET_FUNCTION_ARGUMENT_DATATYPE_INVALID);
-				}
-				else if (ex.ErrorCode.Equals(TestParserException.Code.VARIABLE_TABLE_FORMAT_INVALID))
-				{
-					ERROR("Argument format in target function table is invalid.");
-					throw new TestParserException(TestParserException.Code.TARGET_FUNCTION_TABLE_FORMAT_INVALID);
-				}
-				else
-				{
-					ERROR("Unexpected error occurred while convering sub function argument in table.");
-					throw ex;
-				}
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_SUBFUNCTION_ARGUMENT_DATA_INVALID);
 			}
-			catch (Exception ex)
-			when ((ex is InvalidCastException) || (ex is NullReferenceException))
+			catch (Exception)
 			{
-				FATAL("Unexpected error detected while convering sub function argument in table.");
-				throw new TestParserException(TestParserException.Code.TEST_PARSE_FAILED);
-			}
-			catch (ArgumentOutOfRangeException)
-			{
-				ERROR("Sub function or its argument table format has been invalid.");
-				throw new TestParserException(TestParserException.Code.SUB_FUNCTION_TABLE_FORMAT_INVALID);
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_UNEXPECTED_ERROR_DETECTED_IN_FUNCTION_TABLE);
 			}
 		}
 	}

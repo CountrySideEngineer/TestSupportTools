@@ -6,6 +6,9 @@ using TestParser.Data;
 using System.Linq;
 using TestParser.Reader;
 using TestParser.Config;
+using TestParser.Parser.Exception;
+using TestParser.ParserException;
+using System.Security;
 
 namespace TestParser.Parser
 {
@@ -72,20 +75,17 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="srcPath">Input src file path.</param>
 		/// <returns>Object read from file <para>srcFile.</para></returns>
-		/// <exception cref="NullReferenceException">
-		/// Object to parse function list, function, or test case has not been set.
-		/// </exception>
-		/// <exception cref="IOException">The file <para>srcPath</para> are already opened by other process.</exception>
+		/// <exception cref="TestParserException">Error while opening and reading input file.</exception>
 		protected object Read(string srcPath)
 		{
 			try
 			{
 				using (var stream = new FileStream(srcPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
 				{
-					base.INFO($"Start reading input file : {srcPath}");
+					INFO($"Start reading input file : {srcPath}");
 					try
 					{
-						return this.Read(stream);
+						return Read(stream);
 					}
 					catch (NullReferenceException)
 					{
@@ -93,10 +93,32 @@ namespace TestParser.Parser
 					}
 				}
 			}
-			catch (IOException)
+			catch (System.Exception ex)
+			when (ex is ArgumentNullException)
 			{
-				ERROR($"Error occurred when reading input file.");
-				throw;
+				ERROR("No test file path has been set.");
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_FILE_CAN_NOT_OPEN);
+			}
+			catch (System.Exception ex)
+			when ((ex is ArgumentException) ||
+				(ex is FileNotFoundException) ||
+				(ex is SecurityException) ||
+				(ex is DirectoryNotFoundException) ||
+				(ex is PathTooLongException))
+			{
+				ERROR($"File path {srcPath} is invalid.");
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_FILE_CAN_NOT_OPEN);
+			}
+			catch (SecurityException)
+			{
+				ERROR($"File {srcPath} can not access.");
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_FILE_CAN_NOT_OPEN);
+			}
+			catch (System.Exception ex)
+			when ((ex is NotSupportedException) || (ex is ArgumentOutOfRangeException))
+			{
+				ERROR($"File path {srcPath} is not supported.");
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_FILE_CAN_NOT_OPEN);
 			}
 		}
 
@@ -123,15 +145,20 @@ namespace TestParser.Parser
 						new FunctionListParser(_testConfig.TestList.SheetName,
 							_testConfig.TestList);
 				}
-				var testTargetFunctionInfos = (IEnumerable<ParameterInfo>)this.FunctionListParser.Parse(stream);
+				var testTargetFunctionInfos = (IEnumerable<ParameterInfo>)FunctionListParser.Parse(stream);
 				NotifyProcessAndProgressDelegate?.Invoke(procName, 100, 100);
+				if (0 == testTargetFunctionInfos.Count())
+				{
+					ERROR("No test function data has been set in function table.");
+					throw new TestParserException(TestParserException.Code.PARSER_ERROR_NO_TEST_FUNCTION_SET);
+				}
 
 				procName = "テスト設計情報読出し";
 				var tests = new List<Test>();
 				int index = 0;
 				foreach (var paramInfoItem in testTargetFunctionInfos)
 				{
-					Test test = this.Read(stream, paramInfoItem);
+					Test test = Read(stream, paramInfoItem);
 					tests.Add(test);
 
 					index++;
@@ -148,10 +175,13 @@ namespace TestParser.Parser
 			}
 			catch (System.Exception ex)
 			{
-				ERROR($"{ex.Message}");
+				if (!string.IsNullOrEmpty(ex.Message))
+				{
+					ERROR($"{ex.Message}");
+				}
 
 				NotifyParseProgressDelegate?.Invoke(100, 100);
-				throw;
+				throw ex;
 			}
 		}
 
@@ -167,14 +197,14 @@ namespace TestParser.Parser
 			try
 			{
 				INFO("Start reading target function data.");
-				if (null == this.FunctionParser)
+				if (null == FunctionParser)
 				{
-					this.FunctionParser = new FunctionParser(
+					FunctionParser = new FunctionParser(
 						_testConfig.TargetFunction.TableConfig.Name,
 						_testConfig.TargetFunction);
 				}
 				this.FunctionParser.Target = paramInfo.InfoName;
-				var targetFunction = (Function)this.FunctionParser.Parse(stream);
+				var targetFunction = (Function)FunctionParser.Parse(stream);
 
 				INFO("Start reading test case data.");
 				if (null == this.TestCaseParser)
@@ -219,18 +249,15 @@ namespace TestParser.Parser
 				WARN($"The test config file {_configFilePath} has not been found.");
 				WARN("Load default config setting.");
 				_testConfig = TestParserConfig.LoadDefaultConfig();
-
-				DEBUG("TestParserConfig");
-				DEBUG($"    Sheet name : {_testConfig.TestList.SheetName}");
-				DEBUG($"    Row offset : {_testConfig.TestList.TableConfig.TableTopRowOffset}");
-				DEBUG($"    Col offset : {_testConfig.TestList.TableConfig.TableTopColOffset}");
 			}
 			catch (System.Exception)
 			{
 				WARN("The test config file can not load.");
 				WARN("    Use default config setting.");
 				_testConfig = TestParserConfig.LoadDefaultConfig();
-
+			}
+			finally
+			{
 				DEBUG("TestParserConfig");
 				DEBUG($"    Sheet name : {_testConfig.TestList.SheetName}");
 				DEBUG($"    Row offset : {_testConfig.TestList.TableConfig.TableTopRowOffset}");

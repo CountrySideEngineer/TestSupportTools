@@ -25,34 +25,13 @@ namespace TestParser.Converter
 				Function dstFunction = (Function)dst;
 				dstFunction.InternalVariables = dstFunction.InternalVariables.Append(parameter);
 			}
-			catch (TestParserException ex)
+			catch (TestParserException)
 			{
-				if (ex.ErrorCode.Equals(TestParserException.Code.VARIABLE_NAME_INVALID))
-				{
-					ERROR("\"Name\" of internal (global) variable in variable table is invalid.");
-					throw new TestParserException(TestParserException.Code.INTERNAL_VARIABLE_NAME_INVALID);
-				}
-				else if (ex.ErrorCode.Equals(TestParserException.Code.VARIABLE_DATATYPE_INVALID))
-				{
-					ERROR("\"Data type\" of internal (global) variable in variable table is invalid.");
-					throw new TestParserException(TestParserException.Code.INTERNAL_VARIABLE_DATATYPE_INVALID);
-				}
-				else if (ex.ErrorCode.Equals(TestParserException.Code.VARIABLE_TABLE_FORMAT_INVALID))
-				{
-					ERROR("(global) Variable in variable table is invalid.");
-					throw new TestParserException(TestParserException.Code.INTERNAL_VARIABLE_TABLE_FORMAT_INVALID);
-				}
-				else
-				{
-					ERROR("Unexpected error occurred while convering internal global variable in table.");
-					throw new TestParserException(TestParserException.Code.TEST_PARSE_FAILED);
-				}
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_INTERNAL_VARIABLE_DATA_INVALID);
 			}
-			catch (Exception ex)
-			when ((ex is InvalidCastException) || (ex is NullReferenceException))
+			catch (Exception)
 			{
-				FATAL("Unexpected error detected while converting internal global variable.");
-				throw new TestParserException(TestParserException.Code.TEST_PARSE_FAILED);
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_UNEXPECTED_ERROR_DETECTED_IN_FUNCTION_TABLE);
 			}
 		}
 	}

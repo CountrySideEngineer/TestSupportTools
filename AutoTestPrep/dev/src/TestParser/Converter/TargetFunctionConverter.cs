@@ -21,27 +21,13 @@ namespace TestParser.Converter
 			{
 				base.Convert(src, ref dst);
 			}
-			catch (TestParserException ex)
+			catch (TestParserException)
 			{
-				if (ex.ErrorCode.Equals(TestParserException.Code.FUNCTION_NAME_INVALID))
-				{
-					ERROR($"\"Name\" in test function table is invalid.");
-					throw new TestParserException(TestParserException.Code.TARGET_FUNCTION_NAME_INVALID);
-				}
-				else if (ex.ErrorCode.Equals(TestParserException.Code.FUNCTION_DATATYPE_INVALID))
-				{
-					ERROR($"\"Data type\" in test function table is invalid.");
-					throw new TestParserException(TestParserException.Code.TARGET_FUNCTION_DATATYPE_INVALID);
-				}
-				else if (ex.ErrorCode.Equals(TestParserException.Code.FUNCTION_TABLE_FORMAT_INVALID))
-				{
-					ERROR($"Target function table format is invalid.");
-					throw new TestParserException(TestParserException.Code.TARGET_FUNCTION_TABLE_FORMAT_INVALID);
-				}
-				else
-				{
-					throw ex;
-				}
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_FUNCTION_DATA_INVALID);
+			}
+			catch (Exception)
+			{
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_UNEXPECTED_ERROR_DETECTED_IN_FUNCTION_TABLE);
 			}
 		}
 	}
