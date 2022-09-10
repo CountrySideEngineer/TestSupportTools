@@ -75,8 +75,8 @@ namespace StubDriverPlugin.MinUnitStubDriver
 		{
 			Task<PluginOutput> task = Task<PluginOutput>.Run(() =>
 			{
-				MinUnitStubDriverPluginExecute plugin = new MinUnitStubDriverPluginExecute();
-				plugin.NotifyParseProgressDelegate += (name, numerator, denominator) =>
+				MinUnitStubDriverPluginExecute pluginExecute = new MinUnitStubDriverPluginExecute();
+				pluginExecute.NotifyParseProgressDelegate += (name, numerator, denominator) =>
 				{
 					int percent = 0;
 					if (0 == denominator)
@@ -101,7 +101,7 @@ namespace StubDriverPlugin.MinUnitStubDriver
 					}
 					progress.Report(progressInfo);
 				};
-				plugin.NotifyPluginFinishDelegate += () =>
+				pluginExecute.NotifyPluginFinishDelegate += () =>
 				{
 					var progressInfo = new ProgressInfo()
 					{
@@ -111,7 +111,7 @@ namespace StubDriverPlugin.MinUnitStubDriver
 					};
 					progress.Report(progressInfo);
 				};
-				pluginOutput = plugin.Execute(pluginInput);
+				pluginOutput = pluginExecute.Execute(pluginInput);
 				return pluginOutput;
 			});
 			return task;
