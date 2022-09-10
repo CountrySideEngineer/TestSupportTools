@@ -200,7 +200,7 @@ namespace TestParser.Parser
 				}
 				catch (TestParserException ex)
 				{
-					if (ex.ErrorCode.Equals(TestParserException.Code.TEST_PARSE_FAILED)) {
+					if (ex.ErrorCode.Equals(TestParserException.Code.PARSER_ERROR_TEST_INPUT_OUTPUT_INVALID)) {
 						throw ex;
 					}
 					WARN($"Skip test case index {index}.");
@@ -519,7 +519,7 @@ namespace TestParser.Parser
 			catch (NullReferenceException)
 			{
 				FATAL("Test configuration is not set or invalid.");
-				throw new TestParserException(TestParserException.Code.TEST_PARSE_FAILED);
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_INPUT_OUTPUT_INVALID);
 			}
 
 		}
