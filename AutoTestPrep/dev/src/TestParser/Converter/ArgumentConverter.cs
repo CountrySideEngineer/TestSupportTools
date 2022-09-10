@@ -41,7 +41,7 @@ namespace TestParser.Converter
 					}
 					else
 					{
-						throw new TestParserException(TestParserException.Code.TARGET_FUNCTION_ARGUMENT_IN_OUT_INVALID);
+						throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_FUNCTION_ARGUMENT_DATA_INVALID);
 					}
 				}
 				catch (ArgumentOutOfRangeException)
