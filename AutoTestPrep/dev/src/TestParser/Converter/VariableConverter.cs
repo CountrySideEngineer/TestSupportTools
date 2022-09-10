@@ -23,12 +23,14 @@ namespace TestParser.Converter
 				string dataType = src.ElementAt(3);
 				if ((string.IsNullOrEmpty(dataType)) || (string.IsNullOrWhiteSpace(dataType)))
 				{
-					throw new TestParserException(TestParserException.Code.VARIABLE_NAME_INVALID);
+					ERROR("Variable data type has not been set.");
+					throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_FUNCTION_VARIABLE_DATA_INVALID);
 				}
 				string name = src.ElementAt(5);
 				if ((string.IsNullOrEmpty(name)) || (string.IsNullOrWhiteSpace(name)))
 				{
-					throw new TestParserException(TestParserException.Code.VARIABLE_DATATYPE_INVALID);
+					ERROR("Variable name has not been set.");
+					throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_FUNCTION_VARIABLE_DATA_INVALID);
 				}
 
 				dst.Prefix = src.ElementAt(2);
@@ -48,7 +50,8 @@ namespace TestParser.Converter
 			}
 			catch (ArgumentOutOfRangeException)
 			{
-				throw new TestParserException(TestParserException.Code.VARIABLE_TABLE_FORMAT_INVALID);
+				ERROR("Variable data in function table is invalid.");
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_FUNCTION_VARIABLE_DATA_INVALID);
 			}
 		}
 	}

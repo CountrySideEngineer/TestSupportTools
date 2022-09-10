@@ -25,33 +25,13 @@ namespace TestParser.Converter
 				Function dstFunc = (Function)dst;
 				dstFunc.SubFunctions = dstFunc.SubFunctions.Append((Function)function);
 			}
-			catch (TestParserException ex)
+			catch (TestParserException)
 			{
-				if (ex.ErrorCode.Equals(TestParserException.Code.FUNCTION_NAME_INVALID))
-				{
-					ERROR("\"Name\" in sub function table is invalid.");
-					throw new TestParserException(TestParserException.Code.SUB_FUNCTION_NAME_INVALID);
-				}
-				else if (ex.ErrorCode.Equals(TestParserException.Code.FUNCTION_DATATYPE_INVALID))
-				{
-					ERROR("\"Data type\" in sub function table is invalid.");
-					throw new TestParserException(TestParserException.Code.SUB_FUNCTION_DATATYPE_INVALID);
-				}
-				else if (ex.ErrorCode.Equals(TestParserException.Code.FUNCTION_TABLE_FORMAT_INVALID))
-				{
-					ERROR("Sub functoin table format is invalid.");
-					throw new TestParserException(TestParserException.Code.SUB_FUNCTION_TABLE_FORMAT_INVALID);
-				}
-				else
-				{
-					throw ex;
-				}
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_SUBFUNCTION_DATA_INVALID);
 			}
-			catch (Exception ex)
-			when ((ex is InvalidCastException) || (ex is NullReferenceException))
+			catch (Exception)
 			{
-				FATAL("Unexpected error detected while converting subfunction table data.");
-				throw new TestParserException(TestParserException.Code.TEST_PARSE_FAILED);
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_UNEXPECTED_ERROR_DETECTED_IN_FUNCTION_TABLE);
 			}
 		}
 	}
