@@ -178,29 +178,36 @@ namespace TestParser.Parser
 			IEnumerable<TestData> testInputsAndExpects = ReadInputsAndExpects(reader, range);
 			Range rangeApplied = GetRangeToStartReadingTestCase(reader);
 			rangeApplied.RowCount = testInputsAndExpects.Count();
-			(int testId, IEnumerable<IEnumerable<string>> testApply) = (0, null);
 
 			IEnumerable<(string testId, IEnumerable<string> testApply)> applied = ReadTestCaseItem(reader, rangeApplied);
+			IEnumerable<TestCase> testCases = CreateTestCaseCollection(testInputsAndExpects, applied);
 
+			return testCases;
+		}
+
+		/// <summary>
+		/// Setup TestCase object usign values read from test case sheet.
+		/// </summary>
+		/// <param name="inputsAndExpects">Collection of inputs and expects values.</param>
+		/// <param name="applied">Input and expects apply information.</param>
+		/// <returns>Collection of test case.</returns>
+		protected IEnumerable<TestCase> CreateTestCaseCollection(
+			IEnumerable<TestData> inputsAndExpects, 
+			IEnumerable<(string testId, IEnumerable<string> testApply)> applied)
+		{
 			int index = 1;
 			List<TestCase> testCases = new List<TestCase>();
 			foreach (var appliedItem in applied)
 			{
 				try
 				{
-					(IEnumerable<TestData> inputs, IEnumerable<TestData> expects) =
-						ExtractInputsAndExpects(testInputsAndExpects, appliedItem.testApply);
-					var testCase = new TestCase()
-					{
-						Id = appliedItem.testId,
-						Input = inputs,
-						Expects = expects
-					};
+					TestCase testCase = CreateTestCase(inputsAndExpects, appliedItem.testId, appliedItem.testApply);
 					testCases.Add(testCase);
 				}
 				catch (TestParserException ex)
 				{
-					if (ex.ErrorCode.Equals(TestParserException.Code.PARSER_ERROR_TEST_INPUT_OUTPUT_INVALID)) {
+					if (ex.ErrorCode.Equals(TestParserException.Code.PARSER_ERROR_TEST_INPUT_OUTPUT_INVALID))
+					{
 						throw ex;
 					}
 					WARN($"Skip test case index {index}.");
@@ -208,6 +215,36 @@ namespace TestParser.Parser
 				index++;
 			}
 			return testCases;
+		}
+
+		/// <summary>
+		/// Create test case as TestCase object.
+		/// </summary>
+		/// <param name="inputsAndExpects">Test case inputs and expects value collection.</param>
+		/// <param name="testId">Test id.</param>
+		/// <param name="testApply">Test apply.</param>
+		/// <returns>TestCase object as a TestCase.</returns>
+		protected TestCase CreateTestCase(
+			IEnumerable<TestData> inputsAndExpects,
+			string testId,
+			IEnumerable<string> testApply)
+		{
+			try
+			{
+				(IEnumerable<TestData> inputs, IEnumerable<TestData> expects) =
+					ExtractInputsAndExpects(inputsAndExpects, testApply);
+				var testCase = new TestCase()
+				{
+					Id = testId,
+					Input = inputs,
+					Expects = expects
+				};
+				return testCase;
+			}
+			catch (TestParserException)
+			{
+				throw;
+			}
 		}
 
 		/// <summary>
@@ -492,13 +529,13 @@ namespace TestParser.Parser
 				if (inputs.Count() < 1)
 				{
 					WARN("No input has been selected.");
-					throw new TestParserException(TestParserException.Code.TEST_CASE_TEST_VALUE_NOT_SELECTED);
+					throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_VALUE_NOT_SELECTED);
 				}
 				IEnumerable<TestData> expects = appliedDatas.Where(_ => _.Condition.Equals(Config.TestCaseConfig.Expect));
 				if (expects.Count() < 1)
 				{
 					WARN("No expects has been selected.");
-					throw new TestParserException(TestParserException.Code.TEST_CASE_TEST_VALUE_NOT_SELECTED);
+					throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_VALUE_NOT_SELECTED);
 				}
 
 				INFO("Applied test case:");
