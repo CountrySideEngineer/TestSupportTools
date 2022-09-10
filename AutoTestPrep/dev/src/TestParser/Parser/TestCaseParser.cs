@@ -224,7 +224,7 @@ namespace TestParser.Parser
 				if ((string.IsNullOrEmpty(tableName)) || (string.IsNullOrWhiteSpace(tableName)))
 				{
 					ERROR("Test case table has not been set in configuration file.");
-					throw new TestParserException(TestParserException.Code.TEST_PARSE_FAILED);
+					throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_CASE_TABLE_NAME_INVALID);
 				}
 
 				INFO($"Start getting target function table in \"{this.Target}\" sheet.");
@@ -237,12 +237,12 @@ namespace TestParser.Parser
 			catch (NullReferenceException)
 			{
 				FATAL("Test case parser configuration has not been set.");
-				throw new TestParserException(TestParserException.Code.TEST_PARSE_FAILED);
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_UNEXPECTED_ERROR_DETECTED_IN_TEST_CASE_TABLE);
 			}
 			catch (ArgumentException)
 			{
 				WARN($"\"{Config.TableConfig.Name}\" cell can not be found in \"{this.Target}\" sheet.");
-				throw new TestParserException(TestParserException.Code.TEST_CASE_TABLE_NOT_FOUND);
+				throw new TestParserException(TestParserException.Code.PARSRE_ERROR_TEST_CASE_TABLE_NOT_FOUND);
 			}
 		}
 
@@ -251,22 +251,23 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="reader">Excel reader</param>
 		/// <returns>The starting coordinate of the test case header with a Range object.</returns>
+		/// <exception cref="TestParserException"></exception>
 		protected Range GetRangeToStartReadingTableHeader(ExcelTableReader reader)
 		{
-			try
+			Range tableTopRange = GetTableTitle(reader);
+			int rowOffset = Config.TableConfig.TableTopRowOffset + Config.TableConfig.RowDataOffset;
+			int colOffset = Config.TableConfig.TableTopColOffset + Config.TableConfig.ColDataOffset;
+			if ((rowOffset < 0) || (colOffset < 0))
 			{
-				Range tableTopRange = GetTableTitle(reader);
-				tableTopRange.StartRow += (Config.TableConfig.TableTopRowOffset + Config.TableConfig.RowDataOffset);
-				tableTopRange.StartColumn += (Config.TableConfig.TableTopColOffset + Config.TableConfig.ColDataOffset);
-
-				INFO($"    The cell corrdinates to start reading test table header is ({tableTopRange.StartRow}, {tableTopRange.StartColumn}).");
-				return tableTopRange;
+				ERROR($"Test case table configuration invalid.");
+				throw new TestParserException(TestParserException.Code.PARSRE_ERROR_TEST_CASE_TABLE_CONFIGURATION_INVALID);
 			}
-			catch (System.Exception)
-			{
-				throw;
+			tableTopRange.StartRow += rowOffset;
+			tableTopRange.StartColumn += colOffset;
 
-			}
+			INFO($"    The cell corrdinates to start reading test table header is ({tableTopRange.StartRow}, {tableTopRange.StartColumn}).");
+
+			return tableTopRange;
 		}
 
 		/// <summary>
@@ -274,9 +275,17 @@ namespace TestParser.Parser
 		/// </summary>
 		/// <param name="reader">Excel reader.</param>
 		/// <returns>The starting coordinate of the test case with a Range object.</returns>
+		/// <exception cref="TestParserException"></exception>
 		protected Range GetRangeToStartReadingTestCase(ExcelTableReader reader)
 		{
 			Range tableTop = GetTableTitle(reader);
+			if ((Config.TableConfig.TableTopRowOffset < 0) ||
+				(Config.TableConfig.TableTopColOffset < 0) ||
+				(Config.TableConfig.TestCaseColOffset < 0))
+			{
+				ERROR($"Test case table configuration invalid.");
+				throw new TestParserException(TestParserException.Code.PARSRE_ERROR_TEST_CASE_TABLE_CONFIGURATION_INVALID);
+			}
 			tableTop.StartRow += Config.TableConfig.TableTopRowOffset;
 			tableTop.StartColumn += (Config.TableConfig.TableTopColOffset + Config.TableConfig.TestCaseColOffset);
 
@@ -294,6 +303,11 @@ namespace TestParser.Parser
 		protected Range GetRangeToStartReadingTestCase(ExcelTableReader reader, Range tableTopRange)
 		{
 			Range tableRange = new Range(tableTopRange);
+			if (Config.TableConfig.TestCaseColOffset < 0)
+			{
+				ERROR($"Test case table configuration invalid.");
+				throw new TestParserException(TestParserException.Code.PARSRE_ERROR_TEST_CASE_TABLE_CONFIGURATION_INVALID);
+			}
 			tableRange.StartColumn += Config.TableConfig.TestCaseColOffset;
 
 			INFO($"    The cell corrdinates to start reading test case is ({tableRange.StartRow}, {tableRange.StartColumn}).");
@@ -355,34 +369,11 @@ namespace TestParser.Parser
 		}
 
 		/// <summary>
-		/// Read test case from excel file.
-		/// </summary>
-		/// <param name="apply">Data of a test case which test datas are applied to test.</param>
-		/// <param name="allTestDatas">All test data designed.</param>
-		/// <returns>Applied test datas.</returns>
-		protected IEnumerable<TestData> ReadTestCase(IEnumerable<string> apply, IEnumerable<TestData> allTestDatas)
-		{
-			var appliedTestDatas = new List<TestData>();
-			for (int index = 0; index < apply.Count(); index++)
-			{
-				if (("A").Equals(apply.ElementAt(index), StringComparison.Ordinal))
-				{
-					var testData = new TestData(allTestDatas.ElementAt(index));
-					appliedTestDatas.Add(testData);
-
-					DEBUG($"Applied test data:");
-					DEBUG($"    Name  = {testData.Name}");
-					DEBUG($"    Value = {testData.Value}");
-				}
-			}
-			return appliedTestDatas;
-		}
-
-		/// <summary>
 		/// Convert collection of test item headers (input and expect) to TestDataObject.
 		/// </summary>
 		/// <param name="items">Collection of items to be converted.</param>
 		/// <returns>TestData object converted from items.</returns>
+		/// <exception cref="TestParserException"></exception>
 		protected TestData Items2InAndExpectTestData(IEnumerable<string> items)
 		{
 			string condition = items.ElementAt(0);
@@ -390,7 +381,7 @@ namespace TestParser.Parser
 				(string.IsNullOrWhiteSpace(condition)))
 			{
 				ERROR($"\"INPUT\" or \"EXPECT\" has not been set.");
-				throw new TestParserException(TestParserException.Code.TEST_CASE_IN_OUT_FORMAT_INVALID);
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_INPUT_OUTPUT_INVALID);
 			}
 			string description = items.ElementAt(1);
 			string name = items.ElementAt(2);
@@ -398,14 +389,14 @@ namespace TestParser.Parser
 				(string.IsNullOrWhiteSpace(name)))
 			{
 				ERROR($"Variable name has not been set."); ;
-				throw new TestParserException(TestParserException.Code.TEST_CASE_VARIABLE_NAME_INVALID);
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_VARIABLE_NAME_INVALID);
 			}
 			string representativeValue = items.ElementAt(4);
 			if ((string.IsNullOrEmpty(representativeValue)) ||
 				(string.IsNullOrWhiteSpace(representativeValue)))
 			{
-				ERROR($"Variable name or representative value has not been set.");
-				throw new TestParserException(TestParserException.Code.TEST_CASE_TEST_VALUE_INVALID);
+				ERROR($"Representative value has not been set.");
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_REPRESENTATIVE_VALUE_INVALID);
 			}
 			DEBUG("Get test data below:");
 			DEBUG($"      Condition : {condition}");
@@ -432,12 +423,13 @@ namespace TestParser.Parser
 		{
 			Range rangeToRead = new Range(range);
 			List<(string, IEnumerable<string>)> items = new List<(string, IEnumerable<string>)>();
-			do
+
+			try
 			{
-				try
+				do
 				{
 					List<string> testCaseApply = ReadAppliedDataItem(reader, rangeToRead).ToList();
-					string testCaseNo = testCaseApply[0];
+					string testCaseNo = testCaseNo = testCaseApply[0];
 					if ((string.IsNullOrEmpty(testCaseNo)) || (string.IsNullOrWhiteSpace(testCaseNo)))
 					{
 						INFO($"The cell ({rangeToRead.StartRow}, {rangeToRead.StartColumn}) is empty.");
@@ -449,16 +441,13 @@ namespace TestParser.Parser
 					List<string> testCase = testCaseApply.GetRange(1, testCaseApply.Count() - 1);
 					items.Add((testCaseNo, testCase));
 					rangeToRead.StartColumn++;
-				}
-				catch (ArgumentOutOfRangeException)
-				{
-					INFO($"An empty cell is found while reading test case at ({rangeToRead.StartRow}, {rangeToRead.StartColumn}).");
-					INFO($"Stop reading table.");
-
-					break;
-				}
-
-			} while (true);
+				} while (true);
+			}
+			catch (ArgumentOutOfRangeException)
+			{
+				INFO($"An empty cell is found while reading test case at ({rangeToRead.StartRow}, {rangeToRead.StartColumn}).");
+				INFO($"Stop reading table.");
+			}
 			return items;
 		}
 
