@@ -76,8 +76,8 @@ namespace StubDriverPlugin.GTestStubDriver
 		{
 			Task<PluginOutput> task = Task<PluginOutput>.Run(() =>
 			{
-				GTestStubDriverPluginExecute plugin = new GTestStubDriverPluginExecute();
-				plugin.NotifyParseProgressDelegate += (name, numerator, denominator) =>
+				GTestStubDriverPluginExecute pluginExecute = new GTestStubDriverPluginExecute();
+				pluginExecute.NotifyParseProgressDelegate += (name, numerator, denominator) =>
 				{
 					int percent = 0;
 					if (0 == denominator)
@@ -102,7 +102,7 @@ namespace StubDriverPlugin.GTestStubDriver
 					}
 					progress.Report(progressInfo);
 				};
-				plugin.NotifyPluginFinishDelegate += () =>
+				pluginExecute.NotifyPluginFinishDelegate += () =>
 				{
 					var progressInfo = new ProgressInfo()
 					{
@@ -112,7 +112,7 @@ namespace StubDriverPlugin.GTestStubDriver
 					};
 					progress.Report(progressInfo);
 				};
-				pluginOutput = plugin.Execute(pluginInput);
+				pluginOutput = pluginExecute.Execute(pluginInput);
 				return pluginOutput;
 			});
 			return task;

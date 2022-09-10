@@ -25,34 +25,13 @@ namespace TestParser.Converter
 				Function dstFunction = (Function)dst;
 				dstFunction.Arguments = dstFunction.Arguments.Append(argument);
 			}
-			catch (TestParserException ex)
+			catch (TestParserException)
 			{
-				if (ex.ErrorCode.Equals(TestParserException.Code.VARIABLE_NAME_INVALID))
-				{
-					ERROR($"\"Name\" of arguemnt in test function table is invalid.");
-					throw new TestParserException(TestParserException.Code.TARGET_FUNCTION_ARGUMENT_NAME_INVALID);
-				}
-				else if (ex.ErrorCode.Equals(TestParserException.Code.VARIABLE_DATATYPE_INVALID))
-				{
-					ERROR($"\"Data type\" of argument in test function table is invalid.");
-					throw new TestParserException(TestParserException.Code.TARGET_FUNCTION_ARGUMENT_DATATYPE_INVALID);
-				}
-				else if (ex.ErrorCode.Equals(TestParserException.Code.VARIABLE_TABLE_FORMAT_INVALID))
-				{
-					ERROR($"Argument format in target function table is invalid.");
-					throw new TestParserException(TestParserException.Code.TARGET_FUNCTION_TABLE_FORMAT_INVALID);
-				}
-				else
-				{
-					ERROR($"Unexpected error occurred while converting target function arument in table.");
-					throw ex;
-				}
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_FUNCTION_ARGUMENT_DATA_INVALID);
 			}
-			catch (Exception ex)
-			when ((ex is InvalidCastException) || (ex is NullReferenceException))
+			catch (Exception)
 			{
-				FATAL("Unexpected error detected while converting target function arguments.");
-				throw new TestParserException(TestParserException.Code.TEST_PARSE_FAILED);
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_UNEXPECTED_ERROR_DETECTED_IN_FUNCTION_TABLE);
 			}
 		}
 	}

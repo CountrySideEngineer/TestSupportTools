@@ -12,6 +12,7 @@ using TestParser.Config;
 using TestParser.Converter;
 using TableReader.Excel;
 using TableReader.TableData;
+using System.Security;
 
 namespace TestParser.Parser
 {
@@ -62,7 +63,7 @@ namespace TestParser.Parser
 		{
 			try
 			{
-				return this.Read(srcPath);
+				return Read(srcPath);
 			}
 			catch (TestParserException)
 			{
@@ -110,13 +111,35 @@ namespace TestParser.Parser
 			{
 				using (var stream = new FileStream(srcPath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
 				{
-					Parameter parameter = this.ReadTargetFunction(stream);
+					Parameter parameter = ReadTargetFunction(stream);
 					return parameter;
 				}
 			}
-			catch (IOException)
+			catch (System.Exception ex)
+			when (ex is ArgumentNullException)
 			{
-				throw new Exception.ParseException(0x1001);
+				ERROR("No test file path has been set.");
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_FILE_CAN_NOT_OPEN);
+			}
+			catch (System.Exception ex)
+			when ((ex is ArgumentException) ||
+				(ex is FileNotFoundException) ||
+				(ex is DirectoryNotFoundException) ||
+				(ex is PathTooLongException))
+			{
+				ERROR($"File path {srcPath} is invalid.");
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_FILE_CAN_NOT_OPEN);
+			}
+			catch (SecurityException)
+			{
+				ERROR($"File {srcPath} can not access.");
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_FILE_CAN_NOT_OPEN);
+			}
+			catch (System.Exception ex)
+			when ((ex is NotSupportedException) || (ex is ArgumentOutOfRangeException))
+			{
+				ERROR($"File path {srcPath} is not supported.");
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_FILE_CAN_NOT_OPEN);
 			}
 		}
 
@@ -127,9 +150,14 @@ namespace TestParser.Parser
 		/// <returns>Parameter of target function.</returns>
 		protected Parameter ReadTargetFunction(Stream stream)
 		{
+			if ((string.IsNullOrEmpty(Target)) || (string.IsNullOrWhiteSpace(Target)))
+			{
+				FATAL("A sheet with information in the test to be analyzed was not found in the file.");
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_FUNCTION_SHEET_NOT_FOUND);
+			}
 			var reader = new ExcelTableReader(stream)
 			{
-				SheetName = this.Target
+				SheetName = Target
 			};
 			Parameter readFunction = GetFunctionInfo(reader);
 
@@ -216,7 +244,7 @@ namespace TestParser.Parser
 				if ((string.IsNullOrEmpty(Config.TableConfig.Name)) || (string.IsNullOrWhiteSpace(Config.TableConfig.Name)))
 				{
 					ERROR("Function table name has not been set.");
-					throw new TestParserException(TestParserException.Code.TARGET_FUNCTION_TABLE_FORMAT_INVALID);
+					throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_FUNCTION_TABLE_NAME_INVALID);
 				}
 
 				INFO($"Start getting target function table in \"{this.Target}\" sheet");
@@ -230,16 +258,10 @@ namespace TestParser.Parser
 				INFO($"The cell coordinates to start reading is ({targetFuncRange.StartRow}, {targetFuncRange.StartColumn}).");
 				return targetFuncRange;
 			}
-			catch (NullReferenceException)
-			{
-				FATAL("Function parser configuration has not been set.");
-				throw new TestParserException(TestParserException.Code.TEST_PARSE_FAILED);
-			}
 			catch (ArgumentException)
 			{
 				WARN($"\"{Config.TableConfig.Name}\" cell can not be found in \"{this.Target}\" sheet.");
-
-				throw new TestParserException(TestParserException.Code.TARGET_FUNCTION_TABLE_FORMAT_INVALID);
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_FUNCTION_TABLE_NOT_FOUND);
 			}
 		}
 
