@@ -12,6 +12,7 @@ using TestParser.Config;
 using TestParser.ParserException;
 using TableReader.TableData;
 using TableReader.Excel;
+using TestParser.Converter;
 
 namespace TestParser.Parser
 {
@@ -421,6 +422,11 @@ namespace TestParser.Parser
 				throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_INPUT_OUTPUT_INVALID);
 			}
 			string description = items.ElementAt(1);
+			if ((string.IsNullOrEmpty(description)) || (string.IsNullOrWhiteSpace(description)))
+			{
+				ERROR("Description about \"INPUT\" or \"EXPECT\" has not been set or invalid.");
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_TEST_INPUT_OUTPUT_DESCRIPTION_INVALID);
+			}
 			string name = items.ElementAt(2);
 			if ((string.IsNullOrEmpty(name)) ||
 				(string.IsNullOrWhiteSpace(name)))
@@ -447,6 +453,8 @@ namespace TestParser.Parser
 				Descriotion = description,
 				Value = representativeValue,
 			};
+			var converter = new TestCaseTableItemConverter(Config);
+			converter.Convert(ref testData);
 			return testData;
 		}
 

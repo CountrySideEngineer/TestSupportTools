@@ -26,8 +26,8 @@ TEST_F(sample_function_001_utest, sample_function_001_utest_2)
 	input1 = 0;
 	input2 = 2;
 
-	int returnValue = sample_function_001(input1, &input2);
+	int _ret_val = sample_function_001(input1, &input2);
 
-	ASSERT_EQ(2, ret_val);
+	ASSERT_EQ(2, _ret_val);
 }
 

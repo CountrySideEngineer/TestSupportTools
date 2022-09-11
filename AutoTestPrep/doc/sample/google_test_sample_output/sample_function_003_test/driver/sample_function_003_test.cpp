@@ -24,9 +24,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_1)
 	input1 = 0;
 	input2 = 1;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(1, ret_val);
+	ASSERT_EQ(1, _ret_val);
 	ASSERT_EQ(20, input2);
 }
 
@@ -41,9 +41,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_2)
 	input1 = 0;
 	input2 = 2;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(2, ret_val);
+	ASSERT_EQ(2, _ret_val);
 }
 
 TEST_F(sample_function_003_utest, sample_function_003_utest_3)
@@ -57,9 +57,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_3)
 	input1 = 0;
 	input2 = 3;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(3, ret_val);
+	ASSERT_EQ(3, _ret_val);
 	ASSERT_EQ(40, input2);
 }
 
@@ -74,9 +74,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_4)
 	input1 = 0;
 	input2 = 0;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(0, ret_val);
+	ASSERT_EQ(0, _ret_val);
 	ASSERT_EQ(10, input2);
 }
 
@@ -91,9 +91,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_5)
 	input1 = 1;
 	input2 = 0;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(1, ret_val);
+	ASSERT_EQ(1, _ret_val);
 	ASSERT_EQ(20, input2);
 }
 
@@ -108,9 +108,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_6)
 	input1 = 2;
 	input2 = 0;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(2, ret_val);
+	ASSERT_EQ(2, _ret_val);
 }
 
 TEST_F(sample_function_003_utest, sample_function_003_utest_7)
@@ -124,9 +124,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_7)
 	input1 = 3;
 	input2 = 0;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(3, ret_val);
+	ASSERT_EQ(3, _ret_val);
 	ASSERT_EQ(40, input2);
 }
 
@@ -141,9 +141,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_8)
 	input1 = 0;
 	input2 = 1;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(1, ret_val);
+	ASSERT_EQ(1, _ret_val);
 	ASSERT_EQ(20, input2);
 }
 
@@ -158,9 +158,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_9)
 	input1 = 0;
 	input2 = 2;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(2, ret_val);
+	ASSERT_EQ(2, _ret_val);
 }
 
 TEST_F(sample_function_003_utest, sample_function_003_utest_10)
@@ -174,9 +174,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_10)
 	input1 = 0;
 	input2 = 3;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(3, ret_val);
+	ASSERT_EQ(3, _ret_val);
 	ASSERT_EQ(40, input2);
 }
 
@@ -191,9 +191,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_11)
 	input1 = 0;
 	input2 = 0;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(0, ret_val);
+	ASSERT_EQ(0, _ret_val);
 	ASSERT_EQ(10, input2);
 }
 
@@ -208,9 +208,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_12)
 	input1 = 1;
 	input2 = 0;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(1, ret_val);
+	ASSERT_EQ(1, _ret_val);
 	ASSERT_EQ(20, input2);
 }
 
@@ -225,9 +225,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_13)
 	input1 = 2;
 	input2 = 0;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(2, ret_val);
+	ASSERT_EQ(2, _ret_val);
 }
 
 TEST_F(sample_function_003_utest, sample_function_003_utest_14)
@@ -241,9 +241,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_14)
 	input1 = 3;
 	input2 = 0;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(3, ret_val);
+	ASSERT_EQ(3, _ret_val);
 	ASSERT_EQ(40, input2);
 }
 
@@ -258,9 +258,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_15)
 	input1 = 0;
 	input2 = 1;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(1, ret_val);
+	ASSERT_EQ(1, _ret_val);
 	ASSERT_EQ(20, input2);
 }
 
@@ -275,9 +275,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_16)
 	input1 = 0;
 	input2 = 2;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(2, ret_val);
+	ASSERT_EQ(2, _ret_val);
 }
 
 TEST_F(sample_function_003_utest, sample_function_003_utest_17)
@@ -291,9 +291,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_17)
 	input1 = 0;
 	input2 = 3;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(3, ret_val);
+	ASSERT_EQ(3, _ret_val);
 	ASSERT_EQ(40, input2);
 }
 
@@ -308,9 +308,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_18)
 	input1 = 0;
 	input2 = 0;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(0, ret_val);
+	ASSERT_EQ(0, _ret_val);
 	ASSERT_EQ(10, input2);
 }
 
@@ -325,9 +325,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_19)
 	input1 = 1;
 	input2 = 0;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(1, ret_val);
+	ASSERT_EQ(1, _ret_val);
 	ASSERT_EQ(20, input2);
 }
 
@@ -342,9 +342,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_20)
 	input1 = 2;
 	input2 = 0;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(2, ret_val);
+	ASSERT_EQ(2, _ret_val);
 	ASSERT_EQ(30, input2);
 }
 
@@ -359,9 +359,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_21)
 	input1 = 3;
 	input2 = 0;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(3, ret_val);
+	ASSERT_EQ(3, _ret_val);
 }
 
 TEST_F(sample_function_003_utest, sample_function_003_utest_22)
@@ -375,9 +375,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_22)
 	input1 = 0;
 	input2 = 1;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(1, ret_val);
+	ASSERT_EQ(1, _ret_val);
 	ASSERT_EQ(20, input2);
 }
 
@@ -392,9 +392,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_23)
 	input1 = 0;
 	input2 = 2;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(2, ret_val);
+	ASSERT_EQ(2, _ret_val);
 	ASSERT_EQ(30, input2);
 }
 
@@ -409,9 +409,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_24)
 	input1 = 0;
 	input2 = 3;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(3, ret_val);
+	ASSERT_EQ(3, _ret_val);
 }
 
 TEST_F(sample_function_003_utest, sample_function_003_utest_25)
@@ -425,9 +425,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_25)
 	input1 = 0;
 	input2 = 0;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(0, ret_val);
+	ASSERT_EQ(0, _ret_val);
 	ASSERT_EQ(10, input2);
 }
 
@@ -442,9 +442,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_26)
 	input1 = 1;
 	input2 = 0;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(1, ret_val);
+	ASSERT_EQ(1, _ret_val);
 	ASSERT_EQ(20, input2);
 }
 
@@ -459,9 +459,9 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_27)
 	input1 = 2;
 	input2 = 0;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(2, ret_val);
+	ASSERT_EQ(2, _ret_val);
 	ASSERT_EQ(30, input2);
 }
 
@@ -476,8 +476,8 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_28)
 	input1 = 3;
 	input2 = 0;
 
-	int returnValue = sample_function_003(input1, &input2, input3);
+	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(3, ret_val);
+	ASSERT_EQ(3, _ret_val);
 }
 

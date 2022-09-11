@@ -16,7 +16,7 @@ extern int subFuncA_called_count;
 extern int subFuncA_return_value[];
 
 //External declaration of the buffers which store the value of arguments. 
-extern int** subFuncA_subInput1[]
+extern int** subFuncA_subInput1[];
 
 //External declaration of the buffers that store the values the method should return via a pointer argument.
 //subInput1 is not output.

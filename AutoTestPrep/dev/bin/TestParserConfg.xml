@@ -48,6 +48,8 @@
 			<InputExpect>入力/期待値</InputExpect>
 			<Input>入力</Input>
 			<Expect>期待値</Expect>
+			<ReturnValue>戻り値</ReturnValue>
+			<ReturnVariableName>_ret_val</ReturnVariableName>
 		</TestCaseConfig>
 	</Test>
 </TestParserConfig>
