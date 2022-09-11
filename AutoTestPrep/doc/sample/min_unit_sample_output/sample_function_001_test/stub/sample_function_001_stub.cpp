@@ -22,7 +22,7 @@ void subFuncA_init()
 	for (int index = 0; index < STUB_BUFFER_SIZE_1; index++)
 	{
 		subFuncA_return_value[index] = 0;
-		subFuncA_subInput1
+		subFuncA_subInput1[index] = 0;
 		for (int index2 = 0; index < STUB_BUFFER_SIZE_2; index2++)
 		{
 			//subInput1 is not output.

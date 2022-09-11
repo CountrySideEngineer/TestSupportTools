@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <windows.h>
-#include "UserHeader.h"
 #include "min_unit.h"
-
+#include "UserHeader.h"
+#include "sample_function_001_stub.h"
 long outsideVariable;
 extern short insideVariable;
 
@@ -30,9 +30,9 @@ static char* sample_function_001_utest_2()
 	//Initialize stub parameters.
 	sample_function_001_utest_SetUp();
 
-	int returnValue = sample_function_001(input1, &input2);
+	int _ret_val = sample_function_001(input1, &input2);
 
-	mu_assert(2 == ret_val);
+	mu_assert(2 == _ret_val);
 }
 
 char* sample_function_001_utest_run_all()

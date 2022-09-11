@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <windows.h>
-#include "UserHeader.h"
 #include "gtest/gtest.h"
-
+#include "UserHeader.h"
+#include "sample_function_001_stub.h"
 long outsideVariable;
 extern short insideVariable;
 
