@@ -12,6 +12,25 @@ namespace CodeGenerator.TestDriver.GoogleTest
 	public class GoogleTestSourceCodeGenerator : GoogleTestCodeGenerator
 	{
 		/// <summary>
+		/// Test driver header file name.
+		/// </summary>
+		public string TestHeaderFileName { get; set; }
+
+		/// <summary>
+		/// Stub header file name.
+		/// </summary>
+		public string StubHeaderFileName { get; set; }
+
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public GoogleTestSourceCodeGenerator() : base()
+		{
+			TestHeaderFileName = string.Empty;
+			StubHeaderFileName = string.Empty;
+		}
+
+		/// <summary>
 		/// Create template of test code.
 		/// </summary>
 		/// <param name="writeData">Test data.</param>
@@ -28,7 +47,9 @@ namespace CodeGenerator.TestDriver.GoogleTest
 			{
 				TargetFunction = writeData.Test.Target,
 				Test = writeData.Test,
-				Config = writeData.CodeConfig
+				Config = writeData.CodeConfig,
+				DriverHeaderFileName = TestHeaderFileName,
+				StubHeaderFileName = StubHeaderFileName,
 			};
 			return template;
 		}
