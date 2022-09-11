@@ -147,15 +147,19 @@ namespace MinUnitStubDriver.MinUnitStubDriver
 			DirectoryInfo outputDirInfo = new DirectoryInfo($@"{parentDirInfo.FullName}\stub");
 			Directory.CreateDirectory(outputDirInfo.FullName);
 
+			string stubFileName = CreateStubFileName(data);
+			string stubSourceFileName = $"{stubFileName}.cpp";
+			string stubHeaderFileName = $"{stubFileName}.h";
+
 			//Create stub source file.
 			ICodeGenerator codeGenerator = new StubSourceGenerator();
-			string outputName = outputDirInfo.FullName + $@"\{data.Test.Target.Name}_stub.cpp";
+			string outputName = outputDirInfo.FullName + $@"\{stubSourceFileName}";
 			FileInfo outputFileInfo = new FileInfo(outputName);
 			this.CreateCode(data, codeGenerator, outputFileInfo);
 
 			//Create stub header file.
 			codeGenerator = new StubHeaderGenerator();
-			outputName = outputDirInfo.FullName + $@"\{data.Test.Target.Name}_stub.h";
+			outputName = outputDirInfo.FullName + $@"\{stubHeaderFileName}";
 			outputFileInfo = new FileInfo(outputName);
 			this.CreateCode(data, codeGenerator, outputFileInfo);
 		}
@@ -171,9 +175,18 @@ namespace MinUnitStubDriver.MinUnitStubDriver
 			DirectoryInfo outputDirInfo = new DirectoryInfo($@"{parentDirInfo.FullName}\driver");
 			Directory.CreateDirectory(outputDirInfo.FullName);
 
+			string stubFileName = CreateStubFileName(data);
+			string stubHeaderFileName = $"{stubFileName}.h";
+			string driverFileName = CreateTestDriverFileName(data);
+			string driverSourceFileName = $"{driverFileName}.cpp";
+			string driverMainSourceFileName = $"{driverFileName}_main.cpp";
+
 			//Create test driver source file.
-			ICodeGenerator codeGenerator = new MinUnitSourceCodeGenerator();
-			string outputFilePath = outputDirInfo.FullName + $@"\{data.Test.Name}_test.cpp";
+			ICodeGenerator codeGenerator = new MinUnitSourceCodeGenerator()
+			{
+				StubHeaderFileName = stubHeaderFileName,
+			};
+			string outputFilePath = outputDirInfo.FullName + $@"\{driverSourceFileName}";
 			FileInfo sourceFileInfo = new FileInfo(outputFilePath);
 			this.CreateCode(data, codeGenerator, sourceFileInfo);
 
@@ -365,6 +378,28 @@ namespace MinUnitStubDriver.MinUnitStubDriver
 		protected void ReceiveTestParseProgress(string name, int numerator, int denominator)
 		{
 			NotifyParseProgressDelegate?.Invoke(name, numerator, denominator);
+		}
+
+		/// <summary>
+		/// Create stub file name.
+		/// </summary>
+		/// <param name="writeData">Write data.</param>
+		/// <returns>Stub file name without extention.</returns>
+		protected string CreateStubFileName(WriteData writeData)
+		{
+			string fileName = $"{writeData.Test.Target.Name}_stub";
+			return fileName;
+		}
+
+		/// <summary>
+		/// Create test driver file name.
+		/// </summary>
+		/// <param name="writeData">Write data.</param>
+		/// <returns>Test driver file name without extention.</returns>
+		protected string CreateTestDriverFileName(WriteData writeData)
+		{
+			string fileName = $"{writeData.Test.Name}_test";
+			return fileName;
 		}
 	}
 }
