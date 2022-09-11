@@ -74,7 +74,7 @@ namespace CodeGenerator.Stub.Template
 			try
 			{
 				string bufferDeclare = base.CreateArgumentBufferDeclare(function, argument);
-				bufferDeclare = $"extern {bufferDeclare}[]";
+				bufferDeclare = $"extern {bufferDeclare}[];";
 				return bufferDeclare;
 			}
 			catch (Exception ex)
