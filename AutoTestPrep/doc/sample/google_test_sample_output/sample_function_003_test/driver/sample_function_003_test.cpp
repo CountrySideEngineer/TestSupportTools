@@ -3,7 +3,6 @@
 #include "gtest/gtest.h"
 #include "UserHeader.h"
 #include "sample_function_003_test.h"
-#include "sample_function_003_stub.h"
 //No global variables are refered by function sample_function_003.
 
 //Test target function declare
