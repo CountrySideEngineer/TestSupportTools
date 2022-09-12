@@ -209,6 +209,11 @@ namespace StubDriverPlugin.GTestStubDriver
 				string driverSourceFileName = $"{driverFileName}.cpp";
 				string driverHeaderFileName = $"{driverFileName}.h";
 
+				if ((null == data.Test.Target.SubFunctions) || (data.Test.Target.SubFunctions.Count() < 1))
+				{
+					stubHeaderFileName = string.Empty;
+				}
+
 				//Create test driver source file.
 				ICodeGenerator codeGenerator = new GoogleTestSourceCodeGenerator()
 				{

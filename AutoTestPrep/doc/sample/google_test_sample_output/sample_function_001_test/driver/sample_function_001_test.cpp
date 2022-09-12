@@ -2,6 +2,7 @@
 #include <windows.h>
 #include "gtest/gtest.h"
 #include "UserHeader.h"
+#include "sample_function_001_test.h"
 #include "sample_function_001_stub.h"
 long outsideVariable;
 extern short insideVariable;

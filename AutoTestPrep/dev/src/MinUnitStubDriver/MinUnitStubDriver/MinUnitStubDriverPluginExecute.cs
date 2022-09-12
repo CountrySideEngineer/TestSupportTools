@@ -181,6 +181,11 @@ namespace MinUnitStubDriver.MinUnitStubDriver
 			string driverSourceFileName = $"{driverFileName}.cpp";
 			string driverMainSourceFileName = $"{driverFileName}_main.cpp";
 
+			if ((null == data.Test.Target.SubFunctions) || (data.Test.Target.SubFunctions.Count() < 1))
+			{
+				stubHeaderFileName = string.Empty;
+			}
+
 			//Create test driver source file.
 			ICodeGenerator codeGenerator = new MinUnitSourceCodeGenerator()
 			{
