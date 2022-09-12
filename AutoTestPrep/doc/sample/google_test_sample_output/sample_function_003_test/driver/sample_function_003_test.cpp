@@ -22,12 +22,13 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_1)
 
 	//Setup test parameters.
 	input1 = 0;
-	input2 = 1;
+	input2 = 0;
+	input3 = 1;
 
 	int _ret_val = sample_function_003(input1, &input2, input3);
 
 	ASSERT_EQ(1, _ret_val);
-	ASSERT_EQ(20, input2);
+	ASSERT_EQ(10, input2);
 }
 
 TEST_F(sample_function_003_utest, sample_function_003_utest_2)
@@ -39,11 +40,13 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_2)
 
 	//Setup test parameters.
 	input1 = 0;
-	input2 = 2;
+	input2 = 0;
+	input3 = 2;
 
 	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(2, _ret_val);
+	ASSERT_EQ(1, _ret_val);
+	ASSERT_EQ(20, input2);
 }
 
 TEST_F(sample_function_003_utest, sample_function_003_utest_3)
@@ -55,12 +58,13 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_3)
 
 	//Setup test parameters.
 	input1 = 0;
-	input2 = 3;
+	input2 = 0;
+	input3 = 3;
 
 	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(3, _ret_val);
-	ASSERT_EQ(40, input2);
+	ASSERT_EQ(1, _ret_val);
+	ASSERT_EQ(30, input2);
 }
 
 TEST_F(sample_function_003_utest, sample_function_003_utest_4)
@@ -71,13 +75,14 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_4)
 	SHORT input3;
 
 	//Setup test parameters.
-	input1 = 0;
+	input1 = 1;
 	input2 = 0;
+	input3 = 1;
 
 	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(0, _ret_val);
-	ASSERT_EQ(10, input2);
+	ASSERT_EQ(2, _ret_val);
+	ASSERT_EQ(0, input2);
 }
 
 TEST_F(sample_function_003_utest, sample_function_003_utest_5)
@@ -90,11 +95,12 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_5)
 	//Setup test parameters.
 	input1 = 1;
 	input2 = 0;
+	input3 = 2;
 
 	int _ret_val = sample_function_003(input1, &input2, input3);
 
 	ASSERT_EQ(1, _ret_val);
-	ASSERT_EQ(20, input2);
+	ASSERT_EQ(10, input2);
 }
 
 TEST_F(sample_function_003_utest, sample_function_003_utest_6)
@@ -105,12 +111,14 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_6)
 	SHORT input3;
 
 	//Setup test parameters.
-	input1 = 2;
+	input1 = 1;
 	input2 = 0;
+	input3 = 3;
 
 	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(2, _ret_val);
+	ASSERT_EQ(1, _ret_val);
+	ASSERT_EQ(20, input2);
 }
 
 TEST_F(sample_function_003_utest, sample_function_003_utest_7)
@@ -121,13 +129,14 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_7)
 	SHORT input3;
 
 	//Setup test parameters.
-	input1 = 3;
+	input1 = 2;
 	input2 = 0;
+	input3 = 1;
 
 	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(3, _ret_val);
-	ASSERT_EQ(40, input2);
+	ASSERT_EQ(2, _ret_val);
+	ASSERT_EQ(10, input2);
 }
 
 TEST_F(sample_function_003_utest, sample_function_003_utest_8)
@@ -138,13 +147,14 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_8)
 	SHORT input3;
 
 	//Setup test parameters.
-	input1 = 0;
-	input2 = 1;
+	input1 = 2;
+	input2 = 0;
+	input3 = 2;
 
 	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(1, _ret_val);
-	ASSERT_EQ(20, input2);
+	ASSERT_EQ(2, _ret_val);
+	ASSERT_EQ(0, input2);
 }
 
 TEST_F(sample_function_003_utest, sample_function_003_utest_9)
@@ -155,12 +165,14 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_9)
 	SHORT input3;
 
 	//Setup test parameters.
-	input1 = 0;
-	input2 = 2;
+	input1 = 2;
+	input2 = 0;
+	input3 = 3;
 
 	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(2, _ret_val);
+	ASSERT_EQ(1, _ret_val);
+	ASSERT_EQ(10, input2);
 }
 
 TEST_F(sample_function_003_utest, sample_function_003_utest_10)
@@ -171,13 +183,14 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_10)
 	SHORT input3;
 
 	//Setup test parameters.
-	input1 = 0;
-	input2 = 3;
+	input1 = 3;
+	input2 = 0;
+	input3 = 1;
 
 	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(3, _ret_val);
-	ASSERT_EQ(40, input2);
+	ASSERT_EQ(2, _ret_val);
+	ASSERT_EQ(20, input2);
 }
 
 TEST_F(sample_function_003_utest, sample_function_003_utest_11)
@@ -188,12 +201,13 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_11)
 	SHORT input3;
 
 	//Setup test parameters.
-	input1 = 0;
+	input1 = 3;
 	input2 = 0;
+	input3 = 2;
 
 	int _ret_val = sample_function_003(input1, &input2, input3);
 
-	ASSERT_EQ(0, _ret_val);
+	ASSERT_EQ(2, _ret_val);
 	ASSERT_EQ(10, input2);
 }
 
@@ -205,279 +219,13 @@ TEST_F(sample_function_003_utest, sample_function_003_utest_12)
 	SHORT input3;
 
 	//Setup test parameters.
-	input1 = 1;
-	input2 = 0;
-
-	int _ret_val = sample_function_003(input1, &input2, input3);
-
-	ASSERT_EQ(1, _ret_val);
-	ASSERT_EQ(20, input2);
-}
-
-TEST_F(sample_function_003_utest, sample_function_003_utest_13)
-{
-	//Declare argument for target
-	int input1;
-	int input2;
-	SHORT input3;
-
-	//Setup test parameters.
-	input1 = 2;
-	input2 = 0;
-
-	int _ret_val = sample_function_003(input1, &input2, input3);
-
-	ASSERT_EQ(2, _ret_val);
-}
-
-TEST_F(sample_function_003_utest, sample_function_003_utest_14)
-{
-	//Declare argument for target
-	int input1;
-	int input2;
-	SHORT input3;
-
-	//Setup test parameters.
 	input1 = 3;
 	input2 = 0;
-
-	int _ret_val = sample_function_003(input1, &input2, input3);
-
-	ASSERT_EQ(3, _ret_val);
-	ASSERT_EQ(40, input2);
-}
-
-TEST_F(sample_function_003_utest, sample_function_003_utest_15)
-{
-	//Declare argument for target
-	int input1;
-	int input2;
-	SHORT input3;
-
-	//Setup test parameters.
-	input1 = 0;
-	input2 = 1;
-
-	int _ret_val = sample_function_003(input1, &input2, input3);
-
-	ASSERT_EQ(1, _ret_val);
-	ASSERT_EQ(20, input2);
-}
-
-TEST_F(sample_function_003_utest, sample_function_003_utest_16)
-{
-	//Declare argument for target
-	int input1;
-	int input2;
-	SHORT input3;
-
-	//Setup test parameters.
-	input1 = 0;
-	input2 = 2;
+	input3 = 3;
 
 	int _ret_val = sample_function_003(input1, &input2, input3);
 
 	ASSERT_EQ(2, _ret_val);
-}
-
-TEST_F(sample_function_003_utest, sample_function_003_utest_17)
-{
-	//Declare argument for target
-	int input1;
-	int input2;
-	SHORT input3;
-
-	//Setup test parameters.
-	input1 = 0;
-	input2 = 3;
-
-	int _ret_val = sample_function_003(input1, &input2, input3);
-
-	ASSERT_EQ(3, _ret_val);
-	ASSERT_EQ(40, input2);
-}
-
-TEST_F(sample_function_003_utest, sample_function_003_utest_18)
-{
-	//Declare argument for target
-	int input1;
-	int input2;
-	SHORT input3;
-
-	//Setup test parameters.
-	input1 = 0;
-	input2 = 0;
-
-	int _ret_val = sample_function_003(input1, &input2, input3);
-
-	ASSERT_EQ(0, _ret_val);
-	ASSERT_EQ(10, input2);
-}
-
-TEST_F(sample_function_003_utest, sample_function_003_utest_19)
-{
-	//Declare argument for target
-	int input1;
-	int input2;
-	SHORT input3;
-
-	//Setup test parameters.
-	input1 = 1;
-	input2 = 0;
-
-	int _ret_val = sample_function_003(input1, &input2, input3);
-
-	ASSERT_EQ(1, _ret_val);
-	ASSERT_EQ(20, input2);
-}
-
-TEST_F(sample_function_003_utest, sample_function_003_utest_20)
-{
-	//Declare argument for target
-	int input1;
-	int input2;
-	SHORT input3;
-
-	//Setup test parameters.
-	input1 = 2;
-	input2 = 0;
-
-	int _ret_val = sample_function_003(input1, &input2, input3);
-
-	ASSERT_EQ(2, _ret_val);
-	ASSERT_EQ(30, input2);
-}
-
-TEST_F(sample_function_003_utest, sample_function_003_utest_21)
-{
-	//Declare argument for target
-	int input1;
-	int input2;
-	SHORT input3;
-
-	//Setup test parameters.
-	input1 = 3;
-	input2 = 0;
-
-	int _ret_val = sample_function_003(input1, &input2, input3);
-
-	ASSERT_EQ(3, _ret_val);
-}
-
-TEST_F(sample_function_003_utest, sample_function_003_utest_22)
-{
-	//Declare argument for target
-	int input1;
-	int input2;
-	SHORT input3;
-
-	//Setup test parameters.
-	input1 = 0;
-	input2 = 1;
-
-	int _ret_val = sample_function_003(input1, &input2, input3);
-
-	ASSERT_EQ(1, _ret_val);
-	ASSERT_EQ(20, input2);
-}
-
-TEST_F(sample_function_003_utest, sample_function_003_utest_23)
-{
-	//Declare argument for target
-	int input1;
-	int input2;
-	SHORT input3;
-
-	//Setup test parameters.
-	input1 = 0;
-	input2 = 2;
-
-	int _ret_val = sample_function_003(input1, &input2, input3);
-
-	ASSERT_EQ(2, _ret_val);
-	ASSERT_EQ(30, input2);
-}
-
-TEST_F(sample_function_003_utest, sample_function_003_utest_24)
-{
-	//Declare argument for target
-	int input1;
-	int input2;
-	SHORT input3;
-
-	//Setup test parameters.
-	input1 = 0;
-	input2 = 3;
-
-	int _ret_val = sample_function_003(input1, &input2, input3);
-
-	ASSERT_EQ(3, _ret_val);
-}
-
-TEST_F(sample_function_003_utest, sample_function_003_utest_25)
-{
-	//Declare argument for target
-	int input1;
-	int input2;
-	SHORT input3;
-
-	//Setup test parameters.
-	input1 = 0;
-	input2 = 0;
-
-	int _ret_val = sample_function_003(input1, &input2, input3);
-
-	ASSERT_EQ(0, _ret_val);
-	ASSERT_EQ(10, input2);
-}
-
-TEST_F(sample_function_003_utest, sample_function_003_utest_26)
-{
-	//Declare argument for target
-	int input1;
-	int input2;
-	SHORT input3;
-
-	//Setup test parameters.
-	input1 = 1;
-	input2 = 0;
-
-	int _ret_val = sample_function_003(input1, &input2, input3);
-
-	ASSERT_EQ(1, _ret_val);
-	ASSERT_EQ(20, input2);
-}
-
-TEST_F(sample_function_003_utest, sample_function_003_utest_27)
-{
-	//Declare argument for target
-	int input1;
-	int input2;
-	SHORT input3;
-
-	//Setup test parameters.
-	input1 = 2;
-	input2 = 0;
-
-	int _ret_val = sample_function_003(input1, &input2, input3);
-
-	ASSERT_EQ(2, _ret_val);
-	ASSERT_EQ(30, input2);
-}
-
-TEST_F(sample_function_003_utest, sample_function_003_utest_28)
-{
-	//Declare argument for target
-	int input1;
-	int input2;
-	SHORT input3;
-
-	//Setup test parameters.
-	input1 = 3;
-	input2 = 0;
-
-	int _ret_val = sample_function_003(input1, &input2, input3);
-
-	ASSERT_EQ(3, _ret_val);
+	ASSERT_EQ(0, input2);
 }
 

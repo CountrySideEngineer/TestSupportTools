@@ -166,16 +166,21 @@ namespace StubDriverPlugin.GTestStubDriver
 				Directory.CreateDirectory(outputDirInfo.FullName);
 
 				string stubFileName = CreateStubFileName(data);
+				string stubSourceFileName = $"{stubFileName}.cpp";
+				string stubHeaderFileName = $"{stubFileName}.h";
 
 				//Create stub source file.
-				ICodeGenerator codeGenerator = new StubSourceGenerator();
-				string outputName = outputDirInfo.FullName + $@"\{stubFileName}.cpp";
+				ICodeGenerator codeGenerator = new StubSourceGenerator()
+				{
+					StubHeaderFileName = stubFileName,
+				};
+				string outputName = outputDirInfo.FullName + $@"\{stubSourceFileName}";
 				FileInfo outputFileInfo = new FileInfo(outputName);
 				this.CreateCode(data, codeGenerator, outputFileInfo);
 
 				//Create stub header file.
 				codeGenerator = new StubHeaderGenerator();
-				outputName = outputDirInfo.FullName + $@"\{stubFileName}.h";
+				outputName = outputDirInfo.FullName + $@"\{stubHeaderFileName}";
 				outputFileInfo = new FileInfo(outputName);
 				this.CreateCode(data, codeGenerator, outputFileInfo);
 			}

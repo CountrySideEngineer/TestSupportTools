@@ -12,6 +12,19 @@ namespace CodeGenerator.Stub
 	public class StubSourceGenerator : StubCodeGenerator
 	{
 		/// <summary>
+		/// Stub header file name.
+		/// </summary>
+		public string StubHeaderFileName { get; set; }
+
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public StubSourceGenerator() : base()
+		{
+			StubHeaderFileName = string.Empty;
+		}
+
+		/// <summary>
 		/// Create template class.
 		/// </summary>
 		/// <param name="writeData">Write data.</param>
