@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\google_test_sample_output\sample_function_002_test\stub\sample_function_002_stub.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\test_sample_input\sample_src.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\google_test_sample_output\sample_function_001_test\driver\sample_function_001_test.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="dummy.cpp">
+    <ClCompile Include="..\..\..\google_test_sample_output\sample_function_002_test\driver\sample_function_002_test.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

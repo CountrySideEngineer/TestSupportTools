@@ -172,7 +172,7 @@ namespace StubDriverPlugin.GTestStubDriver
 				//Create stub source file.
 				ICodeGenerator codeGenerator = new StubSourceGenerator()
 				{
-					StubHeaderFileName = stubFileName,
+					StubHeaderFileName = stubHeaderFileName,
 				};
 				string outputName = outputDirInfo.FullName + $@"\{stubSourceFileName}";
 				FileInfo outputFileInfo = new FileInfo(outputName);

@@ -151,7 +151,7 @@ namespace CodeGenerator.Stub.Template
             
             #line default
             #line hidden
-            this.Write("\t\tfor (int index2 = 0; index < STUB_BUFFER_SIZE_2; index2++)\r\n\t\t{\r\n");
+            this.Write("\t\tfor (int index2 = 0; index2 < STUB_BUFFER_SIZE_2; index2++)\r\n\t\t{\r\n");
             
             #line 41 "E:\development\TestSupportTools_v0\AutoTestPrep\dev\src\StubCodeGenerator\Template\StubSourceBodyTemplate.tt"
 		foreach (var argItem in this.TargetFunction.Arguments) { 

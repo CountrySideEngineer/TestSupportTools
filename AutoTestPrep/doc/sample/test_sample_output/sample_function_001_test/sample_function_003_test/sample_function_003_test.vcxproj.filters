@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\test_sample_input\sample_src.cpp">
+    <ClCompile Include="..\..\..\google_test_sample_output\sample_function_003_test\driver\sample_function_003_test.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\google_test_sample_output\sample_function_001_test\driver\sample_function_001_test.cpp">
+    <ClCompile Include="..\..\..\test_sample_input\sample_src.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="dummy.cpp">

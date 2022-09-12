@@ -40,7 +40,8 @@ namespace CodeGenerator.Stub
 			var template = new StubSourceTemplate()
 			{
 				ParentFunction = writeData.Test.Target,
-				Config = writeData.CodeConfig
+				Config = writeData.CodeConfig,
+				StubHeaderFileName = StubHeaderFileName,
 			};
 			return template;
 		}
