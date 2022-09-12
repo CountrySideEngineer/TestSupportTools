@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <Windows.h>
 
-int subFuncA_002(int input) {
-	return 0;
-};
+int subFuncA_002(int input);
 
 int sample_function_001(int input1, int input2)
 {

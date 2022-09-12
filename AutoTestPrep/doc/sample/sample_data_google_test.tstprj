@@ -9,13 +9,13 @@
     <DriverIncludeStandardHeaderFilesItem>windows.h</DriverIncludeStandardHeaderFilesItem>
   </DriverIncludeStandardHeaderFiles>
   <DriverIncludeUserHeaderFiles>
-    <DriverIncludeUserHeaderFilesItem>UserHeader.h</DriverIncludeUserHeaderFilesItem>
+    <DriverIncludeUserHeaderFilesItem />
   </DriverIncludeUserHeaderFiles>
   <StubIncludeStandardHeaderFiles>
     <StubIncludeStandardHeaderFilesItem>stdio.h</StubIncludeStandardHeaderFilesItem>
   </StubIncludeStandardHeaderFiles>
   <StubIncludeUserHeaderFiles>
-    <StubIncludeUserHeaderFilesItem>UserStubHeader.h</StubIncludeUserHeaderFilesItem>
+    <StubIncludeUserHeaderFilesItem />
   </StubIncludeUserHeaderFiles>
   <IncludeDirectoryPath>
     <IncludeDirectoryPathItem />

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "UserStubHeader.h"
+
 /*
  *	Stub of subFuncA_002.
  */
