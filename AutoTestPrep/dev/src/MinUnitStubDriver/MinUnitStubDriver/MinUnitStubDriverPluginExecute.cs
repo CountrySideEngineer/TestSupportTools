@@ -152,7 +152,10 @@ namespace MinUnitStubDriver.MinUnitStubDriver
 			string stubHeaderFileName = $"{stubFileName}.h";
 
 			//Create stub source file.
-			ICodeGenerator codeGenerator = new StubSourceGenerator();
+			ICodeGenerator codeGenerator = new StubSourceGenerator()
+			{
+				StubHeaderFileName = stubHeaderFileName,
+			};
 			string outputName = outputDirInfo.FullName + $@"\{stubSourceFileName}";
 			FileInfo outputFileInfo = new FileInfo(outputName);
 			this.CreateCode(data, codeGenerator, outputFileInfo);
