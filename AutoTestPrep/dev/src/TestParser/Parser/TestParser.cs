@@ -134,26 +134,9 @@ namespace TestParser.Parser
 		{
 			try
 			{
-				string procName = "対象関数一覧読出し";
-				NotifyProcessAndProgressDelegate?.Invoke(procName, 0, 0);
-				INFO("Start function list.");
-				LoadConfig();
+				IEnumerable<ParameterInfo> testTargetFunctionInfos = ReadFunctionList(stream);
 
-				if (null == this.FunctionListParser)
-				{
-					this.FunctionListParser = 
-						new FunctionListParser(_testConfig.TestList.SheetName,
-							_testConfig.TestList);
-				}
-				var testTargetFunctionInfos = (IEnumerable<ParameterInfo>)FunctionListParser.Parse(stream);
-				NotifyProcessAndProgressDelegate?.Invoke(procName, 100, 100);
-				if (0 == testTargetFunctionInfos.Count())
-				{
-					ERROR("No test function data has been set in function table.");
-					throw new TestParserException(TestParserException.Code.PARSER_ERROR_NO_TEST_FUNCTION_SET);
-				}
-
-				procName = "テスト設計情報読出し";
+				string procName = "テスト設計情報読出し";
 				var tests = new List<Test>();
 				int index = 0;
 				foreach (var paramInfoItem in testTargetFunctionInfos)
@@ -183,6 +166,31 @@ namespace TestParser.Parser
 				NotifyParseProgressDelegate?.Invoke(100, 100);
 				throw ex;
 			}
+		}
+
+		protected IEnumerable<ParameterInfo> ReadFunctionList(Stream stream)
+		{
+			string procName = "対象関数一覧読出し";
+			NotifyProcessAndProgressDelegate?.Invoke(procName, 0, 0);
+			INFO("Start function list.");
+			LoadConfig();
+
+			if (null == FunctionListParser)
+			{
+				FunctionListParser = new FunctionListParser(
+					_testConfig.TestList.SheetName, 
+					_testConfig.TestList);
+			}
+			var testTargetFunctionInfos = (IEnumerable<ParameterInfo>)FunctionListParser.Parse(stream);
+
+			NotifyProcessAndProgressDelegate?.Invoke(procName, 100, 100);
+			if (0 == testTargetFunctionInfos.Count())
+			{
+				ERROR("No test function data has been set in function table.");
+				throw new TestParserException(TestParserException.Code.PARSER_ERROR_NO_TEST_FUNCTION_SET);
+			}
+
+			return testTargetFunctionInfos;
 		}
 
 		/// <summary>
