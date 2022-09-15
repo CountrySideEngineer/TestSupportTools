@@ -168,6 +168,11 @@ namespace TestParser.Parser
 			}
 		}
 
+		/// <summary>
+		/// Read target function list datas.
+		/// </summary>
+		/// <param name="stream">Stream to read data.</param>
+		/// <returns>Collection of ParameterInfo object about test target function.</returns>
 		protected IEnumerable<ParameterInfo> ReadFunctionList(Stream stream)
 		{
 			string procName = "対象関数一覧読出し";
