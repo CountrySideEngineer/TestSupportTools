@@ -112,6 +112,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="diagrams\Config.cd" />
+    <None Include="diagrams\Converter.cd" />
+    <None Include="diagrams\Parameter.cd" />
+    <None Include="diagrams\Parser.cd" />
+    <None Include="diagrams\Reader.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

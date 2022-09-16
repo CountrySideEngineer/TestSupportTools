@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TestParser.Parser.AParser" Collapsed="true">
+    <Position X="3" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAwAAABgAAAAAAAAAAAACBAAQAAAAAAAAQABAAAAAA=</HashCode>
+      <FileName>Parser\AParser.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TestParser.Parser.ATestParser" Collapsed="true">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAwAAAFgAAAAAAAAAAAAABAAQAAAEAAAAQAJAAAAAA=</HashCode>
+      <FileName>Parser\ATestParser.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TestParser.Parser.FunctionListParser" Collapsed="true">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAgAAAAAAAAIACAAAAAAAIAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Parser\FunctionListParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestParser.Parser.FunctionParser" Collapsed="true">
+    <Position X="0.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAiAAAAggCAAAAAAAAAAAAgAAAAAAAAAAAMAAAAAAA=</HashCode>
+      <FileName>Parser\FunctionParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestParser.Parser.TestCaseParser" Collapsed="true">
+    <Position X="3" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>KBAhAEAQBgAAIgAQEAQACAEgAAAEAACAwAEAAAACABA=</HashCode>
+      <FileName>Parser\TestCaseParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestParser.Parser.TestParser" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAIAAAAACACgAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Parser\TestParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Yu Gothic UI" Size="9" />
+</ClassDiagram>
