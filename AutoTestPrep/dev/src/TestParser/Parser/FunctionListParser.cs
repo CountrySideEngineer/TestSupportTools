@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using CSEngineer;
 using TestParser.Reader;
-using TestParser.Parser.Exception;
 using TestParser.Target;
 using TestParser.Config;
 using TableReader.Excel;
@@ -73,7 +72,7 @@ namespace TestParser.Parser
 						IEnumerable<ParameterInfo> functionInfoList = this.ReadFunctionList(stream);
 						return functionInfoList;
 					}
-					catch (ParseDataNotFoundException)
+					catch (TestParserException)
 					{
 						throw;
 					}

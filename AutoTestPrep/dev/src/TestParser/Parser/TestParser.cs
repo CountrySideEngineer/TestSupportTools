@@ -6,7 +6,6 @@ using TestParser.Data;
 using System.Linq;
 using TestParser.Reader;
 using TestParser.Config;
-using TestParser.Parser.Exception;
 using TestParser.ParserException;
 using System.Security;
 
