@@ -70,5 +70,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StubCodePlugin\StubCodePluginExecute.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="diagrams\StubCodePlugin.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

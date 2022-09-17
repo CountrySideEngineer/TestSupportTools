@@ -77,6 +77,8 @@
     <Compile Include="GTestStubDriver\GTestStubDriverPluginExecute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="diagrams\GTestStubDriver.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
