@@ -117,5 +117,9 @@
       <CustomToolNamespace>CodeGenerator.Stub.Template</CustomToolNamespace>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="diagrams\CodeGenerator.cd" />
+    <None Include="diagrams\Template.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
