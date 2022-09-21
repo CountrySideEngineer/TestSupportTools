@@ -14,7 +14,7 @@ using CodeGenerator;
 using CodeGenerator.TestDriver.GoogleTest;
 using System.Diagnostics;
 using CountrySideEngineer.ProgressWindow.Model;
-using CountrySideEngineer.ProgressWindow.Model.Interface;
+using CountrySideEngineer.ProgressWindow.Task.Interface;
 using System.Threading;
 
 namespace StubDriverPlugin.GTestStubDriver

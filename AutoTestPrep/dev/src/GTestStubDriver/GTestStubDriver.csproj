@@ -45,7 +45,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Logger.1.0.0\Logger.dll</HintPath>
     </Reference>
-    <Reference Include="ProgressWindow, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ProgressWindow, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\ProgressWindow.dll</HintPath>
     </Reference>
