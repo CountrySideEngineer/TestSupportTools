@@ -34,9 +34,9 @@
 		<#= this.CreateFunctionReturnBufferInitialize(this.TargetFunction) #>
 <#	if (null != this.TargetFunction.Arguments) {	#>
 <#		foreach (var argItem in this.TargetFunction.Arguments) { #>
-		<#= this.CreateArgumentBufferName(this.TargetFunction, argItem) #>
+		<#= this.CreateArgumentBufferInitialize(this.TargetFunction, argItem) #>
 <#		}	#>
-		for (int index2 = 0; index < STUB_BUFFER_SIZE_2; index2++)
+		for (int index2 = 0; index2 < STUB_BUFFER_SIZE_2; index2++)
 		{
 <#		foreach (var argItem in this.TargetFunction.Arguments) { #>
 			<#= this.CreateOutputArgumentInitialize(this.TargetFunction, argItem) #>

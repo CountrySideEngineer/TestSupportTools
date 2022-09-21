@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <windows.h>
-#include "UserHeader.h"
 #include "min_unit.h"
-
+#include "UserHeader.h"
+#include "sample_function_002_stub.h"
 //No global variables are refered by function sample_function_002.
 
 //Test target function declare.
@@ -28,9 +28,9 @@ static char* sample_function_002_utest_1()
 	//Initialize stub parameters.
 	sample_function_002_utest_SetUp();
 
-	int returnValue = sample_function_002(input1, input2);
+	int _ret_val = sample_function_002(input1, input2);
 
-	mu_assert(1 == ret_val);
+	mu_assert(1 == _ret_val);
 }
 
 static char* sample_function_002_utest_2()
@@ -46,9 +46,9 @@ static char* sample_function_002_utest_2()
 	//Initialize stub parameters.
 	sample_function_002_utest_SetUp();
 
-	int returnValue = sample_function_002(input1, input2);
+	int _ret_val = sample_function_002(input1, input2);
 
-	mu_assert(2 == ret_val);
+	mu_assert(2 == _ret_val);
 }
 
 char* sample_function_002_utest_run_all()

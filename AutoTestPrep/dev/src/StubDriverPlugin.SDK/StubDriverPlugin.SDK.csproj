@@ -46,5 +46,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StubDriverPlugin\IStubDriverPlugin.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="diagrams\Data.cd" />
+    <None Include="diagrams\StubDriverPlugin.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

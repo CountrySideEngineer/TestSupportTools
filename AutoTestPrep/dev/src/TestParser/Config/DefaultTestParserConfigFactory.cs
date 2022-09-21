@@ -111,6 +111,8 @@ namespace TestParser.Config
 				InputExpect = "入力/期待値",
 				Input = "入力",
 				Expect = "期待値",
+				ReturnValue = "戻り値",
+				ReturnVariableName = "_ret_val",
 			};
 			var testConfig = new TestConfig()
 			{

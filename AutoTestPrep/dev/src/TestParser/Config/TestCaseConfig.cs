@@ -17,6 +17,8 @@ namespace TestParser.Config
 			InputExpect = string.Empty;
 			Input = string.Empty;
 			Expect = string.Empty;
+			ReturnValue = string.Empty;
+			ReturnVariableName = string.Empty;
 		}
 
 		[XmlElement("InputExpect")]
@@ -27,5 +29,11 @@ namespace TestParser.Config
 
 		[XmlElement("Expect")]
 		public string Expect { get; set; }
+
+		[XmlElement("ReturnValue")]
+		public string ReturnValue { get; set; }
+
+		[XmlElement("ReturnVariableName")]
+		public string ReturnVariableName { get; set; }
 	}
 }

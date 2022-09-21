@@ -28,6 +28,11 @@ namespace CodeGenerator.TestDriver.Template
 		public CodeConfiguration Config { get; set; }
 
 		/// <summary>
+		/// Stub header file name the test driver source code includes.
+		/// </summary>
+		public string StubHeaderFileName { get; set; }
+
+		/// <summary>
 		/// Create code to setup test.
 		/// </summary>
 		/// <param name="function">Test target function.</param>

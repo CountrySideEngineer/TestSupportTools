@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CodeGenerator.Stub.Template.StubHeaderBodyTemplate" Collapsed="true">
+    <Position X="0.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgEAAAAAAAAAAACCQBAAIAgABAAAAAAAAAA=</HashCode>
+      <FileName>Template\Code\StubHeaderBodyTemplate_code.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeGenerator.Stub.Template.StubHeaderTemplate" Collapsed="true">
+    <Position X="5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAACAAAAAIAQABAAAAAAAAAA=</HashCode>
+      <FileName>Template\Code\StubHeaderTemplate_code.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeGenerator.Stub.Template.StubSourceBodyTemplate" Collapsed="true">
+    <Position X="7.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIIAAABQAgEAAAAAAAAAAAKAQBAAIAgABAAAAAACQAA=</HashCode>
+      <FileName>Template\Code\StubSourceBodyTemplate_code.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeGenerator.Stub.Template.StubSourceTemplate" Collapsed="true">
+    <Position X="2.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAggAAAAAAAAAAAACAAAAAIAQABAAAAAAAAAA=</HashCode>
+      <FileName>Template\Code\StubSourceTemplate_code.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeGenerator.Stub.Template.StubTemplate" Collapsed="true">
+    <Position X="3.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAACEBgIAAAAAAAACCQJAAAAgAAAAAAAAAUAA=</HashCode>
+      <FileName>Template\Code\StubTemplate_code.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeGenerator.Stub.Template.StubTemplateBase" Collapsed="true">
+    <Position X="3.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACABAAAAQAIAGSAMAAAIABAAAAAIAAAAAAAAQAEgAAA=</HashCode>
+      <FileName>Template\StubTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Yu Gothic UI" Size="9" />
+</ClassDiagram>
