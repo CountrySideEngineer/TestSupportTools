@@ -51,5 +51,10 @@
     <Compile Include="Data\CodeConfiguration.cs" />
     <Compile Include="Data\WriteData.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\CodeGenerator.cd" />
+    <None Include="diagrams\Data.cd" />
+    <None Include="diagrams\Exception.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,7 +3,7 @@ using CodeGenerator.Data;
 using CodeGenerator.Stub;
 using CodeGenerator.TestDriver.MinUnit;
 using CountrySideEngineer.ProgressWindow.Model;
-using CountrySideEngineer.ProgressWindow.Model.Interface;
+using CountrySideEngineer.ProgressWindow.Task.Interface;
 using MinUnitStubDriver.MinUnitStubDriver;
 using StubDriverPlugin.Data;
 using System;

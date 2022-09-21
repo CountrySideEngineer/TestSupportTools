@@ -13,6 +13,7 @@
 		}
 	}
 #>
+#include "gtest/gtest.h"
 <#
 	foreach (var headerFile in Config.UserHeaderFiles) { 
 		if ((!string.IsNullOrEmpty(headerFile)) && (!string.IsNullOrWhiteSpace(headerFile))) {
@@ -22,8 +23,20 @@
 		}
 	}
 #>
-#include "gtest/gtest.h"
-
+<#
+	if ((!string.IsNullOrEmpty(DriverHeaderFileName)) && (!string.IsNullOrWhiteSpace(DriverHeaderFileName))) {
+#>
+#include "<#= DriverHeaderFileName #>"
+<#
+	}
+#>
+<#
+	if ((!string.IsNullOrEmpty(StubHeaderFileName)) && (!string.IsNullOrWhiteSpace(StubHeaderFileName))) {
+#>
+#include "<#= StubHeaderFileName #>"
+<#
+	}
+#>
 <#= CreateDecalreGlobalVariable(this.TargetFunction) #>
 
 //Test target function declare

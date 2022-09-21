@@ -68,7 +68,7 @@ namespace CodeGenerator.TestDriver.Template
 			string functionCall = string.Empty;
 			if (function.HasReturn())
 			{
-				functionCall = $"{function.ActualDataType()} returnValue = ";
+				functionCall = $"{function.ActualDataType()} _ret_val = ";
 			}
 			functionCall += $"{function.Name}(";
 			bool isTop = true;

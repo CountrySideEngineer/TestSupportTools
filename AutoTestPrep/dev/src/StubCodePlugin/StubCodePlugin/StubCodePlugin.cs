@@ -1,5 +1,5 @@
 ﻿using CountrySideEngineer.ProgressWindow.Model;
-using CountrySideEngineer.ProgressWindow.Model.Interface;
+using CountrySideEngineer.ProgressWindow.Task.Interface;
 using StubDriverPlugin;
 using StubDriverPlugin.Data;
 using System;

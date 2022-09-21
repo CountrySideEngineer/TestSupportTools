@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CodeGenerator.TestDriver.Template.MinUnitSourceCallTestCaseTemplate" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAAAABAAACAAAAAA=</HashCode>
+      <FileName>Template\Code\MinUnitSourceCallTestCaseTemplate_code.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeGenerator.TestDriver.Template.MinUnitSourceMainTemplate" Collapsed="true">
+    <Position X="5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Template\Code\MinUnitSourceMainTemplate_code.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeGenerator.TestDriver.Template.MinUnitSourceSetUpTemplate" Collapsed="true">
+    <Position X="9.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAACAAAAAAAAABAAACAAAAAA=</HashCode>
+      <FileName>Template\Code\MinUnitSourceSetUpTemplate_code.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeGenerator.TestDriver.Template.MinUnitSourceTemplate" Collapsed="true">
+    <Position X="2.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgwAAAAAAAAACAACBFAAAAAAABAAACAEAAAA=</HashCode>
+      <FileName>Template\Code\MinUnitSourceTemplate_code.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeGenerator.TestDriver.Template.MinUnitSourceTestCaseTemplate" Collapsed="true">
+    <Position X="7.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACACAAAEAAABQAAAAAAAAA=</HashCode>
+      <FileName>Template\Code\MinUnitSourceTestCaseTemplate_code.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeGenerator.TestDriver.Template.MinUnitTemplate" Collapsed="true">
+    <Position X="5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAEAAAAAAgCAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Template\Code\MinUnitTemplate_code.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeGenerator.TestDriver.Template.MinUnitTemplateBase" Collapsed="true">
+    <Position X="5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACABAAAAQAIAGSAMAAAIABAAAAAIAAAAAAAAQAEgAAA=</HashCode>
+      <FileName>Template\MinUnitTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Yu Gothic UI" Size="9" />
+</ClassDiagram>

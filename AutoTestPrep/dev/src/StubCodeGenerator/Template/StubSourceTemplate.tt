@@ -5,6 +5,13 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#= CreateStdHeaderInclude(Config.StandardHeaderFiles) #>
+<#
+	if ((!string.IsNullOrEmpty(StubHeaderFileName)) && (!string.IsNullOrWhiteSpace(StubHeaderFileName))) {
+#>
+#include "<#= StubHeaderFileName #>"
+<#
+	}
+#>
 <#= CreateUserHeaderInclude(Config.UserHeaderFiles) #>
 <#
 	if (null != this.ParentFunction.SubFunctions) {
