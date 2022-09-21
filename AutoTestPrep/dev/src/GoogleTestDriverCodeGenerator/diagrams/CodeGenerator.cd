@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CodeGenerator.TestDriver.GoogleTest.GoogleTestCodeGenerator" Collapsed="true">
+    <Position X="1.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAABgAAAAAAAAAAAAAAAAQAEAAAAAAQABEAAAAA=</HashCode>
+      <FileName>CodeGenerator\GoogleTestCodeGenerator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CodeGenerator.TestDriver.GoogleTest.GoogleTestHeaderCodeGenerator" Collapsed="true">
+    <Position X="2.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CodeGenerator\GoogleTestHeaderCodeGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeGenerator.TestDriver.GoogleTest.GoogleTestSourceCodeGenerator" Collapsed="true">
+    <Position X="0.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAgEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CodeGenerator\GoogleTestSourceCodeGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Yu Gothic UI" Size="9" />
+</ClassDiagram>

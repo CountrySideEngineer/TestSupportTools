@@ -28,6 +28,11 @@ namespace CodeGenerator.Stub.Template
 		public CodeConfiguration Config { get; set; }
 
 		/// <summary>
+		/// Stub header file name.
+		/// </summary>
+		public string StubHeaderFileName { get; set; }
+
+		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		public StubSourceTemplate()

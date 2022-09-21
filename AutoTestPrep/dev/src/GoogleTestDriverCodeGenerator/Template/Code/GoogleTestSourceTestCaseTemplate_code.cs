@@ -112,7 +112,7 @@ namespace CodeGenerator.TestDriver.Template
 
 				if (!("void".Equals(targetFunction.DataType.ToLower())))
 				{
-					targetFunctionCall = $"{targetFunction.ActualDataType()} returnValue = ";
+					targetFunctionCall = $"{targetFunction.ActualDataType()} _ret_val = ";
 				}
 				targetFunctionCall += $"{targetFunction.Name}(";
 				bool isTop = true;

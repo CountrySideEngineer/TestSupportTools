@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include "UserStubHeader.h"
+#include "sample_function_002_stub.h"
+
 /*
  *	Stub of subFuncA_002.
  */
@@ -22,8 +23,8 @@ void subFuncA_002_init()
 	for (int index = 0; index < STUB_BUFFER_SIZE_1; index++)
 	{
 		subFuncA_002_return_value[index] = 0;
-		subFuncA_002_subInput1
-		for (int index2 = 0; index < STUB_BUFFER_SIZE_2; index2++)
+		subFuncA_002_subInput1[index] = 0;
+		for (int index2 = 0; index2 < STUB_BUFFER_SIZE_2; index2++)
 		{
 			//subInput1 is not output.
 		}

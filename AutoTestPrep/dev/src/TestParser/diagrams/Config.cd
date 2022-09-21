@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="TestParser.Config.DefaultTestParserConfigFactory" Collapsed="true">
+    <Position X="3" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAACAAAAAAAAAAABEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Config\DefaultTestParserConfigFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestParser.Config.FunctionConfig" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAIQAAAAAAAAA=</HashCode>
+      <FileName>Config\FunctionConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestParser.Config.FunctionTableTagConfig" Collapsed="true">
+    <Position X="8.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CAAAEAAAAACAAAAAIABAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Config\FunctionTableTagConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestParser.Config.GlobalVariableConfig" Collapsed="true">
+    <Position X="3" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAQAAAAAACAA=</HashCode>
+      <FileName>Config\GlobalVariableConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestParser.Config.TableConfig" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAACAAAAAAAAAAAAAQAAEAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Config\TableConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestParser.Config.TargetFunctionConfig" Collapsed="true">
+    <Position X="6.25" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAIAAAAAAAAAAAAAIAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Config\TargetFunctionConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestParser.Config.TestCaseConfig" Collapsed="true">
+    <Position X="8.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAIAAAAAABAEgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Config\TestCaseConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestParser.Config.TestCaseTableConfig" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Config\TestCaseTableConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestParser.Config.TestConfig">
+    <Position X="3" Y="2.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAgAAAA=</HashCode>
+      <FileName>Config\TestConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestParser.Config.TestListConfig" Collapsed="true">
+    <Position X="6.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Config\TestListConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestParser.Config.TestParserConfig" Collapsed="true">
+    <Position X="8.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAAAABEAACAAAAAg=</HashCode>
+      <FileName>Config\TestParserConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Yu Gothic UI" Size="9" />
+</ClassDiagram>
