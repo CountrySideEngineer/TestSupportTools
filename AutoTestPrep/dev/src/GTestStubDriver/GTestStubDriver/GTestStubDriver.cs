@@ -32,6 +32,9 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// </summary>
 		PluginOutput pluginOutput;
 
+		/// <summary>
+		/// ProgressInfo object.
+		/// </summary>
 		IProgress<ProgressInfo> _progress;
 
 		/// <summary>
