@@ -19,8 +19,8 @@ namespace StubDriverPlugin.GTestStubDriver
 {
 	public class GTestStubDriverPluginExecute
 	{
-		public delegate void NotifyParseProgress(string processName, int numerator, int denominator);
-		public NotifyParseProgress NotifyParseProgressDelegate;
+		public delegate void NotifyPluginProgress(string processName, int numerator, int denominator);
+		public NotifyPluginProgress NotifyPluginProgressDelegate;
 
 		public delegate void NotifyPluginFinish();
 		public NotifyPluginFinish NotifyPluginFinishDelegate;
@@ -308,7 +308,7 @@ namespace StubDriverPlugin.GTestStubDriver
 		{
 			DirectoryInfo rootDirInfo = new DirectoryInfo(data.OutputDirPath);
 
-			NotifyParseProgressDelegate?.Invoke(string.Empty, 0, 1);
+			NotifyPluginProgressDelegate?.Invoke(string.Empty, 0, 1);
 
 			CreateStubCodeExeucte(data, tests, rootDirInfo);
 			CreateDriverCodeExecute(data, tests, rootDirInfo);
@@ -335,14 +335,14 @@ namespace StubDriverPlugin.GTestStubDriver
 
 			int testIndex = 0;
 			string processName = "スタブコード生成：";
-			NotifyParseProgressDelegate?.Invoke(processName, testIndex, tests.Count());
+			NotifyPluginProgressDelegate?.Invoke(processName, testIndex, tests.Count());
 			foreach (var testItem in tests)
 			{
 				this.CreateStubCode(testItem, rootDirInfo, codeConfig);
 
 				testIndex++;
 				string progName = $"{processName} : {testItem.Name}";
-				NotifyParseProgressDelegate?.Invoke(processName, testIndex, tests.Count());
+				NotifyPluginProgressDelegate?.Invoke(processName, testIndex, tests.Count());
 			}
 		}
 
@@ -358,14 +358,14 @@ namespace StubDriverPlugin.GTestStubDriver
 
 			int testIndex = 0;
 			string processName = "テストドライバ生成：";
-			NotifyParseProgressDelegate?.Invoke(processName, testIndex, tests.Count());
+			NotifyPluginProgressDelegate?.Invoke(processName, testIndex, tests.Count());
 			foreach (var testItem in tests)
 			{
 				this.CreateDriverCode(testItem, rootDirInfo, codeConfig);
 
 				testIndex++;
 				string progName = $"{processName} : {testItem.Name}";
-				NotifyParseProgressDelegate?.Invoke(processName, testIndex, tests.Count());
+				NotifyPluginProgressDelegate?.Invoke(processName, testIndex, tests.Count());
 			}
 		}
 
@@ -423,7 +423,7 @@ namespace StubDriverPlugin.GTestStubDriver
 		/// <param name="denominator">Denominator of progress.</param>
 		protected void ReceiveTestParseProgress(string name, int numerator, int denominator)
 		{
-			NotifyParseProgressDelegate?.Invoke(name, numerator, denominator);
+			NotifyPluginProgressDelegate?.Invoke(name, numerator, denominator);
 		}
 
 		/// <summary>
