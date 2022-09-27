@@ -3,6 +3,7 @@ using CodeGenerator.Data;
 using CodeGenerator.Stub;
 using CodeGenerator.TestDriver.MinUnit;
 using CountrySideEngineer.ProgressWindow.Model;
+using CountrySideEngineer.ProgressWindow.Task;
 using CountrySideEngineer.ProgressWindow.Task.Interface;
 using MinUnitStubDriver.MinUnitStubDriver;
 using StubDriverPlugin.Data;
@@ -18,7 +19,7 @@ using TestParser.ParserException;
 
 namespace StubDriverPlugin.MinUnitStubDriver
 {
-	public class MinUnitStubDriver : IStubDriverPlugin, IAsyncTask<ProgressInfo>
+	public class MinUnitStubDriver : IStubDriverPlugin
 	{
 		/// <summary>
 		/// Plugin input data.
@@ -31,6 +32,11 @@ namespace StubDriverPlugin.MinUnitStubDriver
 		PluginOutput pluginOutput;
 
 		/// <summary>
+		/// ProgressInfo object.
+		/// </summary>
+		IProgress<ProgressInfo> _progress;
+
+		/// <summary>
 		/// Execute process to create stub and test driver code using google test framework.
 		/// </summary>
 		/// <param name="data">Pluing input data.</param>
@@ -38,83 +44,119 @@ namespace StubDriverPlugin.MinUnitStubDriver
 		public virtual PluginOutput Execute(PluginInput data)
 		{
 			pluginInput = data;
+			var task = new AsyncTask<ProgressInfo>();
+			SetupAction(ref task);
 			var progressWindow = new CountrySideEngineer.ProgressWindow.ProgressWindow();
-			progressWindow.Start(this);
-
+			progressWindow.Start(task);
 			return pluginOutput;
 		}
 
 		/// <summary>
-		/// Execute task asynchronously.
+		/// Setup action to task to run in other thread.
 		/// </summary>
-		/// <param name="progress">IProgress object to notify progress of the process.</param>
-		public void RunTask(IProgress<ProgressInfo> progress)
+		/// <param name="task">Reference AsyncTask object to setup task.</param>
+		protected virtual void SetupAction(ref AsyncTask<ProgressInfo> task)
 		{
-			Task task = ExecuteAsync(progress, pluginInput);
-		}
-
-		/// <summary>
-		/// Execute task asynchronously.
-		/// </summary>
-		/// <param name="progress">IProgress object to notify progress of the process.</param>
-		/// <param name="data">Pluing input data.</param>
-		/// <returns>Task executed.</returns>
-		protected virtual async Task ExecuteAsync(IProgress<ProgressInfo> progress, PluginInput data)
-		{
-			Task<PluginOutput> task = CreateTask(progress, data);
-			await task;
-		}
-
-		/// <summary>
-		/// Create task to run process to create stub and test driver code.
-		/// </summary>
-		/// <param name="progress">IProgress object to notify progress of the process.</param>
-		/// <param name="data">Pluing input data.</param>
-		/// <returns>Task executed.</returns>
-		protected virtual Task<PluginOutput> CreateTask(IProgress<ProgressInfo> progress, PluginInput data)
-		{
-			Task<PluginOutput> task = Task<PluginOutput>.Run(() =>
+			task.TaskAction = ((progress) =>
 			{
-				MinUnitStubDriverPluginExecute pluginExecute = new MinUnitStubDriverPluginExecute();
-				pluginExecute.NotifyParseProgressDelegate += (name, numerator, denominator) =>
-				{
-					int percent = 0;
-					if (0 == denominator)
-					{
-						percent = 0;
-					}
-					else
-					{
-						percent = (numerator * 100) / denominator;
-					}
+				_progress = progress;
 
-					var progressInfo = new ProgressInfo()
-					{
-						Title = data.InputFilePath,
-						Denominator = denominator,
-						Numerator = numerator,
-						Progress = percent,
-					};
-					if ((!string.IsNullOrEmpty(name)) || (!string.IsNullOrWhiteSpace(name)))
-					{
-						progressInfo.ProcessName = name;
-					}
-					progress.Report(progressInfo);
-				};
-				pluginExecute.NotifyPluginFinishDelegate += () =>
-				{
-					var progressInfo = new ProgressInfo()
-					{
-						Title = data.InputFilePath,
-						ProcessName = "完了",
-						ShouldContinue = false,
-					};
-					progress.Report(progressInfo);
-				};
+				var pluginExecute = new MinUnitStubDriverPluginExecute();
+				pluginExecute.NotifyPluginProgressDelegate += NotifyParseProgress;
+				pluginExecute.NotifyPluginFinishDelegate += NotifyPluginFinish;
 				pluginOutput = pluginExecute.Execute(pluginInput);
-				return pluginOutput;
 			});
-			return task;
+		}
+
+		/// <summary>
+		/// Event handler to notify plugin progress.
+		/// </summary>
+		/// <param name="name">Process name.</param>
+		/// <param name="numerator">Numerator of progress.</param>
+		/// <param name="denominator">Denominator of progress.</param>
+		protected virtual void NotifyParseProgress(string name, int numerator, int denominator)
+		{
+			ProgressInfo progress = SetupProgressInfo(name, numerator, denominator);
+			_progress.Report(progress);
+		}
+
+		/// <summary>
+		/// Event handler to notify plugin finished.
+		/// </summary>
+		protected virtual void NotifyPluginFinish()
+		{
+			ProgressInfo progress = SetupFinishInfo();
+			_progress.Report(progress);
+		}
+
+		/// <summary>
+		/// Setup progress information to notify progress window.
+		/// </summary>
+		/// <param name="name">Process name.</param>
+		/// <param name="numerator">Numerator of progress.</param>
+		/// <param name="denominator">Denominator of progress.</param>
+		/// <returns>ProgressInfo object which includes the progress information about plugin.</returns>
+		protected virtual ProgressInfo SetupProgressInfo(string name, int numerator, int denominator)
+		{
+			int percent = 0;
+			try
+			{
+				percent = (numerator * 100) / denominator;
+			}
+			catch (DivideByZeroException)
+			{
+				percent = 0;
+			}
+
+			string procName = string.Empty;
+			if ((!string.IsNullOrEmpty(name)) || (!string.IsNullOrWhiteSpace(name)))
+			{
+				procName = name;
+			}
+
+			string title = string.Empty;
+			try
+			{
+				title = pluginInput.InputFilePath;
+			}
+			catch (NullReferenceException)
+			{
+				title = string.Empty;
+			}
+
+			var progressInfo = new ProgressInfo()
+			{
+				Title = title,
+				Denominator = denominator,
+				Numerator = numerator,
+				Progress = percent,
+				ProcessName = procName
+			};
+			return progressInfo;
+		}
+
+		/// <summary>
+		/// Seutp progress information to notify progress that the plugin finished.
+		/// </summary>
+		/// <returns>ProgressInfo object which incudes information that the plugin process is complete.</returns>
+		protected virtual ProgressInfo SetupFinishInfo()
+		{
+			string title = string.Empty;
+			try
+			{
+				title = pluginInput.InputFilePath;
+			}
+			catch (NullReferenceException)
+			{
+				title = string.Empty;
+			}
+			var progressInfo = new ProgressInfo()
+			{
+				Title = title,
+				ProcessName = "完了",
+				ShouldContinue = false,
+			};
+			return progressInfo;
 		}
 	}
 }
